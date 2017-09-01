@@ -4,14 +4,14 @@ C++ Interface with ABB EGM module
 Yifan Hou
 yifanh@cmu.edu
 
-#Reference
+# Reference
 *Official Manual*
 Application manual-Controller software IRC5
 
 
-#Step by Step Tutorial
+# Step by Step Tutorial
 
-##I. Prepare Protocol Buffers 
+## I. Prepare Protocol Buffers 
 ABB EGM use ```Google Protocol Buffers``` to serialize/de-serialize data.
 
 ABB provide the ```.proto``` file (included in this repo), which describes the message structures used by EGM.
@@ -31,7 +31,7 @@ https://github.com/google/protobuf
 https://github.com/google/protobuf/blob/master/src/README.md
 
 
-##II. Prepare RAPID on Robot
+## II. Prepare RAPID on Robot
 There are a set of RAPID commands just for EGM. You can control a variety of parameters from that. For details please refer to the ABB official manual listed in *Reference* section.
 
 For MLab people:
@@ -39,7 +39,7 @@ There are already programs with EGM on ABB R120 robot.
 You can just load one of them.
 
 
-##III. Write the server
+## III. Write the server
 In EGM, the server is the thread that talks with the robot.
 The server has a few tasks to do:
 1. Open&listen to the udp port for the handshake signal from EGM (the robot side)
@@ -66,7 +66,7 @@ Detailed tutorials can be found below. But firstly you need to download the code
 > Now you should have the ```egm-server``` and ```egm-comm``` folders.
 
 ### 3.1 egm-server: Minimal Script for Running EGM
-####3.1.1 File description
+#### 3.1.1 File description
 ```/include/PracticalSocket``` A 3rd party package for operating UDP.
 ```/src/egm-sensor.cpp``` The original script example provided by ABB.
 ```/src/egm.proto``` The protobuf file provided by ABB.  
@@ -77,7 +77,7 @@ Detailed tutorials can be found below. But firstly you need to download the code
 
 The pre-compiled  ```egm.pb.cc``` and ```egm.pb.h``` may not be compatible with your system. In that case, the first thing  you need to do is to **compile 'egm.proto' into a protobuf library**.  
 
-####3.1.2 Compile egm.proto
+#### 3.1.2 Compile egm.proto
 > ***Todo***
 >  You need to specify the source directory (where your application's source code lives – the current directory is used if you don't provide a value), the destination directory (where you want the generated code to go; often the same as $SRC_DIR), and the path to your .proto. 
 > For example: ```$ protoc -I=$SRC_DIR --cpp_out=$DST_DIR $SRC_DIR/egm.proto ```
@@ -94,7 +94,7 @@ This generates the following files in your specified destination directory:
 - egm.pb.h, the header which declares your generated classes.
 - egm.pb.cc, which contains the implementation of your classes.
 
-####3.1.3 Compile the server 
+#### 3.1.3 Compile the server 
 Next, lets compile this program.
 > ***Todo***
 > ```
@@ -108,12 +108,12 @@ Next, lets compile this program.
 Now  you can find the executable ```egm_server_node``` in egm/egm-server/build folder.
 Proceed to step IV to test it.
 
-####3.1.4 Code Explanation
+#### 3.1.4 Code Explanation
 (todo)
 
 
 ### 3.2 egm-comm: C++ class wrapper & ROS wrapper
-####3.2.1 File description
+#### 3.2.1 File description
 ```PracticalSocket.h``` and ```PracticalSocket.cpp``` A 3rd party package for operating UDP.
 ```egm.proto``` The protobuf file provided by ABB.  
 ```egm.pb.cc``` and ```egm.pb.h``` Pre-compiled Protobuf library. 
@@ -124,10 +124,10 @@ Proceed to step IV to test it.
 
 You can compile this code into a library, integrate your code with it, or use it as a ROS package.
 
-####3.2.2 Code Explanation
+#### 3.2.2 Code Explanation
 (todo)
 
-##IV. Experiment with Robot
+## IV. Experiment with Robot
 To test EGM, follow the steps below.
 1. Power on the robot.
 2. In RoboStudio, choose the correct RAPID program.

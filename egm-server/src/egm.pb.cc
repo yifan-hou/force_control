@@ -19,616 +19,583 @@
 
 namespace abb {
 namespace egm {
+class EgmHeaderDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmHeader>
+     _instance;
+} _EgmHeader_default_instance_;
+class EgmCartesianDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmCartesian>
+     _instance;
+} _EgmCartesian_default_instance_;
+class EgmQuaternionDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmQuaternion>
+     _instance;
+} _EgmQuaternion_default_instance_;
+class EgmEulerDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmEuler>
+     _instance;
+} _EgmEuler_default_instance_;
+class EgmPoseDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmPose>
+     _instance;
+} _EgmPose_default_instance_;
+class EgmCartesianSpeedDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmCartesianSpeed>
+     _instance;
+} _EgmCartesianSpeed_default_instance_;
+class EgmJointsDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmJoints>
+     _instance;
+} _EgmJoints_default_instance_;
+class EgmExternalJointsDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmExternalJoints>
+     _instance;
+} _EgmExternalJoints_default_instance_;
+class EgmPlannedDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmPlanned>
+     _instance;
+} _EgmPlanned_default_instance_;
+class EgmSpeedRefDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmSpeedRef>
+     _instance;
+} _EgmSpeedRef_default_instance_;
+class EgmPathCorrDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmPathCorr>
+     _instance;
+} _EgmPathCorr_default_instance_;
+class EgmFeedBackDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmFeedBack>
+     _instance;
+} _EgmFeedBack_default_instance_;
+class EgmMotorStateDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmMotorState>
+     _instance;
+} _EgmMotorState_default_instance_;
+class EgmMCIStateDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmMCIState>
+     _instance;
+} _EgmMCIState_default_instance_;
+class EgmRapidCtrlExecStateDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmRapidCtrlExecState>
+     _instance;
+} _EgmRapidCtrlExecState_default_instance_;
+class EgmTestSignalsDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmTestSignals>
+     _instance;
+} _EgmTestSignals_default_instance_;
+class EgmRobotDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmRobot>
+     _instance;
+} _EgmRobot_default_instance_;
+class EgmSensorDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmSensor>
+     _instance;
+} _EgmSensor_default_instance_;
+class EgmSensorPathCorrDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<EgmSensorPathCorr>
+     _instance;
+} _EgmSensorPathCorr_default_instance_;
+
+namespace protobuf_egm_2eproto {
+
 
 namespace {
 
-const ::google::protobuf::Descriptor* EgmHeader_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmHeader_reflection_ = NULL;
-const ::google::protobuf::EnumDescriptor* EgmHeader_MessageType_descriptor_ = NULL;
-const ::google::protobuf::Descriptor* EgmCartesian_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmCartesian_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EgmQuaternion_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmQuaternion_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EgmEuler_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmEuler_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EgmPose_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmPose_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EgmCartesianSpeed_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmCartesianSpeed_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EgmJoints_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmJoints_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EgmExternalJoints_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmExternalJoints_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EgmPlanned_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmPlanned_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EgmSpeedRef_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmSpeedRef_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EgmPathCorr_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmPathCorr_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EgmFeedBack_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmFeedBack_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EgmMotorState_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmMotorState_reflection_ = NULL;
-const ::google::protobuf::EnumDescriptor* EgmMotorState_MotorStateType_descriptor_ = NULL;
-const ::google::protobuf::Descriptor* EgmMCIState_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmMCIState_reflection_ = NULL;
-const ::google::protobuf::EnumDescriptor* EgmMCIState_MCIStateType_descriptor_ = NULL;
-const ::google::protobuf::Descriptor* EgmRapidCtrlExecState_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmRapidCtrlExecState_reflection_ = NULL;
-const ::google::protobuf::EnumDescriptor* EgmRapidCtrlExecState_RapidCtrlExecStateType_descriptor_ = NULL;
-const ::google::protobuf::Descriptor* EgmTestSignals_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmTestSignals_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EgmRobot_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmRobot_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EgmSensor_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmSensor_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EgmSensorPathCorr_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EgmSensorPathCorr_reflection_ = NULL;
+::google::protobuf::Metadata file_level_metadata[19];
+const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[4];
 
 }  // namespace
 
+PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::ParseTableField
+    const TableStruct::entries[] GOOGLE_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
+  {0, 0, 0, ::google::protobuf::internal::kInvalidMask, 0, 0},
+};
 
-void protobuf_AssignDesc_egm_2eproto() GOOGLE_ATTRIBUTE_COLD;
-void protobuf_AssignDesc_egm_2eproto() {
-  protobuf_AddDesc_egm_2eproto();
-  const ::google::protobuf::FileDescriptor* file =
-    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
-      "egm.proto");
-  GOOGLE_CHECK(file != NULL);
-  EgmHeader_descriptor_ = file->message_type(0);
-  static const int EgmHeader_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmHeader, seqno_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmHeader, tm_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmHeader, mtype_),
-  };
-  EgmHeader_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmHeader_descriptor_,
-      EgmHeader::internal_default_instance(),
-      EgmHeader_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmHeader, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmHeader),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmHeader, _internal_metadata_));
-  EgmHeader_MessageType_descriptor_ = EgmHeader_descriptor_->enum_type(0);
-  EgmCartesian_descriptor_ = file->message_type(1);
-  static const int EgmCartesian_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesian, x_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesian, y_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesian, z_),
-  };
-  EgmCartesian_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmCartesian_descriptor_,
-      EgmCartesian::internal_default_instance(),
-      EgmCartesian_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesian, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmCartesian),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesian, _internal_metadata_));
-  EgmQuaternion_descriptor_ = file->message_type(2);
-  static const int EgmQuaternion_offsets_[4] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmQuaternion, u0_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmQuaternion, u1_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmQuaternion, u2_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmQuaternion, u3_),
-  };
-  EgmQuaternion_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmQuaternion_descriptor_,
-      EgmQuaternion::internal_default_instance(),
-      EgmQuaternion_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmQuaternion, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmQuaternion),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmQuaternion, _internal_metadata_));
-  EgmEuler_descriptor_ = file->message_type(3);
-  static const int EgmEuler_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmEuler, x_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmEuler, y_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmEuler, z_),
-  };
-  EgmEuler_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmEuler_descriptor_,
-      EgmEuler::internal_default_instance(),
-      EgmEuler_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmEuler, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmEuler),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmEuler, _internal_metadata_));
-  EgmPose_descriptor_ = file->message_type(4);
-  static const int EgmPose_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPose, pos_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPose, orient_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPose, euler_),
-  };
-  EgmPose_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmPose_descriptor_,
-      EgmPose::internal_default_instance(),
-      EgmPose_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPose, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmPose),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPose, _internal_metadata_));
-  EgmCartesianSpeed_descriptor_ = file->message_type(5);
-  static const int EgmCartesianSpeed_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesianSpeed, value_),
-  };
-  EgmCartesianSpeed_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmCartesianSpeed_descriptor_,
-      EgmCartesianSpeed::internal_default_instance(),
-      EgmCartesianSpeed_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesianSpeed, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmCartesianSpeed),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesianSpeed, _internal_metadata_));
-  EgmJoints_descriptor_ = file->message_type(6);
-  static const int EgmJoints_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmJoints, joints_),
-  };
-  EgmJoints_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmJoints_descriptor_,
-      EgmJoints::internal_default_instance(),
-      EgmJoints_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmJoints, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmJoints),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmJoints, _internal_metadata_));
-  EgmExternalJoints_descriptor_ = file->message_type(7);
-  static const int EgmExternalJoints_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmExternalJoints, joints_),
-  };
-  EgmExternalJoints_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmExternalJoints_descriptor_,
-      EgmExternalJoints::internal_default_instance(),
-      EgmExternalJoints_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmExternalJoints, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmExternalJoints),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmExternalJoints, _internal_metadata_));
-  EgmPlanned_descriptor_ = file->message_type(8);
-  static const int EgmPlanned_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPlanned, joints_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPlanned, cartesian_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPlanned, externaljoints_),
-  };
-  EgmPlanned_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmPlanned_descriptor_,
-      EgmPlanned::internal_default_instance(),
-      EgmPlanned_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPlanned, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmPlanned),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPlanned, _internal_metadata_));
-  EgmSpeedRef_descriptor_ = file->message_type(9);
-  static const int EgmSpeedRef_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSpeedRef, joints_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSpeedRef, cartesians_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSpeedRef, externaljoints_),
-  };
-  EgmSpeedRef_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmSpeedRef_descriptor_,
-      EgmSpeedRef::internal_default_instance(),
-      EgmSpeedRef_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSpeedRef, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmSpeedRef),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSpeedRef, _internal_metadata_));
-  EgmPathCorr_descriptor_ = file->message_type(10);
-  static const int EgmPathCorr_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPathCorr, pos_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPathCorr, age_),
-  };
-  EgmPathCorr_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmPathCorr_descriptor_,
-      EgmPathCorr::internal_default_instance(),
-      EgmPathCorr_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPathCorr, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmPathCorr),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPathCorr, _internal_metadata_));
-  EgmFeedBack_descriptor_ = file->message_type(11);
-  static const int EgmFeedBack_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmFeedBack, joints_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmFeedBack, cartesian_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmFeedBack, externaljoints_),
-  };
-  EgmFeedBack_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmFeedBack_descriptor_,
-      EgmFeedBack::internal_default_instance(),
-      EgmFeedBack_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmFeedBack, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmFeedBack),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmFeedBack, _internal_metadata_));
-  EgmMotorState_descriptor_ = file->message_type(12);
-  static const int EgmMotorState_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmMotorState, state_),
-  };
-  EgmMotorState_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmMotorState_descriptor_,
-      EgmMotorState::internal_default_instance(),
-      EgmMotorState_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmMotorState, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmMotorState),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmMotorState, _internal_metadata_));
-  EgmMotorState_MotorStateType_descriptor_ = EgmMotorState_descriptor_->enum_type(0);
-  EgmMCIState_descriptor_ = file->message_type(13);
-  static const int EgmMCIState_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmMCIState, state_),
-  };
-  EgmMCIState_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmMCIState_descriptor_,
-      EgmMCIState::internal_default_instance(),
-      EgmMCIState_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmMCIState, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmMCIState),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmMCIState, _internal_metadata_));
-  EgmMCIState_MCIStateType_descriptor_ = EgmMCIState_descriptor_->enum_type(0);
-  EgmRapidCtrlExecState_descriptor_ = file->message_type(14);
-  static const int EgmRapidCtrlExecState_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRapidCtrlExecState, state_),
-  };
-  EgmRapidCtrlExecState_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmRapidCtrlExecState_descriptor_,
-      EgmRapidCtrlExecState::internal_default_instance(),
-      EgmRapidCtrlExecState_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRapidCtrlExecState, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmRapidCtrlExecState),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRapidCtrlExecState, _internal_metadata_));
-  EgmRapidCtrlExecState_RapidCtrlExecStateType_descriptor_ = EgmRapidCtrlExecState_descriptor_->enum_type(0);
-  EgmTestSignals_descriptor_ = file->message_type(15);
-  static const int EgmTestSignals_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmTestSignals, signals_),
-  };
-  EgmTestSignals_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmTestSignals_descriptor_,
-      EgmTestSignals::internal_default_instance(),
-      EgmTestSignals_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmTestSignals, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmTestSignals),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmTestSignals, _internal_metadata_));
-  EgmRobot_descriptor_ = file->message_type(16);
-  static const int EgmRobot_offsets_[8] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, header_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, feedback_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, planned_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, motorstate_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, mcistate_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, mciconvergencemet_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, testsignals_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, rapidexecstate_),
-  };
-  EgmRobot_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmRobot_descriptor_,
-      EgmRobot::internal_default_instance(),
-      EgmRobot_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmRobot),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, _internal_metadata_));
-  EgmSensor_descriptor_ = file->message_type(17);
-  static const int EgmSensor_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensor, header_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensor, planned_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensor, speedref_),
-  };
-  EgmSensor_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmSensor_descriptor_,
-      EgmSensor::internal_default_instance(),
-      EgmSensor_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensor, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmSensor),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensor, _internal_metadata_));
-  EgmSensorPathCorr_descriptor_ = file->message_type(18);
-  static const int EgmSensorPathCorr_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensorPathCorr, header_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensorPathCorr, pathcorr_),
-  };
-  EgmSensorPathCorr_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EgmSensorPathCorr_descriptor_,
-      EgmSensorPathCorr::internal_default_instance(),
-      EgmSensorPathCorr_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensorPathCorr, _has_bits_),
-      -1,
-      -1,
-      sizeof(EgmSensorPathCorr),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensorPathCorr, _internal_metadata_));
-}
+PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::AuxillaryParseTableField
+    const TableStruct::aux[] GOOGLE_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
+  ::google::protobuf::internal::AuxillaryParseTableField(),
+};
+PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::ParseTable const
+    TableStruct::schema[] GOOGLE_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+};
+
+const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmHeader, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmHeader, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmHeader, seqno_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmHeader, tm_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmHeader, mtype_),
+  0,
+  1,
+  2,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesian, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesian, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesian, x_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesian, y_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesian, z_),
+  0,
+  1,
+  2,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmQuaternion, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmQuaternion, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmQuaternion, u0_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmQuaternion, u1_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmQuaternion, u2_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmQuaternion, u3_),
+  0,
+  1,
+  2,
+  3,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmEuler, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmEuler, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmEuler, x_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmEuler, y_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmEuler, z_),
+  0,
+  1,
+  2,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPose, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPose, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPose, pos_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPose, orient_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPose, euler_),
+  0,
+  1,
+  2,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesianSpeed, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesianSpeed, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmCartesianSpeed, value_),
+  ~0u,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmJoints, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmJoints, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmJoints, joints_),
+  ~0u,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmExternalJoints, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmExternalJoints, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmExternalJoints, joints_),
+  ~0u,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPlanned, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPlanned, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPlanned, joints_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPlanned, cartesian_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPlanned, externaljoints_),
+  0,
+  1,
+  2,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSpeedRef, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSpeedRef, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSpeedRef, joints_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSpeedRef, cartesians_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSpeedRef, externaljoints_),
+  0,
+  1,
+  2,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPathCorr, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPathCorr, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPathCorr, pos_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmPathCorr, age_),
+  0,
+  1,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmFeedBack, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmFeedBack, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmFeedBack, joints_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmFeedBack, cartesian_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmFeedBack, externaljoints_),
+  0,
+  1,
+  2,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmMotorState, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmMotorState, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmMotorState, state_),
+  0,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmMCIState, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmMCIState, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmMCIState, state_),
+  0,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRapidCtrlExecState, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRapidCtrlExecState, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRapidCtrlExecState, state_),
+  0,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmTestSignals, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmTestSignals, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmTestSignals, signals_),
+  ~0u,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, header_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, feedback_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, planned_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, motorstate_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, mcistate_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, mciconvergencemet_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, testsignals_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmRobot, rapidexecstate_),
+  0,
+  1,
+  2,
+  3,
+  4,
+  7,
+  5,
+  6,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensor, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensor, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensor, header_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensor, planned_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensor, speedref_),
+  0,
+  1,
+  2,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensorPathCorr, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensorPathCorr, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensorPathCorr, header_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EgmSensorPathCorr, pathcorr_),
+  0,
+  1,
+};
+static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
+  { 0, 8, sizeof(EgmHeader)},
+  { 11, 19, sizeof(EgmCartesian)},
+  { 22, 31, sizeof(EgmQuaternion)},
+  { 35, 43, sizeof(EgmEuler)},
+  { 46, 54, sizeof(EgmPose)},
+  { 57, 63, sizeof(EgmCartesianSpeed)},
+  { 64, 70, sizeof(EgmJoints)},
+  { 71, 77, sizeof(EgmExternalJoints)},
+  { 78, 86, sizeof(EgmPlanned)},
+  { 89, 97, sizeof(EgmSpeedRef)},
+  { 100, 107, sizeof(EgmPathCorr)},
+  { 109, 117, sizeof(EgmFeedBack)},
+  { 120, 126, sizeof(EgmMotorState)},
+  { 127, 133, sizeof(EgmMCIState)},
+  { 134, 140, sizeof(EgmRapidCtrlExecState)},
+  { 141, 147, sizeof(EgmTestSignals)},
+  { 148, 161, sizeof(EgmRobot)},
+  { 169, 177, sizeof(EgmSensor)},
+  { 180, 187, sizeof(EgmSensorPathCorr)},
+};
+
+static ::google::protobuf::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmHeader_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmCartesian_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmQuaternion_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmEuler_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmPose_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmCartesianSpeed_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmJoints_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmExternalJoints_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmPlanned_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmSpeedRef_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmPathCorr_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmFeedBack_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmMotorState_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmMCIState_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmRapidCtrlExecState_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmTestSignals_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmRobot_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmSensor_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_EgmSensorPathCorr_default_instance_),
+};
 
 namespace {
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
+void protobuf_AssignDescriptors() {
+  AddDescriptors();
+  ::google::protobuf::MessageFactory* factory = NULL;
+  AssignDescriptors(
+      "egm.proto", schemas, file_default_instances, TableStruct::offsets, factory,
+      file_level_metadata, file_level_enum_descriptors, NULL);
+}
+
 void protobuf_AssignDescriptorsOnce() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
-                 &protobuf_AssignDesc_egm_2eproto);
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &protobuf_AssignDescriptors);
 }
 
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmHeader_descriptor_, EgmHeader::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmCartesian_descriptor_, EgmCartesian::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmQuaternion_descriptor_, EgmQuaternion::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmEuler_descriptor_, EgmEuler::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmPose_descriptor_, EgmPose::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmCartesianSpeed_descriptor_, EgmCartesianSpeed::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmJoints_descriptor_, EgmJoints::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmExternalJoints_descriptor_, EgmExternalJoints::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmPlanned_descriptor_, EgmPlanned::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmSpeedRef_descriptor_, EgmSpeedRef::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmPathCorr_descriptor_, EgmPathCorr::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmFeedBack_descriptor_, EgmFeedBack::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmMotorState_descriptor_, EgmMotorState::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmMCIState_descriptor_, EgmMCIState::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmRapidCtrlExecState_descriptor_, EgmRapidCtrlExecState::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmTestSignals_descriptor_, EgmTestSignals::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmRobot_descriptor_, EgmRobot::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmSensor_descriptor_, EgmSensor::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EgmSensorPathCorr_descriptor_, EgmSensorPathCorr::internal_default_instance());
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 19);
 }
 
 }  // namespace
-
-void protobuf_ShutdownFile_egm_2eproto() {
-  EgmHeader_default_instance_.Shutdown();
-  delete EgmHeader_reflection_;
-  EgmCartesian_default_instance_.Shutdown();
-  delete EgmCartesian_reflection_;
-  EgmQuaternion_default_instance_.Shutdown();
-  delete EgmQuaternion_reflection_;
-  EgmEuler_default_instance_.Shutdown();
-  delete EgmEuler_reflection_;
-  EgmPose_default_instance_.Shutdown();
-  delete EgmPose_reflection_;
-  EgmCartesianSpeed_default_instance_.Shutdown();
-  delete EgmCartesianSpeed_reflection_;
-  EgmJoints_default_instance_.Shutdown();
-  delete EgmJoints_reflection_;
-  EgmExternalJoints_default_instance_.Shutdown();
-  delete EgmExternalJoints_reflection_;
-  EgmPlanned_default_instance_.Shutdown();
-  delete EgmPlanned_reflection_;
-  EgmSpeedRef_default_instance_.Shutdown();
-  delete EgmSpeedRef_reflection_;
-  EgmPathCorr_default_instance_.Shutdown();
-  delete EgmPathCorr_reflection_;
-  EgmFeedBack_default_instance_.Shutdown();
-  delete EgmFeedBack_reflection_;
-  EgmMotorState_default_instance_.Shutdown();
-  delete EgmMotorState_reflection_;
-  EgmMCIState_default_instance_.Shutdown();
-  delete EgmMCIState_reflection_;
-  EgmRapidCtrlExecState_default_instance_.Shutdown();
-  delete EgmRapidCtrlExecState_reflection_;
-  EgmTestSignals_default_instance_.Shutdown();
-  delete EgmTestSignals_reflection_;
-  EgmRobot_default_instance_.Shutdown();
-  delete EgmRobot_reflection_;
-  EgmSensor_default_instance_.Shutdown();
-  delete EgmSensor_reflection_;
-  EgmSensorPathCorr_default_instance_.Shutdown();
-  delete EgmSensorPathCorr_reflection_;
-}
-
-void protobuf_InitDefaults_egm_2eproto_impl() {
+void TableStruct::InitDefaultsImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  EgmHeader_default_instance_.DefaultConstruct();
-  EgmCartesian_default_instance_.DefaultConstruct();
-  EgmQuaternion_default_instance_.DefaultConstruct();
-  EgmEuler_default_instance_.DefaultConstruct();
-  EgmPose_default_instance_.DefaultConstruct();
-  EgmCartesianSpeed_default_instance_.DefaultConstruct();
-  EgmJoints_default_instance_.DefaultConstruct();
-  EgmExternalJoints_default_instance_.DefaultConstruct();
-  EgmPlanned_default_instance_.DefaultConstruct();
-  EgmSpeedRef_default_instance_.DefaultConstruct();
-  EgmPathCorr_default_instance_.DefaultConstruct();
-  EgmFeedBack_default_instance_.DefaultConstruct();
-  EgmMotorState_default_instance_.DefaultConstruct();
-  EgmMCIState_default_instance_.DefaultConstruct();
-  EgmRapidCtrlExecState_default_instance_.DefaultConstruct();
-  EgmTestSignals_default_instance_.DefaultConstruct();
-  EgmRobot_default_instance_.DefaultConstruct();
-  EgmSensor_default_instance_.DefaultConstruct();
-  EgmSensorPathCorr_default_instance_.DefaultConstruct();
-  EgmHeader_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmCartesian_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmQuaternion_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmEuler_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmPose_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmCartesianSpeed_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmJoints_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmExternalJoints_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmPlanned_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmSpeedRef_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmPathCorr_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmFeedBack_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmMotorState_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmMCIState_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmRapidCtrlExecState_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmTestSignals_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmRobot_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmSensor_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EgmSensorPathCorr_default_instance_.get_mutable()->InitAsDefaultInstance();
+  ::google::protobuf::internal::InitProtobufDefaults();
+  _EgmHeader_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmHeader_default_instance_);_EgmCartesian_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmCartesian_default_instance_);_EgmQuaternion_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmQuaternion_default_instance_);_EgmEuler_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmEuler_default_instance_);_EgmPose_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmPose_default_instance_);_EgmCartesianSpeed_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmCartesianSpeed_default_instance_);_EgmJoints_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmJoints_default_instance_);_EgmExternalJoints_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmExternalJoints_default_instance_);_EgmPlanned_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmPlanned_default_instance_);_EgmSpeedRef_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmSpeedRef_default_instance_);_EgmPathCorr_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmPathCorr_default_instance_);_EgmFeedBack_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmFeedBack_default_instance_);_EgmMotorState_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmMotorState_default_instance_);_EgmMCIState_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmMCIState_default_instance_);_EgmRapidCtrlExecState_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmRapidCtrlExecState_default_instance_);_EgmTestSignals_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmTestSignals_default_instance_);_EgmRobot_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmRobot_default_instance_);_EgmSensor_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmSensor_default_instance_);_EgmSensorPathCorr_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_EgmSensorPathCorr_default_instance_);_EgmPose_default_instance_._instance.get_mutable()->pos_ = const_cast< ::abb::egm::EgmCartesian*>(
+      ::abb::egm::EgmCartesian::internal_default_instance());
+  _EgmPose_default_instance_._instance.get_mutable()->orient_ = const_cast< ::abb::egm::EgmQuaternion*>(
+      ::abb::egm::EgmQuaternion::internal_default_instance());
+  _EgmPose_default_instance_._instance.get_mutable()->euler_ = const_cast< ::abb::egm::EgmEuler*>(
+      ::abb::egm::EgmEuler::internal_default_instance());
+  _EgmPlanned_default_instance_._instance.get_mutable()->joints_ = const_cast< ::abb::egm::EgmJoints*>(
+      ::abb::egm::EgmJoints::internal_default_instance());
+  _EgmPlanned_default_instance_._instance.get_mutable()->cartesian_ = const_cast< ::abb::egm::EgmPose*>(
+      ::abb::egm::EgmPose::internal_default_instance());
+  _EgmPlanned_default_instance_._instance.get_mutable()->externaljoints_ = const_cast< ::abb::egm::EgmJoints*>(
+      ::abb::egm::EgmJoints::internal_default_instance());
+  _EgmSpeedRef_default_instance_._instance.get_mutable()->joints_ = const_cast< ::abb::egm::EgmJoints*>(
+      ::abb::egm::EgmJoints::internal_default_instance());
+  _EgmSpeedRef_default_instance_._instance.get_mutable()->cartesians_ = const_cast< ::abb::egm::EgmCartesianSpeed*>(
+      ::abb::egm::EgmCartesianSpeed::internal_default_instance());
+  _EgmSpeedRef_default_instance_._instance.get_mutable()->externaljoints_ = const_cast< ::abb::egm::EgmJoints*>(
+      ::abb::egm::EgmJoints::internal_default_instance());
+  _EgmPathCorr_default_instance_._instance.get_mutable()->pos_ = const_cast< ::abb::egm::EgmCartesian*>(
+      ::abb::egm::EgmCartesian::internal_default_instance());
+  _EgmFeedBack_default_instance_._instance.get_mutable()->joints_ = const_cast< ::abb::egm::EgmJoints*>(
+      ::abb::egm::EgmJoints::internal_default_instance());
+  _EgmFeedBack_default_instance_._instance.get_mutable()->cartesian_ = const_cast< ::abb::egm::EgmPose*>(
+      ::abb::egm::EgmPose::internal_default_instance());
+  _EgmFeedBack_default_instance_._instance.get_mutable()->externaljoints_ = const_cast< ::abb::egm::EgmJoints*>(
+      ::abb::egm::EgmJoints::internal_default_instance());
+  _EgmRobot_default_instance_._instance.get_mutable()->header_ = const_cast< ::abb::egm::EgmHeader*>(
+      ::abb::egm::EgmHeader::internal_default_instance());
+  _EgmRobot_default_instance_._instance.get_mutable()->feedback_ = const_cast< ::abb::egm::EgmFeedBack*>(
+      ::abb::egm::EgmFeedBack::internal_default_instance());
+  _EgmRobot_default_instance_._instance.get_mutable()->planned_ = const_cast< ::abb::egm::EgmPlanned*>(
+      ::abb::egm::EgmPlanned::internal_default_instance());
+  _EgmRobot_default_instance_._instance.get_mutable()->motorstate_ = const_cast< ::abb::egm::EgmMotorState*>(
+      ::abb::egm::EgmMotorState::internal_default_instance());
+  _EgmRobot_default_instance_._instance.get_mutable()->mcistate_ = const_cast< ::abb::egm::EgmMCIState*>(
+      ::abb::egm::EgmMCIState::internal_default_instance());
+  _EgmRobot_default_instance_._instance.get_mutable()->testsignals_ = const_cast< ::abb::egm::EgmTestSignals*>(
+      ::abb::egm::EgmTestSignals::internal_default_instance());
+  _EgmRobot_default_instance_._instance.get_mutable()->rapidexecstate_ = const_cast< ::abb::egm::EgmRapidCtrlExecState*>(
+      ::abb::egm::EgmRapidCtrlExecState::internal_default_instance());
+  _EgmSensor_default_instance_._instance.get_mutable()->header_ = const_cast< ::abb::egm::EgmHeader*>(
+      ::abb::egm::EgmHeader::internal_default_instance());
+  _EgmSensor_default_instance_._instance.get_mutable()->planned_ = const_cast< ::abb::egm::EgmPlanned*>(
+      ::abb::egm::EgmPlanned::internal_default_instance());
+  _EgmSensor_default_instance_._instance.get_mutable()->speedref_ = const_cast< ::abb::egm::EgmSpeedRef*>(
+      ::abb::egm::EgmSpeedRef::internal_default_instance());
+  _EgmSensorPathCorr_default_instance_._instance.get_mutable()->header_ = const_cast< ::abb::egm::EgmHeader*>(
+      ::abb::egm::EgmHeader::internal_default_instance());
+  _EgmSensorPathCorr_default_instance_._instance.get_mutable()->pathcorr_ = const_cast< ::abb::egm::EgmPathCorr*>(
+      ::abb::egm::EgmPathCorr::internal_default_instance());
 }
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_egm_2eproto_once_);
-void protobuf_InitDefaults_egm_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_InitDefaults_egm_2eproto_once_,
-                 &protobuf_InitDefaults_egm_2eproto_impl);
+void InitDefaults() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &TableStruct::InitDefaultsImpl);
 }
-void protobuf_AddDesc_egm_2eproto_impl() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  protobuf_InitDefaults_egm_2eproto();
+namespace {
+void AddDescriptorsImpl() {
+  InitDefaults();
+  static const char descriptor[] GOOGLE_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
+      "\n\tegm.proto\022\007abb.egm\"\353\001\n\tEgmHeader\022\r\n\005se"
+      "qno\030\001 \001(\r\022\n\n\002tm\030\002 \001(\r\022@\n\005mtype\030\003 \001(\0162\036.a"
+      "bb.egm.EgmHeader.MessageType:\021MSGTYPE_UN"
+      "DEFINED\"\200\001\n\013MessageType\022\025\n\021MSGTYPE_UNDEF"
+      "INED\020\000\022\023\n\017MSGTYPE_COMMAND\020\001\022\020\n\014MSGTYPE_D"
+      "ATA\020\002\022\026\n\022MSGTYPE_CORRECTION\020\003\022\033\n\027MSGTYPE"
+      "_PATH_CORRECTION\020\004\"/\n\014EgmCartesian\022\t\n\001x\030"
+      "\001 \002(\001\022\t\n\001y\030\002 \002(\001\022\t\n\001z\030\003 \002(\001\"\?\n\rEgmQuater"
+      "nion\022\n\n\002u0\030\001 \002(\001\022\n\n\002u1\030\002 \002(\001\022\n\n\002u2\030\003 \002(\001"
+      "\022\n\n\002u3\030\004 \002(\001\"+\n\010EgmEuler\022\t\n\001x\030\001 \002(\001\022\t\n\001y"
+      "\030\002 \002(\001\022\t\n\001z\030\003 \002(\001\"w\n\007EgmPose\022\"\n\003pos\030\001 \001("
+      "\0132\025.abb.egm.EgmCartesian\022&\n\006orient\030\002 \001(\013"
+      "2\026.abb.egm.EgmQuaternion\022 \n\005euler\030\003 \001(\0132"
+      "\021.abb.egm.EgmEuler\"\"\n\021EgmCartesianSpeed\022"
+      "\r\n\005value\030\001 \003(\001\"\033\n\tEgmJoints\022\016\n\006joints\030\001 "
+      "\003(\001\"#\n\021EgmExternalJoints\022\016\n\006joints\030\001 \003(\001"
+      "\"\201\001\n\nEgmPlanned\022\"\n\006joints\030\001 \001(\0132\022.abb.eg"
+      "m.EgmJoints\022#\n\tcartesian\030\002 \001(\0132\020.abb.egm"
+      ".EgmPose\022*\n\016externalJoints\030\003 \001(\0132\022.abb.e"
+      "gm.EgmJoints\"\215\001\n\013EgmSpeedRef\022\"\n\006joints\030\001"
+      " \001(\0132\022.abb.egm.EgmJoints\022.\n\ncartesians\030\002"
+      " \001(\0132\032.abb.egm.EgmCartesianSpeed\022*\n\016exte"
+      "rnalJoints\030\003 \001(\0132\022.abb.egm.EgmJoints\">\n\013"
+      "EgmPathCorr\022\"\n\003pos\030\001 \002(\0132\025.abb.egm.EgmCa"
+      "rtesian\022\013\n\003age\030\002 \002(\r\"\202\001\n\013EgmFeedBack\022\"\n\006"
+      "joints\030\001 \001(\0132\022.abb.egm.EgmJoints\022#\n\tcart"
+      "esian\030\002 \001(\0132\020.abb.egm.EgmPose\022*\n\016externa"
+      "lJoints\030\003 \001(\0132\022.abb.egm.EgmJoints\"\214\001\n\rEg"
+      "mMotorState\0224\n\005state\030\001 \002(\0162%.abb.egm.Egm"
+      "MotorState.MotorStateType\"E\n\016MotorStateT"
+      "ype\022\024\n\020MOTORS_UNDEFINED\020\000\022\r\n\tMOTORS_ON\020\001"
+      "\022\016\n\nMOTORS_OFF\020\002\"\242\001\n\013EgmMCIState\022\?\n\005stat"
+      "e\030\001 \002(\0162!.abb.egm.EgmMCIState.MCIStateTy"
+      "pe:\rMCI_UNDEFINED\"R\n\014MCIStateType\022\021\n\rMCI"
+      "_UNDEFINED\020\000\022\r\n\tMCI_ERROR\020\001\022\017\n\013MCI_STOPP"
+      "ED\020\002\022\017\n\013MCI_RUNNING\020\003\"\303\001\n\025EgmRapidCtrlEx"
+      "ecState\022U\n\005state\030\001 \002(\01625.abb.egm.EgmRapi"
+      "dCtrlExecState.RapidCtrlExecStateType:\017R"
+      "APID_UNDEFINED\"S\n\026RapidCtrlExecStateType"
+      "\022\023\n\017RAPID_UNDEFINED\020\000\022\021\n\rRAPID_STOPPED\020\001"
+      "\022\021\n\rRAPID_RUNNING\020\002\"!\n\016EgmTestSignals\022\017\n"
+      "\007signals\030\001 \003(\001\"\321\002\n\010EgmRobot\022\"\n\006header\030\001 "
+      "\001(\0132\022.abb.egm.EgmHeader\022&\n\010feedBack\030\002 \001("
+      "\0132\024.abb.egm.EgmFeedBack\022$\n\007planned\030\003 \001(\013"
+      "2\023.abb.egm.EgmPlanned\022*\n\nmotorState\030\004 \001("
+      "\0132\026.abb.egm.EgmMotorState\022&\n\010mciState\030\005 "
+      "\001(\0132\024.abb.egm.EgmMCIState\022\031\n\021mciConverge"
+      "nceMet\030\006 \001(\010\022,\n\013testSignals\030\007 \001(\0132\027.abb."
+      "egm.EgmTestSignals\0226\n\016rapidExecState\030\010 \001"
+      "(\0132\036.abb.egm.EgmRapidCtrlExecState\"}\n\tEg"
+      "mSensor\022\"\n\006header\030\001 \001(\0132\022.abb.egm.EgmHea"
+      "der\022$\n\007planned\030\002 \001(\0132\023.abb.egm.EgmPlanne"
+      "d\022&\n\010speedRef\030\003 \001(\0132\024.abb.egm.EgmSpeedRe"
+      "f\"_\n\021EgmSensorPathCorr\022\"\n\006header\030\001 \001(\0132\022"
+      ".abb.egm.EgmHeader\022&\n\010pathCorr\030\002 \001(\0132\024.a"
+      "bb.egm.EgmPathCorr"
+  };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\tegm.proto\022\007abb.egm\"\353\001\n\tEgmHeader\022\r\n\005se"
-    "qno\030\001 \001(\r\022\n\n\002tm\030\002 \001(\r\022@\n\005mtype\030\003 \001(\0162\036.a"
-    "bb.egm.EgmHeader.MessageType:\021MSGTYPE_UN"
-    "DEFINED\"\200\001\n\013MessageType\022\025\n\021MSGTYPE_UNDEF"
-    "INED\020\000\022\023\n\017MSGTYPE_COMMAND\020\001\022\020\n\014MSGTYPE_D"
-    "ATA\020\002\022\026\n\022MSGTYPE_CORRECTION\020\003\022\033\n\027MSGTYPE"
-    "_PATH_CORRECTION\020\004\"/\n\014EgmCartesian\022\t\n\001x\030"
-    "\001 \002(\001\022\t\n\001y\030\002 \002(\001\022\t\n\001z\030\003 \002(\001\"\?\n\rEgmQuater"
-    "nion\022\n\n\002u0\030\001 \002(\001\022\n\n\002u1\030\002 \002(\001\022\n\n\002u2\030\003 \002(\001"
-    "\022\n\n\002u3\030\004 \002(\001\"+\n\010EgmEuler\022\t\n\001x\030\001 \002(\001\022\t\n\001y"
-    "\030\002 \002(\001\022\t\n\001z\030\003 \002(\001\"w\n\007EgmPose\022\"\n\003pos\030\001 \001("
-    "\0132\025.abb.egm.EgmCartesian\022&\n\006orient\030\002 \001(\013"
-    "2\026.abb.egm.EgmQuaternion\022 \n\005euler\030\003 \001(\0132"
-    "\021.abb.egm.EgmEuler\"\"\n\021EgmCartesianSpeed\022"
-    "\r\n\005value\030\001 \003(\001\"\033\n\tEgmJoints\022\016\n\006joints\030\001 "
-    "\003(\001\"#\n\021EgmExternalJoints\022\016\n\006joints\030\001 \003(\001"
-    "\"\201\001\n\nEgmPlanned\022\"\n\006joints\030\001 \001(\0132\022.abb.eg"
-    "m.EgmJoints\022#\n\tcartesian\030\002 \001(\0132\020.abb.egm"
-    ".EgmPose\022*\n\016externalJoints\030\003 \001(\0132\022.abb.e"
-    "gm.EgmJoints\"\215\001\n\013EgmSpeedRef\022\"\n\006joints\030\001"
-    " \001(\0132\022.abb.egm.EgmJoints\022.\n\ncartesians\030\002"
-    " \001(\0132\032.abb.egm.EgmCartesianSpeed\022*\n\016exte"
-    "rnalJoints\030\003 \001(\0132\022.abb.egm.EgmJoints\">\n\013"
-    "EgmPathCorr\022\"\n\003pos\030\001 \002(\0132\025.abb.egm.EgmCa"
-    "rtesian\022\013\n\003age\030\002 \002(\r\"\202\001\n\013EgmFeedBack\022\"\n\006"
-    "joints\030\001 \001(\0132\022.abb.egm.EgmJoints\022#\n\tcart"
-    "esian\030\002 \001(\0132\020.abb.egm.EgmPose\022*\n\016externa"
-    "lJoints\030\003 \001(\0132\022.abb.egm.EgmJoints\"\214\001\n\rEg"
-    "mMotorState\0224\n\005state\030\001 \002(\0162%.abb.egm.Egm"
-    "MotorState.MotorStateType\"E\n\016MotorStateT"
-    "ype\022\024\n\020MOTORS_UNDEFINED\020\000\022\r\n\tMOTORS_ON\020\001"
-    "\022\016\n\nMOTORS_OFF\020\002\"\242\001\n\013EgmMCIState\022\?\n\005stat"
-    "e\030\001 \002(\0162!.abb.egm.EgmMCIState.MCIStateTy"
-    "pe:\rMCI_UNDEFINED\"R\n\014MCIStateType\022\021\n\rMCI"
-    "_UNDEFINED\020\000\022\r\n\tMCI_ERROR\020\001\022\017\n\013MCI_STOPP"
-    "ED\020\002\022\017\n\013MCI_RUNNING\020\003\"\303\001\n\025EgmRapidCtrlEx"
-    "ecState\022U\n\005state\030\001 \002(\01625.abb.egm.EgmRapi"
-    "dCtrlExecState.RapidCtrlExecStateType:\017R"
-    "APID_UNDEFINED\"S\n\026RapidCtrlExecStateType"
-    "\022\023\n\017RAPID_UNDEFINED\020\000\022\021\n\rRAPID_STOPPED\020\001"
-    "\022\021\n\rRAPID_RUNNING\020\002\"!\n\016EgmTestSignals\022\017\n"
-    "\007signals\030\001 \003(\001\"\321\002\n\010EgmRobot\022\"\n\006header\030\001 "
-    "\001(\0132\022.abb.egm.EgmHeader\022&\n\010feedBack\030\002 \001("
-    "\0132\024.abb.egm.EgmFeedBack\022$\n\007planned\030\003 \001(\013"
-    "2\023.abb.egm.EgmPlanned\022*\n\nmotorState\030\004 \001("
-    "\0132\026.abb.egm.EgmMotorState\022&\n\010mciState\030\005 "
-    "\001(\0132\024.abb.egm.EgmMCIState\022\031\n\021mciConverge"
-    "nceMet\030\006 \001(\010\022,\n\013testSignals\030\007 \001(\0132\027.abb."
-    "egm.EgmTestSignals\0226\n\016rapidExecState\030\010 \001"
-    "(\0132\036.abb.egm.EgmRapidCtrlExecState\"}\n\tEg"
-    "mSensor\022\"\n\006header\030\001 \001(\0132\022.abb.egm.EgmHea"
-    "der\022$\n\007planned\030\002 \001(\0132\023.abb.egm.EgmPlanne"
-    "d\022&\n\010speedRef\030\003 \001(\0132\024.abb.egm.EgmSpeedRe"
-    "f\"_\n\021EgmSensorPathCorr\022\"\n\006header\030\001 \001(\0132\022"
-    ".abb.egm.EgmHeader\022&\n\010pathCorr\030\002 \001(\0132\024.a"
-    "bb.egm.EgmPathCorr", 2218);
+      descriptor, 2218);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "egm.proto", &protobuf_RegisterTypes);
-  ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_egm_2eproto);
 }
+} // anonymous namespace
 
-GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AddDesc_egm_2eproto_once_);
-void protobuf_AddDesc_egm_2eproto() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AddDesc_egm_2eproto_once_,
-                 &protobuf_AddDesc_egm_2eproto_impl);
+void AddDescriptors() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &AddDescriptorsImpl);
 }
-// Force AddDescriptors() to be called at static initialization time.
-struct StaticDescriptorInitializer_egm_2eproto {
-  StaticDescriptorInitializer_egm_2eproto() {
-    protobuf_AddDesc_egm_2eproto();
+// Force AddDescriptors() to be called at dynamic initialization time.
+struct StaticDescriptorInitializer {
+  StaticDescriptorInitializer() {
+    AddDescriptors();
   }
-} static_descriptor_initializer_egm_2eproto_;
+} static_descriptor_initializer;
 
-namespace {
-
-static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD GOOGLE_ATTRIBUTE_NORETURN;
-static void MergeFromFail(int line) {
-  ::google::protobuf::internal::MergeFromFail(__FILE__, line);
-}
-
-}  // namespace
-
-
-// ===================================================================
+}  // namespace protobuf_egm_2eproto
 
 const ::google::protobuf::EnumDescriptor* EgmHeader_MessageType_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmHeader_MessageType_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_enum_descriptors[0];
 }
 bool EgmHeader_MessageType_IsValid(int value) {
   switch (value) {
@@ -653,6 +620,80 @@ const EgmHeader_MessageType EgmHeader::MessageType_MIN;
 const EgmHeader_MessageType EgmHeader::MessageType_MAX;
 const int EgmHeader::MessageType_ARRAYSIZE;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+const ::google::protobuf::EnumDescriptor* EgmMotorState_MotorStateType_descriptor() {
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_enum_descriptors[1];
+}
+bool EgmMotorState_MotorStateType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const EgmMotorState_MotorStateType EgmMotorState::MOTORS_UNDEFINED;
+const EgmMotorState_MotorStateType EgmMotorState::MOTORS_ON;
+const EgmMotorState_MotorStateType EgmMotorState::MOTORS_OFF;
+const EgmMotorState_MotorStateType EgmMotorState::MotorStateType_MIN;
+const EgmMotorState_MotorStateType EgmMotorState::MotorStateType_MAX;
+const int EgmMotorState::MotorStateType_ARRAYSIZE;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+const ::google::protobuf::EnumDescriptor* EgmMCIState_MCIStateType_descriptor() {
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_enum_descriptors[2];
+}
+bool EgmMCIState_MCIStateType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const EgmMCIState_MCIStateType EgmMCIState::MCI_UNDEFINED;
+const EgmMCIState_MCIStateType EgmMCIState::MCI_ERROR;
+const EgmMCIState_MCIStateType EgmMCIState::MCI_STOPPED;
+const EgmMCIState_MCIStateType EgmMCIState::MCI_RUNNING;
+const EgmMCIState_MCIStateType EgmMCIState::MCIStateType_MIN;
+const EgmMCIState_MCIStateType EgmMCIState::MCIStateType_MAX;
+const int EgmMCIState::MCIStateType_ARRAYSIZE;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+const ::google::protobuf::EnumDescriptor* EgmRapidCtrlExecState_RapidCtrlExecStateType_descriptor() {
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_enum_descriptors[3];
+}
+bool EgmRapidCtrlExecState_RapidCtrlExecStateType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const EgmRapidCtrlExecState_RapidCtrlExecStateType EgmRapidCtrlExecState::RAPID_UNDEFINED;
+const EgmRapidCtrlExecState_RapidCtrlExecStateType EgmRapidCtrlExecState::RAPID_STOPPED;
+const EgmRapidCtrlExecState_RapidCtrlExecStateType EgmRapidCtrlExecState::RAPID_RUNNING;
+const EgmRapidCtrlExecState_RapidCtrlExecStateType EgmRapidCtrlExecState::RapidCtrlExecStateType_MIN;
+const EgmRapidCtrlExecState_RapidCtrlExecStateType EgmRapidCtrlExecState::RapidCtrlExecStateType_MAX;
+const int EgmRapidCtrlExecState::RapidCtrlExecStateType_ARRAYSIZE;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+// ===================================================================
+
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int EgmHeader::kSeqnoFieldNumber;
 const int EgmHeader::kTmFieldNumber;
@@ -661,26 +702,29 @@ const int EgmHeader::kMtypeFieldNumber;
 
 EgmHeader::EgmHeader()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmHeader)
 }
-
-void EgmHeader::InitAsDefaultInstance() {
-}
-
 EgmHeader::EgmHeader(const EgmHeader& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&seqno_, &from.seqno_,
+    static_cast<size_t>(reinterpret_cast<char*>(&mtype_) -
+    reinterpret_cast<char*>(&seqno_)) + sizeof(mtype_));
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmHeader)
 }
 
 void EgmHeader::SharedCtor() {
   _cached_size_ = 0;
-  ::memset(&seqno_, 0, reinterpret_cast<char*>(&mtype_) -
-    reinterpret_cast<char*>(&seqno_) + sizeof(mtype_));
+  ::memset(&seqno_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&mtype_) -
+      reinterpret_cast<char*>(&seqno_)) + sizeof(mtype_));
 }
 
 EgmHeader::~EgmHeader() {
@@ -697,16 +741,14 @@ void EgmHeader::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmHeader::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmHeader_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmHeader& EgmHeader::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmHeader> EgmHeader_default_instance_;
 
 EgmHeader* EgmHeader::New(::google::protobuf::Arena* arena) const {
   EgmHeader* n = new EgmHeader;
@@ -718,31 +760,18 @@ EgmHeader* EgmHeader::New(::google::protobuf::Arena* arena) const {
 
 void EgmHeader::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmHeader)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(EgmHeader, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<EgmHeader*>(16)->f)
-#endif
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-#define ZR_(first, last) do {\
-  ::memset(&(first), 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(seqno_, mtype_);
-
-#undef ZR_HELPER_
-#undef ZR_
-
-  _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 7u) {
+    ::memset(&seqno_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&mtype_) -
+        reinterpret_cast<char*>(&seqno_)) + sizeof(mtype_));
   }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
 }
 
 bool EgmHeader::MergePartialFromCodedStream(
@@ -751,13 +780,14 @@ bool EgmHeader::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmHeader)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional uint32 seqno = 1;
       case 1: {
-        if (tag == 8) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
           set_has_seqno();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
@@ -765,14 +795,13 @@ bool EgmHeader::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_tm;
         break;
       }
 
       // optional uint32 tm = 2;
       case 2: {
-        if (tag == 16) {
-         parse_tm:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
           set_has_tm();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
@@ -780,14 +809,13 @@ bool EgmHeader::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_mtype;
         break;
       }
 
       // optional .abb.egm.EgmHeader.MessageType mtype = 3 [default = MSGTYPE_UNDEFINED];
       case 3: {
-        if (tag == 24) {
-         parse_mtype:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -795,24 +823,22 @@ bool EgmHeader::MergePartialFromCodedStream(
           if (::abb::egm::EgmHeader_MessageType_IsValid(value)) {
             set_mtype(static_cast< ::abb::egm::EgmHeader_MessageType >(value));
           } else {
-            mutable_unknown_fields()->AddVarint(3, value);
+            mutable_unknown_fields()->AddVarint(
+                3, static_cast< ::google::protobuf::uint64>(value));
           }
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -829,25 +855,29 @@ failure:
 void EgmHeader::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmHeader)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional uint32 seqno = 1;
-  if (has_seqno()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->seqno(), output);
   }
 
   // optional uint32 tm = 2;
-  if (has_tm()) {
+  if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->tm(), output);
   }
 
   // optional .abb.egm.EgmHeader.MessageType mtype = 3 [default = MSGTYPE_UNDEFINED];
-  if (has_mtype()) {
+  if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       3, this->mtype(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmHeader)
 }
@@ -856,25 +886,29 @@ void EgmHeader::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmHeader)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional uint32 seqno = 1;
-  if (has_seqno()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->seqno(), target);
   }
 
   // optional uint32 tm = 2;
-  if (has_tm()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->tm(), target);
   }
 
   // optional .abb.egm.EgmHeader.MessageType mtype = 3 [default = MSGTYPE_UNDEFINED];
-  if (has_mtype()) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       3, this->mtype(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmHeader)
   return target;
@@ -884,6 +918,11 @@ size_t EgmHeader::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmHeader)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   if (_has_bits_[0 / 32] & 7u) {
     // optional uint32 seqno = 1;
     if (has_seqno()) {
@@ -906,11 +945,6 @@ size_t EgmHeader::ByteSizeLong() const {
     }
 
   }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -920,7 +954,7 @@ size_t EgmHeader::ByteSizeLong() const {
 
 void EgmHeader::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmHeader)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmHeader* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmHeader>(
           &from);
@@ -929,35 +963,29 @@ void EgmHeader::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmHeader)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmHeader::MergeFrom(const EgmHeader& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmHeader)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmHeader::UnsafeMergeFrom(const EgmHeader& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_seqno()) {
-      set_seqno(from.seqno());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 7u) {
+    if (cached_has_bits & 0x00000001u) {
+      seqno_ = from.seqno_;
     }
-    if (from.has_tm()) {
-      set_tm(from.tm());
+    if (cached_has_bits & 0x00000002u) {
+      tm_ = from.tm_;
     }
-    if (from.has_mtype()) {
-      set_mtype(from.mtype());
+    if (cached_has_bits & 0x00000004u) {
+      mtype_ = from.mtype_;
     }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
+    _has_bits_[0] |= cached_has_bits;
   }
 }
 
@@ -972,11 +1000,10 @@ void EgmHeader::CopyFrom(const EgmHeader& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmHeader)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmHeader::IsInitialized() const {
-
   return true;
 }
 
@@ -985,20 +1012,18 @@ void EgmHeader::Swap(EgmHeader* other) {
   InternalSwap(other);
 }
 void EgmHeader::InternalSwap(EgmHeader* other) {
-  std::swap(seqno_, other->seqno_);
-  std::swap(tm_, other->tm_);
-  std::swap(mtype_, other->mtype_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(seqno_, other->seqno_);
+  swap(tm_, other->tm_);
+  swap(mtype_, other->mtype_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmHeader::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmHeader_descriptor_;
-  metadata.reflection = EgmHeader_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -1077,9 +1102,6 @@ void EgmHeader::set_mtype(::abb::egm::EgmHeader_MessageType value) {
   // @@protoc_insertion_point(field_set:abb.egm.EgmHeader.mtype)
 }
 
-inline const EgmHeader* EgmHeader::internal_default_instance() {
-  return &EgmHeader_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -1092,26 +1114,29 @@ const int EgmCartesian::kZFieldNumber;
 
 EgmCartesian::EgmCartesian()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmCartesian)
 }
-
-void EgmCartesian::InitAsDefaultInstance() {
-}
-
 EgmCartesian::EgmCartesian(const EgmCartesian& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&x_, &from.x_,
+    static_cast<size_t>(reinterpret_cast<char*>(&z_) -
+    reinterpret_cast<char*>(&x_)) + sizeof(z_));
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmCartesian)
 }
 
 void EgmCartesian::SharedCtor() {
   _cached_size_ = 0;
-  ::memset(&x_, 0, reinterpret_cast<char*>(&z_) -
-    reinterpret_cast<char*>(&x_) + sizeof(z_));
+  ::memset(&x_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&z_) -
+      reinterpret_cast<char*>(&x_)) + sizeof(z_));
 }
 
 EgmCartesian::~EgmCartesian() {
@@ -1128,16 +1153,14 @@ void EgmCartesian::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmCartesian::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmCartesian_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmCartesian& EgmCartesian::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmCartesian> EgmCartesian_default_instance_;
 
 EgmCartesian* EgmCartesian::New(::google::protobuf::Arena* arena) const {
   EgmCartesian* n = new EgmCartesian;
@@ -1149,31 +1172,18 @@ EgmCartesian* EgmCartesian::New(::google::protobuf::Arena* arena) const {
 
 void EgmCartesian::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmCartesian)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(EgmCartesian, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<EgmCartesian*>(16)->f)
-#endif
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-#define ZR_(first, last) do {\
-  ::memset(&(first), 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(x_, z_);
-
-#undef ZR_HELPER_
-#undef ZR_
-
-  _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 7u) {
+    ::memset(&x_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&z_) -
+        reinterpret_cast<char*>(&x_)) + sizeof(z_));
   }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
 }
 
 bool EgmCartesian::MergePartialFromCodedStream(
@@ -1182,13 +1192,14 @@ bool EgmCartesian::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmCartesian)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required double x = 1;
       case 1: {
-        if (tag == 9) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(9u /* 9 & 0xFF */)) {
           set_has_x();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -1196,14 +1207,13 @@ bool EgmCartesian::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(17)) goto parse_y;
         break;
       }
 
       // required double y = 2;
       case 2: {
-        if (tag == 17) {
-         parse_y:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(17u /* 17 & 0xFF */)) {
           set_has_y();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -1211,14 +1221,13 @@ bool EgmCartesian::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(25)) goto parse_z;
         break;
       }
 
       // required double z = 3;
       case 3: {
-        if (tag == 25) {
-         parse_z:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(25u /* 25 & 0xFF */)) {
           set_has_z();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -1226,19 +1235,16 @@ bool EgmCartesian::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -1255,24 +1261,28 @@ failure:
 void EgmCartesian::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmCartesian)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // required double x = 1;
-  if (has_x()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->x(), output);
   }
 
   // required double y = 2;
-  if (has_y()) {
+  if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->y(), output);
   }
 
   // required double z = 3;
-  if (has_z()) {
+  if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->z(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmCartesian)
 }
@@ -1281,24 +1291,28 @@ void EgmCartesian::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmCartesian)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // required double x = 1;
-  if (has_x()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->x(), target);
   }
 
   // required double y = 2;
-  if (has_y()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->y(), target);
   }
 
   // required double z = 3;
-  if (has_z()) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->z(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmCartesian)
   return target;
@@ -1329,6 +1343,11 @@ size_t EgmCartesian::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmCartesian)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
     // required double x = 1;
     total_size += 1 + 8;
@@ -1342,11 +1361,6 @@ size_t EgmCartesian::ByteSizeLong() const {
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -1356,7 +1370,7 @@ size_t EgmCartesian::ByteSizeLong() const {
 
 void EgmCartesian::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmCartesian)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmCartesian* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmCartesian>(
           &from);
@@ -1365,35 +1379,29 @@ void EgmCartesian::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmCartesian)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmCartesian::MergeFrom(const EgmCartesian& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmCartesian)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmCartesian::UnsafeMergeFrom(const EgmCartesian& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_x()) {
-      set_x(from.x());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 7u) {
+    if (cached_has_bits & 0x00000001u) {
+      x_ = from.x_;
     }
-    if (from.has_y()) {
-      set_y(from.y());
+    if (cached_has_bits & 0x00000002u) {
+      y_ = from.y_;
     }
-    if (from.has_z()) {
-      set_z(from.z());
+    if (cached_has_bits & 0x00000004u) {
+      z_ = from.z_;
     }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
+    _has_bits_[0] |= cached_has_bits;
   }
 }
 
@@ -1408,12 +1416,11 @@ void EgmCartesian::CopyFrom(const EgmCartesian& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmCartesian)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmCartesian::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
-
   return true;
 }
 
@@ -1422,20 +1429,18 @@ void EgmCartesian::Swap(EgmCartesian* other) {
   InternalSwap(other);
 }
 void EgmCartesian::InternalSwap(EgmCartesian* other) {
-  std::swap(x_, other->x_);
-  std::swap(y_, other->y_);
-  std::swap(z_, other->z_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(x_, other->x_);
+  swap(y_, other->y_);
+  swap(z_, other->z_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmCartesian::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmCartesian_descriptor_;
-  metadata.reflection = EgmCartesian_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -1513,9 +1518,6 @@ void EgmCartesian::set_z(double value) {
   // @@protoc_insertion_point(field_set:abb.egm.EgmCartesian.z)
 }
 
-inline const EgmCartesian* EgmCartesian::internal_default_instance() {
-  return &EgmCartesian_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -1529,26 +1531,29 @@ const int EgmQuaternion::kU3FieldNumber;
 
 EgmQuaternion::EgmQuaternion()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmQuaternion)
 }
-
-void EgmQuaternion::InitAsDefaultInstance() {
-}
-
 EgmQuaternion::EgmQuaternion(const EgmQuaternion& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&u0_, &from.u0_,
+    static_cast<size_t>(reinterpret_cast<char*>(&u3_) -
+    reinterpret_cast<char*>(&u0_)) + sizeof(u3_));
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmQuaternion)
 }
 
 void EgmQuaternion::SharedCtor() {
   _cached_size_ = 0;
-  ::memset(&u0_, 0, reinterpret_cast<char*>(&u3_) -
-    reinterpret_cast<char*>(&u0_) + sizeof(u3_));
+  ::memset(&u0_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&u3_) -
+      reinterpret_cast<char*>(&u0_)) + sizeof(u3_));
 }
 
 EgmQuaternion::~EgmQuaternion() {
@@ -1565,16 +1570,14 @@ void EgmQuaternion::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmQuaternion::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmQuaternion_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmQuaternion& EgmQuaternion::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmQuaternion> EgmQuaternion_default_instance_;
 
 EgmQuaternion* EgmQuaternion::New(::google::protobuf::Arena* arena) const {
   EgmQuaternion* n = new EgmQuaternion;
@@ -1586,31 +1589,18 @@ EgmQuaternion* EgmQuaternion::New(::google::protobuf::Arena* arena) const {
 
 void EgmQuaternion::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmQuaternion)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(EgmQuaternion, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<EgmQuaternion*>(16)->f)
-#endif
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-#define ZR_(first, last) do {\
-  ::memset(&(first), 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(u0_, u3_);
-
-#undef ZR_HELPER_
-#undef ZR_
-
-  _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 15u) {
+    ::memset(&u0_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&u3_) -
+        reinterpret_cast<char*>(&u0_)) + sizeof(u3_));
   }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
 }
 
 bool EgmQuaternion::MergePartialFromCodedStream(
@@ -1619,13 +1609,14 @@ bool EgmQuaternion::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmQuaternion)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required double u0 = 1;
       case 1: {
-        if (tag == 9) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(9u /* 9 & 0xFF */)) {
           set_has_u0();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -1633,14 +1624,13 @@ bool EgmQuaternion::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(17)) goto parse_u1;
         break;
       }
 
       // required double u1 = 2;
       case 2: {
-        if (tag == 17) {
-         parse_u1:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(17u /* 17 & 0xFF */)) {
           set_has_u1();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -1648,14 +1638,13 @@ bool EgmQuaternion::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(25)) goto parse_u2;
         break;
       }
 
       // required double u2 = 3;
       case 3: {
-        if (tag == 25) {
-         parse_u2:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(25u /* 25 & 0xFF */)) {
           set_has_u2();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -1663,14 +1652,13 @@ bool EgmQuaternion::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(33)) goto parse_u3;
         break;
       }
 
       // required double u3 = 4;
       case 4: {
-        if (tag == 33) {
-         parse_u3:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(33u /* 33 & 0xFF */)) {
           set_has_u3();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -1678,19 +1666,16 @@ bool EgmQuaternion::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -1707,29 +1692,33 @@ failure:
 void EgmQuaternion::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmQuaternion)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // required double u0 = 1;
-  if (has_u0()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->u0(), output);
   }
 
   // required double u1 = 2;
-  if (has_u1()) {
+  if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->u1(), output);
   }
 
   // required double u2 = 3;
-  if (has_u2()) {
+  if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->u2(), output);
   }
 
   // required double u3 = 4;
-  if (has_u3()) {
+  if (cached_has_bits & 0x00000008u) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(4, this->u3(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmQuaternion)
 }
@@ -1738,29 +1727,33 @@ void EgmQuaternion::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmQuaternion)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // required double u0 = 1;
-  if (has_u0()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->u0(), target);
   }
 
   // required double u1 = 2;
-  if (has_u1()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->u1(), target);
   }
 
   // required double u2 = 3;
-  if (has_u2()) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->u2(), target);
   }
 
   // required double u3 = 4;
-  if (has_u3()) {
+  if (cached_has_bits & 0x00000008u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(4, this->u3(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmQuaternion)
   return target;
@@ -1796,6 +1789,11 @@ size_t EgmQuaternion::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmQuaternion)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
     // required double u0 = 1;
     total_size += 1 + 8;
@@ -1812,11 +1810,6 @@ size_t EgmQuaternion::ByteSizeLong() const {
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -1826,7 +1819,7 @@ size_t EgmQuaternion::ByteSizeLong() const {
 
 void EgmQuaternion::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmQuaternion)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmQuaternion* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmQuaternion>(
           &from);
@@ -1835,38 +1828,32 @@ void EgmQuaternion::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmQuaternion)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmQuaternion::MergeFrom(const EgmQuaternion& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmQuaternion)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmQuaternion::UnsafeMergeFrom(const EgmQuaternion& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_u0()) {
-      set_u0(from.u0());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 15u) {
+    if (cached_has_bits & 0x00000001u) {
+      u0_ = from.u0_;
     }
-    if (from.has_u1()) {
-      set_u1(from.u1());
+    if (cached_has_bits & 0x00000002u) {
+      u1_ = from.u1_;
     }
-    if (from.has_u2()) {
-      set_u2(from.u2());
+    if (cached_has_bits & 0x00000004u) {
+      u2_ = from.u2_;
     }
-    if (from.has_u3()) {
-      set_u3(from.u3());
+    if (cached_has_bits & 0x00000008u) {
+      u3_ = from.u3_;
     }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
+    _has_bits_[0] |= cached_has_bits;
   }
 }
 
@@ -1881,12 +1868,11 @@ void EgmQuaternion::CopyFrom(const EgmQuaternion& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmQuaternion)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmQuaternion::IsInitialized() const {
   if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
-
   return true;
 }
 
@@ -1895,21 +1881,19 @@ void EgmQuaternion::Swap(EgmQuaternion* other) {
   InternalSwap(other);
 }
 void EgmQuaternion::InternalSwap(EgmQuaternion* other) {
-  std::swap(u0_, other->u0_);
-  std::swap(u1_, other->u1_);
-  std::swap(u2_, other->u2_);
-  std::swap(u3_, other->u3_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(u0_, other->u0_);
+  swap(u1_, other->u1_);
+  swap(u2_, other->u2_);
+  swap(u3_, other->u3_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmQuaternion::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmQuaternion_descriptor_;
-  metadata.reflection = EgmQuaternion_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -2011,9 +1995,6 @@ void EgmQuaternion::set_u3(double value) {
   // @@protoc_insertion_point(field_set:abb.egm.EgmQuaternion.u3)
 }
 
-inline const EgmQuaternion* EgmQuaternion::internal_default_instance() {
-  return &EgmQuaternion_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -2026,26 +2007,29 @@ const int EgmEuler::kZFieldNumber;
 
 EgmEuler::EgmEuler()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmEuler)
 }
-
-void EgmEuler::InitAsDefaultInstance() {
-}
-
 EgmEuler::EgmEuler(const EgmEuler& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&x_, &from.x_,
+    static_cast<size_t>(reinterpret_cast<char*>(&z_) -
+    reinterpret_cast<char*>(&x_)) + sizeof(z_));
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmEuler)
 }
 
 void EgmEuler::SharedCtor() {
   _cached_size_ = 0;
-  ::memset(&x_, 0, reinterpret_cast<char*>(&z_) -
-    reinterpret_cast<char*>(&x_) + sizeof(z_));
+  ::memset(&x_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&z_) -
+      reinterpret_cast<char*>(&x_)) + sizeof(z_));
 }
 
 EgmEuler::~EgmEuler() {
@@ -2062,16 +2046,14 @@ void EgmEuler::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmEuler::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmEuler_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmEuler& EgmEuler::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmEuler> EgmEuler_default_instance_;
 
 EgmEuler* EgmEuler::New(::google::protobuf::Arena* arena) const {
   EgmEuler* n = new EgmEuler;
@@ -2083,31 +2065,18 @@ EgmEuler* EgmEuler::New(::google::protobuf::Arena* arena) const {
 
 void EgmEuler::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmEuler)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(EgmEuler, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<EgmEuler*>(16)->f)
-#endif
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-#define ZR_(first, last) do {\
-  ::memset(&(first), 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(x_, z_);
-
-#undef ZR_HELPER_
-#undef ZR_
-
-  _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 7u) {
+    ::memset(&x_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&z_) -
+        reinterpret_cast<char*>(&x_)) + sizeof(z_));
   }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
 }
 
 bool EgmEuler::MergePartialFromCodedStream(
@@ -2116,13 +2085,14 @@ bool EgmEuler::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmEuler)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required double x = 1;
       case 1: {
-        if (tag == 9) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(9u /* 9 & 0xFF */)) {
           set_has_x();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -2130,14 +2100,13 @@ bool EgmEuler::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(17)) goto parse_y;
         break;
       }
 
       // required double y = 2;
       case 2: {
-        if (tag == 17) {
-         parse_y:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(17u /* 17 & 0xFF */)) {
           set_has_y();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -2145,14 +2114,13 @@ bool EgmEuler::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(25)) goto parse_z;
         break;
       }
 
       // required double z = 3;
       case 3: {
-        if (tag == 25) {
-         parse_z:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(25u /* 25 & 0xFF */)) {
           set_has_z();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -2160,19 +2128,16 @@ bool EgmEuler::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -2189,24 +2154,28 @@ failure:
 void EgmEuler::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmEuler)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // required double x = 1;
-  if (has_x()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->x(), output);
   }
 
   // required double y = 2;
-  if (has_y()) {
+  if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->y(), output);
   }
 
   // required double z = 3;
-  if (has_z()) {
+  if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->z(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmEuler)
 }
@@ -2215,24 +2184,28 @@ void EgmEuler::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmEuler)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // required double x = 1;
-  if (has_x()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->x(), target);
   }
 
   // required double y = 2;
-  if (has_y()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->y(), target);
   }
 
   // required double z = 3;
-  if (has_z()) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->z(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmEuler)
   return target;
@@ -2263,6 +2236,11 @@ size_t EgmEuler::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmEuler)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
     // required double x = 1;
     total_size += 1 + 8;
@@ -2276,11 +2254,6 @@ size_t EgmEuler::ByteSizeLong() const {
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -2290,7 +2263,7 @@ size_t EgmEuler::ByteSizeLong() const {
 
 void EgmEuler::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmEuler)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmEuler* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmEuler>(
           &from);
@@ -2299,35 +2272,29 @@ void EgmEuler::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmEuler)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmEuler::MergeFrom(const EgmEuler& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmEuler)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmEuler::UnsafeMergeFrom(const EgmEuler& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_x()) {
-      set_x(from.x());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 7u) {
+    if (cached_has_bits & 0x00000001u) {
+      x_ = from.x_;
     }
-    if (from.has_y()) {
-      set_y(from.y());
+    if (cached_has_bits & 0x00000002u) {
+      y_ = from.y_;
     }
-    if (from.has_z()) {
-      set_z(from.z());
+    if (cached_has_bits & 0x00000004u) {
+      z_ = from.z_;
     }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
+    _has_bits_[0] |= cached_has_bits;
   }
 }
 
@@ -2342,12 +2309,11 @@ void EgmEuler::CopyFrom(const EgmEuler& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmEuler)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmEuler::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
-
   return true;
 }
 
@@ -2356,20 +2322,18 @@ void EgmEuler::Swap(EgmEuler* other) {
   InternalSwap(other);
 }
 void EgmEuler::InternalSwap(EgmEuler* other) {
-  std::swap(x_, other->x_);
-  std::swap(y_, other->y_);
-  std::swap(z_, other->z_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(x_, other->x_);
+  swap(y_, other->y_);
+  swap(z_, other->z_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmEuler::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmEuler_descriptor_;
-  metadata.reflection = EgmEuler_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -2447,9 +2411,6 @@ void EgmEuler::set_z(double value) {
   // @@protoc_insertion_point(field_set:abb.egm.EgmEuler.z)
 }
 
-inline const EgmEuler* EgmEuler::internal_default_instance() {
-  return &EgmEuler_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -2462,33 +2423,41 @@ const int EgmPose::kEulerFieldNumber;
 
 EgmPose::EgmPose()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmPose)
 }
-
-void EgmPose::InitAsDefaultInstance() {
-  pos_ = const_cast< ::abb::egm::EgmCartesian*>(
-      ::abb::egm::EgmCartesian::internal_default_instance());
-  orient_ = const_cast< ::abb::egm::EgmQuaternion*>(
-      ::abb::egm::EgmQuaternion::internal_default_instance());
-  euler_ = const_cast< ::abb::egm::EgmEuler*>(
-      ::abb::egm::EgmEuler::internal_default_instance());
-}
-
 EgmPose::EgmPose(const EgmPose& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_pos()) {
+    pos_ = new ::abb::egm::EgmCartesian(*from.pos_);
+  } else {
+    pos_ = NULL;
+  }
+  if (from.has_orient()) {
+    orient_ = new ::abb::egm::EgmQuaternion(*from.orient_);
+  } else {
+    orient_ = NULL;
+  }
+  if (from.has_euler()) {
+    euler_ = new ::abb::egm::EgmEuler(*from.euler_);
+  } else {
+    euler_ = NULL;
+  }
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmPose)
 }
 
 void EgmPose::SharedCtor() {
   _cached_size_ = 0;
-  pos_ = NULL;
-  orient_ = NULL;
-  euler_ = NULL;
+  ::memset(&pos_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&euler_) -
+      reinterpret_cast<char*>(&pos_)) + sizeof(euler_));
 }
 
 EgmPose::~EgmPose() {
@@ -2497,11 +2466,9 @@ EgmPose::~EgmPose() {
 }
 
 void EgmPose::SharedDtor() {
-  if (this != &EgmPose_default_instance_.get()) {
-    delete pos_;
-    delete orient_;
-    delete euler_;
-  }
+  if (this != internal_default_instance()) delete pos_;
+  if (this != internal_default_instance()) delete orient_;
+  if (this != internal_default_instance()) delete euler_;
 }
 
 void EgmPose::SetCachedSize(int size) const {
@@ -2510,16 +2477,14 @@ void EgmPose::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmPose::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmPose_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmPose& EgmPose::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmPose> EgmPose_default_instance_;
 
 EgmPose* EgmPose::New(::google::protobuf::Arena* arena) const {
   EgmPose* n = new EgmPose;
@@ -2531,21 +2496,27 @@ EgmPose* EgmPose::New(::google::protobuf::Arena* arena) const {
 
 void EgmPose::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmPose)
-  if (_has_bits_[0 / 32] & 7u) {
-    if (has_pos()) {
-      if (pos_ != NULL) pos_->::abb::egm::EgmCartesian::Clear();
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 7u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(pos_ != NULL);
+      pos_->::abb::egm::EgmCartesian::Clear();
     }
-    if (has_orient()) {
-      if (orient_ != NULL) orient_->::abb::egm::EgmQuaternion::Clear();
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(orient_ != NULL);
+      orient_->::abb::egm::EgmQuaternion::Clear();
     }
-    if (has_euler()) {
-      if (euler_ != NULL) euler_->::abb::egm::EgmEuler::Clear();
+    if (cached_has_bits & 0x00000004u) {
+      GOOGLE_DCHECK(euler_ != NULL);
+      euler_->::abb::egm::EgmEuler::Clear();
     }
   }
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmPose::MergePartialFromCodedStream(
@@ -2554,57 +2525,53 @@ bool EgmPose::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmPose)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.EgmCartesian pos = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_pos()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_orient;
         break;
       }
 
       // optional .abb.egm.EgmQuaternion orient = 2;
       case 2: {
-        if (tag == 18) {
-         parse_orient:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_orient()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_euler;
         break;
       }
 
       // optional .abb.egm.EgmEuler euler = 3;
       case 3: {
-        if (tag == 26) {
-         parse_euler:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_euler()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -2621,27 +2588,31 @@ failure:
 void EgmPose::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmPose)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional .abb.egm.EgmCartesian pos = 1;
-  if (has_pos()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->pos_, output);
   }
 
   // optional .abb.egm.EgmQuaternion orient = 2;
-  if (has_orient()) {
+  if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->orient_, output);
   }
 
   // optional .abb.egm.EgmEuler euler = 3;
-  if (has_euler()) {
+  if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->euler_, output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmPose)
 }
@@ -2650,30 +2621,34 @@ void EgmPose::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmPose)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional .abb.egm.EgmCartesian pos = 1;
-  if (has_pos()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        1, *this->pos_, false, target);
+        1, *this->pos_, deterministic, target);
   }
 
   // optional .abb.egm.EgmQuaternion orient = 2;
-  if (has_orient()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        2, *this->orient_, false, target);
+        2, *this->orient_, deterministic, target);
   }
 
   // optional .abb.egm.EgmEuler euler = 3;
-  if (has_euler()) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        3, *this->euler_, false, target);
+        3, *this->euler_, deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmPose)
   return target;
@@ -2683,6 +2658,11 @@ size_t EgmPose::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmPose)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   if (_has_bits_[0 / 32] & 7u) {
     // optional .abb.egm.EgmCartesian pos = 1;
     if (has_pos()) {
@@ -2706,11 +2686,6 @@ size_t EgmPose::ByteSizeLong() const {
     }
 
   }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -2720,7 +2695,7 @@ size_t EgmPose::ByteSizeLong() const {
 
 void EgmPose::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmPose)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmPose* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmPose>(
           &from);
@@ -2729,35 +2704,28 @@ void EgmPose::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmPose)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmPose::MergeFrom(const EgmPose& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmPose)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmPose::UnsafeMergeFrom(const EgmPose& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_pos()) {
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 7u) {
+    if (cached_has_bits & 0x00000001u) {
       mutable_pos()->::abb::egm::EgmCartesian::MergeFrom(from.pos());
     }
-    if (from.has_orient()) {
+    if (cached_has_bits & 0x00000002u) {
       mutable_orient()->::abb::egm::EgmQuaternion::MergeFrom(from.orient());
     }
-    if (from.has_euler()) {
+    if (cached_has_bits & 0x00000004u) {
       mutable_euler()->::abb::egm::EgmEuler::MergeFrom(from.euler());
     }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
   }
 }
 
@@ -2772,11 +2740,10 @@ void EgmPose::CopyFrom(const EgmPose& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmPose)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmPose::IsInitialized() const {
-
   if (has_pos()) {
     if (!this->pos_->IsInitialized()) return false;
   }
@@ -2794,20 +2761,18 @@ void EgmPose::Swap(EgmPose* other) {
   InternalSwap(other);
 }
 void EgmPose::InternalSwap(EgmPose* other) {
-  std::swap(pos_, other->pos_);
-  std::swap(orient_, other->orient_);
-  std::swap(euler_, other->euler_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(pos_, other->pos_);
+  swap(orient_, other->orient_);
+  swap(euler_, other->euler_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmPose::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmPose_descriptor_;
-  metadata.reflection = EgmPose_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -2828,9 +2793,10 @@ void EgmPose::clear_pos() {
   clear_has_pos();
 }
 const ::abb::egm::EgmCartesian& EgmPose::pos() const {
+  const ::abb::egm::EgmCartesian* p = pos_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmPose.pos)
-  return pos_ != NULL ? *pos_
-                         : *::abb::egm::EgmCartesian::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmCartesian*>(
+      &::abb::egm::_EgmCartesian_default_instance_);
 }
 ::abb::egm::EgmCartesian* EgmPose::mutable_pos() {
   set_has_pos();
@@ -2873,9 +2839,10 @@ void EgmPose::clear_orient() {
   clear_has_orient();
 }
 const ::abb::egm::EgmQuaternion& EgmPose::orient() const {
+  const ::abb::egm::EgmQuaternion* p = orient_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmPose.orient)
-  return orient_ != NULL ? *orient_
-                         : *::abb::egm::EgmQuaternion::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmQuaternion*>(
+      &::abb::egm::_EgmQuaternion_default_instance_);
 }
 ::abb::egm::EgmQuaternion* EgmPose::mutable_orient() {
   set_has_orient();
@@ -2918,9 +2885,10 @@ void EgmPose::clear_euler() {
   clear_has_euler();
 }
 const ::abb::egm::EgmEuler& EgmPose::euler() const {
+  const ::abb::egm::EgmEuler* p = euler_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmPose.euler)
-  return euler_ != NULL ? *euler_
-                         : *::abb::egm::EgmEuler::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmEuler*>(
+      &::abb::egm::_EgmEuler_default_instance_);
 }
 ::abb::egm::EgmEuler* EgmPose::mutable_euler() {
   set_has_euler();
@@ -2948,9 +2916,6 @@ void EgmPose::set_allocated_euler(::abb::egm::EgmEuler* euler) {
   // @@protoc_insertion_point(field_set_allocated:abb.egm.EgmPose.euler)
 }
 
-inline const EgmPose* EgmPose::internal_default_instance() {
-  return &EgmPose_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -2961,19 +2926,19 @@ const int EgmCartesianSpeed::kValueFieldNumber;
 
 EgmCartesianSpeed::EgmCartesianSpeed()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmCartesianSpeed)
 }
-
-void EgmCartesianSpeed::InitAsDefaultInstance() {
-}
-
 EgmCartesianSpeed::EgmCartesianSpeed(const EgmCartesianSpeed& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0),
+      value_(from.value_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmCartesianSpeed)
 }
 
@@ -2995,16 +2960,14 @@ void EgmCartesianSpeed::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmCartesianSpeed::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmCartesianSpeed_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmCartesianSpeed& EgmCartesianSpeed::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmCartesianSpeed> EgmCartesianSpeed_default_instance_;
 
 EgmCartesianSpeed* EgmCartesianSpeed::New(::google::protobuf::Arena* arena) const {
   EgmCartesianSpeed* n = new EgmCartesianSpeed;
@@ -3016,11 +2979,13 @@ EgmCartesianSpeed* EgmCartesianSpeed::New(::google::protobuf::Arena* arena) cons
 
 void EgmCartesianSpeed::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmCartesianSpeed)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   value_.Clear();
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmCartesianSpeed::MergePartialFromCodedStream(
@@ -3029,38 +2994,36 @@ bool EgmCartesianSpeed::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmCartesianSpeed)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // repeated double value = 1;
       case 1: {
-        if (tag == 9) {
-         parse_value:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(9u /* 9 & 0xFF */)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 1, 9, input, this->mutable_value())));
-        } else if (tag == 10) {
+                 1, 9u, input, this->mutable_value())));
+        } else if (
+            static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, this->mutable_value())));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(9)) goto parse_value;
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -3077,15 +3040,18 @@ failure:
 void EgmCartesianSpeed::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmCartesianSpeed)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
   // repeated double value = 1;
-  for (int i = 0; i < this->value_size(); i++) {
+  for (int i = 0, n = this->value_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(
       1, this->value(i), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmCartesianSpeed)
 }
@@ -3094,15 +3060,16 @@ void EgmCartesianSpeed::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmCartesianSpeed)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
   // repeated double value = 1;
-  for (int i = 0; i < this->value_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteDoubleToArray(1, this->value(i), target);
-  }
+  target = ::google::protobuf::internal::WireFormatLite::
+    WriteDoubleToArray(1, this->value_, target);
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmCartesianSpeed)
   return target;
@@ -3112,21 +3079,20 @@ size_t EgmCartesianSpeed::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmCartesianSpeed)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   // repeated double value = 1;
   {
-    size_t data_size = 0;
-    unsigned int count = this->value_size();
-    data_size = 8UL * count;
+    unsigned int count = static_cast<unsigned int>(this->value_size());
+    size_t data_size = 8UL * count;
     total_size += 1 *
                   ::google::protobuf::internal::FromIntSize(this->value_size());
     total_size += data_size;
   }
 
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -3136,7 +3102,7 @@ size_t EgmCartesianSpeed::ByteSizeLong() const {
 
 void EgmCartesianSpeed::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmCartesianSpeed)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmCartesianSpeed* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmCartesianSpeed>(
           &from);
@@ -3145,26 +3111,18 @@ void EgmCartesianSpeed::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmCartesianSpeed)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmCartesianSpeed::MergeFrom(const EgmCartesianSpeed& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmCartesianSpeed)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmCartesianSpeed::UnsafeMergeFrom(const EgmCartesianSpeed& from) {
-  GOOGLE_DCHECK(&from != this);
-  value_.UnsafeMergeFrom(from.value_);
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
-  }
+  value_.MergeFrom(from.value_);
 }
 
 void EgmCartesianSpeed::CopyFrom(const ::google::protobuf::Message& from) {
@@ -3178,11 +3136,10 @@ void EgmCartesianSpeed::CopyFrom(const EgmCartesianSpeed& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmCartesianSpeed)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmCartesianSpeed::IsInitialized() const {
-
   return true;
 }
 
@@ -3191,18 +3148,16 @@ void EgmCartesianSpeed::Swap(EgmCartesianSpeed* other) {
   InternalSwap(other);
 }
 void EgmCartesianSpeed::InternalSwap(EgmCartesianSpeed* other) {
-  value_.UnsafeArenaSwap(&other->value_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  value_.InternalSwap(&other->value_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmCartesianSpeed::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmCartesianSpeed_descriptor_;
-  metadata.reflection = EgmCartesianSpeed_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -3238,9 +3193,6 @@ EgmCartesianSpeed::mutable_value() {
   return &value_;
 }
 
-inline const EgmCartesianSpeed* EgmCartesianSpeed::internal_default_instance() {
-  return &EgmCartesianSpeed_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -3251,19 +3203,19 @@ const int EgmJoints::kJointsFieldNumber;
 
 EgmJoints::EgmJoints()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmJoints)
 }
-
-void EgmJoints::InitAsDefaultInstance() {
-}
-
 EgmJoints::EgmJoints(const EgmJoints& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0),
+      joints_(from.joints_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmJoints)
 }
 
@@ -3285,16 +3237,14 @@ void EgmJoints::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmJoints::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmJoints_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmJoints& EgmJoints::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmJoints> EgmJoints_default_instance_;
 
 EgmJoints* EgmJoints::New(::google::protobuf::Arena* arena) const {
   EgmJoints* n = new EgmJoints;
@@ -3306,11 +3256,13 @@ EgmJoints* EgmJoints::New(::google::protobuf::Arena* arena) const {
 
 void EgmJoints::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmJoints)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   joints_.Clear();
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmJoints::MergePartialFromCodedStream(
@@ -3319,38 +3271,36 @@ bool EgmJoints::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmJoints)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // repeated double joints = 1;
       case 1: {
-        if (tag == 9) {
-         parse_joints:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(9u /* 9 & 0xFF */)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 1, 9, input, this->mutable_joints())));
-        } else if (tag == 10) {
+                 1, 9u, input, this->mutable_joints())));
+        } else if (
+            static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, this->mutable_joints())));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(9)) goto parse_joints;
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -3367,15 +3317,18 @@ failure:
 void EgmJoints::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmJoints)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
   // repeated double joints = 1;
-  for (int i = 0; i < this->joints_size(); i++) {
+  for (int i = 0, n = this->joints_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(
       1, this->joints(i), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmJoints)
 }
@@ -3384,15 +3337,16 @@ void EgmJoints::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmJoints)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
   // repeated double joints = 1;
-  for (int i = 0; i < this->joints_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteDoubleToArray(1, this->joints(i), target);
-  }
+  target = ::google::protobuf::internal::WireFormatLite::
+    WriteDoubleToArray(1, this->joints_, target);
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmJoints)
   return target;
@@ -3402,21 +3356,20 @@ size_t EgmJoints::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmJoints)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   // repeated double joints = 1;
   {
-    size_t data_size = 0;
-    unsigned int count = this->joints_size();
-    data_size = 8UL * count;
+    unsigned int count = static_cast<unsigned int>(this->joints_size());
+    size_t data_size = 8UL * count;
     total_size += 1 *
                   ::google::protobuf::internal::FromIntSize(this->joints_size());
     total_size += data_size;
   }
 
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -3426,7 +3379,7 @@ size_t EgmJoints::ByteSizeLong() const {
 
 void EgmJoints::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmJoints)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmJoints* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmJoints>(
           &from);
@@ -3435,26 +3388,18 @@ void EgmJoints::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmJoints)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmJoints::MergeFrom(const EgmJoints& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmJoints)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmJoints::UnsafeMergeFrom(const EgmJoints& from) {
-  GOOGLE_DCHECK(&from != this);
-  joints_.UnsafeMergeFrom(from.joints_);
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
-  }
+  joints_.MergeFrom(from.joints_);
 }
 
 void EgmJoints::CopyFrom(const ::google::protobuf::Message& from) {
@@ -3468,11 +3413,10 @@ void EgmJoints::CopyFrom(const EgmJoints& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmJoints)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmJoints::IsInitialized() const {
-
   return true;
 }
 
@@ -3481,18 +3425,16 @@ void EgmJoints::Swap(EgmJoints* other) {
   InternalSwap(other);
 }
 void EgmJoints::InternalSwap(EgmJoints* other) {
-  joints_.UnsafeArenaSwap(&other->joints_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  joints_.InternalSwap(&other->joints_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmJoints::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmJoints_descriptor_;
-  metadata.reflection = EgmJoints_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -3528,9 +3470,6 @@ EgmJoints::mutable_joints() {
   return &joints_;
 }
 
-inline const EgmJoints* EgmJoints::internal_default_instance() {
-  return &EgmJoints_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -3541,19 +3480,19 @@ const int EgmExternalJoints::kJointsFieldNumber;
 
 EgmExternalJoints::EgmExternalJoints()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmExternalJoints)
 }
-
-void EgmExternalJoints::InitAsDefaultInstance() {
-}
-
 EgmExternalJoints::EgmExternalJoints(const EgmExternalJoints& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0),
+      joints_(from.joints_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmExternalJoints)
 }
 
@@ -3575,16 +3514,14 @@ void EgmExternalJoints::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmExternalJoints::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmExternalJoints_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmExternalJoints& EgmExternalJoints::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmExternalJoints> EgmExternalJoints_default_instance_;
 
 EgmExternalJoints* EgmExternalJoints::New(::google::protobuf::Arena* arena) const {
   EgmExternalJoints* n = new EgmExternalJoints;
@@ -3596,11 +3533,13 @@ EgmExternalJoints* EgmExternalJoints::New(::google::protobuf::Arena* arena) cons
 
 void EgmExternalJoints::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmExternalJoints)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   joints_.Clear();
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmExternalJoints::MergePartialFromCodedStream(
@@ -3609,38 +3548,36 @@ bool EgmExternalJoints::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmExternalJoints)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // repeated double joints = 1;
       case 1: {
-        if (tag == 9) {
-         parse_joints:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(9u /* 9 & 0xFF */)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 1, 9, input, this->mutable_joints())));
-        } else if (tag == 10) {
+                 1, 9u, input, this->mutable_joints())));
+        } else if (
+            static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, this->mutable_joints())));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(9)) goto parse_joints;
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -3657,15 +3594,18 @@ failure:
 void EgmExternalJoints::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmExternalJoints)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
   // repeated double joints = 1;
-  for (int i = 0; i < this->joints_size(); i++) {
+  for (int i = 0, n = this->joints_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(
       1, this->joints(i), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmExternalJoints)
 }
@@ -3674,15 +3614,16 @@ void EgmExternalJoints::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmExternalJoints)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
   // repeated double joints = 1;
-  for (int i = 0; i < this->joints_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteDoubleToArray(1, this->joints(i), target);
-  }
+  target = ::google::protobuf::internal::WireFormatLite::
+    WriteDoubleToArray(1, this->joints_, target);
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmExternalJoints)
   return target;
@@ -3692,21 +3633,20 @@ size_t EgmExternalJoints::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmExternalJoints)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   // repeated double joints = 1;
   {
-    size_t data_size = 0;
-    unsigned int count = this->joints_size();
-    data_size = 8UL * count;
+    unsigned int count = static_cast<unsigned int>(this->joints_size());
+    size_t data_size = 8UL * count;
     total_size += 1 *
                   ::google::protobuf::internal::FromIntSize(this->joints_size());
     total_size += data_size;
   }
 
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -3716,7 +3656,7 @@ size_t EgmExternalJoints::ByteSizeLong() const {
 
 void EgmExternalJoints::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmExternalJoints)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmExternalJoints* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmExternalJoints>(
           &from);
@@ -3725,26 +3665,18 @@ void EgmExternalJoints::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmExternalJoints)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmExternalJoints::MergeFrom(const EgmExternalJoints& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmExternalJoints)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmExternalJoints::UnsafeMergeFrom(const EgmExternalJoints& from) {
-  GOOGLE_DCHECK(&from != this);
-  joints_.UnsafeMergeFrom(from.joints_);
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
-  }
+  joints_.MergeFrom(from.joints_);
 }
 
 void EgmExternalJoints::CopyFrom(const ::google::protobuf::Message& from) {
@@ -3758,11 +3690,10 @@ void EgmExternalJoints::CopyFrom(const EgmExternalJoints& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmExternalJoints)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmExternalJoints::IsInitialized() const {
-
   return true;
 }
 
@@ -3771,18 +3702,16 @@ void EgmExternalJoints::Swap(EgmExternalJoints* other) {
   InternalSwap(other);
 }
 void EgmExternalJoints::InternalSwap(EgmExternalJoints* other) {
-  joints_.UnsafeArenaSwap(&other->joints_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  joints_.InternalSwap(&other->joints_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmExternalJoints::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmExternalJoints_descriptor_;
-  metadata.reflection = EgmExternalJoints_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -3818,9 +3747,6 @@ EgmExternalJoints::mutable_joints() {
   return &joints_;
 }
 
-inline const EgmExternalJoints* EgmExternalJoints::internal_default_instance() {
-  return &EgmExternalJoints_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -3833,33 +3759,41 @@ const int EgmPlanned::kExternalJointsFieldNumber;
 
 EgmPlanned::EgmPlanned()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmPlanned)
 }
-
-void EgmPlanned::InitAsDefaultInstance() {
-  joints_ = const_cast< ::abb::egm::EgmJoints*>(
-      ::abb::egm::EgmJoints::internal_default_instance());
-  cartesian_ = const_cast< ::abb::egm::EgmPose*>(
-      ::abb::egm::EgmPose::internal_default_instance());
-  externaljoints_ = const_cast< ::abb::egm::EgmJoints*>(
-      ::abb::egm::EgmJoints::internal_default_instance());
-}
-
 EgmPlanned::EgmPlanned(const EgmPlanned& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_joints()) {
+    joints_ = new ::abb::egm::EgmJoints(*from.joints_);
+  } else {
+    joints_ = NULL;
+  }
+  if (from.has_cartesian()) {
+    cartesian_ = new ::abb::egm::EgmPose(*from.cartesian_);
+  } else {
+    cartesian_ = NULL;
+  }
+  if (from.has_externaljoints()) {
+    externaljoints_ = new ::abb::egm::EgmJoints(*from.externaljoints_);
+  } else {
+    externaljoints_ = NULL;
+  }
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmPlanned)
 }
 
 void EgmPlanned::SharedCtor() {
   _cached_size_ = 0;
-  joints_ = NULL;
-  cartesian_ = NULL;
-  externaljoints_ = NULL;
+  ::memset(&joints_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&externaljoints_) -
+      reinterpret_cast<char*>(&joints_)) + sizeof(externaljoints_));
 }
 
 EgmPlanned::~EgmPlanned() {
@@ -3868,11 +3802,9 @@ EgmPlanned::~EgmPlanned() {
 }
 
 void EgmPlanned::SharedDtor() {
-  if (this != &EgmPlanned_default_instance_.get()) {
-    delete joints_;
-    delete cartesian_;
-    delete externaljoints_;
-  }
+  if (this != internal_default_instance()) delete joints_;
+  if (this != internal_default_instance()) delete cartesian_;
+  if (this != internal_default_instance()) delete externaljoints_;
 }
 
 void EgmPlanned::SetCachedSize(int size) const {
@@ -3881,16 +3813,14 @@ void EgmPlanned::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmPlanned::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmPlanned_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmPlanned& EgmPlanned::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmPlanned> EgmPlanned_default_instance_;
 
 EgmPlanned* EgmPlanned::New(::google::protobuf::Arena* arena) const {
   EgmPlanned* n = new EgmPlanned;
@@ -3902,21 +3832,27 @@ EgmPlanned* EgmPlanned::New(::google::protobuf::Arena* arena) const {
 
 void EgmPlanned::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmPlanned)
-  if (_has_bits_[0 / 32] & 7u) {
-    if (has_joints()) {
-      if (joints_ != NULL) joints_->::abb::egm::EgmJoints::Clear();
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 7u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(joints_ != NULL);
+      joints_->::abb::egm::EgmJoints::Clear();
     }
-    if (has_cartesian()) {
-      if (cartesian_ != NULL) cartesian_->::abb::egm::EgmPose::Clear();
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(cartesian_ != NULL);
+      cartesian_->::abb::egm::EgmPose::Clear();
     }
-    if (has_externaljoints()) {
-      if (externaljoints_ != NULL) externaljoints_->::abb::egm::EgmJoints::Clear();
+    if (cached_has_bits & 0x00000004u) {
+      GOOGLE_DCHECK(externaljoints_ != NULL);
+      externaljoints_->::abb::egm::EgmJoints::Clear();
     }
   }
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmPlanned::MergePartialFromCodedStream(
@@ -3925,57 +3861,53 @@ bool EgmPlanned::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmPlanned)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.EgmJoints joints = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_joints()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_cartesian;
         break;
       }
 
       // optional .abb.egm.EgmPose cartesian = 2;
       case 2: {
-        if (tag == 18) {
-         parse_cartesian:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_cartesian()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_externalJoints;
         break;
       }
 
       // optional .abb.egm.EgmJoints externalJoints = 3;
       case 3: {
-        if (tag == 26) {
-         parse_externalJoints:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_externaljoints()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -3992,27 +3924,31 @@ failure:
 void EgmPlanned::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmPlanned)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional .abb.egm.EgmJoints joints = 1;
-  if (has_joints()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->joints_, output);
   }
 
   // optional .abb.egm.EgmPose cartesian = 2;
-  if (has_cartesian()) {
+  if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->cartesian_, output);
   }
 
   // optional .abb.egm.EgmJoints externalJoints = 3;
-  if (has_externaljoints()) {
+  if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->externaljoints_, output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmPlanned)
 }
@@ -4021,30 +3957,34 @@ void EgmPlanned::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmPlanned)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional .abb.egm.EgmJoints joints = 1;
-  if (has_joints()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        1, *this->joints_, false, target);
+        1, *this->joints_, deterministic, target);
   }
 
   // optional .abb.egm.EgmPose cartesian = 2;
-  if (has_cartesian()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        2, *this->cartesian_, false, target);
+        2, *this->cartesian_, deterministic, target);
   }
 
   // optional .abb.egm.EgmJoints externalJoints = 3;
-  if (has_externaljoints()) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        3, *this->externaljoints_, false, target);
+        3, *this->externaljoints_, deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmPlanned)
   return target;
@@ -4054,6 +3994,11 @@ size_t EgmPlanned::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmPlanned)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   if (_has_bits_[0 / 32] & 7u) {
     // optional .abb.egm.EgmJoints joints = 1;
     if (has_joints()) {
@@ -4077,11 +4022,6 @@ size_t EgmPlanned::ByteSizeLong() const {
     }
 
   }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -4091,7 +4031,7 @@ size_t EgmPlanned::ByteSizeLong() const {
 
 void EgmPlanned::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmPlanned)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmPlanned* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmPlanned>(
           &from);
@@ -4100,35 +4040,28 @@ void EgmPlanned::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmPlanned)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmPlanned::MergeFrom(const EgmPlanned& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmPlanned)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmPlanned::UnsafeMergeFrom(const EgmPlanned& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_joints()) {
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 7u) {
+    if (cached_has_bits & 0x00000001u) {
       mutable_joints()->::abb::egm::EgmJoints::MergeFrom(from.joints());
     }
-    if (from.has_cartesian()) {
+    if (cached_has_bits & 0x00000002u) {
       mutable_cartesian()->::abb::egm::EgmPose::MergeFrom(from.cartesian());
     }
-    if (from.has_externaljoints()) {
+    if (cached_has_bits & 0x00000004u) {
       mutable_externaljoints()->::abb::egm::EgmJoints::MergeFrom(from.externaljoints());
     }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
   }
 }
 
@@ -4143,11 +4076,10 @@ void EgmPlanned::CopyFrom(const EgmPlanned& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmPlanned)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmPlanned::IsInitialized() const {
-
   if (has_cartesian()) {
     if (!this->cartesian_->IsInitialized()) return false;
   }
@@ -4159,20 +4091,18 @@ void EgmPlanned::Swap(EgmPlanned* other) {
   InternalSwap(other);
 }
 void EgmPlanned::InternalSwap(EgmPlanned* other) {
-  std::swap(joints_, other->joints_);
-  std::swap(cartesian_, other->cartesian_);
-  std::swap(externaljoints_, other->externaljoints_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(joints_, other->joints_);
+  swap(cartesian_, other->cartesian_);
+  swap(externaljoints_, other->externaljoints_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmPlanned::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmPlanned_descriptor_;
-  metadata.reflection = EgmPlanned_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -4193,9 +4123,10 @@ void EgmPlanned::clear_joints() {
   clear_has_joints();
 }
 const ::abb::egm::EgmJoints& EgmPlanned::joints() const {
+  const ::abb::egm::EgmJoints* p = joints_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmPlanned.joints)
-  return joints_ != NULL ? *joints_
-                         : *::abb::egm::EgmJoints::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmJoints*>(
+      &::abb::egm::_EgmJoints_default_instance_);
 }
 ::abb::egm::EgmJoints* EgmPlanned::mutable_joints() {
   set_has_joints();
@@ -4238,9 +4169,10 @@ void EgmPlanned::clear_cartesian() {
   clear_has_cartesian();
 }
 const ::abb::egm::EgmPose& EgmPlanned::cartesian() const {
+  const ::abb::egm::EgmPose* p = cartesian_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmPlanned.cartesian)
-  return cartesian_ != NULL ? *cartesian_
-                         : *::abb::egm::EgmPose::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmPose*>(
+      &::abb::egm::_EgmPose_default_instance_);
 }
 ::abb::egm::EgmPose* EgmPlanned::mutable_cartesian() {
   set_has_cartesian();
@@ -4283,9 +4215,10 @@ void EgmPlanned::clear_externaljoints() {
   clear_has_externaljoints();
 }
 const ::abb::egm::EgmJoints& EgmPlanned::externaljoints() const {
+  const ::abb::egm::EgmJoints* p = externaljoints_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmPlanned.externalJoints)
-  return externaljoints_ != NULL ? *externaljoints_
-                         : *::abb::egm::EgmJoints::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmJoints*>(
+      &::abb::egm::_EgmJoints_default_instance_);
 }
 ::abb::egm::EgmJoints* EgmPlanned::mutable_externaljoints() {
   set_has_externaljoints();
@@ -4313,9 +4246,6 @@ void EgmPlanned::set_allocated_externaljoints(::abb::egm::EgmJoints* externaljoi
   // @@protoc_insertion_point(field_set_allocated:abb.egm.EgmPlanned.externalJoints)
 }
 
-inline const EgmPlanned* EgmPlanned::internal_default_instance() {
-  return &EgmPlanned_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -4328,33 +4258,41 @@ const int EgmSpeedRef::kExternalJointsFieldNumber;
 
 EgmSpeedRef::EgmSpeedRef()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmSpeedRef)
 }
-
-void EgmSpeedRef::InitAsDefaultInstance() {
-  joints_ = const_cast< ::abb::egm::EgmJoints*>(
-      ::abb::egm::EgmJoints::internal_default_instance());
-  cartesians_ = const_cast< ::abb::egm::EgmCartesianSpeed*>(
-      ::abb::egm::EgmCartesianSpeed::internal_default_instance());
-  externaljoints_ = const_cast< ::abb::egm::EgmJoints*>(
-      ::abb::egm::EgmJoints::internal_default_instance());
-}
-
 EgmSpeedRef::EgmSpeedRef(const EgmSpeedRef& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_joints()) {
+    joints_ = new ::abb::egm::EgmJoints(*from.joints_);
+  } else {
+    joints_ = NULL;
+  }
+  if (from.has_cartesians()) {
+    cartesians_ = new ::abb::egm::EgmCartesianSpeed(*from.cartesians_);
+  } else {
+    cartesians_ = NULL;
+  }
+  if (from.has_externaljoints()) {
+    externaljoints_ = new ::abb::egm::EgmJoints(*from.externaljoints_);
+  } else {
+    externaljoints_ = NULL;
+  }
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmSpeedRef)
 }
 
 void EgmSpeedRef::SharedCtor() {
   _cached_size_ = 0;
-  joints_ = NULL;
-  cartesians_ = NULL;
-  externaljoints_ = NULL;
+  ::memset(&joints_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&externaljoints_) -
+      reinterpret_cast<char*>(&joints_)) + sizeof(externaljoints_));
 }
 
 EgmSpeedRef::~EgmSpeedRef() {
@@ -4363,11 +4301,9 @@ EgmSpeedRef::~EgmSpeedRef() {
 }
 
 void EgmSpeedRef::SharedDtor() {
-  if (this != &EgmSpeedRef_default_instance_.get()) {
-    delete joints_;
-    delete cartesians_;
-    delete externaljoints_;
-  }
+  if (this != internal_default_instance()) delete joints_;
+  if (this != internal_default_instance()) delete cartesians_;
+  if (this != internal_default_instance()) delete externaljoints_;
 }
 
 void EgmSpeedRef::SetCachedSize(int size) const {
@@ -4376,16 +4312,14 @@ void EgmSpeedRef::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmSpeedRef::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmSpeedRef_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmSpeedRef& EgmSpeedRef::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmSpeedRef> EgmSpeedRef_default_instance_;
 
 EgmSpeedRef* EgmSpeedRef::New(::google::protobuf::Arena* arena) const {
   EgmSpeedRef* n = new EgmSpeedRef;
@@ -4397,21 +4331,27 @@ EgmSpeedRef* EgmSpeedRef::New(::google::protobuf::Arena* arena) const {
 
 void EgmSpeedRef::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmSpeedRef)
-  if (_has_bits_[0 / 32] & 7u) {
-    if (has_joints()) {
-      if (joints_ != NULL) joints_->::abb::egm::EgmJoints::Clear();
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 7u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(joints_ != NULL);
+      joints_->::abb::egm::EgmJoints::Clear();
     }
-    if (has_cartesians()) {
-      if (cartesians_ != NULL) cartesians_->::abb::egm::EgmCartesianSpeed::Clear();
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(cartesians_ != NULL);
+      cartesians_->::abb::egm::EgmCartesianSpeed::Clear();
     }
-    if (has_externaljoints()) {
-      if (externaljoints_ != NULL) externaljoints_->::abb::egm::EgmJoints::Clear();
+    if (cached_has_bits & 0x00000004u) {
+      GOOGLE_DCHECK(externaljoints_ != NULL);
+      externaljoints_->::abb::egm::EgmJoints::Clear();
     }
   }
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmSpeedRef::MergePartialFromCodedStream(
@@ -4420,57 +4360,53 @@ bool EgmSpeedRef::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmSpeedRef)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.EgmJoints joints = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_joints()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_cartesians;
         break;
       }
 
       // optional .abb.egm.EgmCartesianSpeed cartesians = 2;
       case 2: {
-        if (tag == 18) {
-         parse_cartesians:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_cartesians()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_externalJoints;
         break;
       }
 
       // optional .abb.egm.EgmJoints externalJoints = 3;
       case 3: {
-        if (tag == 26) {
-         parse_externalJoints:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_externaljoints()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -4487,27 +4423,31 @@ failure:
 void EgmSpeedRef::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmSpeedRef)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional .abb.egm.EgmJoints joints = 1;
-  if (has_joints()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->joints_, output);
   }
 
   // optional .abb.egm.EgmCartesianSpeed cartesians = 2;
-  if (has_cartesians()) {
+  if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->cartesians_, output);
   }
 
   // optional .abb.egm.EgmJoints externalJoints = 3;
-  if (has_externaljoints()) {
+  if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->externaljoints_, output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmSpeedRef)
 }
@@ -4516,30 +4456,34 @@ void EgmSpeedRef::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmSpeedRef)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional .abb.egm.EgmJoints joints = 1;
-  if (has_joints()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        1, *this->joints_, false, target);
+        1, *this->joints_, deterministic, target);
   }
 
   // optional .abb.egm.EgmCartesianSpeed cartesians = 2;
-  if (has_cartesians()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        2, *this->cartesians_, false, target);
+        2, *this->cartesians_, deterministic, target);
   }
 
   // optional .abb.egm.EgmJoints externalJoints = 3;
-  if (has_externaljoints()) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        3, *this->externaljoints_, false, target);
+        3, *this->externaljoints_, deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmSpeedRef)
   return target;
@@ -4549,6 +4493,11 @@ size_t EgmSpeedRef::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmSpeedRef)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   if (_has_bits_[0 / 32] & 7u) {
     // optional .abb.egm.EgmJoints joints = 1;
     if (has_joints()) {
@@ -4572,11 +4521,6 @@ size_t EgmSpeedRef::ByteSizeLong() const {
     }
 
   }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -4586,7 +4530,7 @@ size_t EgmSpeedRef::ByteSizeLong() const {
 
 void EgmSpeedRef::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmSpeedRef)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmSpeedRef* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmSpeedRef>(
           &from);
@@ -4595,35 +4539,28 @@ void EgmSpeedRef::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmSpeedRef)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmSpeedRef::MergeFrom(const EgmSpeedRef& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmSpeedRef)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmSpeedRef::UnsafeMergeFrom(const EgmSpeedRef& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_joints()) {
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 7u) {
+    if (cached_has_bits & 0x00000001u) {
       mutable_joints()->::abb::egm::EgmJoints::MergeFrom(from.joints());
     }
-    if (from.has_cartesians()) {
+    if (cached_has_bits & 0x00000002u) {
       mutable_cartesians()->::abb::egm::EgmCartesianSpeed::MergeFrom(from.cartesians());
     }
-    if (from.has_externaljoints()) {
+    if (cached_has_bits & 0x00000004u) {
       mutable_externaljoints()->::abb::egm::EgmJoints::MergeFrom(from.externaljoints());
     }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
   }
 }
 
@@ -4638,11 +4575,10 @@ void EgmSpeedRef::CopyFrom(const EgmSpeedRef& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmSpeedRef)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmSpeedRef::IsInitialized() const {
-
   return true;
 }
 
@@ -4651,20 +4587,18 @@ void EgmSpeedRef::Swap(EgmSpeedRef* other) {
   InternalSwap(other);
 }
 void EgmSpeedRef::InternalSwap(EgmSpeedRef* other) {
-  std::swap(joints_, other->joints_);
-  std::swap(cartesians_, other->cartesians_);
-  std::swap(externaljoints_, other->externaljoints_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(joints_, other->joints_);
+  swap(cartesians_, other->cartesians_);
+  swap(externaljoints_, other->externaljoints_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmSpeedRef::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmSpeedRef_descriptor_;
-  metadata.reflection = EgmSpeedRef_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -4685,9 +4619,10 @@ void EgmSpeedRef::clear_joints() {
   clear_has_joints();
 }
 const ::abb::egm::EgmJoints& EgmSpeedRef::joints() const {
+  const ::abb::egm::EgmJoints* p = joints_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmSpeedRef.joints)
-  return joints_ != NULL ? *joints_
-                         : *::abb::egm::EgmJoints::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmJoints*>(
+      &::abb::egm::_EgmJoints_default_instance_);
 }
 ::abb::egm::EgmJoints* EgmSpeedRef::mutable_joints() {
   set_has_joints();
@@ -4730,9 +4665,10 @@ void EgmSpeedRef::clear_cartesians() {
   clear_has_cartesians();
 }
 const ::abb::egm::EgmCartesianSpeed& EgmSpeedRef::cartesians() const {
+  const ::abb::egm::EgmCartesianSpeed* p = cartesians_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmSpeedRef.cartesians)
-  return cartesians_ != NULL ? *cartesians_
-                         : *::abb::egm::EgmCartesianSpeed::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmCartesianSpeed*>(
+      &::abb::egm::_EgmCartesianSpeed_default_instance_);
 }
 ::abb::egm::EgmCartesianSpeed* EgmSpeedRef::mutable_cartesians() {
   set_has_cartesians();
@@ -4775,9 +4711,10 @@ void EgmSpeedRef::clear_externaljoints() {
   clear_has_externaljoints();
 }
 const ::abb::egm::EgmJoints& EgmSpeedRef::externaljoints() const {
+  const ::abb::egm::EgmJoints* p = externaljoints_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmSpeedRef.externalJoints)
-  return externaljoints_ != NULL ? *externaljoints_
-                         : *::abb::egm::EgmJoints::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmJoints*>(
+      &::abb::egm::_EgmJoints_default_instance_);
 }
 ::abb::egm::EgmJoints* EgmSpeedRef::mutable_externaljoints() {
   set_has_externaljoints();
@@ -4805,9 +4742,6 @@ void EgmSpeedRef::set_allocated_externaljoints(::abb::egm::EgmJoints* externaljo
   // @@protoc_insertion_point(field_set_allocated:abb.egm.EgmSpeedRef.externalJoints)
 }
 
-inline const EgmSpeedRef* EgmSpeedRef::internal_default_instance() {
-  return &EgmSpeedRef_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -4819,28 +4753,32 @@ const int EgmPathCorr::kAgeFieldNumber;
 
 EgmPathCorr::EgmPathCorr()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmPathCorr)
 }
-
-void EgmPathCorr::InitAsDefaultInstance() {
-  pos_ = const_cast< ::abb::egm::EgmCartesian*>(
-      ::abb::egm::EgmCartesian::internal_default_instance());
-}
-
 EgmPathCorr::EgmPathCorr(const EgmPathCorr& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_pos()) {
+    pos_ = new ::abb::egm::EgmCartesian(*from.pos_);
+  } else {
+    pos_ = NULL;
+  }
+  age_ = from.age_;
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmPathCorr)
 }
 
 void EgmPathCorr::SharedCtor() {
   _cached_size_ = 0;
-  pos_ = NULL;
-  age_ = 0u;
+  ::memset(&pos_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&age_) -
+      reinterpret_cast<char*>(&pos_)) + sizeof(age_));
 }
 
 EgmPathCorr::~EgmPathCorr() {
@@ -4849,9 +4787,7 @@ EgmPathCorr::~EgmPathCorr() {
 }
 
 void EgmPathCorr::SharedDtor() {
-  if (this != &EgmPathCorr_default_instance_.get()) {
-    delete pos_;
-  }
+  if (this != internal_default_instance()) delete pos_;
 }
 
 void EgmPathCorr::SetCachedSize(int size) const {
@@ -4860,16 +4796,14 @@ void EgmPathCorr::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmPathCorr::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmPathCorr_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmPathCorr& EgmPathCorr::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmPathCorr> EgmPathCorr_default_instance_;
 
 EgmPathCorr* EgmPathCorr::New(::google::protobuf::Arena* arena) const {
   EgmPathCorr* n = new EgmPathCorr;
@@ -4881,16 +4815,17 @@ EgmPathCorr* EgmPathCorr::New(::google::protobuf::Arena* arena) const {
 
 void EgmPathCorr::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmPathCorr)
-  if (_has_bits_[0 / 32] & 3u) {
-    if (has_pos()) {
-      if (pos_ != NULL) pos_->::abb::egm::EgmCartesian::Clear();
-    }
-    age_ = 0u;
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (has_pos()) {
+    GOOGLE_DCHECK(pos_ != NULL);
+    pos_->::abb::egm::EgmCartesian::Clear();
   }
+  age_ = 0u;
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmPathCorr::MergePartialFromCodedStream(
@@ -4899,26 +4834,26 @@ bool EgmPathCorr::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmPathCorr)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required .abb.egm.EgmCartesian pos = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_pos()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_age;
         break;
       }
 
       // required uint32 age = 2;
       case 2: {
-        if (tag == 16) {
-         parse_age:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
           set_has_age();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
@@ -4926,19 +4861,16 @@ bool EgmPathCorr::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -4955,20 +4887,24 @@ failure:
 void EgmPathCorr::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmPathCorr)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // required .abb.egm.EgmCartesian pos = 1;
-  if (has_pos()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->pos_, output);
   }
 
   // required uint32 age = 2;
-  if (has_age()) {
+  if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->age(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmPathCorr)
 }
@@ -4977,21 +4913,25 @@ void EgmPathCorr::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmPathCorr)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // required .abb.egm.EgmCartesian pos = 1;
-  if (has_pos()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        1, *this->pos_, false, target);
+        1, *this->pos_, deterministic, target);
   }
 
   // required uint32 age = 2;
-  if (has_age()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->age(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmPathCorr)
   return target;
@@ -5021,6 +4961,11 @@ size_t EgmPathCorr::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmPathCorr)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
     // required .abb.egm.EgmCartesian pos = 1;
     total_size += 1 +
@@ -5035,11 +4980,6 @@ size_t EgmPathCorr::ByteSizeLong() const {
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -5049,7 +4989,7 @@ size_t EgmPathCorr::ByteSizeLong() const {
 
 void EgmPathCorr::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmPathCorr)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmPathCorr* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmPathCorr>(
           &from);
@@ -5058,32 +4998,26 @@ void EgmPathCorr::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmPathCorr)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmPathCorr::MergeFrom(const EgmPathCorr& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmPathCorr)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmPathCorr::UnsafeMergeFrom(const EgmPathCorr& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_pos()) {
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 3u) {
+    if (cached_has_bits & 0x00000001u) {
       mutable_pos()->::abb::egm::EgmCartesian::MergeFrom(from.pos());
     }
-    if (from.has_age()) {
-      set_age(from.age());
+    if (cached_has_bits & 0x00000002u) {
+      age_ = from.age_;
     }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
+    _has_bits_[0] |= cached_has_bits;
   }
 }
 
@@ -5098,12 +5032,11 @@ void EgmPathCorr::CopyFrom(const EgmPathCorr& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmPathCorr)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmPathCorr::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
-
   if (has_pos()) {
     if (!this->pos_->IsInitialized()) return false;
   }
@@ -5115,19 +5048,17 @@ void EgmPathCorr::Swap(EgmPathCorr* other) {
   InternalSwap(other);
 }
 void EgmPathCorr::InternalSwap(EgmPathCorr* other) {
-  std::swap(pos_, other->pos_);
-  std::swap(age_, other->age_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(pos_, other->pos_);
+  swap(age_, other->age_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmPathCorr::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmPathCorr_descriptor_;
-  metadata.reflection = EgmPathCorr_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -5148,9 +5079,10 @@ void EgmPathCorr::clear_pos() {
   clear_has_pos();
 }
 const ::abb::egm::EgmCartesian& EgmPathCorr::pos() const {
+  const ::abb::egm::EgmCartesian* p = pos_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmPathCorr.pos)
-  return pos_ != NULL ? *pos_
-                         : *::abb::egm::EgmCartesian::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmCartesian*>(
+      &::abb::egm::_EgmCartesian_default_instance_);
 }
 ::abb::egm::EgmCartesian* EgmPathCorr::mutable_pos() {
   set_has_pos();
@@ -5202,9 +5134,6 @@ void EgmPathCorr::set_age(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:abb.egm.EgmPathCorr.age)
 }
 
-inline const EgmPathCorr* EgmPathCorr::internal_default_instance() {
-  return &EgmPathCorr_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -5217,33 +5146,41 @@ const int EgmFeedBack::kExternalJointsFieldNumber;
 
 EgmFeedBack::EgmFeedBack()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmFeedBack)
 }
-
-void EgmFeedBack::InitAsDefaultInstance() {
-  joints_ = const_cast< ::abb::egm::EgmJoints*>(
-      ::abb::egm::EgmJoints::internal_default_instance());
-  cartesian_ = const_cast< ::abb::egm::EgmPose*>(
-      ::abb::egm::EgmPose::internal_default_instance());
-  externaljoints_ = const_cast< ::abb::egm::EgmJoints*>(
-      ::abb::egm::EgmJoints::internal_default_instance());
-}
-
 EgmFeedBack::EgmFeedBack(const EgmFeedBack& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_joints()) {
+    joints_ = new ::abb::egm::EgmJoints(*from.joints_);
+  } else {
+    joints_ = NULL;
+  }
+  if (from.has_cartesian()) {
+    cartesian_ = new ::abb::egm::EgmPose(*from.cartesian_);
+  } else {
+    cartesian_ = NULL;
+  }
+  if (from.has_externaljoints()) {
+    externaljoints_ = new ::abb::egm::EgmJoints(*from.externaljoints_);
+  } else {
+    externaljoints_ = NULL;
+  }
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmFeedBack)
 }
 
 void EgmFeedBack::SharedCtor() {
   _cached_size_ = 0;
-  joints_ = NULL;
-  cartesian_ = NULL;
-  externaljoints_ = NULL;
+  ::memset(&joints_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&externaljoints_) -
+      reinterpret_cast<char*>(&joints_)) + sizeof(externaljoints_));
 }
 
 EgmFeedBack::~EgmFeedBack() {
@@ -5252,11 +5189,9 @@ EgmFeedBack::~EgmFeedBack() {
 }
 
 void EgmFeedBack::SharedDtor() {
-  if (this != &EgmFeedBack_default_instance_.get()) {
-    delete joints_;
-    delete cartesian_;
-    delete externaljoints_;
-  }
+  if (this != internal_default_instance()) delete joints_;
+  if (this != internal_default_instance()) delete cartesian_;
+  if (this != internal_default_instance()) delete externaljoints_;
 }
 
 void EgmFeedBack::SetCachedSize(int size) const {
@@ -5265,16 +5200,14 @@ void EgmFeedBack::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmFeedBack::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmFeedBack_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmFeedBack& EgmFeedBack::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmFeedBack> EgmFeedBack_default_instance_;
 
 EgmFeedBack* EgmFeedBack::New(::google::protobuf::Arena* arena) const {
   EgmFeedBack* n = new EgmFeedBack;
@@ -5286,21 +5219,27 @@ EgmFeedBack* EgmFeedBack::New(::google::protobuf::Arena* arena) const {
 
 void EgmFeedBack::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmFeedBack)
-  if (_has_bits_[0 / 32] & 7u) {
-    if (has_joints()) {
-      if (joints_ != NULL) joints_->::abb::egm::EgmJoints::Clear();
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 7u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(joints_ != NULL);
+      joints_->::abb::egm::EgmJoints::Clear();
     }
-    if (has_cartesian()) {
-      if (cartesian_ != NULL) cartesian_->::abb::egm::EgmPose::Clear();
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(cartesian_ != NULL);
+      cartesian_->::abb::egm::EgmPose::Clear();
     }
-    if (has_externaljoints()) {
-      if (externaljoints_ != NULL) externaljoints_->::abb::egm::EgmJoints::Clear();
+    if (cached_has_bits & 0x00000004u) {
+      GOOGLE_DCHECK(externaljoints_ != NULL);
+      externaljoints_->::abb::egm::EgmJoints::Clear();
     }
   }
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmFeedBack::MergePartialFromCodedStream(
@@ -5309,57 +5248,53 @@ bool EgmFeedBack::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmFeedBack)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.EgmJoints joints = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_joints()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_cartesian;
         break;
       }
 
       // optional .abb.egm.EgmPose cartesian = 2;
       case 2: {
-        if (tag == 18) {
-         parse_cartesian:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_cartesian()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_externalJoints;
         break;
       }
 
       // optional .abb.egm.EgmJoints externalJoints = 3;
       case 3: {
-        if (tag == 26) {
-         parse_externalJoints:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_externaljoints()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -5376,27 +5311,31 @@ failure:
 void EgmFeedBack::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmFeedBack)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional .abb.egm.EgmJoints joints = 1;
-  if (has_joints()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->joints_, output);
   }
 
   // optional .abb.egm.EgmPose cartesian = 2;
-  if (has_cartesian()) {
+  if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->cartesian_, output);
   }
 
   // optional .abb.egm.EgmJoints externalJoints = 3;
-  if (has_externaljoints()) {
+  if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->externaljoints_, output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmFeedBack)
 }
@@ -5405,30 +5344,34 @@ void EgmFeedBack::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmFeedBack)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional .abb.egm.EgmJoints joints = 1;
-  if (has_joints()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        1, *this->joints_, false, target);
+        1, *this->joints_, deterministic, target);
   }
 
   // optional .abb.egm.EgmPose cartesian = 2;
-  if (has_cartesian()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        2, *this->cartesian_, false, target);
+        2, *this->cartesian_, deterministic, target);
   }
 
   // optional .abb.egm.EgmJoints externalJoints = 3;
-  if (has_externaljoints()) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        3, *this->externaljoints_, false, target);
+        3, *this->externaljoints_, deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmFeedBack)
   return target;
@@ -5438,6 +5381,11 @@ size_t EgmFeedBack::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmFeedBack)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   if (_has_bits_[0 / 32] & 7u) {
     // optional .abb.egm.EgmJoints joints = 1;
     if (has_joints()) {
@@ -5461,11 +5409,6 @@ size_t EgmFeedBack::ByteSizeLong() const {
     }
 
   }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -5475,7 +5418,7 @@ size_t EgmFeedBack::ByteSizeLong() const {
 
 void EgmFeedBack::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmFeedBack)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmFeedBack* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmFeedBack>(
           &from);
@@ -5484,35 +5427,28 @@ void EgmFeedBack::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmFeedBack)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmFeedBack::MergeFrom(const EgmFeedBack& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmFeedBack)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmFeedBack::UnsafeMergeFrom(const EgmFeedBack& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_joints()) {
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 7u) {
+    if (cached_has_bits & 0x00000001u) {
       mutable_joints()->::abb::egm::EgmJoints::MergeFrom(from.joints());
     }
-    if (from.has_cartesian()) {
+    if (cached_has_bits & 0x00000002u) {
       mutable_cartesian()->::abb::egm::EgmPose::MergeFrom(from.cartesian());
     }
-    if (from.has_externaljoints()) {
+    if (cached_has_bits & 0x00000004u) {
       mutable_externaljoints()->::abb::egm::EgmJoints::MergeFrom(from.externaljoints());
     }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
   }
 }
 
@@ -5527,11 +5463,10 @@ void EgmFeedBack::CopyFrom(const EgmFeedBack& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmFeedBack)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmFeedBack::IsInitialized() const {
-
   if (has_cartesian()) {
     if (!this->cartesian_->IsInitialized()) return false;
   }
@@ -5543,20 +5478,18 @@ void EgmFeedBack::Swap(EgmFeedBack* other) {
   InternalSwap(other);
 }
 void EgmFeedBack::InternalSwap(EgmFeedBack* other) {
-  std::swap(joints_, other->joints_);
-  std::swap(cartesian_, other->cartesian_);
-  std::swap(externaljoints_, other->externaljoints_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(joints_, other->joints_);
+  swap(cartesian_, other->cartesian_);
+  swap(externaljoints_, other->externaljoints_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmFeedBack::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmFeedBack_descriptor_;
-  metadata.reflection = EgmFeedBack_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -5577,9 +5510,10 @@ void EgmFeedBack::clear_joints() {
   clear_has_joints();
 }
 const ::abb::egm::EgmJoints& EgmFeedBack::joints() const {
+  const ::abb::egm::EgmJoints* p = joints_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmFeedBack.joints)
-  return joints_ != NULL ? *joints_
-                         : *::abb::egm::EgmJoints::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmJoints*>(
+      &::abb::egm::_EgmJoints_default_instance_);
 }
 ::abb::egm::EgmJoints* EgmFeedBack::mutable_joints() {
   set_has_joints();
@@ -5622,9 +5556,10 @@ void EgmFeedBack::clear_cartesian() {
   clear_has_cartesian();
 }
 const ::abb::egm::EgmPose& EgmFeedBack::cartesian() const {
+  const ::abb::egm::EgmPose* p = cartesian_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmFeedBack.cartesian)
-  return cartesian_ != NULL ? *cartesian_
-                         : *::abb::egm::EgmPose::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmPose*>(
+      &::abb::egm::_EgmPose_default_instance_);
 }
 ::abb::egm::EgmPose* EgmFeedBack::mutable_cartesian() {
   set_has_cartesian();
@@ -5667,9 +5602,10 @@ void EgmFeedBack::clear_externaljoints() {
   clear_has_externaljoints();
 }
 const ::abb::egm::EgmJoints& EgmFeedBack::externaljoints() const {
+  const ::abb::egm::EgmJoints* p = externaljoints_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmFeedBack.externalJoints)
-  return externaljoints_ != NULL ? *externaljoints_
-                         : *::abb::egm::EgmJoints::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmJoints*>(
+      &::abb::egm::_EgmJoints_default_instance_);
 }
 ::abb::egm::EgmJoints* EgmFeedBack::mutable_externaljoints() {
   set_has_externaljoints();
@@ -5697,55 +5633,29 @@ void EgmFeedBack::set_allocated_externaljoints(::abb::egm::EgmJoints* externaljo
   // @@protoc_insertion_point(field_set_allocated:abb.egm.EgmFeedBack.externalJoints)
 }
 
-inline const EgmFeedBack* EgmFeedBack::internal_default_instance() {
-  return &EgmFeedBack_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
-const ::google::protobuf::EnumDescriptor* EgmMotorState_MotorStateType_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmMotorState_MotorStateType_descriptor_;
-}
-bool EgmMotorState_MotorStateType_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-      return true;
-    default:
-      return false;
-  }
-}
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const EgmMotorState_MotorStateType EgmMotorState::MOTORS_UNDEFINED;
-const EgmMotorState_MotorStateType EgmMotorState::MOTORS_ON;
-const EgmMotorState_MotorStateType EgmMotorState::MOTORS_OFF;
-const EgmMotorState_MotorStateType EgmMotorState::MotorStateType_MIN;
-const EgmMotorState_MotorStateType EgmMotorState::MotorStateType_MAX;
-const int EgmMotorState::MotorStateType_ARRAYSIZE;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int EgmMotorState::kStateFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 EgmMotorState::EgmMotorState()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmMotorState)
 }
-
-void EgmMotorState::InitAsDefaultInstance() {
-}
-
 EgmMotorState::EgmMotorState(const EgmMotorState& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  state_ = from.state_;
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmMotorState)
 }
 
@@ -5768,16 +5678,14 @@ void EgmMotorState::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmMotorState::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmMotorState_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmMotorState& EgmMotorState::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmMotorState> EgmMotorState_default_instance_;
 
 EgmMotorState* EgmMotorState::New(::google::protobuf::Arena* arena) const {
   EgmMotorState* n = new EgmMotorState;
@@ -5789,11 +5697,13 @@ EgmMotorState* EgmMotorState::New(::google::protobuf::Arena* arena) const {
 
 void EgmMotorState::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmMotorState)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   state_ = 0;
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmMotorState::MergePartialFromCodedStream(
@@ -5802,13 +5712,14 @@ bool EgmMotorState::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmMotorState)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required .abb.egm.EgmMotorState.MotorStateType state = 1;
       case 1: {
-        if (tag == 8) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -5816,24 +5727,22 @@ bool EgmMotorState::MergePartialFromCodedStream(
           if (::abb::egm::EgmMotorState_MotorStateType_IsValid(value)) {
             set_state(static_cast< ::abb::egm::EgmMotorState_MotorStateType >(value));
           } else {
-            mutable_unknown_fields()->AddVarint(1, value);
+            mutable_unknown_fields()->AddVarint(
+                1, static_cast< ::google::protobuf::uint64>(value));
           }
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -5850,15 +5759,19 @@ failure:
 void EgmMotorState::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmMotorState)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // required .abb.egm.EgmMotorState.MotorStateType state = 1;
-  if (has_state()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->state(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmMotorState)
 }
@@ -5867,15 +5780,19 @@ void EgmMotorState::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmMotorState)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // required .abb.egm.EgmMotorState.MotorStateType state = 1;
-  if (has_state()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->state(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmMotorState)
   return target;
@@ -5885,15 +5802,15 @@ size_t EgmMotorState::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmMotorState)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   // required .abb.egm.EgmMotorState.MotorStateType state = 1;
   if (has_state()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->state());
-  }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -5904,7 +5821,7 @@ size_t EgmMotorState::ByteSizeLong() const {
 
 void EgmMotorState::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmMotorState)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmMotorState* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmMotorState>(
           &from);
@@ -5913,29 +5830,19 @@ void EgmMotorState::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmMotorState)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmMotorState::MergeFrom(const EgmMotorState& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmMotorState)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmMotorState::UnsafeMergeFrom(const EgmMotorState& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_state()) {
-      set_state(from.state());
-    }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
+  if (from.has_state()) {
+    set_state(from.state());
   }
 }
 
@@ -5950,12 +5857,11 @@ void EgmMotorState::CopyFrom(const EgmMotorState& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmMotorState)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmMotorState::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-
   return true;
 }
 
@@ -5964,18 +5870,16 @@ void EgmMotorState::Swap(EgmMotorState* other) {
   InternalSwap(other);
 }
 void EgmMotorState::InternalSwap(EgmMotorState* other) {
-  std::swap(state_, other->state_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(state_, other->state_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmMotorState::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmMotorState_descriptor_;
-  metadata.reflection = EgmMotorState_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -6006,57 +5910,29 @@ void EgmMotorState::set_state(::abb::egm::EgmMotorState_MotorStateType value) {
   // @@protoc_insertion_point(field_set:abb.egm.EgmMotorState.state)
 }
 
-inline const EgmMotorState* EgmMotorState::internal_default_instance() {
-  return &EgmMotorState_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
-const ::google::protobuf::EnumDescriptor* EgmMCIState_MCIStateType_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmMCIState_MCIStateType_descriptor_;
-}
-bool EgmMCIState_MCIStateType_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-      return true;
-    default:
-      return false;
-  }
-}
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const EgmMCIState_MCIStateType EgmMCIState::MCI_UNDEFINED;
-const EgmMCIState_MCIStateType EgmMCIState::MCI_ERROR;
-const EgmMCIState_MCIStateType EgmMCIState::MCI_STOPPED;
-const EgmMCIState_MCIStateType EgmMCIState::MCI_RUNNING;
-const EgmMCIState_MCIStateType EgmMCIState::MCIStateType_MIN;
-const EgmMCIState_MCIStateType EgmMCIState::MCIStateType_MAX;
-const int EgmMCIState::MCIStateType_ARRAYSIZE;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int EgmMCIState::kStateFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 EgmMCIState::EgmMCIState()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmMCIState)
 }
-
-void EgmMCIState::InitAsDefaultInstance() {
-}
-
 EgmMCIState::EgmMCIState(const EgmMCIState& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  state_ = from.state_;
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmMCIState)
 }
 
@@ -6079,16 +5955,14 @@ void EgmMCIState::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmMCIState::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmMCIState_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmMCIState& EgmMCIState::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmMCIState> EgmMCIState_default_instance_;
 
 EgmMCIState* EgmMCIState::New(::google::protobuf::Arena* arena) const {
   EgmMCIState* n = new EgmMCIState;
@@ -6100,11 +5974,13 @@ EgmMCIState* EgmMCIState::New(::google::protobuf::Arena* arena) const {
 
 void EgmMCIState::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmMCIState)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   state_ = 0;
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmMCIState::MergePartialFromCodedStream(
@@ -6113,13 +5989,14 @@ bool EgmMCIState::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmMCIState)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required .abb.egm.EgmMCIState.MCIStateType state = 1 [default = MCI_UNDEFINED];
       case 1: {
-        if (tag == 8) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -6127,24 +6004,22 @@ bool EgmMCIState::MergePartialFromCodedStream(
           if (::abb::egm::EgmMCIState_MCIStateType_IsValid(value)) {
             set_state(static_cast< ::abb::egm::EgmMCIState_MCIStateType >(value));
           } else {
-            mutable_unknown_fields()->AddVarint(1, value);
+            mutable_unknown_fields()->AddVarint(
+                1, static_cast< ::google::protobuf::uint64>(value));
           }
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -6161,15 +6036,19 @@ failure:
 void EgmMCIState::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmMCIState)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // required .abb.egm.EgmMCIState.MCIStateType state = 1 [default = MCI_UNDEFINED];
-  if (has_state()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->state(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmMCIState)
 }
@@ -6178,15 +6057,19 @@ void EgmMCIState::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmMCIState)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // required .abb.egm.EgmMCIState.MCIStateType state = 1 [default = MCI_UNDEFINED];
-  if (has_state()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->state(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmMCIState)
   return target;
@@ -6196,15 +6079,15 @@ size_t EgmMCIState::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmMCIState)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   // required .abb.egm.EgmMCIState.MCIStateType state = 1 [default = MCI_UNDEFINED];
   if (has_state()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->state());
-  }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -6215,7 +6098,7 @@ size_t EgmMCIState::ByteSizeLong() const {
 
 void EgmMCIState::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmMCIState)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmMCIState* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmMCIState>(
           &from);
@@ -6224,29 +6107,19 @@ void EgmMCIState::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmMCIState)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmMCIState::MergeFrom(const EgmMCIState& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmMCIState)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmMCIState::UnsafeMergeFrom(const EgmMCIState& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_state()) {
-      set_state(from.state());
-    }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
+  if (from.has_state()) {
+    set_state(from.state());
   }
 }
 
@@ -6261,12 +6134,11 @@ void EgmMCIState::CopyFrom(const EgmMCIState& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmMCIState)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmMCIState::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-
   return true;
 }
 
@@ -6275,18 +6147,16 @@ void EgmMCIState::Swap(EgmMCIState* other) {
   InternalSwap(other);
 }
 void EgmMCIState::InternalSwap(EgmMCIState* other) {
-  std::swap(state_, other->state_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(state_, other->state_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmMCIState::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmMCIState_descriptor_;
-  metadata.reflection = EgmMCIState_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -6317,55 +6187,29 @@ void EgmMCIState::set_state(::abb::egm::EgmMCIState_MCIStateType value) {
   // @@protoc_insertion_point(field_set:abb.egm.EgmMCIState.state)
 }
 
-inline const EgmMCIState* EgmMCIState::internal_default_instance() {
-  return &EgmMCIState_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
-const ::google::protobuf::EnumDescriptor* EgmRapidCtrlExecState_RapidCtrlExecStateType_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmRapidCtrlExecState_RapidCtrlExecStateType_descriptor_;
-}
-bool EgmRapidCtrlExecState_RapidCtrlExecStateType_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-      return true;
-    default:
-      return false;
-  }
-}
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const EgmRapidCtrlExecState_RapidCtrlExecStateType EgmRapidCtrlExecState::RAPID_UNDEFINED;
-const EgmRapidCtrlExecState_RapidCtrlExecStateType EgmRapidCtrlExecState::RAPID_STOPPED;
-const EgmRapidCtrlExecState_RapidCtrlExecStateType EgmRapidCtrlExecState::RAPID_RUNNING;
-const EgmRapidCtrlExecState_RapidCtrlExecStateType EgmRapidCtrlExecState::RapidCtrlExecStateType_MIN;
-const EgmRapidCtrlExecState_RapidCtrlExecStateType EgmRapidCtrlExecState::RapidCtrlExecStateType_MAX;
-const int EgmRapidCtrlExecState::RapidCtrlExecStateType_ARRAYSIZE;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int EgmRapidCtrlExecState::kStateFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 EgmRapidCtrlExecState::EgmRapidCtrlExecState()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmRapidCtrlExecState)
 }
-
-void EgmRapidCtrlExecState::InitAsDefaultInstance() {
-}
-
 EgmRapidCtrlExecState::EgmRapidCtrlExecState(const EgmRapidCtrlExecState& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  state_ = from.state_;
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmRapidCtrlExecState)
 }
 
@@ -6388,16 +6232,14 @@ void EgmRapidCtrlExecState::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmRapidCtrlExecState::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmRapidCtrlExecState_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmRapidCtrlExecState& EgmRapidCtrlExecState::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmRapidCtrlExecState> EgmRapidCtrlExecState_default_instance_;
 
 EgmRapidCtrlExecState* EgmRapidCtrlExecState::New(::google::protobuf::Arena* arena) const {
   EgmRapidCtrlExecState* n = new EgmRapidCtrlExecState;
@@ -6409,11 +6251,13 @@ EgmRapidCtrlExecState* EgmRapidCtrlExecState::New(::google::protobuf::Arena* are
 
 void EgmRapidCtrlExecState::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmRapidCtrlExecState)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   state_ = 0;
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmRapidCtrlExecState::MergePartialFromCodedStream(
@@ -6422,13 +6266,14 @@ bool EgmRapidCtrlExecState::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmRapidCtrlExecState)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required .abb.egm.EgmRapidCtrlExecState.RapidCtrlExecStateType state = 1 [default = RAPID_UNDEFINED];
       case 1: {
-        if (tag == 8) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -6436,24 +6281,22 @@ bool EgmRapidCtrlExecState::MergePartialFromCodedStream(
           if (::abb::egm::EgmRapidCtrlExecState_RapidCtrlExecStateType_IsValid(value)) {
             set_state(static_cast< ::abb::egm::EgmRapidCtrlExecState_RapidCtrlExecStateType >(value));
           } else {
-            mutable_unknown_fields()->AddVarint(1, value);
+            mutable_unknown_fields()->AddVarint(
+                1, static_cast< ::google::protobuf::uint64>(value));
           }
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -6470,15 +6313,19 @@ failure:
 void EgmRapidCtrlExecState::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmRapidCtrlExecState)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // required .abb.egm.EgmRapidCtrlExecState.RapidCtrlExecStateType state = 1 [default = RAPID_UNDEFINED];
-  if (has_state()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->state(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmRapidCtrlExecState)
 }
@@ -6487,15 +6334,19 @@ void EgmRapidCtrlExecState::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmRapidCtrlExecState)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // required .abb.egm.EgmRapidCtrlExecState.RapidCtrlExecStateType state = 1 [default = RAPID_UNDEFINED];
-  if (has_state()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->state(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmRapidCtrlExecState)
   return target;
@@ -6505,15 +6356,15 @@ size_t EgmRapidCtrlExecState::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmRapidCtrlExecState)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   // required .abb.egm.EgmRapidCtrlExecState.RapidCtrlExecStateType state = 1 [default = RAPID_UNDEFINED];
   if (has_state()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->state());
-  }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -6524,7 +6375,7 @@ size_t EgmRapidCtrlExecState::ByteSizeLong() const {
 
 void EgmRapidCtrlExecState::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmRapidCtrlExecState)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmRapidCtrlExecState* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmRapidCtrlExecState>(
           &from);
@@ -6533,29 +6384,19 @@ void EgmRapidCtrlExecState::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmRapidCtrlExecState)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmRapidCtrlExecState::MergeFrom(const EgmRapidCtrlExecState& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmRapidCtrlExecState)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmRapidCtrlExecState::UnsafeMergeFrom(const EgmRapidCtrlExecState& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_state()) {
-      set_state(from.state());
-    }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
+  if (from.has_state()) {
+    set_state(from.state());
   }
 }
 
@@ -6570,12 +6411,11 @@ void EgmRapidCtrlExecState::CopyFrom(const EgmRapidCtrlExecState& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmRapidCtrlExecState)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmRapidCtrlExecState::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-
   return true;
 }
 
@@ -6584,18 +6424,16 @@ void EgmRapidCtrlExecState::Swap(EgmRapidCtrlExecState* other) {
   InternalSwap(other);
 }
 void EgmRapidCtrlExecState::InternalSwap(EgmRapidCtrlExecState* other) {
-  std::swap(state_, other->state_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(state_, other->state_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmRapidCtrlExecState::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmRapidCtrlExecState_descriptor_;
-  metadata.reflection = EgmRapidCtrlExecState_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -6626,9 +6464,6 @@ void EgmRapidCtrlExecState::set_state(::abb::egm::EgmRapidCtrlExecState_RapidCtr
   // @@protoc_insertion_point(field_set:abb.egm.EgmRapidCtrlExecState.state)
 }
 
-inline const EgmRapidCtrlExecState* EgmRapidCtrlExecState::internal_default_instance() {
-  return &EgmRapidCtrlExecState_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -6639,19 +6474,19 @@ const int EgmTestSignals::kSignalsFieldNumber;
 
 EgmTestSignals::EgmTestSignals()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmTestSignals)
 }
-
-void EgmTestSignals::InitAsDefaultInstance() {
-}
-
 EgmTestSignals::EgmTestSignals(const EgmTestSignals& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0),
+      signals_(from.signals_) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmTestSignals)
 }
 
@@ -6673,16 +6508,14 @@ void EgmTestSignals::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmTestSignals::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmTestSignals_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmTestSignals& EgmTestSignals::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmTestSignals> EgmTestSignals_default_instance_;
 
 EgmTestSignals* EgmTestSignals::New(::google::protobuf::Arena* arena) const {
   EgmTestSignals* n = new EgmTestSignals;
@@ -6694,11 +6527,13 @@ EgmTestSignals* EgmTestSignals::New(::google::protobuf::Arena* arena) const {
 
 void EgmTestSignals::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmTestSignals)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   signals_.Clear();
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmTestSignals::MergePartialFromCodedStream(
@@ -6707,38 +6542,36 @@ bool EgmTestSignals::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmTestSignals)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // repeated double signals = 1;
       case 1: {
-        if (tag == 9) {
-         parse_signals:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(9u /* 9 & 0xFF */)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 1, 9, input, this->mutable_signals())));
-        } else if (tag == 10) {
+                 1, 9u, input, this->mutable_signals())));
+        } else if (
+            static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
                  input, this->mutable_signals())));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(9)) goto parse_signals;
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -6755,15 +6588,18 @@ failure:
 void EgmTestSignals::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmTestSignals)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
   // repeated double signals = 1;
-  for (int i = 0; i < this->signals_size(); i++) {
+  for (int i = 0, n = this->signals_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(
       1, this->signals(i), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmTestSignals)
 }
@@ -6772,15 +6608,16 @@ void EgmTestSignals::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmTestSignals)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
   // repeated double signals = 1;
-  for (int i = 0; i < this->signals_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteDoubleToArray(1, this->signals(i), target);
-  }
+  target = ::google::protobuf::internal::WireFormatLite::
+    WriteDoubleToArray(1, this->signals_, target);
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmTestSignals)
   return target;
@@ -6790,21 +6627,20 @@ size_t EgmTestSignals::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmTestSignals)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   // repeated double signals = 1;
   {
-    size_t data_size = 0;
-    unsigned int count = this->signals_size();
-    data_size = 8UL * count;
+    unsigned int count = static_cast<unsigned int>(this->signals_size());
+    size_t data_size = 8UL * count;
     total_size += 1 *
                   ::google::protobuf::internal::FromIntSize(this->signals_size());
     total_size += data_size;
   }
 
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -6814,7 +6650,7 @@ size_t EgmTestSignals::ByteSizeLong() const {
 
 void EgmTestSignals::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmTestSignals)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmTestSignals* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmTestSignals>(
           &from);
@@ -6823,26 +6659,18 @@ void EgmTestSignals::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmTestSignals)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmTestSignals::MergeFrom(const EgmTestSignals& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmTestSignals)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmTestSignals::UnsafeMergeFrom(const EgmTestSignals& from) {
-  GOOGLE_DCHECK(&from != this);
-  signals_.UnsafeMergeFrom(from.signals_);
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
-  }
+  signals_.MergeFrom(from.signals_);
 }
 
 void EgmTestSignals::CopyFrom(const ::google::protobuf::Message& from) {
@@ -6856,11 +6684,10 @@ void EgmTestSignals::CopyFrom(const EgmTestSignals& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmTestSignals)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmTestSignals::IsInitialized() const {
-
   return true;
 }
 
@@ -6869,18 +6696,16 @@ void EgmTestSignals::Swap(EgmTestSignals* other) {
   InternalSwap(other);
 }
 void EgmTestSignals::InternalSwap(EgmTestSignals* other) {
-  signals_.UnsafeArenaSwap(&other->signals_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  signals_.InternalSwap(&other->signals_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmTestSignals::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmTestSignals_descriptor_;
-  metadata.reflection = EgmTestSignals_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -6916,9 +6741,6 @@ EgmTestSignals::mutable_signals() {
   return &signals_;
 }
 
-inline const EgmTestSignals* EgmTestSignals::internal_default_instance() {
-  return &EgmTestSignals_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -6936,46 +6758,62 @@ const int EgmRobot::kRapidExecStateFieldNumber;
 
 EgmRobot::EgmRobot()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmRobot)
 }
-
-void EgmRobot::InitAsDefaultInstance() {
-  header_ = const_cast< ::abb::egm::EgmHeader*>(
-      ::abb::egm::EgmHeader::internal_default_instance());
-  feedback_ = const_cast< ::abb::egm::EgmFeedBack*>(
-      ::abb::egm::EgmFeedBack::internal_default_instance());
-  planned_ = const_cast< ::abb::egm::EgmPlanned*>(
-      ::abb::egm::EgmPlanned::internal_default_instance());
-  motorstate_ = const_cast< ::abb::egm::EgmMotorState*>(
-      ::abb::egm::EgmMotorState::internal_default_instance());
-  mcistate_ = const_cast< ::abb::egm::EgmMCIState*>(
-      ::abb::egm::EgmMCIState::internal_default_instance());
-  testsignals_ = const_cast< ::abb::egm::EgmTestSignals*>(
-      ::abb::egm::EgmTestSignals::internal_default_instance());
-  rapidexecstate_ = const_cast< ::abb::egm::EgmRapidCtrlExecState*>(
-      ::abb::egm::EgmRapidCtrlExecState::internal_default_instance());
-}
-
 EgmRobot::EgmRobot(const EgmRobot& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_header()) {
+    header_ = new ::abb::egm::EgmHeader(*from.header_);
+  } else {
+    header_ = NULL;
+  }
+  if (from.has_feedback()) {
+    feedback_ = new ::abb::egm::EgmFeedBack(*from.feedback_);
+  } else {
+    feedback_ = NULL;
+  }
+  if (from.has_planned()) {
+    planned_ = new ::abb::egm::EgmPlanned(*from.planned_);
+  } else {
+    planned_ = NULL;
+  }
+  if (from.has_motorstate()) {
+    motorstate_ = new ::abb::egm::EgmMotorState(*from.motorstate_);
+  } else {
+    motorstate_ = NULL;
+  }
+  if (from.has_mcistate()) {
+    mcistate_ = new ::abb::egm::EgmMCIState(*from.mcistate_);
+  } else {
+    mcistate_ = NULL;
+  }
+  if (from.has_testsignals()) {
+    testsignals_ = new ::abb::egm::EgmTestSignals(*from.testsignals_);
+  } else {
+    testsignals_ = NULL;
+  }
+  if (from.has_rapidexecstate()) {
+    rapidexecstate_ = new ::abb::egm::EgmRapidCtrlExecState(*from.rapidexecstate_);
+  } else {
+    rapidexecstate_ = NULL;
+  }
+  mciconvergencemet_ = from.mciconvergencemet_;
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmRobot)
 }
 
 void EgmRobot::SharedCtor() {
   _cached_size_ = 0;
-  header_ = NULL;
-  feedback_ = NULL;
-  planned_ = NULL;
-  motorstate_ = NULL;
-  mcistate_ = NULL;
-  testsignals_ = NULL;
-  rapidexecstate_ = NULL;
-  mciconvergencemet_ = false;
+  ::memset(&header_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&mciconvergencemet_) -
+      reinterpret_cast<char*>(&header_)) + sizeof(mciconvergencemet_));
 }
 
 EgmRobot::~EgmRobot() {
@@ -6984,15 +6822,13 @@ EgmRobot::~EgmRobot() {
 }
 
 void EgmRobot::SharedDtor() {
-  if (this != &EgmRobot_default_instance_.get()) {
-    delete header_;
-    delete feedback_;
-    delete planned_;
-    delete motorstate_;
-    delete mcistate_;
-    delete testsignals_;
-    delete rapidexecstate_;
-  }
+  if (this != internal_default_instance()) delete header_;
+  if (this != internal_default_instance()) delete feedback_;
+  if (this != internal_default_instance()) delete planned_;
+  if (this != internal_default_instance()) delete motorstate_;
+  if (this != internal_default_instance()) delete mcistate_;
+  if (this != internal_default_instance()) delete testsignals_;
+  if (this != internal_default_instance()) delete rapidexecstate_;
 }
 
 void EgmRobot::SetCachedSize(int size) const {
@@ -7001,16 +6837,14 @@ void EgmRobot::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmRobot::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmRobot_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmRobot& EgmRobot::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmRobot> EgmRobot_default_instance_;
 
 EgmRobot* EgmRobot::New(::google::protobuf::Arena* arena) const {
   EgmRobot* n = new EgmRobot;
@@ -7022,34 +6856,44 @@ EgmRobot* EgmRobot::New(::google::protobuf::Arena* arena) const {
 
 void EgmRobot::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmRobot)
-  if (_has_bits_[0 / 32] & 255u) {
-    if (has_header()) {
-      if (header_ != NULL) header_->::abb::egm::EgmHeader::Clear();
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 127u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(header_ != NULL);
+      header_->::abb::egm::EgmHeader::Clear();
     }
-    if (has_feedback()) {
-      if (feedback_ != NULL) feedback_->::abb::egm::EgmFeedBack::Clear();
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(feedback_ != NULL);
+      feedback_->::abb::egm::EgmFeedBack::Clear();
     }
-    if (has_planned()) {
-      if (planned_ != NULL) planned_->::abb::egm::EgmPlanned::Clear();
+    if (cached_has_bits & 0x00000004u) {
+      GOOGLE_DCHECK(planned_ != NULL);
+      planned_->::abb::egm::EgmPlanned::Clear();
     }
-    if (has_motorstate()) {
-      if (motorstate_ != NULL) motorstate_->::abb::egm::EgmMotorState::Clear();
+    if (cached_has_bits & 0x00000008u) {
+      GOOGLE_DCHECK(motorstate_ != NULL);
+      motorstate_->::abb::egm::EgmMotorState::Clear();
     }
-    if (has_mcistate()) {
-      if (mcistate_ != NULL) mcistate_->::abb::egm::EgmMCIState::Clear();
+    if (cached_has_bits & 0x00000010u) {
+      GOOGLE_DCHECK(mcistate_ != NULL);
+      mcistate_->::abb::egm::EgmMCIState::Clear();
     }
-    mciconvergencemet_ = false;
-    if (has_testsignals()) {
-      if (testsignals_ != NULL) testsignals_->::abb::egm::EgmTestSignals::Clear();
+    if (cached_has_bits & 0x00000020u) {
+      GOOGLE_DCHECK(testsignals_ != NULL);
+      testsignals_->::abb::egm::EgmTestSignals::Clear();
     }
-    if (has_rapidexecstate()) {
-      if (rapidexecstate_ != NULL) rapidexecstate_->::abb::egm::EgmRapidCtrlExecState::Clear();
+    if (cached_has_bits & 0x00000040u) {
+      GOOGLE_DCHECK(rapidexecstate_ != NULL);
+      rapidexecstate_->::abb::egm::EgmRapidCtrlExecState::Clear();
     }
   }
+  mciconvergencemet_ = false;
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmRobot::MergePartialFromCodedStream(
@@ -7058,78 +6902,74 @@ bool EgmRobot::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmRobot)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.EgmHeader header = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_header()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_feedBack;
         break;
       }
 
       // optional .abb.egm.EgmFeedBack feedBack = 2;
       case 2: {
-        if (tag == 18) {
-         parse_feedBack:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_feedback()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_planned;
         break;
       }
 
       // optional .abb.egm.EgmPlanned planned = 3;
       case 3: {
-        if (tag == 26) {
-         parse_planned:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_planned()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_motorState;
         break;
       }
 
       // optional .abb.egm.EgmMotorState motorState = 4;
       case 4: {
-        if (tag == 34) {
-         parse_motorState:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_motorstate()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(42)) goto parse_mciState;
         break;
       }
 
       // optional .abb.egm.EgmMCIState mciState = 5;
       case 5: {
-        if (tag == 42) {
-         parse_mciState:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_mcistate()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(48)) goto parse_mciConvergenceMet;
         break;
       }
 
       // optional bool mciConvergenceMet = 6;
       case 6: {
-        if (tag == 48) {
-         parse_mciConvergenceMet:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(48u /* 48 & 0xFF */)) {
           set_has_mciconvergencemet();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
@@ -7137,45 +6977,40 @@ bool EgmRobot::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(58)) goto parse_testSignals;
         break;
       }
 
       // optional .abb.egm.EgmTestSignals testSignals = 7;
       case 7: {
-        if (tag == 58) {
-         parse_testSignals:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(58u /* 58 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_testsignals()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(66)) goto parse_rapidExecState;
         break;
       }
 
       // optional .abb.egm.EgmRapidCtrlExecState rapidExecState = 8;
       case 8: {
-        if (tag == 66) {
-         parse_rapidExecState:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(66u /* 66 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_rapidexecstate()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -7192,56 +7027,60 @@ failure:
 void EgmRobot::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmRobot)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional .abb.egm.EgmHeader header = 1;
-  if (has_header()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->header_, output);
   }
 
   // optional .abb.egm.EgmFeedBack feedBack = 2;
-  if (has_feedback()) {
+  if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->feedback_, output);
   }
 
   // optional .abb.egm.EgmPlanned planned = 3;
-  if (has_planned()) {
+  if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->planned_, output);
   }
 
   // optional .abb.egm.EgmMotorState motorState = 4;
-  if (has_motorstate()) {
+  if (cached_has_bits & 0x00000008u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, *this->motorstate_, output);
   }
 
   // optional .abb.egm.EgmMCIState mciState = 5;
-  if (has_mcistate()) {
+  if (cached_has_bits & 0x00000010u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       5, *this->mcistate_, output);
   }
 
   // optional bool mciConvergenceMet = 6;
-  if (has_mciconvergencemet()) {
+  if (cached_has_bits & 0x00000080u) {
     ::google::protobuf::internal::WireFormatLite::WriteBool(6, this->mciconvergencemet(), output);
   }
 
   // optional .abb.egm.EgmTestSignals testSignals = 7;
-  if (has_testsignals()) {
+  if (cached_has_bits & 0x00000020u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       7, *this->testsignals_, output);
   }
 
   // optional .abb.egm.EgmRapidCtrlExecState rapidExecState = 8;
-  if (has_rapidexecstate()) {
+  if (cached_has_bits & 0x00000040u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       8, *this->rapidexecstate_, output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmRobot)
 }
@@ -7250,63 +7089,67 @@ void EgmRobot::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmRobot)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional .abb.egm.EgmHeader header = 1;
-  if (has_header()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        1, *this->header_, false, target);
+        1, *this->header_, deterministic, target);
   }
 
   // optional .abb.egm.EgmFeedBack feedBack = 2;
-  if (has_feedback()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        2, *this->feedback_, false, target);
+        2, *this->feedback_, deterministic, target);
   }
 
   // optional .abb.egm.EgmPlanned planned = 3;
-  if (has_planned()) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        3, *this->planned_, false, target);
+        3, *this->planned_, deterministic, target);
   }
 
   // optional .abb.egm.EgmMotorState motorState = 4;
-  if (has_motorstate()) {
+  if (cached_has_bits & 0x00000008u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        4, *this->motorstate_, false, target);
+        4, *this->motorstate_, deterministic, target);
   }
 
   // optional .abb.egm.EgmMCIState mciState = 5;
-  if (has_mcistate()) {
+  if (cached_has_bits & 0x00000010u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        5, *this->mcistate_, false, target);
+        5, *this->mcistate_, deterministic, target);
   }
 
   // optional bool mciConvergenceMet = 6;
-  if (has_mciconvergencemet()) {
+  if (cached_has_bits & 0x00000080u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(6, this->mciconvergencemet(), target);
   }
 
   // optional .abb.egm.EgmTestSignals testSignals = 7;
-  if (has_testsignals()) {
+  if (cached_has_bits & 0x00000020u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        7, *this->testsignals_, false, target);
+        7, *this->testsignals_, deterministic, target);
   }
 
   // optional .abb.egm.EgmRapidCtrlExecState rapidExecState = 8;
-  if (has_rapidexecstate()) {
+  if (cached_has_bits & 0x00000040u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        8, *this->rapidexecstate_, false, target);
+        8, *this->rapidexecstate_, deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmRobot)
   return target;
@@ -7316,6 +7159,11 @@ size_t EgmRobot::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmRobot)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   if (_has_bits_[0 / 32] & 255u) {
     // optional .abb.egm.EgmHeader header = 1;
     if (has_header()) {
@@ -7352,11 +7200,6 @@ size_t EgmRobot::ByteSizeLong() const {
           *this->mcistate_);
     }
 
-    // optional bool mciConvergenceMet = 6;
-    if (has_mciconvergencemet()) {
-      total_size += 1 + 1;
-    }
-
     // optional .abb.egm.EgmTestSignals testSignals = 7;
     if (has_testsignals()) {
       total_size += 1 +
@@ -7371,11 +7214,11 @@ size_t EgmRobot::ByteSizeLong() const {
           *this->rapidexecstate_);
     }
 
-  }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
+    // optional bool mciConvergenceMet = 6;
+    if (has_mciconvergencemet()) {
+      total_size += 1 + 1;
+    }
+
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -7386,7 +7229,7 @@ size_t EgmRobot::ByteSizeLong() const {
 
 void EgmRobot::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmRobot)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmRobot* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmRobot>(
           &from);
@@ -7395,50 +7238,44 @@ void EgmRobot::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmRobot)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmRobot::MergeFrom(const EgmRobot& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmRobot)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmRobot::UnsafeMergeFrom(const EgmRobot& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_header()) {
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 255u) {
+    if (cached_has_bits & 0x00000001u) {
       mutable_header()->::abb::egm::EgmHeader::MergeFrom(from.header());
     }
-    if (from.has_feedback()) {
+    if (cached_has_bits & 0x00000002u) {
       mutable_feedback()->::abb::egm::EgmFeedBack::MergeFrom(from.feedback());
     }
-    if (from.has_planned()) {
+    if (cached_has_bits & 0x00000004u) {
       mutable_planned()->::abb::egm::EgmPlanned::MergeFrom(from.planned());
     }
-    if (from.has_motorstate()) {
+    if (cached_has_bits & 0x00000008u) {
       mutable_motorstate()->::abb::egm::EgmMotorState::MergeFrom(from.motorstate());
     }
-    if (from.has_mcistate()) {
+    if (cached_has_bits & 0x00000010u) {
       mutable_mcistate()->::abb::egm::EgmMCIState::MergeFrom(from.mcistate());
     }
-    if (from.has_mciconvergencemet()) {
-      set_mciconvergencemet(from.mciconvergencemet());
-    }
-    if (from.has_testsignals()) {
+    if (cached_has_bits & 0x00000020u) {
       mutable_testsignals()->::abb::egm::EgmTestSignals::MergeFrom(from.testsignals());
     }
-    if (from.has_rapidexecstate()) {
+    if (cached_has_bits & 0x00000040u) {
       mutable_rapidexecstate()->::abb::egm::EgmRapidCtrlExecState::MergeFrom(from.rapidexecstate());
     }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
+    if (cached_has_bits & 0x00000080u) {
+      mciconvergencemet_ = from.mciconvergencemet_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
 }
 
@@ -7453,11 +7290,10 @@ void EgmRobot::CopyFrom(const EgmRobot& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmRobot)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmRobot::IsInitialized() const {
-
   if (has_feedback()) {
     if (!this->feedback_->IsInitialized()) return false;
   }
@@ -7481,25 +7317,23 @@ void EgmRobot::Swap(EgmRobot* other) {
   InternalSwap(other);
 }
 void EgmRobot::InternalSwap(EgmRobot* other) {
-  std::swap(header_, other->header_);
-  std::swap(feedback_, other->feedback_);
-  std::swap(planned_, other->planned_);
-  std::swap(motorstate_, other->motorstate_);
-  std::swap(mcistate_, other->mcistate_);
-  std::swap(mciconvergencemet_, other->mciconvergencemet_);
-  std::swap(testsignals_, other->testsignals_);
-  std::swap(rapidexecstate_, other->rapidexecstate_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(header_, other->header_);
+  swap(feedback_, other->feedback_);
+  swap(planned_, other->planned_);
+  swap(motorstate_, other->motorstate_);
+  swap(mcistate_, other->mcistate_);
+  swap(testsignals_, other->testsignals_);
+  swap(rapidexecstate_, other->rapidexecstate_);
+  swap(mciconvergencemet_, other->mciconvergencemet_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmRobot::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmRobot_descriptor_;
-  metadata.reflection = EgmRobot_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -7520,9 +7354,10 @@ void EgmRobot::clear_header() {
   clear_has_header();
 }
 const ::abb::egm::EgmHeader& EgmRobot::header() const {
+  const ::abb::egm::EgmHeader* p = header_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmRobot.header)
-  return header_ != NULL ? *header_
-                         : *::abb::egm::EgmHeader::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmHeader*>(
+      &::abb::egm::_EgmHeader_default_instance_);
 }
 ::abb::egm::EgmHeader* EgmRobot::mutable_header() {
   set_has_header();
@@ -7565,9 +7400,10 @@ void EgmRobot::clear_feedback() {
   clear_has_feedback();
 }
 const ::abb::egm::EgmFeedBack& EgmRobot::feedback() const {
+  const ::abb::egm::EgmFeedBack* p = feedback_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmRobot.feedBack)
-  return feedback_ != NULL ? *feedback_
-                         : *::abb::egm::EgmFeedBack::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmFeedBack*>(
+      &::abb::egm::_EgmFeedBack_default_instance_);
 }
 ::abb::egm::EgmFeedBack* EgmRobot::mutable_feedback() {
   set_has_feedback();
@@ -7610,9 +7446,10 @@ void EgmRobot::clear_planned() {
   clear_has_planned();
 }
 const ::abb::egm::EgmPlanned& EgmRobot::planned() const {
+  const ::abb::egm::EgmPlanned* p = planned_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmRobot.planned)
-  return planned_ != NULL ? *planned_
-                         : *::abb::egm::EgmPlanned::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmPlanned*>(
+      &::abb::egm::_EgmPlanned_default_instance_);
 }
 ::abb::egm::EgmPlanned* EgmRobot::mutable_planned() {
   set_has_planned();
@@ -7655,9 +7492,10 @@ void EgmRobot::clear_motorstate() {
   clear_has_motorstate();
 }
 const ::abb::egm::EgmMotorState& EgmRobot::motorstate() const {
+  const ::abb::egm::EgmMotorState* p = motorstate_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmRobot.motorState)
-  return motorstate_ != NULL ? *motorstate_
-                         : *::abb::egm::EgmMotorState::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmMotorState*>(
+      &::abb::egm::_EgmMotorState_default_instance_);
 }
 ::abb::egm::EgmMotorState* EgmRobot::mutable_motorstate() {
   set_has_motorstate();
@@ -7700,9 +7538,10 @@ void EgmRobot::clear_mcistate() {
   clear_has_mcistate();
 }
 const ::abb::egm::EgmMCIState& EgmRobot::mcistate() const {
+  const ::abb::egm::EgmMCIState* p = mcistate_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmRobot.mciState)
-  return mcistate_ != NULL ? *mcistate_
-                         : *::abb::egm::EgmMCIState::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmMCIState*>(
+      &::abb::egm::_EgmMCIState_default_instance_);
 }
 ::abb::egm::EgmMCIState* EgmRobot::mutable_mcistate() {
   set_has_mcistate();
@@ -7732,13 +7571,13 @@ void EgmRobot::set_allocated_mcistate(::abb::egm::EgmMCIState* mcistate) {
 
 // optional bool mciConvergenceMet = 6;
 bool EgmRobot::has_mciconvergencemet() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
+  return (_has_bits_[0] & 0x00000080u) != 0;
 }
 void EgmRobot::set_has_mciconvergencemet() {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000080u;
 }
 void EgmRobot::clear_has_mciconvergencemet() {
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 void EgmRobot::clear_mciconvergencemet() {
   mciconvergencemet_ = false;
@@ -7756,22 +7595,23 @@ void EgmRobot::set_mciconvergencemet(bool value) {
 
 // optional .abb.egm.EgmTestSignals testSignals = 7;
 bool EgmRobot::has_testsignals() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
+  return (_has_bits_[0] & 0x00000020u) != 0;
 }
 void EgmRobot::set_has_testsignals() {
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000020u;
 }
 void EgmRobot::clear_has_testsignals() {
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 void EgmRobot::clear_testsignals() {
   if (testsignals_ != NULL) testsignals_->::abb::egm::EgmTestSignals::Clear();
   clear_has_testsignals();
 }
 const ::abb::egm::EgmTestSignals& EgmRobot::testsignals() const {
+  const ::abb::egm::EgmTestSignals* p = testsignals_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmRobot.testSignals)
-  return testsignals_ != NULL ? *testsignals_
-                         : *::abb::egm::EgmTestSignals::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmTestSignals*>(
+      &::abb::egm::_EgmTestSignals_default_instance_);
 }
 ::abb::egm::EgmTestSignals* EgmRobot::mutable_testsignals() {
   set_has_testsignals();
@@ -7801,22 +7641,23 @@ void EgmRobot::set_allocated_testsignals(::abb::egm::EgmTestSignals* testsignals
 
 // optional .abb.egm.EgmRapidCtrlExecState rapidExecState = 8;
 bool EgmRobot::has_rapidexecstate() const {
-  return (_has_bits_[0] & 0x00000080u) != 0;
+  return (_has_bits_[0] & 0x00000040u) != 0;
 }
 void EgmRobot::set_has_rapidexecstate() {
-  _has_bits_[0] |= 0x00000080u;
+  _has_bits_[0] |= 0x00000040u;
 }
 void EgmRobot::clear_has_rapidexecstate() {
-  _has_bits_[0] &= ~0x00000080u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 void EgmRobot::clear_rapidexecstate() {
   if (rapidexecstate_ != NULL) rapidexecstate_->::abb::egm::EgmRapidCtrlExecState::Clear();
   clear_has_rapidexecstate();
 }
 const ::abb::egm::EgmRapidCtrlExecState& EgmRobot::rapidexecstate() const {
+  const ::abb::egm::EgmRapidCtrlExecState* p = rapidexecstate_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmRobot.rapidExecState)
-  return rapidexecstate_ != NULL ? *rapidexecstate_
-                         : *::abb::egm::EgmRapidCtrlExecState::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmRapidCtrlExecState*>(
+      &::abb::egm::_EgmRapidCtrlExecState_default_instance_);
 }
 ::abb::egm::EgmRapidCtrlExecState* EgmRobot::mutable_rapidexecstate() {
   set_has_rapidexecstate();
@@ -7844,9 +7685,6 @@ void EgmRobot::set_allocated_rapidexecstate(::abb::egm::EgmRapidCtrlExecState* r
   // @@protoc_insertion_point(field_set_allocated:abb.egm.EgmRobot.rapidExecState)
 }
 
-inline const EgmRobot* EgmRobot::internal_default_instance() {
-  return &EgmRobot_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -7859,33 +7697,41 @@ const int EgmSensor::kSpeedRefFieldNumber;
 
 EgmSensor::EgmSensor()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmSensor)
 }
-
-void EgmSensor::InitAsDefaultInstance() {
-  header_ = const_cast< ::abb::egm::EgmHeader*>(
-      ::abb::egm::EgmHeader::internal_default_instance());
-  planned_ = const_cast< ::abb::egm::EgmPlanned*>(
-      ::abb::egm::EgmPlanned::internal_default_instance());
-  speedref_ = const_cast< ::abb::egm::EgmSpeedRef*>(
-      ::abb::egm::EgmSpeedRef::internal_default_instance());
-}
-
 EgmSensor::EgmSensor(const EgmSensor& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_header()) {
+    header_ = new ::abb::egm::EgmHeader(*from.header_);
+  } else {
+    header_ = NULL;
+  }
+  if (from.has_planned()) {
+    planned_ = new ::abb::egm::EgmPlanned(*from.planned_);
+  } else {
+    planned_ = NULL;
+  }
+  if (from.has_speedref()) {
+    speedref_ = new ::abb::egm::EgmSpeedRef(*from.speedref_);
+  } else {
+    speedref_ = NULL;
+  }
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmSensor)
 }
 
 void EgmSensor::SharedCtor() {
   _cached_size_ = 0;
-  header_ = NULL;
-  planned_ = NULL;
-  speedref_ = NULL;
+  ::memset(&header_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&speedref_) -
+      reinterpret_cast<char*>(&header_)) + sizeof(speedref_));
 }
 
 EgmSensor::~EgmSensor() {
@@ -7894,11 +7740,9 @@ EgmSensor::~EgmSensor() {
 }
 
 void EgmSensor::SharedDtor() {
-  if (this != &EgmSensor_default_instance_.get()) {
-    delete header_;
-    delete planned_;
-    delete speedref_;
-  }
+  if (this != internal_default_instance()) delete header_;
+  if (this != internal_default_instance()) delete planned_;
+  if (this != internal_default_instance()) delete speedref_;
 }
 
 void EgmSensor::SetCachedSize(int size) const {
@@ -7907,16 +7751,14 @@ void EgmSensor::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmSensor::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmSensor_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmSensor& EgmSensor::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmSensor> EgmSensor_default_instance_;
 
 EgmSensor* EgmSensor::New(::google::protobuf::Arena* arena) const {
   EgmSensor* n = new EgmSensor;
@@ -7928,21 +7770,27 @@ EgmSensor* EgmSensor::New(::google::protobuf::Arena* arena) const {
 
 void EgmSensor::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmSensor)
-  if (_has_bits_[0 / 32] & 7u) {
-    if (has_header()) {
-      if (header_ != NULL) header_->::abb::egm::EgmHeader::Clear();
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 7u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(header_ != NULL);
+      header_->::abb::egm::EgmHeader::Clear();
     }
-    if (has_planned()) {
-      if (planned_ != NULL) planned_->::abb::egm::EgmPlanned::Clear();
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(planned_ != NULL);
+      planned_->::abb::egm::EgmPlanned::Clear();
     }
-    if (has_speedref()) {
-      if (speedref_ != NULL) speedref_->::abb::egm::EgmSpeedRef::Clear();
+    if (cached_has_bits & 0x00000004u) {
+      GOOGLE_DCHECK(speedref_ != NULL);
+      speedref_->::abb::egm::EgmSpeedRef::Clear();
     }
   }
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmSensor::MergePartialFromCodedStream(
@@ -7951,57 +7799,53 @@ bool EgmSensor::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmSensor)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.EgmHeader header = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_header()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_planned;
         break;
       }
 
       // optional .abb.egm.EgmPlanned planned = 2;
       case 2: {
-        if (tag == 18) {
-         parse_planned:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_planned()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_speedRef;
         break;
       }
 
       // optional .abb.egm.EgmSpeedRef speedRef = 3;
       case 3: {
-        if (tag == 26) {
-         parse_speedRef:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_speedref()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -8018,27 +7862,31 @@ failure:
 void EgmSensor::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmSensor)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional .abb.egm.EgmHeader header = 1;
-  if (has_header()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->header_, output);
   }
 
   // optional .abb.egm.EgmPlanned planned = 2;
-  if (has_planned()) {
+  if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->planned_, output);
   }
 
   // optional .abb.egm.EgmSpeedRef speedRef = 3;
-  if (has_speedref()) {
+  if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->speedref_, output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmSensor)
 }
@@ -8047,30 +7895,34 @@ void EgmSensor::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmSensor)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional .abb.egm.EgmHeader header = 1;
-  if (has_header()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        1, *this->header_, false, target);
+        1, *this->header_, deterministic, target);
   }
 
   // optional .abb.egm.EgmPlanned planned = 2;
-  if (has_planned()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        2, *this->planned_, false, target);
+        2, *this->planned_, deterministic, target);
   }
 
   // optional .abb.egm.EgmSpeedRef speedRef = 3;
-  if (has_speedref()) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        3, *this->speedref_, false, target);
+        3, *this->speedref_, deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmSensor)
   return target;
@@ -8080,6 +7932,11 @@ size_t EgmSensor::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmSensor)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   if (_has_bits_[0 / 32] & 7u) {
     // optional .abb.egm.EgmHeader header = 1;
     if (has_header()) {
@@ -8103,11 +7960,6 @@ size_t EgmSensor::ByteSizeLong() const {
     }
 
   }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -8117,7 +7969,7 @@ size_t EgmSensor::ByteSizeLong() const {
 
 void EgmSensor::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmSensor)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmSensor* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmSensor>(
           &from);
@@ -8126,35 +7978,28 @@ void EgmSensor::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmSensor)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmSensor::MergeFrom(const EgmSensor& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmSensor)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmSensor::UnsafeMergeFrom(const EgmSensor& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_header()) {
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 7u) {
+    if (cached_has_bits & 0x00000001u) {
       mutable_header()->::abb::egm::EgmHeader::MergeFrom(from.header());
     }
-    if (from.has_planned()) {
+    if (cached_has_bits & 0x00000002u) {
       mutable_planned()->::abb::egm::EgmPlanned::MergeFrom(from.planned());
     }
-    if (from.has_speedref()) {
+    if (cached_has_bits & 0x00000004u) {
       mutable_speedref()->::abb::egm::EgmSpeedRef::MergeFrom(from.speedref());
     }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
   }
 }
 
@@ -8169,11 +8014,10 @@ void EgmSensor::CopyFrom(const EgmSensor& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmSensor)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmSensor::IsInitialized() const {
-
   if (has_planned()) {
     if (!this->planned_->IsInitialized()) return false;
   }
@@ -8185,20 +8029,18 @@ void EgmSensor::Swap(EgmSensor* other) {
   InternalSwap(other);
 }
 void EgmSensor::InternalSwap(EgmSensor* other) {
-  std::swap(header_, other->header_);
-  std::swap(planned_, other->planned_);
-  std::swap(speedref_, other->speedref_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(header_, other->header_);
+  swap(planned_, other->planned_);
+  swap(speedref_, other->speedref_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmSensor::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmSensor_descriptor_;
-  metadata.reflection = EgmSensor_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -8219,9 +8061,10 @@ void EgmSensor::clear_header() {
   clear_has_header();
 }
 const ::abb::egm::EgmHeader& EgmSensor::header() const {
+  const ::abb::egm::EgmHeader* p = header_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmSensor.header)
-  return header_ != NULL ? *header_
-                         : *::abb::egm::EgmHeader::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmHeader*>(
+      &::abb::egm::_EgmHeader_default_instance_);
 }
 ::abb::egm::EgmHeader* EgmSensor::mutable_header() {
   set_has_header();
@@ -8264,9 +8107,10 @@ void EgmSensor::clear_planned() {
   clear_has_planned();
 }
 const ::abb::egm::EgmPlanned& EgmSensor::planned() const {
+  const ::abb::egm::EgmPlanned* p = planned_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmSensor.planned)
-  return planned_ != NULL ? *planned_
-                         : *::abb::egm::EgmPlanned::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmPlanned*>(
+      &::abb::egm::_EgmPlanned_default_instance_);
 }
 ::abb::egm::EgmPlanned* EgmSensor::mutable_planned() {
   set_has_planned();
@@ -8309,9 +8153,10 @@ void EgmSensor::clear_speedref() {
   clear_has_speedref();
 }
 const ::abb::egm::EgmSpeedRef& EgmSensor::speedref() const {
+  const ::abb::egm::EgmSpeedRef* p = speedref_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmSensor.speedRef)
-  return speedref_ != NULL ? *speedref_
-                         : *::abb::egm::EgmSpeedRef::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmSpeedRef*>(
+      &::abb::egm::_EgmSpeedRef_default_instance_);
 }
 ::abb::egm::EgmSpeedRef* EgmSensor::mutable_speedref() {
   set_has_speedref();
@@ -8339,9 +8184,6 @@ void EgmSensor::set_allocated_speedref(::abb::egm::EgmSpeedRef* speedref) {
   // @@protoc_insertion_point(field_set_allocated:abb.egm.EgmSensor.speedRef)
 }
 
-inline const EgmSensor* EgmSensor::internal_default_instance() {
-  return &EgmSensor_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -8353,30 +8195,36 @@ const int EgmSensorPathCorr::kPathCorrFieldNumber;
 
 EgmSensorPathCorr::EgmSensorPathCorr()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_egm_2eproto();
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_egm_2eproto::InitDefaults();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:abb.egm.EgmSensorPathCorr)
 }
-
-void EgmSensorPathCorr::InitAsDefaultInstance() {
-  header_ = const_cast< ::abb::egm::EgmHeader*>(
-      ::abb::egm::EgmHeader::internal_default_instance());
-  pathcorr_ = const_cast< ::abb::egm::EgmPathCorr*>(
-      ::abb::egm::EgmPathCorr::internal_default_instance());
-}
-
 EgmSensorPathCorr::EgmSensorPathCorr(const EgmSensorPathCorr& from)
   : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_header()) {
+    header_ = new ::abb::egm::EgmHeader(*from.header_);
+  } else {
+    header_ = NULL;
+  }
+  if (from.has_pathcorr()) {
+    pathcorr_ = new ::abb::egm::EgmPathCorr(*from.pathcorr_);
+  } else {
+    pathcorr_ = NULL;
+  }
   // @@protoc_insertion_point(copy_constructor:abb.egm.EgmSensorPathCorr)
 }
 
 void EgmSensorPathCorr::SharedCtor() {
   _cached_size_ = 0;
-  header_ = NULL;
-  pathcorr_ = NULL;
+  ::memset(&header_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&pathcorr_) -
+      reinterpret_cast<char*>(&header_)) + sizeof(pathcorr_));
 }
 
 EgmSensorPathCorr::~EgmSensorPathCorr() {
@@ -8385,10 +8233,8 @@ EgmSensorPathCorr::~EgmSensorPathCorr() {
 }
 
 void EgmSensorPathCorr::SharedDtor() {
-  if (this != &EgmSensorPathCorr_default_instance_.get()) {
-    delete header_;
-    delete pathcorr_;
-  }
+  if (this != internal_default_instance()) delete header_;
+  if (this != internal_default_instance()) delete pathcorr_;
 }
 
 void EgmSensorPathCorr::SetCachedSize(int size) const {
@@ -8397,16 +8243,14 @@ void EgmSensorPathCorr::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* EgmSensorPathCorr::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EgmSensorPathCorr_descriptor_;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
 const EgmSensorPathCorr& EgmSensorPathCorr::default_instance() {
-  protobuf_InitDefaults_egm_2eproto();
+  protobuf_egm_2eproto::InitDefaults();
   return *internal_default_instance();
 }
-
-::google::protobuf::internal::ExplicitlyConstructed<EgmSensorPathCorr> EgmSensorPathCorr_default_instance_;
 
 EgmSensorPathCorr* EgmSensorPathCorr::New(::google::protobuf::Arena* arena) const {
   EgmSensorPathCorr* n = new EgmSensorPathCorr;
@@ -8418,18 +8262,23 @@ EgmSensorPathCorr* EgmSensorPathCorr::New(::google::protobuf::Arena* arena) cons
 
 void EgmSensorPathCorr::Clear() {
 // @@protoc_insertion_point(message_clear_start:abb.egm.EgmSensorPathCorr)
-  if (_has_bits_[0 / 32] & 3u) {
-    if (has_header()) {
-      if (header_ != NULL) header_->::abb::egm::EgmHeader::Clear();
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 3u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(header_ != NULL);
+      header_->::abb::egm::EgmHeader::Clear();
     }
-    if (has_pathcorr()) {
-      if (pathcorr_ != NULL) pathcorr_->::abb::egm::EgmPathCorr::Clear();
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(pathcorr_ != NULL);
+      pathcorr_->::abb::egm::EgmPathCorr::Clear();
     }
   }
   _has_bits_.Clear();
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
+  _internal_metadata_.Clear();
 }
 
 bool EgmSensorPathCorr::MergePartialFromCodedStream(
@@ -8438,44 +8287,41 @@ bool EgmSensorPathCorr::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:abb.egm.EgmSensorPathCorr)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional .abb.egm.EgmHeader header = 1;
       case 1: {
-        if (tag == 10) {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_header()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_pathCorr;
         break;
       }
 
       // optional .abb.egm.EgmPathCorr pathCorr = 2;
       case 2: {
-        if (tag == 18) {
-         parse_pathCorr:
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_pathcorr()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
       handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        if (tag == 0) {
           goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
         break;
       }
     }
@@ -8492,21 +8338,25 @@ failure:
 void EgmSensorPathCorr::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:abb.egm.EgmSensorPathCorr)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional .abb.egm.EgmHeader header = 1;
-  if (has_header()) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->header_, output);
   }
 
   // optional .abb.egm.EgmPathCorr pathCorr = 2;
-  if (has_pathcorr()) {
+  if (cached_has_bits & 0x00000002u) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->pathcorr_, output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:abb.egm.EgmSensorPathCorr)
 }
@@ -8515,23 +8365,27 @@ void EgmSensorPathCorr::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:abb.egm.EgmSensorPathCorr)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
   // optional .abb.egm.EgmHeader header = 1;
-  if (has_header()) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        1, *this->header_, false, target);
+        1, *this->header_, deterministic, target);
   }
 
   // optional .abb.egm.EgmPathCorr pathCorr = 2;
-  if (has_pathcorr()) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        2, *this->pathcorr_, false, target);
+        2, *this->pathcorr_, deterministic, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:abb.egm.EgmSensorPathCorr)
   return target;
@@ -8541,6 +8395,11 @@ size_t EgmSensorPathCorr::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:abb.egm.EgmSensorPathCorr)
   size_t total_size = 0;
 
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
   if (_has_bits_[0 / 32] & 3u) {
     // optional .abb.egm.EgmHeader header = 1;
     if (has_header()) {
@@ -8557,11 +8416,6 @@ size_t EgmSensorPathCorr::ByteSizeLong() const {
     }
 
   }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -8571,7 +8425,7 @@ size_t EgmSensorPathCorr::ByteSizeLong() const {
 
 void EgmSensorPathCorr::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:abb.egm.EgmSensorPathCorr)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  GOOGLE_DCHECK_NE(&from, this);
   const EgmSensorPathCorr* source =
       ::google::protobuf::internal::DynamicCastToGenerated<const EgmSensorPathCorr>(
           &from);
@@ -8580,32 +8434,25 @@ void EgmSensorPathCorr::MergeFrom(const ::google::protobuf::Message& from) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:abb.egm.EgmSensorPathCorr)
-    UnsafeMergeFrom(*source);
+    MergeFrom(*source);
   }
 }
 
 void EgmSensorPathCorr::MergeFrom(const EgmSensorPathCorr& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:abb.egm.EgmSensorPathCorr)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-void EgmSensorPathCorr::UnsafeMergeFrom(const EgmSensorPathCorr& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_header()) {
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 3u) {
+    if (cached_has_bits & 0x00000001u) {
       mutable_header()->::abb::egm::EgmHeader::MergeFrom(from.header());
     }
-    if (from.has_pathcorr()) {
+    if (cached_has_bits & 0x00000002u) {
       mutable_pathcorr()->::abb::egm::EgmPathCorr::MergeFrom(from.pathcorr());
     }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::UnknownFieldSet::MergeToInternalMetdata(
-      from.unknown_fields(), &_internal_metadata_);
   }
 }
 
@@ -8620,11 +8467,10 @@ void EgmSensorPathCorr::CopyFrom(const EgmSensorPathCorr& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:abb.egm.EgmSensorPathCorr)
   if (&from == this) return;
   Clear();
-  UnsafeMergeFrom(from);
+  MergeFrom(from);
 }
 
 bool EgmSensorPathCorr::IsInitialized() const {
-
   if (has_pathcorr()) {
     if (!this->pathcorr_->IsInitialized()) return false;
   }
@@ -8636,19 +8482,17 @@ void EgmSensorPathCorr::Swap(EgmSensorPathCorr* other) {
   InternalSwap(other);
 }
 void EgmSensorPathCorr::InternalSwap(EgmSensorPathCorr* other) {
-  std::swap(header_, other->header_);
-  std::swap(pathcorr_, other->pathcorr_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  using std::swap;
+  swap(header_, other->header_);
+  swap(pathcorr_, other->pathcorr_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata EgmSensorPathCorr::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EgmSensorPathCorr_descriptor_;
-  metadata.reflection = EgmSensorPathCorr_reflection_;
-  return metadata;
+  protobuf_egm_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_egm_2eproto::file_level_metadata[kIndexInFileMessages];
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -8669,9 +8513,10 @@ void EgmSensorPathCorr::clear_header() {
   clear_has_header();
 }
 const ::abb::egm::EgmHeader& EgmSensorPathCorr::header() const {
+  const ::abb::egm::EgmHeader* p = header_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmSensorPathCorr.header)
-  return header_ != NULL ? *header_
-                         : *::abb::egm::EgmHeader::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmHeader*>(
+      &::abb::egm::_EgmHeader_default_instance_);
 }
 ::abb::egm::EgmHeader* EgmSensorPathCorr::mutable_header() {
   set_has_header();
@@ -8714,9 +8559,10 @@ void EgmSensorPathCorr::clear_pathcorr() {
   clear_has_pathcorr();
 }
 const ::abb::egm::EgmPathCorr& EgmSensorPathCorr::pathcorr() const {
+  const ::abb::egm::EgmPathCorr* p = pathcorr_;
   // @@protoc_insertion_point(field_get:abb.egm.EgmSensorPathCorr.pathCorr)
-  return pathcorr_ != NULL ? *pathcorr_
-                         : *::abb::egm::EgmPathCorr::internal_default_instance();
+  return p != NULL ? *p : *reinterpret_cast<const ::abb::egm::EgmPathCorr*>(
+      &::abb::egm::_EgmPathCorr_default_instance_);
 }
 ::abb::egm::EgmPathCorr* EgmSensorPathCorr::mutable_pathcorr() {
   set_has_pathcorr();
@@ -8744,9 +8590,6 @@ void EgmSensorPathCorr::set_allocated_pathcorr(::abb::egm::EgmPathCorr* pathcorr
   // @@protoc_insertion_point(field_set_allocated:abb.egm.EgmSensorPathCorr.pathCorr)
 }
 
-inline const EgmSensorPathCorr* EgmSensorPathCorr::internal_default_instance() {
-  return &EgmSensorPathCorr_default_instance_.get();
-}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)

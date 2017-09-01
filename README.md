@@ -61,9 +61,9 @@ Detailed tutorials can be found below. But firstly you need to download the code
 > ```
 > Download the code from lab server:
 > ``` bash
-> $ git clone git@github.com:yifan-hou/egm.git
+> $ git clone git@mlab.ri.cmu.edu:yifan/egm.git
 > ```
-> Now you should have the ```egm-server``` and ```egm-comm``` folders.
+> Now you should have the ```egm-server``` and ```egm-comm``` folders in your repo.
 
 ### 3.1 egm-server: Minimal Script for Running EGM
 #### 3.1.1 File description

@@ -1,2 +1,0 @@
-joint_state_controller:
-  type: forcecontrol/forcecontrol_controller

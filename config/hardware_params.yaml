@@ -1,0 +1,11 @@
+# ati netft
+netft_ip_address: "192.168.1.1"
+netft_sensor_name: "netft"
+netft_frame_id: "end_effector"
+netft_publish_rate: 1000
+
+# ABB EGM
+egm_portnum: 6510
+egm_speed_limit_tran: 0.01
+egm_speed_limit_rot: 0.01
+egm_mode: 0

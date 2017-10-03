@@ -66,7 +66,5 @@ add_library(forcecontrol_controller src/forcecontrol_controller.cpp)
 # target_link_libraries(forcecontrol_controller ati_netft_hardware egm_hardware)
 
 add_executable(forcecontrol_node src/main.cpp)
-target_link_libraries(forcecontrol_node forcecontrol_hardware)
-
-# add_executable(${PROJECT_NAME}_node src/testFTSensor.cpp)
-# target_link_libraries(${PROJECT_NAME}_node netft_rdt_driver ${Boost_LIBRARIES} ${catkin_LIBRARIES})
+target_link_libraries(forcecontrol_node forcecontrol_hardware forcecontrol_controller
+	"/usr/local/lib/yifanlibrary/libTimerLinux.so")

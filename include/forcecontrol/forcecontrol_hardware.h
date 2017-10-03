@@ -28,9 +28,8 @@ class ForceControlHardware : public hardware_interface::RobotHW
 {
   public:
     ForceControlHardware();
-    virtual ~ForceControlHardware();
-    virtual bool init(ros::NodeHandle& root_nh, ros::NodeHandle &robot_hw_nh,
-                      unsigned short portnum, float speed_limit_tran, float speed_limit_rot, EGMControlMode mode);
+    ~ForceControlHardware();
+    bool init(ros::NodeHandle& root_nh, ros::NodeHandle &robot_hw_nh);
     void getState(float *pose, float *wrench);
     void setControl(const float *pose_set);
 

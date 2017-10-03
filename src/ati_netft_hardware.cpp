@@ -64,18 +64,18 @@ bool ATINetftHardware::init(ros::NodeHandle& root_nh, ros::NodeHandle &robot_hw_
 
   // Get parameters from the server
   string ip_address, sensor_name;
-  robot_hw_nh.param(std::string("ip_address"), ip_address, std::string("192.168.1.1"));
-  robot_hw_nh.param(std::string("sensor_name"), sensor_name, std::string("netft"));
-  robot_hw_nh.param(std::string("frame_id"), _frame_id, std::string("base_link"));
-  robot_hw_nh.param(std::string("publish_rate"), _publish_rate, 100.0);
-  if (!robot_hw_nh.hasParam("ip_address"))
-    ROS_WARN_STREAM("Parameter [~ip_address] not found, using default: " << ip_address);
-  if (!robot_hw_nh.hasParam("sensor_name"))
-    ROS_WARN_STREAM("Parameter [~sensor_name] not found, using default: " << sensor_name );
-  if (!robot_hw_nh.hasParam("frame_id"))
-    ROS_WARN_STREAM("Parameter [~frame_id] not found, using default: " << _frame_id );
-  if (!robot_hw_nh.hasParam("publish_rate"))
-    ROS_WARN_STREAM("Parameter [~publish_rate] not found, using default: " << _publish_rate << " Hz");
+  robot_hw_nh.param(std::string("/netft_ip_address"), ip_address, std::string("192.168.1.1"));
+  robot_hw_nh.param(std::string("/netft_sensor_name"), sensor_name, std::string("netft"));
+  robot_hw_nh.param(std::string("/netft_frame_id"), _frame_id, std::string("base_link"));
+  robot_hw_nh.param(std::string("/netft_publish_rate"), _publish_rate, 100.0);
+  if (!robot_hw_nh.hasParam("/netft_ip_address"))
+    ROS_WARN_STREAM("Parameter [/netft_ip_address] not found, using default: " << ip_address);
+  if (!robot_hw_nh.hasParam("/netft_sensor_name"))
+    ROS_WARN_STREAM("Parameter [/netft_sensor_name] not found, using default: " << sensor_name );
+  if (!robot_hw_nh.hasParam("/netft_frame_id"))
+    ROS_WARN_STREAM("Parameter [/netft_frame_id] not found, using default: " << _frame_id );
+  if (!robot_hw_nh.hasParam("/netft_publish_rate"))
+    ROS_WARN_STREAM("Parameter [/netft_publish_rate] not found, using default: " << _publish_rate << " Hz");
 
   _netft = std::auto_ptr<netft_rdt_driver::NetFTRDTDriver>(new netft_rdt_driver::NetFTRDTDriver(ip_address));
 
@@ -89,13 +89,14 @@ bool ATINetftHardware::init(ros::NodeHandle& root_nh, ros::NodeHandle &robot_hw_
   // create thread
   int rc = pthread_create(&_thread, NULL, Monitor, this);
   if (rc){
-    cout << "ATI Netft Hardware initialization error: unable to create thread.\n";
+    cout << "[ATI_Netft_hardware] ATI Netft Hardware initialization error: unable to create thread.\n";
     return false;
   }
 
   // Register interfaces:
-  force_torque_interface.registerHandle(ForceTorqueSensorHandle(sensor_name, _frame_id, _force, _torque));
-  registerInterface(&force_torque_interface);
+  // force_torque_interface.registerHandle(ForceTorqueSensorHandle(sensor_name, _frame_id, _force, _torque));
+  // registerInterface(&force_torque_interface);
+  cout << "[ATI_Netft_hardware] Initialized successfully.\n";
   return true;
 }
 

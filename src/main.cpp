@@ -1,24 +1,30 @@
 #include <forcecontrol/forcecontrol_hardware.h>
 #include <forcecontrol/forcecontrol_controller.h>
 
-#include <iostream>
+#include <yifanlibrary/TimerLinux.h>
 
-#include <controller_manager/controller_manager.h>
+#include <iostream>
 
 int main(int argc, char* argv[])
 {
     ROS_INFO_STREAM("Force control starting");
     ros::init(argc, argv, "forcecontrol_node");
-    ros::NodeHandle nh;
+    ros::NodeHandle hd;
+    ros::NodeHandle phd("~");
+
+    Timer timer; ///< high resolution timer.
 
     ForceControlHardware robot;
-    controller_manager::ControllerManager cm(&robot, nh);
+    ForceControlController controller;
+
+    controller.init(&robot);
+    robot.init(hd, hd);
 
     while (true)
     {
     	ros::Time time_now = ros::Time::now();
     	ros::Duration period(EGM_PERIOD);
-    	cm.update(time_now, period);
+        controller.update(time_now, period);
     }
     return 0;
 }

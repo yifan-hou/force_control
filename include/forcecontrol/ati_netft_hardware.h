@@ -24,6 +24,7 @@
 #include <geometry_msgs/WrenchStamped.h>
 #include <diagnostic_msgs/DiagnosticArray.h>
 #include <diagnostic_updater/DiagnosticStatusWrapper.h>
+#include <yifanlibrary/TimerLinux.h>
 
 // ATI Netft Specific headers
 // in the netft_rdt_driver package
@@ -84,12 +85,16 @@ class ATINetftHardware : public hardware_interface::RobotHW
   public:
     ATINetftHardware();
     virtual ~ATINetftHardware();
-    virtual bool init(ros::NodeHandle& root_nh, ros::NodeHandle &robot_hw_nh);
+    virtual bool init(ros::NodeHandle& root_nh, Timer *timer);
     void getWrench(float *wrench);
 
     double *_force;
     double *_torque;
     double _publish_rate;
+
+    Timer *_timer;
+    ofstream _file;
+    bool _print_flag;
 
     // netft
     ros::Publisher _pub;
@@ -102,6 +107,7 @@ class ATINetftHardware : public hardware_interface::RobotHW
 
     // thread
     pthread_t _thread;
+
 
 
 };

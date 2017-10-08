@@ -1,0 +1,4 @@
+main_loop_rate: 100
+forcecontrol_PGAIN_X: 1
+forcecontrol_PGAIN_Y: 1
+forcecontrol_PGAIN_Z: 1

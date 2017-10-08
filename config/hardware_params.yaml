@@ -3,9 +3,15 @@ netft_ip_address: "192.168.1.1"
 netft_sensor_name: "netft"
 netft_frame_id: "end_effector"
 netft_publish_rate: 1000
+netft_print_flag: true
+netft_file_path: "/home/simplehands/catkin_ws/src/forcecontrol/data/netft_data.txt"
 
 # ABB EGM
 egm_portnum: 6510
-egm_speed_limit_tran: 0.01
-egm_speed_limit_rot: 0.01
-egm_mode: 0
+egm_speed_limit_tran: 10000 # mm/s
+egm_speed_tran: 5000 # mm/s
+egm_speed_limit_rot: 0.1 # rad/s
+egm_speed_rot: 0.05 # rad/s
+egm_mode: 0 # 0: position control  1: velocity control  2: transparent control
+egm_print_flag: true
+egm_file_path: "/home/simplehands/catkin_ws/src/forcecontrol/data/egm_data.txt"

@@ -19,7 +19,7 @@
 
 #include <forcecontrol/ati_netft_hardware.h>
 #include <egm_hardware/EGMClass.h>
-
+#include <yifanlibrary/TimerLinux.h>
 // namespace po = boost::program_options;
 using namespace std;
 
@@ -29,7 +29,7 @@ class ForceControlHardware : public hardware_interface::RobotHW
   public:
     ForceControlHardware();
     ~ForceControlHardware();
-    bool init(ros::NodeHandle& root_nh, ros::NodeHandle &robot_hw_nh);
+    bool init(ros::NodeHandle& root_nh, Timer *timer);
     void getState(float *pose, float *wrench);
     void setControl(const float *pose_set);
 

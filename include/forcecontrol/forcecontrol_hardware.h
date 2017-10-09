@@ -36,6 +36,9 @@ class ForceControlHardware : public hardware_interface::RobotHW
     ATINetftHardware *ati;
     EGMClass *egm;
 
+    // parameters
+    float *_WRENCH_OFFSET;
+
   private:
 
 };

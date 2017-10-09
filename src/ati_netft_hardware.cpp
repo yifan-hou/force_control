@@ -118,7 +118,6 @@ bool ATINetftHardware::init(ros::NodeHandle& root_nh, Timer *timer)
   NetFTService service(*_netft, root_nh);
 
   // open file
-
   if (_print_flag)
   {
     _file.open(fullpath);

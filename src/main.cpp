@@ -14,13 +14,6 @@ int main(int argc, char* argv[])
     ros::init(argc, argv, "forcecontrol_node");
     ros::NodeHandle hd;
 
-    int main_loop_rate;
-    hd.param(std::string("/main_loop_rate"), main_loop_rate, 500);
-    if (!hd.hasParam("/main_loop_rate"))
-      ROS_WARN_STREAM("Parameter [/main_loop_rate] not found, using default: " << main_loop_rate);
-
-    ros::Rate pub_rate(main_loop_rate);
-
     Timer The_timer; // the timer that is used by all threads
 
     ForceControlHardware robot;
@@ -28,41 +21,35 @@ int main(int argc, char* argv[])
 
     The_timer.tic(); // start ticking
     
-    controller.init(hd, &robot);
-    robot.init(hd, &The_timer);
+    robot.init(hd, &The_timer); // robot must be initialized before controller
+    controller.init(hd, &robot, &The_timer);
     
+    int main_loop_rate;
+    double main_duration;
+    hd.param(std::string("/main_loop_rate"), main_loop_rate, 500);
+    hd.param(std::string("/main_duration"), main_duration, 2.0);
+    if (!hd.hasParam("/main_loop_rate"))
+      ROS_WARN_STREAM("Parameter [/main_loop_rate] not found, using default: " << main_loop_rate);
+    if (!hd.hasParam("/main_duration"))
+      ROS_WARN_STREAM("Parameter [/main_duration] not found, using default: " << main_duration);
+
+    int Nsteps = int(main_duration*main_loop_rate);
+    ros::Rate pub_rate(main_loop_rate);
+
     // Let the robot go back to origin.
-    ROS_INFO_STREAM("[MAIN] Press ENTER to move to touching pose:\n");
-    getchar();
-    
-    float pose[7];
-    float wrench[6];
-    robot.getState(pose, wrench);
-
-    pose[2] = 374.16; // just touching
-    robot.setControl(pose);
-
-    ROS_INFO_STREAM("[MAIN] Press ENTER to begin motion:\n");
+    ROS_INFO_STREAM("[MAIN] Duration: " << main_duration << "sec. " << Nsteps << " steps." << endl);
+    ROS_INFO_STREAM("[MAIN] Press ENTER to begin.\n");
     getchar();
     
 
-    pose[2] = 370; // pressing
-    robot.setControl(pose);
-    ros::Duration(0.5).sleep(); 
+    for (int i = 0; i < Nsteps; ++i)
+    {
+    	ros::Time time_now = ros::Time::now();
+    	ros::Duration period(EGM_PERIOD);
+        controller.update(time_now, period);
 
-    pose[2] = 374.16; // back to just touching
-    robot.setControl(pose);
-    ros::Duration(0.5).sleep(); 
-
-
-    // for (int i = 0; i < 300; ++i)
-    // {
-    // 	ros::Time time_now = ros::Time::now();
-    // 	ros::Duration period(EGM_PERIOD);
-    //     controller.update(time_now, period);
-
-    //     pub_rate.sleep();
-    // }
+        pub_rate.sleep();
+    }
 
     ROS_INFO_STREAM(endl << "[MAIN] Rest in Peace." << endl);
     return 0;

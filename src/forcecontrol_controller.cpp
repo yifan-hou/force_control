@@ -1,6 +1,7 @@
 #include <forcecontrol/forcecontrol_controller.h>
 
 #include <iostream>
+#include <string>
 
 #include <yifanlibrary/utilities.h>
 
@@ -9,40 +10,102 @@ using namespace std;
 ForceControlController::ForceControlController()
 {
   _pose_set = new float[7];
+  _STIFFNESS = new float[6];
+
+  _C1X = new float[6];
+  _C1Y = new float[6];
+  _C2X = new float[6];
+  _C2Y = new float[6];
+  for (int i = 0; i < 6; ++i)
+  {
+    _C1X[i] = 0;
+    _C1Y[i] = 0;
+    _C2X[i] = 0;
+    _C2Y[i] = 0;
+  }
 }
 
 ForceControlController::~ForceControlController()
 {
   delete [] _pose_set;
+  delete [] _STIFFNESS;
+  delete [] _C1X;
+  delete [] _C1Y;
+  delete [] _C2X;
+  delete [] _C2Y;
+
+  if (_print_flag)
+    _file.close();
 }
 
-bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware* hw)
+bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware* hw, Timer *timer)
 {
   _hw = hw;
+  _timer = timer;
 
   // read set pose
   float wrench[6];
   _hw->getState(_pose_set, wrench);
+  cout << "[ForceControlController] set pose: " << endl;
+  YF::stream_array_in(cout, _pose_set, 7);
+  cout << endl;
+
   
   // read controller from parameter server
-  root_nh.param(string("/forcecontrol_PGAIN_X"), _PGAIN_X, 0);
-  if (!root_nh.hasParam("/forcecontrol_PGAIN_X"))
-    ROS_WARN_STREAM("Parameter [/forcecontrol_PGAIN_X] not found, using default: " << _PGAIN_X);
-  else
-    ROS_INFO_STREAM("Parameter [/forcecontrol_PGAIN_X] = " << _PGAIN_X);
-
-  root_nh.param(string("/forcecontrol_PGAIN_Y"), _PGAIN_Y, 0);
-  if (!root_nh.hasParam("/forcecontrol_PGAIN_Y"))
-    ROS_WARN_STREAM("Parameter [/forcecontrol_PGAIN_Y] not found, using default: " << _PGAIN_Y);
-  else
-    ROS_INFO_STREAM("Parameter [/forcecontrol_PGAIN_Y] = " << _PGAIN_Y);
-
-  root_nh.param(string("/forcecontrol_PGAIN_Z"), _PGAIN_Z, 0);
-  if (!root_nh.hasParam("/forcecontrol_PGAIN_Z"))
-    ROS_WARN_STREAM("Parameter [/forcecontrol_PGAIN_Z] not found, using default: " << _PGAIN_Z);
-  else
-    ROS_INFO_STREAM("Parameter [/forcecontrol_PGAIN_Z] = " << _PGAIN_Z);
+  string fullpath;
+  root_nh.param(string("/stiffness/x"), _STIFFNESS[0], float(0.0));
+  root_nh.param(string("/stiffness/y"), _STIFFNESS[1], float(0.0));
+  root_nh.param(string("/stiffness/z"), _STIFFNESS[2], float(0.0));
+  root_nh.param(string("/comp1/k"),     _COMP1_K,      float(0.0));
+  root_nh.param(string("/comp1/zero"),  _COMP1_ZERO,   float(0.0));
+  root_nh.param(string("/comp1/pole"),  _COMP1_POLE,   float(0.0));
+  root_nh.param(string("/comp2/k"),     _COMP2_K,      float(0.0));
+  root_nh.param(string("/comp2/zero"),  _COMP2_ZERO,   float(0.0));
+  root_nh.param(string("/comp2/pole"),  _COMP2_POLE,   float(0.0));
+  root_nh.param(string("/comp2/limit"), _COMP2_LIMIT,  float(0.0));
+  root_nh.param(string("/forcecontrol_print_flag"), _print_flag, false);
+  root_nh.param(string("/forcecontrol_file_path"), fullpath, string(" "));
   
+  if (!root_nh.hasParam("/stiffness"))
+    ROS_WARN_STREAM("Parameter [/stiffness] not found, using default: " << _STIFFNESS[0]);
+  else
+    ROS_INFO_STREAM("Parameter [/stiffness] = " << _STIFFNESS[0] << "\t"
+                                                << _STIFFNESS[1] << "\t"
+                                                << _STIFFNESS[2]);
+  if (!root_nh.hasParam("/comp1"))
+    ROS_WARN_STREAM("Parameter [/comp1] not found, using default: " << _COMP1_K );
+  else
+    ROS_INFO_STREAM("Parameter [/comp1] = " << _COMP1_K << "\t"
+                                            << _COMP1_ZERO << "\t"
+                                            << _COMP1_POLE);
+  if (!root_nh.hasParam("/comp2"))
+    ROS_WARN_STREAM("Parameter [/comp2] not found, using default: " << _COMP2_K );
+  else
+    ROS_INFO_STREAM("Parameter [/comp2] = " << _COMP2_K << "\t"
+                                            << _COMP2_ZERO << "\t"
+                                            << _COMP2_POLE << "\t"
+                                            << _COMP2_LIMIT);
+  
+  if (!root_nh.hasParam("/forcecontrol_print_flag"))
+    ROS_WARN_STREAM("Parameter [/forcecontrol_print_flag] not found, using default: " << _print_flag);
+  else
+    ROS_INFO_STREAM("Parameter [/forcecontrol_print_flag] = " << _print_flag);
+
+  if (!root_nh.hasParam("/forcecontrol_file_path"))
+    ROS_WARN_STREAM("Parameter [/forcecontrol_file_path] not found, using default: " << fullpath);
+  else
+    ROS_INFO_STREAM("Parameter [/forcecontrol_file_path] = " << fullpath);
+
+  // open file
+  if (_print_flag)
+  {
+    _file.open(fullpath);
+    if (_file.is_open())
+      ROS_INFO_STREAM("[ForceControlController] file opened successfully." << endl);
+    else
+      ROS_ERROR_STREAM("[ForceControlController] Failed to open file." << endl);
+  }
+
   return true;
 }
 
@@ -56,12 +119,12 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
   float pose_fb[7];
   float wrench_fb[6];
   _hw->getState(pose_fb, wrench_fb);
-  cout << "[ForceControlController] Update."  << endl;
-  cout << "Pose: ";
-  YF::stream_array_in(cout, pose_fb, 7);
-  cout << ",\nWrench: ";
-  YF::stream_array_in(cout, wrench_fb, 6);
-  cout << endl;
+
+  // cout << "Pose: ";
+  // YF::stream_array_in(cout, pose_fb, 7);
+  // cout << ",\nWrench: ";
+  // YF::stream_array_in(cout, wrench_fb, 6);
+  // cout << endl;
 
   /* 
    *
@@ -77,14 +140,61 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
   for (int i = 0; i < 7; ++i) pose_err[i] = _pose_set[i] - pose_fb[i];
 
   // ----------------------------------------
-  //  Gain
+  //  stiffness
   // ----------------------------------------
-  pose_err[0] *= _PGAIN_X;
-  pose_err[1] *= _PGAIN_Y;
-  pose_err[2] *= _PGAIN_Z;
+  pose_err[0] *= _STIFFNESS[0];
+  pose_err[1] *= _STIFFNESS[1];
+  pose_err[2] *= _STIFFNESS[2];
 
-  YF::copyArray(pose_fb, pose_set, 7);  
 
-  _hw->setControl(pose_set);
+  // ----------------------------------------
+  //  Force feedback
+  // ----------------------------------------
+  pose_err[0] = pose_err[0] - wrench_fb[0];
+  pose_err[1] = pose_err[1] - wrench_fb[1];
+  pose_err[2] = pose_err[2] - wrench_fb[2];
+
+  // ----------------------------------------
+  //  Compensator 1 
+  // ----------------------------------------
+  _C1Y[0] = _COMP1_POLE*_C1Y[0] + _COMP1_K*pose_err[0] - _COMP1_ZERO*_COMP1_K*_C1X[0];
+  _C1Y[1] = _COMP1_POLE*_C1Y[1] + _COMP1_K*pose_err[1] - _COMP1_ZERO*_COMP1_K*_C1X[1];
+  _C1Y[2] = _COMP1_POLE*_C1Y[2] + _COMP1_K*pose_err[2] - _COMP1_ZERO*_COMP1_K*_C1X[2];
+  YF::copyArray(pose_err, _C1X, 3);  
+  
+  // ----------------------------------------
+  //  Compensator 2 
+  // ----------------------------------------
+  _C2Y[0] = _COMP2_POLE*_C2Y[0] + _COMP2_K*_C1Y[0] - _COMP2_ZERO*_COMP2_K*_C2X[0];
+  _C2Y[1] = _COMP2_POLE*_C2Y[1] + _COMP2_K*_C1Y[1] - _COMP2_ZERO*_COMP2_K*_C2X[1];
+  _C2Y[2] = _COMP2_POLE*_C2Y[2] + _COMP2_K*_C1Y[2] - _COMP2_ZERO*_COMP2_K*_C2X[2];
+  YF::truncate(_C2Y, _COMP2_LIMIT, -_COMP2_LIMIT, 3);
+  YF::copyArray(_C1Y, _C2X, 3);  
+
+  // ----------------------------------------
+  //  Pose offset 
+  // ----------------------------------------
+  float pose_command[7] = {0};
+  YF::copyArray(pose_fb, pose_command, 7);  
+  for (int i = 0; i < 3; ++i) pose_command[i] = _pose_set[i] + _C2Y[i];
+
+  double timenow = _timer->toc();
+  _hw->setControl(pose_command);
+
+  cout << "[ForceControlController] Update at "  << timenow << endl;
+  
+  if(_print_flag)
+  {
+    _file << timenow << " ";
+    YF::stream_array_in(_file, _pose_set, 7);
+    YF::stream_array_in(_file, pose_fb, 7);
+    YF::stream_array_in(_file, wrench_fb, 6);
+    YF::stream_array_in(_file, _C1X, 3);
+    YF::stream_array_in(_file, _C1Y, 3);
+    YF::stream_array_in(_file, _C2Y, 3);
+    YF::stream_array_in(_file, pose_command, 7);
+    _file << endl;
+  }
+
 }
 

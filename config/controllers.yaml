@@ -1,4 +1,18 @@
-main_loop_rate: 100
-forcecontrol_PGAIN_X: 1
-forcecontrol_PGAIN_Y: 1
-forcecontrol_PGAIN_Z: 1
+main_loop_rate: 500
+main_duration: 3 # sec
+stiffness:
+  x: 0.1 # N/mm
+  y: 0.1
+  z: 0.1
+comp1:
+  k: 0.005
+  zero: 0.3
+  pole: 0.996
+comp2:
+  k: 1.0
+  zero: 0.0
+  pole: 1.0
+  limit: 100.0 # magnitude limit of output
+
+forcecontrol_print_flag: true
+forcecontrol_file_path: "/home/simplehands/catkin_ws/src/forcecontrol/data/forcecontrol_data.txt"

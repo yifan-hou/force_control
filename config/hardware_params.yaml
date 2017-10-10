@@ -8,7 +8,7 @@ netft_file_path: "/home/simplehands/catkin_ws/src/forcecontrol/data/netft_data.t
 
 # ABB EGM
 egm_portnum: 6510
-egm_max_dist_tran: 5 # mm, maximum distance between set point and current pose. 
+egm_max_dist_tran: 50 # mm, maximum distance between set point and current pose. 
 egm_max_dist_rot: 0.3 # rad, maximum distance between set point and current pose. 
                       # This two numbers plus 'K' and bandwidth in robostudio determine 
                       # how fast the robot will move.
@@ -20,7 +20,7 @@ egm_safety:
   xmin: -30
   ymax: -200
   ymin: -400
-  zmax: 468
+  zmax: 500
   zmin: 335
 
 # force control

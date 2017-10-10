@@ -1,13 +1,13 @@
 main_loop_rate: 500
-main_duration: 3 # sec
+main_duration: 10 # sec
 stiffness:
   x: 0.1 # N/mm
   y: 0.1
   z: 0.1
 comp1:
-  k: 0.005
-  zero: 0.3
-  pole: 0.996
+  k: 0.0008
+  zero: 0
+  pole: 0.98
 comp2:
   k: 1.0
   zero: 0.0

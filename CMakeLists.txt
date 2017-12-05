@@ -46,6 +46,7 @@ catkin_package(
 
 include_directories(
   include
+  /usr/include/eigen3
   ${Boost_INCLUDE_DIRS} 
   ${catkin_INCLUDE_DIRS}
 )

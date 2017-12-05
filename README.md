@@ -29,9 +29,11 @@ yifanh@cmu.edu
 *** comp1: k=0.004, zero=0, pole=0.98
 *** comp2: k=1, zero=0, pole=1
 
+
 ## Contact Mode
-Just change comp1.zero to a little bit smaller than comp1.pole. 
-e.g. comp1.zero=0.975, comp1.pole=0.98
+stiffness = 0.1
+comp1.k=0.005, comp1.zero = 0.98, comp1.pole = 0.98
+comp2.k=1, comp2.zero = 0, comp2.pole = 1
 
 ## Reference
 "Experience in Force Control of Robotic Manipulators", James A. Maples and Joseph J. Becker

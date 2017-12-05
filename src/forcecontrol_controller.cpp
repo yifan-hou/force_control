@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <Eigen/Geometry>
 
 #include <yifanlibrary/utilities.h>
 
@@ -10,6 +11,7 @@ using namespace std;
 ForceControlController::ForceControlController()
 {
   _pose_set = new float[7];
+  _force_set = new float[6];
   _STIFFNESS = new float[6];
 
   _C1X = new float[6];
@@ -28,6 +30,7 @@ ForceControlController::ForceControlController()
 ForceControlController::~ForceControlController()
 {
   delete [] _pose_set;
+  delete [] _force_set;
   delete [] _STIFFNESS;
   delete [] _C1X;
   delete [] _C1Y;
@@ -46,8 +49,12 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
   // read set pose
   float wrench[6];
   _hw->getState(_pose_set, wrench);
+  for (int i = 0; i < 6; ++i) _force_set[i] = 0;
   cout << "[ForceControlController] set pose: " << endl;
   YF::stream_array_in(cout, _pose_set, 7);
+  cout << endl;
+  cout << "[ForceControlController] set force: " << endl;
+  YF::stream_array_in(cout, _force_set, 6);
   cout << endl;
 
   
@@ -114,28 +121,29 @@ void ForceControlController::setPose(const float *pose)
   YF::copyArray(pose, _pose_set, 7);  
 }
 
+void ForceControlController::setForce(const float *force)
+{
+  YF::copyArray(force, _force_set, 6);  
+}
+
+/* 
+ *
+    force control law
+ *
+ */
 void ForceControlController::update(const ros::Time& time, const ros::Duration& period)
 {
+  using namespace Eigen;
+  
   float pose_fb[7];
   float wrench_fb[6];
+  static Vector3f force;
   _hw->getState(pose_fb, wrench_fb);
 
-  // cout << "Pose: ";
-  // YF::stream_array_in(cout, pose_fb, 7);
-  // cout << ",\nWrench: ";
-  // YF::stream_array_in(cout, wrench_fb, 6);
-  // cout << endl;
-
-  /* 
-   *
-      force control law
-   *
-   */
 
   // ----------------------------------------
   //  Pose error
   // ----------------------------------------
-
   float pose_err[7];
   for (int i = 0; i < 7; ++i) pose_err[i] = _pose_set[i] - pose_fb[i];
 
@@ -146,13 +154,34 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
   pose_err[1] *= _STIFFNESS[1];
   pose_err[2] *= _STIFFNESS[2];
 
-
   // ----------------------------------------
   //  Force feedback
   // ----------------------------------------
-  pose_err[0] = pose_err[0] - wrench_fb[0];
-  pose_err[1] = pose_err[1] - wrench_fb[1];
-  pose_err[2] = pose_err[2] - wrench_fb[2];
+  // static Quaternionf q0(float(1), float(0), float(0), float(0)); // initial orientation
+  static Quaternionf qn; // current orientation of end effector (also FT sensor)
+
+  force(0) = wrench_fb[0];
+  force(1) = wrench_fb[1];
+  force(2) = wrench_fb[2];
+
+  qn.w() = pose_fb[3];
+  qn.x() = pose_fb[4];
+  qn.y() = pose_fb[5];
+  qn.z() = pose_fb[6];
+
+  force = qn._transformVector(force);
+
+  // ----------------------------------------
+  //  Force feedforward (offset)
+  // ----------------------------------------
+  force(0) += _force_set[0];
+  force(1) += _force_set[1];
+  force(2) += _force_set[2];
+
+  pose_err[0] = pose_err[0] - force(0);
+  pose_err[1] = pose_err[1] - force(1);
+  pose_err[2] = pose_err[2] - force(2);
+
 
   // ----------------------------------------
   //  Compensator 1 
@@ -177,6 +206,7 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
   float pose_command[7] = {0};
   YF::copyArray(pose_fb, pose_command, 7);  
   for (int i = 0; i < 3; ++i) pose_command[i] = _pose_set[i] + _C2Y[i];
+  for (int i = 3; i < 7; ++i) pose_command[i] = _pose_set[i];
 
   double timenow = _timer->toc();
   _hw->setControl(pose_command);

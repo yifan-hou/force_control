@@ -26,9 +26,19 @@ for i = 1:3
 
 	subplot(2,1,2); hold on;
 	title(['Force ' namelist{i}]);
-	plot(frc.time, frc.wrench_fb(:, i), '. --', 'linewidth', 1.5);
-	plot(frc.time, frc.c1x(:, i), '. --', 'linewidth', 1.5);
-	plot(frc.time, frc.c1y(:, i), '. --', 'linewidth', 1.5);
-	plot(frc.time, frc.c2y(:, i), '. --', 'linewidth', 1.5);
+	plot(frc.time, frc.wrench_fb(:, i), '. -', 'linewidth', 1.5);
+% 	plot(frc.time, frc.c1x(:, i), '. -', 'linewidth', 1.5);
+% 	plot(frc.time, frc.c1y(:, i), '. -', 'linewidth', 1.5);
+% 	plot(frc.time, frc.c2y(:, i), '. -', 'linewidth', 1.5);
 	legend('feedback', 'c1x', 'c1y', 'c2y');
+end
+
+figure(4);clf(4);hold on;
+title('Quaternion');
+for i = 4:7
+	subplot(4,1,i-3); hold on;
+	plot(frc.time, frc.pose_set(:, i), '* - b', 'linewidth', 1.5);
+	plot(frc.time, frc.pose_fb(:, i), '. - g', 'linewidth', 1.5);
+	plot(frc.time, frc.pose_command(:, i), '. - r', 'linewidth', 1.5);
+	legend('set', 'feedback', 'command');
 end

@@ -4,6 +4,7 @@
 
 ForceControlHardware::ForceControlHardware() {
   _WRENCH_OFFSET = new float[6];
+  _WRENCH_SAFETY = new float[6];
 }
 
 bool ForceControlHardware::init(ros::NodeHandle& root_nh, Timer *timer)
@@ -43,6 +44,12 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh, Timer *timer)
   root_nh.param(std::string("/ati/offset/tx"), _WRENCH_OFFSET[3], float(0.0));
   root_nh.param(std::string("/ati/offset/ty"), _WRENCH_OFFSET[4], float(0.0));
   root_nh.param(std::string("/ati/offset/tz"), _WRENCH_OFFSET[5], float(0.0));
+  root_nh.param(std::string("/ati/safety/fx"), _WRENCH_SAFETY[0], float(0.0));
+  root_nh.param(std::string("/ati/safety/fy"), _WRENCH_SAFETY[1], float(0.0));
+  root_nh.param(std::string("/ati/safety/fz"), _WRENCH_SAFETY[2], float(0.0));
+  root_nh.param(std::string("/ati/safety/tx"), _WRENCH_SAFETY[3], float(0.0));
+  root_nh.param(std::string("/ati/safety/ty"), _WRENCH_SAFETY[4], float(0.0));
+  root_nh.param(std::string("/ati/safety/tz"), _WRENCH_SAFETY[5], float(0.0));
 
   if (!root_nh.hasParam("/egm_portnum"))
     ROS_WARN_STREAM("Parameter [/egm_portnum] not found, using default: " << portnum);
@@ -83,6 +90,16 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh, Timer *timer)
                                                     << _WRENCH_OFFSET[3] << "\t"
                                                     << _WRENCH_OFFSET[4] << "\t"
                                                     << _WRENCH_OFFSET[5]);
+  if (!root_nh.hasParam("/ati/safety"))
+    ROS_WARN_STREAM("Parameter [/ati/safety] not found, using default: " << _WRENCH_SAFETY[0]);
+  else
+    ROS_INFO_STREAM("Parameter [/ati/safety] = "    << _WRENCH_SAFETY[0] << "\t" 
+                                                    << _WRENCH_SAFETY[1] << "\t"
+                                                    << _WRENCH_SAFETY[2] << "\t"
+                                                    << _WRENCH_SAFETY[3] << "\t"
+                                                    << _WRENCH_SAFETY[4] << "\t"
+                                                    << _WRENCH_SAFETY[5]);
+
 
   switch(mode_int) {
       case 0 : mode = CT_MODE_POSITION;
@@ -104,9 +121,30 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh, Timer *timer)
 
 void ForceControlHardware::getState(float *pose, float *wrench)
 {
-  float wrench_temp[7] = {0}; // wrench measured in tool frame
+  getPose(pose);
+  getWrench(wrench);
+}
+
+
+void ForceControlHardware::getPose(float *pose)
+{
   egm->GetCartesian(pose);
+}
+
+
+bool ForceControlHardware::getWrench(float *wrench)
+{
+  float wrench_temp[7] = {0}; // wrench measured in tool frame
   ati->getWrench(wrench_temp);
+
+  // safety
+  bool safety = true;
+  for (int i = 0; i < 6; ++i) 
+  {
+    if(abs(wrench_temp[i]) >_WRENCH_SAFETY[i])
+      safety = false;
+  }
+
   // offset
   for (int i = 0; i < 6; ++i) wrench_temp[i] -= _WRENCH_OFFSET[i];
 
@@ -115,15 +153,26 @@ void ForceControlHardware::getState(float *pose, float *wrench)
   wrench[0]   = -wrench_temp[0]*sin(ang_T) + wrench_temp[1]*cos(ang_T);
   wrench[1]   =  wrench_temp[0]*cos(ang_T) + wrench_temp[1]*sin(ang_T);
   wrench[2]   =  wrench_temp[2];
+  
+  return safety;
 }
+
 
 void ForceControlHardware::setControl(const float *pose_set)
 {
   egm->SetCartesian(pose_set);
 }
 
+void ForceControlHardware::liftup(const float dz)
+{
+  float pose[7];
+  getPose(pose);
+  pose[2] += dz;
+  setControl(pose);
+}
 
 ForceControlHardware::~ForceControlHardware(){
   delete ati;
   delete [] _WRENCH_OFFSET;
+  delete [] _WRENCH_SAFETY;
 }

@@ -31,13 +31,17 @@ class ForceControlHardware : public hardware_interface::RobotHW
     ~ForceControlHardware();
     bool init(ros::NodeHandle& root_nh, Timer *timer);
     void getState(float *pose, float *wrench);
+    void getPose(float *pose);
+    bool getWrench(float *wrench);
     void setControl(const float *pose_set);
 
+    void liftup(const float dz); // move up for safety 
     ATINetftHardware *ati;
     EGMClass *egm;
 
     // parameters
     float *_WRENCH_OFFSET;
+    float *_WRENCH_SAFETY;
 
   private:
 

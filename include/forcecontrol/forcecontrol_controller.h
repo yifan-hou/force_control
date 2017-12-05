@@ -10,9 +10,11 @@ public:
   ~ForceControlController();
   bool init(ros::NodeHandle& root_nh, ForceControlHardware *hw, Timer *timer);
   void setPose(const float *pose);
+  void setForce(const float *force);
   void update(const ros::Time& time, const ros::Duration& period);
 
   float *_pose_set;
+  float *_force_set;
 
   // parameters
   float *_STIFFNESS;

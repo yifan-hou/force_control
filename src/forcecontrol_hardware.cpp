@@ -7,7 +7,7 @@ ForceControlHardware::ForceControlHardware() {
   _WRENCH_SAFETY = new float[6];
 }
 
-bool ForceControlHardware::init(ros::NodeHandle& root_nh, Timer *timer)
+bool ForceControlHardware::init(ros::NodeHandle& root_nh, std::chrono::high_resolution_clock::time_point time0)
 {
   using namespace hardware_interface;
 
@@ -15,29 +15,32 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh, Timer *timer)
   egm = EGMClass::Instance();
 
   // initialize ati (ati parameters are handled inside)
-  ati->init(root_nh, timer);
+  ati->init(root_nh, time0);
 
   // read egm parameters from parameter server
   int portnum;
   float max_dist_tran, max_dist_rot;
-  float egm_safety[6];
+  float egm_safety_zone[6];
   bool print_flag;
   string filefullpath;
-  int mode_int;
-  EGMControlMode mode;
+  int safety_mode_int;
+  int operation_mode_int;
+  EGMSafetyMode egm_safety_mode;
+  EGMOperationMode egm_operation_mode;
 
   root_nh.param(std::string("/egm_portnum"), portnum, 6510);
   root_nh.param(std::string("/egm_max_dist_tran"), max_dist_tran, float(0.0));
   root_nh.param(std::string("/egm_max_dist_rot"), max_dist_rot, float(0.0));
-  root_nh.param(std::string("/egm_mode"), mode_int, 0);
+  root_nh.param(std::string("/egm_safety_mode"), safety_mode_int, 0);
+  root_nh.param(std::string("/egm_operation_mode"), operation_mode_int, 0);
   root_nh.param(std::string("/egm_print_flag"), print_flag, false);
   root_nh.param(std::string("/egm_file_path"), filefullpath, std::string(" "));
-  root_nh.param(std::string("/egm_safety/xmax"), egm_safety[0], float(0.0));
-  root_nh.param(std::string("/egm_safety/xmin"), egm_safety[1], float(0.0));
-  root_nh.param(std::string("/egm_safety/ymax"), egm_safety[2], float(0.0));
-  root_nh.param(std::string("/egm_safety/ymin"), egm_safety[3], float(0.0));
-  root_nh.param(std::string("/egm_safety/zmax"), egm_safety[4], float(0.0));
-  root_nh.param(std::string("/egm_safety/zmin"), egm_safety[5], float(0.0));
+  root_nh.param(std::string("/egm_safety_zone/xmin"), egm_safety_zone[0], float(0.0));
+  root_nh.param(std::string("/egm_safety_zone/xmax"), egm_safety_zone[1], float(0.0));
+  root_nh.param(std::string("/egm_safety_zone/ymin"), egm_safety_zone[2], float(0.0));
+  root_nh.param(std::string("/egm_safety_zone/ymax"), egm_safety_zone[3], float(0.0));
+  root_nh.param(std::string("/egm_safety_zone/zmin"), egm_safety_zone[4], float(0.0));
+  root_nh.param(std::string("/egm_safety_zone/zmax"), egm_safety_zone[5], float(0.0));
   root_nh.param(std::string("/ati/offset/fx"), _WRENCH_OFFSET[0], float(0.0));
   root_nh.param(std::string("/ati/offset/fy"), _WRENCH_OFFSET[1], float(0.0));
   root_nh.param(std::string("/ati/offset/fz"), _WRENCH_OFFSET[2], float(0.0));
@@ -66,10 +69,15 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh, Timer *timer)
   else
     ROS_INFO_STREAM("Parameter [/egm_max_dist_rot] = " << max_dist_rot);
 
-  if (!root_nh.hasParam("/egm_mode"))
-    ROS_WARN_STREAM("Parameter [/egm_mode] not found, using default: " << mode);
+  if (!root_nh.hasParam("/egm_safety_mode"))
+    ROS_WARN_STREAM("Parameter [/egm_safety_mode] not found, using default: " << safety_mode_int);
   else
-    ROS_INFO_STREAM("Parameter [/egm_mode] = " << mode);
+    ROS_INFO_STREAM("Parameter [/egm_safety_mode] = " << safety_mode_int);
+
+  if (!root_nh.hasParam("/egm_operation_mode"))
+    ROS_WARN_STREAM("Parameter [/egm_operation_mode] not found, using default: " << operation_mode_int);
+  else
+    ROS_INFO_STREAM("Parameter [/egm_operation_mode] = " << operation_mode_int);
 
   if (!root_nh.hasParam("/egm_print_flag"))
     ROS_WARN_STREAM("Parameter [/egm_print_flag] not found, using default: " << print_flag);
@@ -80,6 +88,16 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh, Timer *timer)
     ROS_WARN_STREAM("Parameter [/egm_file_path] not found, using default: " << filefullpath);
   else
     ROS_INFO_STREAM("Parameter [/egm_file_path] = " << filefullpath);
+
+  if (!root_nh.hasParam("/egm_safety_zone/xmin"))
+    ROS_WARN_STREAM("Parameter [/egm/egm_safety_zone] not found, using default: " << egm_safety_zone[0]);
+  else
+    ROS_INFO_STREAM("Parameter [/egm/egm_safety_zone] = "    << egm_safety_zone[0] << "\t" 
+                                                    << egm_safety_zone[1] << "\t"
+                                                    << egm_safety_zone[2] << "\t"
+                                                    << egm_safety_zone[3] << "\t"
+                                                    << egm_safety_zone[4] << "\t"
+                                                    << egm_safety_zone[5]);
 
   if (!root_nh.hasParam("/ati/offset"))
     ROS_WARN_STREAM("Parameter [/ati/offset] not found, using default: " << _WRENCH_OFFSET[0]);
@@ -100,18 +118,24 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh, Timer *timer)
                                                     << _WRENCH_SAFETY[4] << "\t"
                                                     << _WRENCH_SAFETY[5]);
 
-
-  switch(mode_int) {
-      case 0 : mode = CT_MODE_POSITION;
+  switch(safety_mode_int) {
+      case 0 : egm_safety_mode = SAFETY_MODE_NONE;
                break;
-      case 1 : mode = CT_MODE_VELOCITY;
-               break;       // and exits the switch
-      case 2 : mode = CT_MODE_TRANSPARENT;
+      case 1 : egm_safety_mode = SAFETY_MODE_TRUNCATE;
+               break;
+      case 2 : egm_safety_mode = SAFETY_MODE_STOP;
+               break;
+  }
+
+  switch(operation_mode_int) {
+      case 0 : egm_operation_mode = OPERATION_MODE_CARTESIAN;
+               break;
+      case 1 : egm_operation_mode = OPERATION_MODE_JOINT;
                break;
   }
 
   // initialize egm
-  egm->init(timer, (unsigned short)portnum, max_dist_tran, max_dist_rot, egm_safety, mode, print_flag, filefullpath);
+  egm->init(time0, (unsigned short)portnum, max_dist_tran, max_dist_rot, egm_safety_zone, egm_safety_mode, egm_operation_mode, print_flag, filefullpath);
   // egm->SetCartesianVel((float)speed_tran, (float)speed_rot);
 
   // Register interfaces:
@@ -125,12 +149,10 @@ void ForceControlHardware::getState(float *pose, float *wrench)
   getWrench(wrench);
 }
 
-
 void ForceControlHardware::getPose(float *pose)
 {
   egm->GetCartesian(pose);
 }
-
 
 bool ForceControlHardware::getWrench(float *wrench)
 {

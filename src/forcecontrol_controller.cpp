@@ -4,7 +4,11 @@
 #include <string>
 #include <Eigen/Geometry>
 
-#include <yifanlibrary/utilities.h>
+#include <forcecontrol/utilities.h>
+
+
+typedef std::chrono::high_resolution_clock Clock;
+
 
 using namespace std;
 
@@ -41,20 +45,20 @@ ForceControlController::~ForceControlController()
     _file.close();
 }
 
-bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware* hw, Timer *timer)
+bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware* hw, std::chrono::high_resolution_clock::time_point time0)
 {
-  _hw = hw;
-  _timer = timer;
+  _hw    = hw;
+  _time0 = time0;
 
   // read set pose
   float wrench[6];
   _hw->getState(_pose_set, wrench);
   for (int i = 0; i < 6; ++i) _force_set[i] = 0;
   cout << "[ForceControlController] set pose: " << endl;
-  YF::stream_array_in(cout, _pose_set, 7);
+  UT::stream_array_in(cout, _pose_set, 7);
   cout << endl;
   cout << "[ForceControlController] set force: " << endl;
-  YF::stream_array_in(cout, _force_set, 6);
+  UT::stream_array_in(cout, _force_set, 6);
   cout << endl;
 
   
@@ -118,12 +122,12 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
 
 void ForceControlController::setPose(const float *pose)
 {
-  YF::copyArray(pose, _pose_set, 7);  
+  UT::copyArray(pose, _pose_set, 7);  
 }
 
 void ForceControlController::setForce(const float *force)
 {
-  YF::copyArray(force, _force_set, 6);  
+  UT::copyArray(force, _force_set, 6);  
 }
 
 /* 
@@ -189,7 +193,7 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
   _C1Y[0] = _COMP1_POLE*_C1Y[0] + _COMP1_K*pose_err[0] - _COMP1_ZERO*_COMP1_K*_C1X[0];
   _C1Y[1] = _COMP1_POLE*_C1Y[1] + _COMP1_K*pose_err[1] - _COMP1_ZERO*_COMP1_K*_C1X[1];
   _C1Y[2] = _COMP1_POLE*_C1Y[2] + _COMP1_K*pose_err[2] - _COMP1_ZERO*_COMP1_K*_C1X[2];
-  YF::copyArray(pose_err, _C1X, 3);  
+  UT::copyArray(pose_err, _C1X, 3);  
   
   // ----------------------------------------
   //  Compensator 2 
@@ -197,18 +201,20 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
   _C2Y[0] = _COMP2_POLE*_C2Y[0] + _COMP2_K*_C1Y[0] - _COMP2_ZERO*_COMP2_K*_C2X[0];
   _C2Y[1] = _COMP2_POLE*_C2Y[1] + _COMP2_K*_C1Y[1] - _COMP2_ZERO*_COMP2_K*_C2X[1];
   _C2Y[2] = _COMP2_POLE*_C2Y[2] + _COMP2_K*_C1Y[2] - _COMP2_ZERO*_COMP2_K*_C2X[2];
-  YF::truncate(_C2Y, _COMP2_LIMIT, -_COMP2_LIMIT, 3);
-  YF::copyArray(_C1Y, _C2X, 3);  
+  UT::truncate(_C2Y, _COMP2_LIMIT, -_COMP2_LIMIT, 3);
+  UT::copyArray(_C1Y, _C2X, 3);  
 
   // ----------------------------------------
   //  Pose offset 
   // ----------------------------------------
   float pose_command[7] = {0};
-  YF::copyArray(pose_fb, pose_command, 7);  
+  UT::copyArray(pose_fb, pose_command, 7);  
   for (int i = 0; i < 3; ++i) pose_command[i] = _pose_set[i] + _C2Y[i];
   for (int i = 3; i < 7; ++i) pose_command[i] = _pose_set[i];
 
-  double timenow = _timer->toc();
+  Clock::time_point timenow_clock = Clock::now();
+  double timenow = double(std::chrono::duration_cast<std::chrono::nanoseconds>(timenow_clock - _time0).count())/1e6; // milli second
+
   _hw->setControl(pose_command);
 
   cout << "[ForceControlController] Update at "  << timenow << endl;
@@ -216,13 +222,13 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
   if(_print_flag)
   {
     _file << timenow << " ";
-    YF::stream_array_in(_file, _pose_set, 7);
-    YF::stream_array_in(_file, pose_fb, 7);
-    YF::stream_array_in(_file, wrench_fb, 6);
-    YF::stream_array_in(_file, _C1X, 3);
-    YF::stream_array_in(_file, _C1Y, 3);
-    YF::stream_array_in(_file, _C2Y, 3);
-    YF::stream_array_in(_file, pose_command, 7);
+    UT::stream_array_in(_file, _pose_set, 7);
+    UT::stream_array_in(_file, pose_fb, 7);
+    UT::stream_array_in(_file, wrench_fb, 6);
+    UT::stream_array_in(_file, _C1X, 3);
+    UT::stream_array_in(_file, _C1Y, 3);
+    UT::stream_array_in(_file, _C2Y, 3);
+    UT::stream_array_in(_file, pose_command, 7);
     _file << endl;
   }
 

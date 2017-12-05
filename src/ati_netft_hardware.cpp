@@ -1,10 +1,13 @@
 #include <forcecontrol/ati_netft_hardware.h>
 
-#include <yifanlibrary/utilities.h>
+#include <forcecontrol/utilities.h>
 
 // 
 // The thread Function
 // 
+typedef std::chrono::high_resolution_clock Clock;
+
+
 void* ATI_Monitor(void* pParam)
 {
   ATINetftHardware *netft_hardware = (ATINetftHardware*)pParam;
@@ -34,10 +37,13 @@ void* ATI_Monitor(void* pParam)
       netft_hardware->_pub.publish(data);
     }
 
-    double timenow = netft_hardware->_timer->toc();
+    Clock::time_point timenow_clock = Clock::now();
+    double timenow = double(std::chrono::duration_cast<std::chrono::nanoseconds>(timenow_clock - netft_hardware->_time0).count())/1e6; // milli second
+
+
     netft_hardware->_file << timenow << "\t";
-    YF::stream_array_in(netft_hardware->_file, netft_hardware->_force, 3);
-    YF::stream_array_in(netft_hardware->_file, netft_hardware->_torque, 3);
+    UT::stream_array_in(netft_hardware->_file, netft_hardware->_force, 3);
+    UT::stream_array_in(netft_hardware->_file, netft_hardware->_torque, 3);
     netft_hardware->_file << endl;
 
     ros::Time current_time(ros::Time::now());
@@ -64,11 +70,11 @@ ATINetftHardware::ATINetftHardware() {
   _torque = new double[3];
 }
 
-bool ATINetftHardware::init(ros::NodeHandle& root_nh, Timer *timer)
+bool ATINetftHardware::init(ros::NodeHandle& root_nh, std::chrono::high_resolution_clock::time_point time0)
 {
   using namespace hardware_interface;
 
-  _timer = timer;
+  _time0 = time0;
 
   // Get parameters from the server
   string ip_address, sensor_name, fullpath;

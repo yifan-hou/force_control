@@ -1,14 +1,14 @@
 #include <fstream>
+#include <chrono>
 
 #include <forcecontrol/forcecontrol_hardware.h>
-#include <yifanlibrary/TimerLinux.h>
 
 class ForceControlController
 {
 public:
   ForceControlController();
   ~ForceControlController();
-  bool init(ros::NodeHandle& root_nh, ForceControlHardware *hw, Timer *timer);
+  bool init(ros::NodeHandle& root_nh, ForceControlHardware *hw, std::chrono::high_resolution_clock::time_point time0);
   void setPose(const float *pose);
   void setForce(const float *force);
   void update(const ros::Time& time, const ros::Duration& period);
@@ -36,7 +36,7 @@ private:
   ForceControlHardware *_hw;
 
   // misc
-  Timer *_timer;
+  std::chrono::high_resolution_clock::time_point _time0; ///< high resolution timer.
   ofstream _file;
   bool _print_flag;
   

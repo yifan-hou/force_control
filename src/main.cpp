@@ -1,8 +1,7 @@
 #include <forcecontrol/forcecontrol_hardware.h>
 #include <forcecontrol/forcecontrol_controller.h>
 
-#include <yifanlibrary/TimerLinux.h>
-#include <yifanlibrary/utilities.h>
+#include <forcecontrol/utilities.h>
 #include <Eigen/Geometry>
 
 #include <iostream>
@@ -34,16 +33,17 @@ int main(int argc, char* argv[])
     ROS_INFO_STREAM("Force control starting");
     ros::init(argc, argv, "forcecontrol_node");
     ros::NodeHandle hd;
-
-    Timer The_timer; // the timer that is used by all threads
+ 
 
     ForceControlHardware robot;
     ForceControlController controller;
 
-    The_timer.tic(); // start ticking
+    std::chrono::high_resolution_clock::time_point TheTime0;
+    TheTime0 = std::chrono::high_resolution_clock::now();
+
     
-    robot.init(hd, &The_timer); // robot must be initialized before controller
-    controller.init(hd, &robot, &The_timer);
+    robot.init(hd, TheTime0); // robot must be initialized before controller
+    controller.init(hd, &robot, TheTime0);
     
     int main_loop_rate;
     double main_duration;
@@ -112,7 +112,7 @@ int main(int argc, char* argv[])
         if(!robot.getWrench(wrench))
         {
             cout << "[MAIN] force is above safety threhold!" << endl;
-            YF::stream_array_in(cout, wrench, 6);
+            UT::stream_array_in(cout, wrench, 6);
             robot.liftup(float(20));
             ros::Duration(1).sleep();
 

@@ -8,7 +8,7 @@ add_definitions(-std=c++11)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  egm_hardware
+  egm
   netft_rdt_driver
   roscpp
   diagnostic_updater 
@@ -51,7 +51,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-include_directories(${egm_hardware_INCLUDE_DIRS})
+include_directories(${egm_INCLUDE_DIRS})
 
 ###########
 ## Build ##
@@ -61,11 +61,10 @@ add_library(ati_netft_hardware src/ati_netft_hardware.cpp)
 target_link_libraries(ati_netft_hardware netft_rdt_driver ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 
 add_library(forcecontrol_hardware src/forcecontrol_hardware.cpp)
-target_link_libraries(forcecontrol_hardware ati_netft_hardware egm_hardware)
+target_link_libraries(forcecontrol_hardware ati_netft_hardware egm)
 
 add_library(forcecontrol_controller src/forcecontrol_controller.cpp)
-# target_link_libraries(forcecontrol_controller ati_netft_hardware egm_hardware)
+# target_link_libraries(forcecontrol_controller ati_netft_hardware egm)
 
 add_executable(forcecontrol_node src/main.cpp)
-target_link_libraries(forcecontrol_node forcecontrol_hardware forcecontrol_controller
-	"/usr/local/lib/yifanlibrary/libTimerLinux.so")
+target_link_libraries(forcecontrol_node forcecontrol_hardware forcecontrol_controller)

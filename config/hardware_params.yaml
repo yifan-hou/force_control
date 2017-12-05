@@ -28,15 +28,16 @@ egm_max_dist_tran: 50 # mm, maximum distance between set point and current pose.
 egm_max_dist_rot: 0.1 # rad, maximum distance between set point and current pose. 
                       # This two numbers plus 'K' and bandwidth in robostudio determine 
                       # how fast the robot will move.
-egm_mode: 0 # 0: position control  1: velocity control  2: transparent control
+egm_safety_mode: 2 # 0: none 1: truncate 2: stop
+egm_operation_mode: 0 # 0: cartesian 1: joint
 egm_print_flag: true
 egm_file_path: "/home/simplehands/catkin_ws/src/forcecontrol/data/egm_data.txt"
-egm_safety:
-  xmax: 186
+egm_safety_zone:
   xmin: -130
-  ymax: -200
+  xmax: 186
   ymin: -640
-  zmax: 500
+  ymax: -200
   zmin: 115
+  zmax: 500
 
 # force control

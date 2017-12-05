@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <string>
+#include <chrono>
 #include <cmath>
 #include <unistd.h>
 // #include <pthread.h>
@@ -18,8 +19,7 @@
 // #include <boost/program_options.hpp>
 
 #include <forcecontrol/ati_netft_hardware.h>
-#include <egm_hardware/EGMClass.h>
-#include <yifanlibrary/TimerLinux.h>
+#include <egm/EGMClass.h>
 // namespace po = boost::program_options;
 using namespace std;
 
@@ -29,7 +29,7 @@ class ForceControlHardware : public hardware_interface::RobotHW
   public:
     ForceControlHardware();
     ~ForceControlHardware();
-    bool init(ros::NodeHandle& root_nh, Timer *timer);
+    bool init(ros::NodeHandle& root_nh, std::chrono::high_resolution_clock::time_point time0);
     void getState(float *pose, float *wrench);
     void getPose(float *pose);
     bool getWrench(float *wrench);

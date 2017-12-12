@@ -171,11 +171,12 @@ bool ForceControlHardware::getWrench(float *wrench)
   for (int i = 0; i < 6; ++i) wrench_temp[i] -= _WRENCH_OFFSET[i];
 
   // transform to tool-frame
-  float ang_T = 20.0*PI/180.0;
-  wrench[0]   = -wrench_temp[0]*sin(ang_T) + wrench_temp[1]*cos(ang_T);
-  wrench[1]   =  wrench_temp[0]*cos(ang_T) + wrench_temp[1]*sin(ang_T);
+  // this only works if the toolframe in ABB robot has identity orientation
+  // i.e. q = 1 0 0 0
+  float ang_T = -112.5*PI/180.0;
+  wrench[0]   = cos(ang_T)*wrench_temp[0] - sin(ang_T)*wrench_temp[1];
+  wrench[1]   = sin(ang_T)*wrench_temp[0] + cos(ang_T)*wrench_temp[1];
   wrench[2]   =  wrench_temp[2];
-  
   return safety;
 }
 

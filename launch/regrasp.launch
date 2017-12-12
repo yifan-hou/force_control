@@ -1,6 +1,5 @@
 <launch>
   <rosparam file="$(find forcecontrol)/config/hardware_params.yaml" command="load"/>
   <rosparam file="$(find forcecontrol)/config/controllers.yaml" command="load"  />
-  <!-- <node pkg="forcecontrol" name="force_control_hw" type="forcecontrol_node"  output="screen" /> -->
   <node pkg="forcecontrol" name="regrasp" type="regrasp_node"  output="screen" />
 </launch>

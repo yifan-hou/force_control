@@ -67,8 +67,8 @@ int main(int argc, char* argv[])
 
     // Let the robot go back to origin.
     ROS_INFO_STREAM("[MAIN] Duration: " << main_duration << "sec. " << Nsteps << " steps." << endl);
-    ROS_INFO_STREAM("[MAIN] Press ENTER to begin.\n");
-    getchar();
+    // ROS_INFO_STREAM("[MAIN] Press ENTER to begin.\n");
+    // getchar();
     
     float pose[7], wrench[6], z0;
     robot.getPose(pose);
@@ -121,27 +121,27 @@ int main(int argc, char* argv[])
         // update
         controller.update(time_now, period);
 
-        // set z motion
-        float exe_time = float(5*main_loop_rate);
-        if (i < exe_time)
-            pose[2] = (z0*(exe_time - i) + main_setpos_z*i)/exe_time;
-        else
-        {
-            pose[2] = main_setpos_z;
-            controller.setForce(force);
+        // // set z motion
+        // float exe_time = float(5*main_loop_rate);
+        // if (i < exe_time)
+        //     pose[2] = (z0*(exe_time - i) + main_setpos_z*i)/exe_time;
+        // else
+        // {
+        //     pose[2] = main_setpos_z;
+        //     controller.setForce(force);
 
-            // set rotation
-            aa.angle() = 0.5*sin(float((i-int(exe_time))%(2*main_loop_rate))/float(2*main_loop_rate)*2*PI);
-            Quaternionf qr(aa);
-            // robot.getPose(pose);
-            qset = quatMTimes(qr, q0);
-            pose[3] = qset.w();
-            pose[4] = qset.x();
-            pose[5] = qset.y();
-            pose[6] = qset.z();
-        }
+        //     // set rotation
+        //     aa.angle() = 0.5*sin(float((i-int(exe_time))%(2*main_loop_rate))/float(2*main_loop_rate)*2*PI);
+        //     Quaternionf qr(aa);
+        //     // robot.getPose(pose);
+        //     qset = quatMTimes(qr, q0);
+        //     pose[3] = qset.w();
+        //     pose[4] = qset.x();
+        //     pose[5] = qset.y();
+        //     pose[6] = qset.z();
+        // }
 
-        controller.setPose(pose);
+        // controller.setPose(pose);
 
 
 

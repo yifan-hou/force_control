@@ -41,7 +41,7 @@ generate_messages(
 catkin_package(
   INCLUDE_DIRS include
   CATKIN_DEPENDS roscpp diagnostic_updater diagnostic_msgs geometry_msgs message_runtime controller_manager hardware_interface dynamic_reconfigure
-  LIBRARIES ${PROJECT_NAME}
+  LIBRARIES forcecontrol_controller forcecontrol_hardware
 )
 
 include_directories(
@@ -49,6 +49,7 @@ include_directories(
   /usr/include/eigen3
   ${Boost_INCLUDE_DIRS} 
   ${catkin_INCLUDE_DIRS}
+  ~/Git/ZZJHand/include/
 )
 
 include_directories(${egm_INCLUDE_DIRS})
@@ -56,6 +57,11 @@ include_directories(${egm_INCLUDE_DIRS})
 ###########
 ## Build ##
 ###########
+# catkin_package(
+#   INCLUDE_DIRS include ${PROJECT_BINARY_DIR}/
+#   LIBRARIES forcecontrol_controller forcecontrol_hardware
+#   CATKIN_DEPENDS roscpp ati_netft_hardware egm
+#   )
 
 add_library(ati_netft_hardware src/ati_netft_hardware.cpp)
 target_link_libraries(ati_netft_hardware netft_rdt_driver ${Boost_LIBRARIES} ${catkin_LIBRARIES})
@@ -66,5 +72,48 @@ target_link_libraries(forcecontrol_hardware ati_netft_hardware egm)
 add_library(forcecontrol_controller src/forcecontrol_controller.cpp)
 # target_link_libraries(forcecontrol_controller ati_netft_hardware egm)
 
-add_executable(forcecontrol_node src/main.cpp)
-target_link_libraries(forcecontrol_node forcecontrol_hardware forcecontrol_controller)
+add_executable(regrasp_node src/regrasp.cpp)
+target_link_libraries(regrasp_node forcecontrol_hardware forcecontrol_controller
+  /usr0/home/yifanh/Git/ZZJHand/build/libHand.so
+  # libEposCmd.so
+  )
+
+
+#############
+## Install ##
+#############
+# all install targets should use catkin DESTINATION variables
+# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
+
+# # Mark executable scripts (Python etc.) for installation
+# # in contrast to setup.py, you can choose the destination
+# install(PROGRAMS
+#   scripts/my_python_script
+#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+
+
+
+# Mark executables and/or libraries for installation
+install(TARGETS forcecontrol_controller forcecontrol_hardware
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+# Mark cpp header files for installation
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+  FILES_MATCHING PATTERN "*.h"
+  PATTERN ".svn" EXCLUDE
+)
+
+# # Mark other files for installation (e.g. launch and bag files, etc.)
+# install(FILES
+#   # myfile1
+#   # myfile2
+#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+# )
+
+
+

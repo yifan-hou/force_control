@@ -14,9 +14,10 @@ using namespace std;
 
 ForceControlController::ForceControlController()
 {
-  _pose_set = new float[7];
-  _force_set = new float[6];
-  _STIFFNESS = new float[6];
+  _pose_set        = new float[7];
+  _force_set       = new float[6];
+  _STIFFNESS       = new float[3];
+  _FORCE_SELECTION = new float[3];
 
   _C1X = new float[6];
   _C1Y = new float[6];
@@ -36,6 +37,7 @@ ForceControlController::~ForceControlController()
   delete [] _pose_set;
   delete [] _force_set;
   delete [] _STIFFNESS;
+  delete [] _FORCE_SELECTION;
   delete [] _C1X;
   delete [] _C1Y;
   delete [] _C2X;
@@ -64,6 +66,9 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
   
   // read controller from parameter server
   string fullpath;
+  root_nh.param(string("/force_fb_selection/x"), _FORCE_SELECTION[0], float(1));
+  root_nh.param(string("/force_fb_selection/y"), _FORCE_SELECTION[1], float(1));
+  root_nh.param(string("/force_fb_selection/z"), _FORCE_SELECTION[2], float(1));
   root_nh.param(string("/stiffness/x"), _STIFFNESS[0], float(0.0));
   root_nh.param(string("/stiffness/y"), _STIFFNESS[1], float(0.0));
   root_nh.param(string("/stiffness/z"), _STIFFNESS[2], float(0.0));
@@ -77,6 +82,13 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
   root_nh.param(string("/forcecontrol_print_flag"), _print_flag, false);
   root_nh.param(string("/forcecontrol_file_path"), fullpath, string(" "));
   
+
+  if (!root_nh.hasParam("/force_fb_selection"))
+    ROS_WARN_STREAM("Parameter [/force_fb_selection] not found, using default: " << _FORCE_SELECTION[0]);
+  else
+    ROS_INFO_STREAM("Parameter [/force_fb_selection] = " << _FORCE_SELECTION[0] << "\t"
+                                                << _FORCE_SELECTION[1] << "\t"
+                                                << _FORCE_SELECTION[2]);
   if (!root_nh.hasParam("/stiffness"))
     ROS_WARN_STREAM("Parameter [/stiffness] not found, using default: " << _STIFFNESS[0]);
   else
@@ -173,7 +185,13 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
   qn.y() = pose_fb[5];
   qn.z() = pose_fb[6];
 
+  // transformation
   force = qn._transformVector(force);
+
+  // selection
+  force(0) = _FORCE_SELECTION[0] * force(0);
+  force(1) = _FORCE_SELECTION[1] * force(1);
+  force(2) = _FORCE_SELECTION[2] * force(2);
 
   // ----------------------------------------
   //  Force feedforward (offset)
@@ -182,9 +200,9 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
   force(1) += _force_set[1];
   force(2) += _force_set[2];
 
-  pose_err[0] = pose_err[0] - force(0);
-  pose_err[1] = pose_err[1] - force(1);
-  pose_err[2] = pose_err[2] - force(2);
+  pose_err[0] = pose_err[0] + force(0);
+  pose_err[1] = pose_err[1] + force(1);
+  pose_err[2] = pose_err[2] + force(2);
 
 
   // ----------------------------------------

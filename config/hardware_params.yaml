@@ -4,16 +4,16 @@ netft_sensor_name: "netft"
 netft_frame_id: "end_effector"
 netft_publish_rate: 1000
 netft_print_flag: true
-netft_file_path: "/home/simplehands/catkin_ws/src/forcecontrol/data/netft_data.txt"
+netft_file_path: "/home/yifanh/Git/catkin_ws/src/forcecontrol/data/netft_data.txt"
 
 ati:
-  offset:
-    fx: 1.58
-    fy: -0.15
+  offset: # will get subtracted
+    fx: 1.33
+    fy: 0.6
     fz: 1.66
-    tx: 0.0070
-    ty: -0.0002
-    tz: 0.015
+    tx: 0.022
+    ty: 0.010
+    tz: 0.016
   safety:
     fx: 20 # maximum: 20
     fy: 20 # maximum: 20
@@ -24,20 +24,20 @@ ati:
 
 # ABB EGM
 egm_portnum: 6510
-egm_max_dist_tran: 50 # mm, maximum distance between set point and current pose. 
-egm_max_dist_rot: 0.1 # rad, maximum distance between set point and current pose. 
+egm_max_dist_tran: 5 # mm, maximum distance between set point and current pose. 
+egm_max_dist_rot: 0.05 # rad, maximum distance between set point and current pose. 
                       # This two numbers plus 'K' and bandwidth in robostudio determine 
                       # how fast the robot will move.
-egm_safety_mode: 2 # 0: none 1: truncate 2: stop
+egm_safety_mode: 1 # 0: none 1: truncate 2: stop
 egm_operation_mode: 0 # 0: cartesian 1: joint
 egm_print_flag: true
-egm_file_path: "/home/simplehands/catkin_ws/src/forcecontrol/data/egm_data.txt"
+egm_file_path: "/home/yifanh/Git/catkin_ws/src/forcecontrol/data/egm_data.txt"
 egm_safety_zone:
   xmin: -130
   xmax: 186
-  ymin: -640
+  ymin: -600
   ymax: -200
-  zmin: 115
+  zmin: 22
   zmax: 500
 
 # force control

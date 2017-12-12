@@ -1,17 +1,22 @@
 # main
 main_loop_rate: 500
-main_duration: 30 # sec
+main_duration: 20 # sec
 main_setforce_z: 0 # N
 # controller
+force_fb_selection: # 1 (keep force feedback) or 1 (block force feedback)
+  x: 1 
+  y: 1
+  z: 0
+
 # Teach Mode
 main_setpos_z: 400 # 400
 stiffness:
-  x: 0.02 # N/mm 0.05 ~ 0.25
-  y: 0.02
-  z: 0.02
+  x: 0.05 # N/mm 0.05 ~ 0.25
+  y: 0.05
+  z: 0
 comp1:
   k: 0.001 # change to 0.004 to feel excited
-  zero: 0 #0.975 #for contact mode
+  zero: 0  
   pole: 0.98
 comp2:
   k: 1.0
@@ -24,7 +29,7 @@ comp2:
 # stiffness:
 #   x: 0.1 # N/mm 0.05 ~ 0.25
 #   y: 0.1
-#   z: 0.1
+#   z: 0
 # comp1:
 #   k: 0.005 # change to 0.004 to feel excited
 #   zero: 0.98 #0.975 #for contact mode
@@ -37,5 +42,4 @@ comp2:
 
 
 forcecontrol_print_flag: true
-forcecontrol_file_path: "/home/simplehands/catkin_ws/src/forcecontrol/data/forcecontrol_data.txt"
-
+forcecontrol_file_path: "/home/yifanh/Git/catkin_ws/src/forcecontrol/data/forcecontrol_data.txt"

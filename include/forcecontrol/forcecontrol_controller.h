@@ -18,6 +18,7 @@ public:
 
   // parameters
   float *_STIFFNESS;
+  float *_FORCE_SELECTION;
   float _COMP1_K;
   float _COMP1_ZERO;
   float _COMP1_POLE;

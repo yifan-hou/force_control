@@ -33,14 +33,12 @@ int main(int argc, char* argv[])
     ROS_INFO_STREAM("Force control starting");
     ros::init(argc, argv, "forcecontrol_node");
     ros::NodeHandle hd;
- 
 
     ForceControlHardware robot;
     ForceControlController controller;
 
     std::chrono::high_resolution_clock::time_point TheTime0;
     TheTime0 = std::chrono::high_resolution_clock::now();
-
     
     robot.init(hd, TheTime0); // robot must be initialized before controller
     controller.init(hd, &robot, TheTime0);
@@ -80,29 +78,6 @@ int main(int argc, char* argv[])
 
     float force[6] = {0,0,0,0,0,0};
     force[2] = main_setforce_z;
-
-    // // 
-    // cout << "[Note] This is a temporary version of Main. Are you sure you want to continue?" << endl;
-    // cout << "[Note] This is a temporary version of Main. Are you sure you want to continue?" << endl;
-    // cout << "[Note] This is a temporary version of Main. Are you sure you want to continue?" << endl;
-    // getchar();
-    // cout << "Ok. Pauing 3s before motion:" << endl;
-    // ros::Duration(3.0).sleep();
-
-    // float originz = pose[2];
-    // pose[2] = main_setpos_z;
-    // robot.egm->SetCartesian(pose);
-    // cout << "Sent! Wait 3s to recover.." << endl;
-    // ros::Duration(3.0).sleep();
-
-    // pose[2] = originz;
-    // robot.egm->SetCartesian(pose);
-    // cout << "Sent! Wait 3s to finish.." << endl;
-    // ros::Duration(3.0).sleep();
-
-    // return 0;
-
-
 
     for (int i = 0; i < Nsteps; ++i)
     {

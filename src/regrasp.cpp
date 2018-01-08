@@ -54,7 +54,7 @@ float angBTquat(Quaternionf q1, Quaternionf q2)
     return fabs(ang);
 }
 
-Vector2f goTowards(const Vector2f from, const Vector2f to, const delta)
+Vector2f goTowards(const Vector2f from, const Vector2f to, const float delta)
 {
     Vector2f diff = to - from;
     float length  = diff.norm();
@@ -143,12 +143,12 @@ int main(int argc, char* argv[])
         f_rtype >> rtype[i];
         f_stuck >> stuck[i];
         f_qgrp >> qgrp(0, i) >> qgrp(1, i) >> qgrp(2, i) >> qgrp(3, i);
-        f_grpz >> grpz(i);
+        f_grpz >> grpz[i];
         f_grpxy_delta >> grpxy_delta(0, i) >> grpxy_delta(1, i);
 
         cout << i << " rtype: " << rtype[i] << " stuck: " << stuck[i];
         cout << " qgrp: " << qgrp(0, i) << " " << qgrp(1, i) << " " << qgrp(2, i) << " " << qgrp(3, i);
-        cout << " grpz: " << grpz(i) << endl;
+        cout << " grpz: " << grpz[i] << endl;
     }
 
 
@@ -301,7 +301,7 @@ int main(int argc, char* argv[])
 
         pose_set[0] = xy(0);
         pose_set[1] = xy(1);
-        pose_set[2] = grpz(fr);
+        pose_set[2] = grpz[fr];
 
         pose_set[3] = qgrp(0,fr);
         pose_set[4] = qgrp(1,fr);

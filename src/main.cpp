@@ -118,9 +118,6 @@ int main(int argc, char* argv[])
 
         // controller.setPose(pose);
 
-
-
-
         pub_rate.sleep();
     }
 

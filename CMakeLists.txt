@@ -75,7 +75,11 @@ add_library(forcecontrol_controller src/forcecontrol_controller.cpp)
 add_executable(regrasp_node src/regrasp.cpp)
 target_link_libraries(regrasp_node forcecontrol_hardware forcecontrol_controller
   /usr0/home/yifanh/Git/ZZJHand/build/libHand.so
-  # libEposCmd.so
+  )
+
+add_executable(forcecontrol_node src/main.cpp)
+target_link_libraries(forcecontrol_node forcecontrol_hardware forcecontrol_controller
+  # /usr0/home/yifanh/Git/ZZJHand/build/libHand.so
   )
 
 
@@ -91,8 +95,6 @@ target_link_libraries(regrasp_node forcecontrol_hardware forcecontrol_controller
 #   scripts/my_python_script
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
-
-
 
 # Mark executables and/or libraries for installation
 install(TARGETS forcecontrol_controller forcecontrol_hardware
@@ -114,6 +116,3 @@ install(DIRECTORY include/${PROJECT_NAME}/
 #   # myfile2
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
-
-
-

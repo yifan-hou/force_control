@@ -81,47 +81,47 @@ int main(int argc, char* argv[])
     // --------------------------------------------------------
 
     ifstream f_N, f_rtype, f_stuck, f_qgrp, f_grp0, f_grpz, f_grpxy_delta;
-    f_N.open("/usr0/home/yifanh/Git/regrasp3d/results/N.txt");
-    f_rtype.open("/usr0/home/yifanh/Git/regrasp3d/results/rtype.txt");
-    f_stuck.open("/usr0/home/yifanh/Git/regrasp3d/results/stuck.txt");
-    f_qgrp.open("/usr0/home/yifanh/Git/regrasp3d/results/qgrp.txt");
-    f_grp0.open("/usr0/home/yifanh/Git/regrasp3d/results/grp0.txt");
-    f_grpz.open("/usr0/home/yifanh/Git/regrasp3d/results/grpz.txt");
-    f_grpxy_delta.open("/usr0/home/yifanh/Git/regrasp3d/results/grpxy_delta.txt");
+    f_N.open("/usr0/home/yifanh/Git/regrasp3d_old/regrasp3d/results/N.txt");
+    f_rtype.open("/usr0/home/yifanh/Git/regrasp3d_old/regrasp3d/results/rtype.txt");
+    f_stuck.open("/usr0/home/yifanh/Git/regrasp3d_old/regrasp3d/results/stuck.txt");
+    f_qgrp.open("/usr0/home/yifanh/Git/regrasp3d_old/regrasp3d/results/qgrp.txt");
+    f_grp0.open("/usr0/home/yifanh/Git/regrasp3d_old/regrasp3d/results/grp0.txt");
+    f_grpz.open("/usr0/home/yifanh/Git/regrasp3d_old/regrasp3d/results/grpz.txt");
+    f_grpxy_delta.open("/usr0/home/yifanh/Git/regrasp3d_old/regrasp3d/results/grpxy_delta.txt");
 
     if (!f_N) 
     {
-        cerr << "Unable to open file at '/usr0/home/yifanh/Git/regrasp3d/results/N.txt'.";
+        cerr << "Unable to open file at '/usr0/home/yifanh/Git/regrasp3d_old/regrasp3d/results/N.txt'.";
         exit(1); // terminate with error
     }
     if (!f_rtype) 
     {
-        cerr << "Unable to open file at '/usr0/home/yifanh/Git/regrasp3d/results/rtype.txt'.";
+        cerr << "Unable to open file at '/usr0/home/yifanh/Git/regrasp3d_old/regrasp3d/results/rtype.txt'.";
         exit(1); // terminate with error
     }
     if (!f_stuck) 
     {
-        cerr << "Unable to open file at '/usr0/home/yifanh/Git/regrasp3d/results/stuck.txt'.";
+        cerr << "Unable to open file at '/usr0/home/yifanh/Git/regrasp3d_old/regrasp3d/results/stuck.txt'.";
         exit(1); // terminate with error
     }
     if (!f_qgrp) 
     {
-        cerr << "Unable to open file at '/usr0/home/yifanh/Git/regrasp3d/results/qgrp.txt'.";
+        cerr << "Unable to open file at '/usr0/home/yifanh/Git/regrasp3d_old/regrasp3d/results/qgrp.txt'.";
         exit(1); // terminate with error
     }
     if (!f_grp0) 
     {
-        cerr << "Unable to open file at '/usr0/home/yifanh/Git/regrasp3d/results/grp0.txt'.";
+        cerr << "Unable to open file at '/usr0/home/yifanh/Git/regrasp3d_old/regrasp3d/results/grp0.txt'.";
         exit(1); // terminate with error
     }
     if (!f_grpz) 
     {
-        cerr << "Unable to open file at '/usr0/home/yifanh/Git/regrasp3d/results/grpz.txt'.";
+        cerr << "Unable to open file at '/usr0/home/yifanh/Git/regrasp3d_old/regrasp3d/results/grpz.txt'.";
         exit(1); // terminate with error
     }
     if (!f_grpxy_delta) 
     {
-        cerr << "Unable to open file at '/usr0/home/yifanh/Git/regrasp3d/results/grpxy_delta.txt'.";
+        cerr << "Unable to open file at '/usr0/home/yifanh/Git/regrasp3d_old/regrasp3d/results/grpxy_delta.txt'.";
         exit(1); // terminate with error
     }
 
@@ -169,7 +169,7 @@ int main(int argc, char* argv[])
     ros::Rate pub_rate(main_loop_rate);
 
 
-    const float DELTA_XY = 20.0/float(main_loop_rate); 
+    const float DELTA_XY = 10; //mm // 40.0/float(main_loop_rate); 
 
     ForceControlHardware robot;
     ForceControlController controller;
@@ -198,7 +198,7 @@ int main(int argc, char* argv[])
     // Wait until reach the first frame
     // --------------------------------------------------------
     
-    cout << "Initial pose sent. Waiting for converging..." << endl;
+    cout << "First frame sent. Waiting for converging..." << endl;
 
     Quaternionf q, qset;
     Vector3f p, pset;
@@ -228,6 +228,9 @@ int main(int argc, char* argv[])
 
     unsigned milliseconds = 500;
     usleep(milliseconds * 1000);
+
+    cout << "Stopped at first frame. Press ENTER to grasp and move. " << endl;
+    getchar();
 
     // grasp
     if(hand->DoFirmGrasp() != MMC_SUCCESS)
@@ -295,7 +298,9 @@ int main(int argc, char* argv[])
         {
             xy(0)    = pose[0];
             xy(1)    = pose[1];
+            cout << "[goTowards] From " << xy(1) << " to ";
             xy       = goTowards(xy, grp0.head(2), DELTA_XY);
+            cout << xy(1) << endl;
             is_stuck = false;
         }
 
@@ -316,9 +321,20 @@ int main(int argc, char* argv[])
     }
 
 
+    cout << "Main Loop finished. Press ENTER to lift up and release gripper. " << endl;
+    getchar();
+
+    pose_set[2] += 150;
+    robot.egm->SetCartesian(pose_set);
+    milliseconds = 1000;
+    usleep(milliseconds * 1000);
+
+    hand->openFinger();
+    milliseconds = 1000;
+    usleep(milliseconds * 1000);
+
+
     hand->closeEpos();
-
-
 
     ROS_INFO_STREAM(endl << "[MAIN] Rest in Peace." << endl);
     return 0;

@@ -8,19 +8,19 @@ netft_file_path: "/home/yifanh/Git/catkin_ws/src/forcecontrol/data/netft_data.tx
 
 ati:
   offset: # will get subtracted
-    fx: 1.33
-    fy: 0.6
-    fz: 1.66
-    tx: 0.022
-    ty: 0.010
-    tz: 0.016
+    fx: -5.13
+    fy: 9.82
+    fz: 9.74
+    tx: 0.206
+    ty: -0.147
+    tz: 0.012
   safety:
     fx: 20 # maximum: 20
     fy: 20 # maximum: 20
     fz: 45 # maximum: 60
-    tx: 0.4 # maximum: 1
-    ty: 0.4 # maximum: 1
-    tz: 0.4 # maximum: 1
+    tx: 1 # maximum: 1
+    ty: 1 # maximum: 1
+    tz: 1 # maximum: 1
 
 # ABB EGM
 egm_portnum: 6510
@@ -33,8 +33,8 @@ egm_operation_mode: 0 # 0: cartesian 1: joint
 egm_print_flag: true
 egm_file_path: "/home/yifanh/Git/catkin_ws/src/forcecontrol/data/egm_data.txt"
 egm_safety_zone:
-  xmin: -130
-  xmax: 186
+  xmin: -100
+  xmax: 400
   ymin: -600
   ymax: -200
   zmin: 22

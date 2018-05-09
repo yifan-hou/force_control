@@ -12,22 +12,24 @@ public:
   void setPose(const float *pose);
   void setForce(const float *force);
   void update(const ros::Time& time, const ros::Duration& period);
+  void updateAxis(int *force_selection);
 
   float *_pose_set;
   float *_force_set;
 
   // parameters
   float *_STIFFNESS;
-  float *_FORCE_SELECTION;
-  float _COMP1_K;
-  float _COMP1_ZERO;
-  float _COMP1_POLE;
-  float _COMP2_K;
-  float _COMP2_ZERO;
-  float _COMP2_POLE;
+  int *_FORCE_SELECTION;
+  float *_COMP1_K;
+  float *_COMP1_ZERO;
+  float *_COMP1_POLE;
+  float *_COMP2_K;
+  float *_COMP2_ZERO;
+  float *_COMP2_POLE;
   float _COMP2_LIMIT;
 
   // intermediate variables
+  float *_pose_offset;
   float *_C1X;
   float *_C1Y;
   float *_C2X;

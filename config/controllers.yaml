@@ -1,44 +1,38 @@
-# main
+# main function for testing
 main_loop_rate: 500
-main_duration: 20 # sec
-main_setforce_z: 0 # N
+main_duration: 10 # sec
+main_setpose:
+  x: -20
+  y: 300
+  z: 435
+  q1: 0
+  q2: 0
+  q3: 1
+  q4: 0
 # controller
 force_fb_selection: # 1 (keep force feedback) or 0 (block force feedback)
   x: 1 
   y: 1
-  z: 0
+  z: 1
 
-# # Teach Mode
-# main_setpos_z: 400 # 400
-# stiffness:
-#   x: 0.05 # N/mm 0.05 ~ 0.25
-#   y: 0.05
-#   z: 0
-# comp1:
-#   k: 0.001 # change to 0.004 to feel excited
-#   zero: 0  
-#   pole: 0.98
-# comp2:
-#   k: 1.0
-#   zero: 0.0
-#   pole: 1.0
-#   limit: 100.0 # (mm) magnitude limit of output  THIS WILL CREATE A BOUNDING BOX
-
-# Contact Mode
-main_setpos_z: 250 # 400
-stiffness:
-  x: 0.1 # N/mm 0.05 ~ 0.25
-  y: 0.1
-  z: 0
-comp1:
-  k: 0.005 # change to 0.004 to feel excited
-  zero: 0.98 #0.975 #for contact mode
-  pole: 0.98
-comp2:
-  k: 1.0
-  zero: 0.0
-  pole: 1.0
-  limit: 100.0 # (mm) magnitude limit of output  THIS WILL CREATE A BOUNDING BOX
+# Force control parameters
+# For each axis
+#   k: stiffness
+#   m: mass (kg)
+#   alpha: viscous friction
+FC_para_X:
+  k: 0
+  m: 1
+  alpha: 100
+FC_para_Y:
+  k: 0
+  m: 1
+  alpha: 100
+FC_para_Z:
+  k: 0
+  m: 5
+  alpha: 500
+FC_limit: 100.0 # (mm) magnitude limit of output  THIS WILL CREATE A BOUNDING BOX
 
 
 forcecontrol_print_flag: true

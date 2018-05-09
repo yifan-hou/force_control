@@ -3,17 +3,25 @@ netft_ip_address: "192.168.1.1"
 netft_sensor_name: "netft"
 netft_frame_id: "end_effector"
 netft_publish_rate: 1000
-netft_print_flag: true
+netft_print_flag: false
 netft_file_path: "/home/yifanh/Git/catkin_ws/src/forcecontrol/data/netft_data.txt"
 
 ati:
-  offset: # will get subtracted
-    fx: -5.13
-    fy: 9.82
-    fz: 9.74
-    tx: 0.206
-    ty: -0.147
-    tz: 0.012
+  offset: # will be added to the reading; in tool frame
+    fx: -0.634416
+    fy: 1.18294
+    fz: -1.46919
+    tx: 0.0128343
+    ty: 0.0568577
+    tz: -0.00325318
+  gravity:
+    x: 0.389051
+    y: -0.0846534
+    z: -9.96465
+  COM:
+    x: -0.0170055
+    y: 0.0176335
+    z: 0.0407426
   safety:
     fx: 20 # maximum: 20
     fy: 20 # maximum: 20
@@ -30,14 +38,14 @@ egm_max_dist_rot: 0.05 # rad, maximum distance between set point and current pos
                       # how fast the robot will move.
 egm_safety_mode: 1 # 0: none 1: truncate 2: stop
 egm_operation_mode: 0 # 0: cartesian 1: joint
-egm_print_flag: true
+egm_print_flag: false
 egm_file_path: "/home/yifanh/Git/catkin_ws/src/forcecontrol/data/egm_data.txt"
 egm_safety_zone:
-  xmin: -100
-  xmax: 400
-  ymin: -600
-  ymax: -200
-  zmin: 22
-  zmax: 500
-
+  xmin: -50
+  xmax: 220
+  ymin: 240
+  ymax: 550
+  zmin: 260
+  zmax: 600
+  
 # force control

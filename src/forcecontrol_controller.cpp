@@ -17,19 +17,19 @@ ForceControlController::ForceControlController()
   _pose_set        = new float[7];
   _force_set       = new float[6];
   _STIFFNESS       = new float[3];
-  _FORCE_SELECTION = new float[3];
-
-  _C1X = new float[6];
-  _C1Y = new float[6];
-  _C2X = new float[6];
-  _C2Y = new float[6];
-  for (int i = 0; i < 6; ++i)
-  {
-    _C1X[i] = 0;
-    _C1Y[i] = 0;
-    _C2X[i] = 0;
-    _C2Y[i] = 0;
-  }
+  _FORCE_SELECTION = new int[3];
+  _COMP1_K         = new float[3];
+  _COMP1_ZERO      = new float[3];
+  _COMP1_POLE      = new float[3];
+  _COMP2_K         = new float[3];
+  _COMP2_ZERO      = new float[3];
+  _COMP2_POLE      = new float[3];
+  
+  _pose_offset = new float[3]{0};
+  _C1X         = new float[6]{0};
+  _C1Y         = new float[6]{0};
+  _C2X         = new float[6]{0};
+  _C2Y         = new float[6]{0};
 }
 
 ForceControlController::~ForceControlController()
@@ -38,6 +38,12 @@ ForceControlController::~ForceControlController()
   delete [] _force_set;
   delete [] _STIFFNESS;
   delete [] _FORCE_SELECTION;
+  delete [] _COMP1_K;
+  delete [] _COMP2_K;
+  delete [] _COMP1_POLE;
+  delete [] _COMP2_POLE;
+  delete [] _COMP1_ZERO;
+  delete [] _COMP2_ZERO;
   delete [] _C1X;
   delete [] _C1Y;
   delete [] _C2X;
@@ -63,52 +69,64 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
   UT::stream_array_in(cout, _force_set, 6);
   cout << endl;
 
-  
   // read controller from parameter server
+  float fc_para_mass[3], fc_para_alpha[3];
+  float fHz;
   string fullpath;
-  root_nh.param(string("/force_fb_selection/x"), _FORCE_SELECTION[0], float(1));
-  root_nh.param(string("/force_fb_selection/y"), _FORCE_SELECTION[1], float(1));
-  root_nh.param(string("/force_fb_selection/z"), _FORCE_SELECTION[2], float(1));
-  root_nh.param(string("/stiffness/x"), _STIFFNESS[0], float(0.0));
-  root_nh.param(string("/stiffness/y"), _STIFFNESS[1], float(0.0));
-  root_nh.param(string("/stiffness/z"), _STIFFNESS[2], float(0.0));
-  root_nh.param(string("/comp1/k"),     _COMP1_K,      float(0.0));
-  root_nh.param(string("/comp1/zero"),  _COMP1_ZERO,   float(0.0));
-  root_nh.param(string("/comp1/pole"),  _COMP1_POLE,   float(0.0));
-  root_nh.param(string("/comp2/k"),     _COMP2_K,      float(0.0));
-  root_nh.param(string("/comp2/zero"),  _COMP2_ZERO,   float(0.0));
-  root_nh.param(string("/comp2/pole"),  _COMP2_POLE,   float(0.0));
-  root_nh.param(string("/comp2/limit"), _COMP2_LIMIT,  float(0.0));
+  root_nh.param(string("/main_loop_rate"), fHz, 500.0f);
+  root_nh.param(string("/force_fb_selection/x"), _FORCE_SELECTION[0], 1);
+  root_nh.param(string("/force_fb_selection/y"), _FORCE_SELECTION[1], 1);
+  root_nh.param(string("/force_fb_selection/z"), _FORCE_SELECTION[2], 1);
+  root_nh.param(string("/FC_para_X/k"), _STIFFNESS[0], 0.0f);
+  root_nh.param(string("/FC_para_Y/k"), _STIFFNESS[1], 0.0f);
+  root_nh.param(string("/FC_para_Z/k"), _STIFFNESS[2], 0.0f);
+  root_nh.param(string("/FC_para_X/m"),     fc_para_mass[0], 1.0f);
+  root_nh.param(string("/FC_para_Y/m"),     fc_para_mass[1], 1.0f);
+  root_nh.param(string("/FC_para_Z/m"),     fc_para_mass[2], 1.0f);
+  root_nh.param(string("/FC_para_X/alpha"),     fc_para_alpha[0], 100.0f);
+  root_nh.param(string("/FC_para_Y/alpha"),     fc_para_alpha[1], 100.0f);
+  root_nh.param(string("/FC_para_Z/alpha"),     fc_para_alpha[2], 100.0f);
+  root_nh.param(string("/FC_limit"),     _COMP2_LIMIT, 100.0f);
+  
   root_nh.param(string("/forcecontrol_print_flag"), _print_flag, false);
   root_nh.param(string("/forcecontrol_file_path"), fullpath, string(" "));
   
 
   if (!root_nh.hasParam("/force_fb_selection"))
-    ROS_WARN_STREAM("Parameter [/force_fb_selection] not found, using default: " << _FORCE_SELECTION[0]);
+    ROS_WARN_STREAM("Parameter [/force_fb_selection] not found, using default: ");
   else
-    ROS_INFO_STREAM("Parameter [/force_fb_selection] = " << _FORCE_SELECTION[0] << "\t"
-                                                << _FORCE_SELECTION[1] << "\t"
-                                                << _FORCE_SELECTION[2]);
-  if (!root_nh.hasParam("/stiffness"))
-    ROS_WARN_STREAM("Parameter [/stiffness] not found, using default: " << _STIFFNESS[0]);
+    ROS_INFO_STREAM("Parameter [/force_fb_selection] = ");
+  ROS_INFO_STREAM(_FORCE_SELECTION[0] << "\t" << 
+                  _FORCE_SELECTION[1] << "\t" << 
+                  _FORCE_SELECTION[2]);
+
+  if (!root_nh.hasParam("/FC_para_X"))
+    ROS_WARN_STREAM("Parameter [/FC_para_X] not found, using default: ");
   else
-    ROS_INFO_STREAM("Parameter [/stiffness] = " << _STIFFNESS[0] << "\t"
-                                                << _STIFFNESS[1] << "\t"
-                                                << _STIFFNESS[2]);
-  if (!root_nh.hasParam("/comp1"))
-    ROS_WARN_STREAM("Parameter [/comp1] not found, using default: " << _COMP1_K );
+    ROS_INFO_STREAM("Parameter [/FC_para_X] = ");
+  ROS_INFO_STREAM(_STIFFNESS[0] << "\t" << 
+                  fc_para_mass[0] << "\t" << 
+                  fc_para_alpha[0]);
+  if (!root_nh.hasParam("/FC_para_Y"))
+    ROS_WARN_STREAM("Parameter [/FC_para_Y] not found, using default: ");
   else
-    ROS_INFO_STREAM("Parameter [/comp1] = " << _COMP1_K << "\t"
-                                            << _COMP1_ZERO << "\t"
-                                            << _COMP1_POLE);
-  if (!root_nh.hasParam("/comp2"))
-    ROS_WARN_STREAM("Parameter [/comp2] not found, using default: " << _COMP2_K );
+    ROS_INFO_STREAM("Parameter [/FC_para_Y] = ");
+  ROS_INFO_STREAM(_STIFFNESS[1] << "\t" << 
+                  fc_para_mass[1] << "\t" << 
+                  fc_para_alpha[1]);
+  if (!root_nh.hasParam("/FC_para_Z"))
+    ROS_WARN_STREAM("Parameter [/FC_para_Z] not found, using default: ");
   else
-    ROS_INFO_STREAM("Parameter [/comp2] = " << _COMP2_K << "\t"
-                                            << _COMP2_ZERO << "\t"
-                                            << _COMP2_POLE << "\t"
-                                            << _COMP2_LIMIT);
-  
+    ROS_INFO_STREAM("Parameter [/FC_para_Z] = ");
+  ROS_INFO_STREAM(_STIFFNESS[2] << "\t" << 
+                  fc_para_mass[2] << "\t" << 
+                  fc_para_alpha[2]);
+
+  if (!root_nh.hasParam("/FC_limit"))
+    ROS_WARN_STREAM("Parameter [/FC_limit] not found, using default: " << _COMP2_LIMIT);
+  else
+    ROS_INFO_STREAM("Parameter [/FC_limit] = " << _COMP2_LIMIT);
+
   if (!root_nh.hasParam("/forcecontrol_print_flag"))
     ROS_WARN_STREAM("Parameter [/forcecontrol_print_flag] not found, using default: " << _print_flag);
   else
@@ -118,6 +136,17 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
     ROS_WARN_STREAM("Parameter [/forcecontrol_file_path] not found, using default: " << fullpath);
   else
     ROS_INFO_STREAM("Parameter [/forcecontrol_file_path] = " << fullpath);
+
+  // compute the gains
+  for (int i = 0; i < 3; ++i)
+  {
+    _COMP1_K[i]    = 1.0f/fHz/fc_para_mass[i];
+    _COMP1_ZERO[i] = 0.0f;
+    _COMP1_POLE[i] = 1.0f - fc_para_alpha[i]/fHz/fc_para_mass[i];
+    _COMP2_K[i]    = 1000.0f/fHz;
+    _COMP2_ZERO[i] = 0.0f;
+    _COMP2_POLE[i] = 1.0f;
+  }
 
   // open file
   if (_print_flag)
@@ -161,7 +190,7 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
   //  Pose error
   // ----------------------------------------
   float pose_err[7];
-  for (int i = 0; i < 7; ++i) pose_err[i] = _pose_set[i] - pose_fb[i];
+  for (int i = 0; i < 3; ++i) pose_err[i] = _pose_set[i] - pose_fb[i] - _pose_offset[i];
 
   // ----------------------------------------
   //  stiffness
@@ -188,17 +217,18 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
   // transformation
   force = qn._transformVector(force);
 
-  // selection
-  force(0) = _FORCE_SELECTION[0] * force(0);
-  force(1) = _FORCE_SELECTION[1] * force(1);
-  force(2) = _FORCE_SELECTION[2] * force(2);
-
   // ----------------------------------------
   //  Force feedforward (offset)
   // ----------------------------------------
   force(0) += _force_set[0];
   force(1) += _force_set[1];
   force(2) += _force_set[2];
+  
+  // selection
+  force(0) = _FORCE_SELECTION[0] * force(0);
+  force(1) = _FORCE_SELECTION[1] * force(1);
+  force(2) = _FORCE_SELECTION[2] * force(2);
+
 
   pose_err[0] = pose_err[0] + force(0);
   pose_err[1] = pose_err[1] + force(1);
@@ -208,17 +238,17 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
   // ----------------------------------------
   //  Compensator 1 
   // ----------------------------------------
-  _C1Y[0] = _COMP1_POLE*_C1Y[0] + _COMP1_K*pose_err[0] - _COMP1_ZERO*_COMP1_K*_C1X[0];
-  _C1Y[1] = _COMP1_POLE*_C1Y[1] + _COMP1_K*pose_err[1] - _COMP1_ZERO*_COMP1_K*_C1X[1];
-  _C1Y[2] = _COMP1_POLE*_C1Y[2] + _COMP1_K*pose_err[2] - _COMP1_ZERO*_COMP1_K*_C1X[2];
+  _C1Y[0] = _COMP1_POLE[0]*_C1Y[0] + _COMP1_K[0]*pose_err[0] - _COMP1_ZERO[0]*_COMP1_K[0]*_C1X[0];
+  _C1Y[1] = _COMP1_POLE[1]*_C1Y[1] + _COMP1_K[1]*pose_err[1] - _COMP1_ZERO[1]*_COMP1_K[1]*_C1X[1];
+  _C1Y[2] = _COMP1_POLE[2]*_C1Y[2] + _COMP1_K[2]*pose_err[2] - _COMP1_ZERO[2]*_COMP1_K[2]*_C1X[2];
   UT::copyArray(pose_err, _C1X, 3);  
   
   // ----------------------------------------
   //  Compensator 2 
   // ----------------------------------------
-  _C2Y[0] = _COMP2_POLE*_C2Y[0] + _COMP2_K*_C1Y[0] - _COMP2_ZERO*_COMP2_K*_C2X[0];
-  _C2Y[1] = _COMP2_POLE*_C2Y[1] + _COMP2_K*_C1Y[1] - _COMP2_ZERO*_COMP2_K*_C2X[1];
-  _C2Y[2] = _COMP2_POLE*_C2Y[2] + _COMP2_K*_C1Y[2] - _COMP2_ZERO*_COMP2_K*_C2X[2];
+  _C2Y[0] = _COMP2_POLE[0]*_C2Y[0] + _COMP2_K[0]*_C1Y[0] - _COMP2_ZERO[0]*_COMP2_K[0]*_C2X[0];
+  _C2Y[1] = _COMP2_POLE[1]*_C2Y[1] + _COMP2_K[1]*_C1Y[1] - _COMP2_ZERO[1]*_COMP2_K[1]*_C2X[1];
+  _C2Y[2] = _COMP2_POLE[2]*_C2Y[2] + _COMP2_K[2]*_C1Y[2] - _COMP2_ZERO[2]*_COMP2_K[2]*_C2X[2];
   UT::truncate(_C2Y, _COMP2_LIMIT, -_COMP2_LIMIT, 3);
   UT::copyArray(_C1Y, _C2X, 3);  
 
@@ -235,7 +265,7 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
 
   _hw->setControl(pose_command);
 
-  cout << "[ForceControlController] Update at "  << timenow << endl;
+  // cout << "[ForceControlController] Update at "  << timenow << endl;
   
   if(_print_flag)
   {
@@ -250,5 +280,36 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
     _file << endl;
   }
 
+}
+
+
+void ForceControlController::updateAxis(int *force_selection)
+{
+  for (int ax = 0; ax < 3; ++ax)
+  {
+    if (force_selection[ax] == _FORCE_SELECTION[ax])
+      continue;
+
+    if (_FORCE_SELECTION[ax])
+    {
+      /* force become position */
+      // 1. compute offset
+      float pose_fb[7];
+      _hw->getPose(pose_fb);
+      for (int i = 0; i < 3; ++i) 
+        _pose_offset[i] = _pose_set[i] - pose_fb[i];
+      // // 2. reset state variables
+      // _C1X[ax] = 0;
+      // _C1Y[ax] = 0;
+      // _C2X[ax] = 0;
+      // _C2Y[ax] = 0;
+    }
+    else
+    {
+      /* position become force */
+    }
+
+    _FORCE_SELECTION[ax] = force_selection[ax];
+  }
 }
 

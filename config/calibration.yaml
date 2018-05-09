@@ -1,5 +1,0 @@
-calibration:
-  Number_of_tilt_x: 3 # at least 2
-  Number_of_tilt_y: 5 # at least 2
-  Angle_of_tilt_x: 50 #degree
-  Angle_of_tilt_y: 90 #degree

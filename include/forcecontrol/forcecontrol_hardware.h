@@ -14,14 +14,14 @@
 #include <chrono>
 #include <cmath>
 #include <unistd.h>
-// #include <pthread.h>
-// #include <memory>
-// #include <boost/program_options.hpp>
+#include <Eigen/Geometry>
+#include <Eigen/Dense>
 
 #include <forcecontrol/ati_netft_hardware.h>
 #include <egm/EGMClass.h>
-// namespace po = boost::program_options;
+
 using namespace std;
+using namespace Eigen;
 
 
 class ForceControlHardware : public hardware_interface::RobotHW
@@ -40,9 +40,12 @@ class ForceControlHardware : public hardware_interface::RobotHW
     EGMClass *egm;
 
     // parameters
-    float *_WRENCH_OFFSET;
     float *_WRENCH_SAFETY;
 
   private:
+    Vector3f _Foffset;
+    Vector3f _Toffset;
+    Vector3f _Gravity;
+    Vector3f _Pcom;
 
 };

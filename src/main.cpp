@@ -11,22 +11,6 @@
 using namespace std;
 using namespace Eigen;
 
-Quaternionf quatMTimes(const Quaternionf &q1, const Quaternionf &q2)
-{
-
-    Vector3f v1(q1.x(), q1.y(), q1.z());
-    Vector3f v2(q2.x(), q2.y(), q2.z());
-
-    Vector3f cr = v1.cross(v2);
-
-    Quaternionf q;
-    q.w() = q1.w()*q2.w() - v1.dot(v2);
-    q.x() = v2(0)*q1.w() + q2.w()*v1(0) + cr(0);
-    q.y() = v2(1)*q1.w() + q2.w()*v1(1) + cr(1);
-    q.z() = v2(2)*q1.w() + q2.w()*v1(2) + cr(2);
-
-    return q;
-}
 
 int main(int argc, char* argv[])
 {
@@ -45,20 +29,17 @@ int main(int argc, char* argv[])
     
     int main_loop_rate;
     double main_duration;
-    float main_setpos_z;
+    float main_setpos[7];
     float main_setforce_z;
     hd.param(std::string("/main_loop_rate"), main_loop_rate, 500);
     hd.param(std::string("/main_duration"), main_duration, 2.0);
-    hd.param(std::string("/main_setpos_z"), main_setpos_z, float(330));
-    hd.param(std::string("/main_setforce_z"), main_setforce_z, float(0));
-    if (!hd.hasParam("/main_loop_rate"))
-      ROS_WARN_STREAM("Parameter [/main_loop_rate] not found, using default: " << main_loop_rate);
-    if (!hd.hasParam("/main_duration"))
-      ROS_WARN_STREAM("Parameter [/main_duration] not found, using default: " << main_duration);
-    if (!hd.hasParam("/main_setpos_z"))
-      ROS_ERROR_STREAM("Parameter [/main_setpos_z] not found!!!");
-    if (!hd.hasParam("/main_setforce_z"))
-      ROS_WARN_STREAM("Parameter [/main_setforce_z] not found, using default: " << main_setforce_z);
+    hd.param(std::string("/main_setpos/x"), main_setpos[0], 0.0f);
+    hd.param(std::string("/main_setpos/y"), main_setpos[1], 300.0f);
+    hd.param(std::string("/main_setpos/z"), main_setpos[2], 435.0f);
+    hd.param(std::string("/main_setpos/q1"), main_setpos[3], 0.0f);
+    hd.param(std::string("/main_setpos/q2"), main_setpos[4], 0.0f);
+    hd.param(std::string("/main_setpos/q3"), main_setpos[5], 1.0f);
+    hd.param(std::string("/main_setpos/q4"), main_setpos[6], 0.0f);
 
     int Nsteps = int(main_duration*main_loop_rate);
     ros::Rate pub_rate(main_loop_rate);
@@ -69,55 +50,64 @@ int main(int argc, char* argv[])
     // getchar();
     
     float pose[7], wrench[6], z0;
-    robot.getPose(pose);
-    z0 = pose[2];
-    Quaternionf q0(pose[3], pose[4], pose[5], pose[6]);
-    // Quaternionf qr(1, 0, 0, 0);
-    Quaternionf qset(1, 0, 0, 0);
-    AngleAxisf aa(0, Vector3f::UnitZ());
+    // robot.getPose(pose);
+    controller.setPose(main_setpos);
+
+    // z0 = pose[2];
+    // Quaternionf q0(pose[3], pose[4], pose[5], pose[6]);
+    // // Quaternionf qr(1, 0, 0, 0);
+    // Quaternionf qset(1, 0, 0, 0);
+    // AngleAxisf aa(0, Vector3f::UnitZ());
 
     float force[6] = {0,0,0,0,0,0};
-    force[2] = main_setforce_z;
+    controller.setForce(force);
 
+    // bool force_selection0[3]{1, 1, 0};
+    // bool force_selection1[3]{0, 0, 1};
+
+    cout << "Main loop begins. " << endl;
+	ros::Duration period(EGM_PERIOD);
     for (int i = 0; i < Nsteps; ++i)
     {
-    	ros::Time time_now = ros::Time::now();
-    	ros::Duration period(EGM_PERIOD);
         
-        if(!robot.getWrench(wrench))
-        {
-            cout << "[MAIN] force is above safety threhold!" << endl;
-            UT::stream_array_in(cout, wrench, 6);
-            robot.liftup(float(20));
-            ros::Duration(1).sleep();
-
-            break;
-        }
-        // update
-        controller.update(time_now, period);
-
-        // // set z motion
-        // float exe_time = float(5*main_loop_rate);
-        // if (i < exe_time)
-        //     pose[2] = (z0*(exe_time - i) + main_setpos_z*i)/exe_time;
-        // else
+        // if(!robot.getWrench(wrench))
         // {
-        //     pose[2] = main_setpos_z;
-        //     controller.setForce(force);
+        //     cout << "[MAIN] force is above safety threhold!" << endl;
+        //     UT::stream_array_in(cout, wrench, 6);
+        //     robot.liftup(float(20));
+        //     ros::Duration(1).sleep();
 
-        //     // set rotation
-        //     aa.angle() = 0.5*sin(float((i-int(exe_time))%(2*main_loop_rate))/float(2*main_loop_rate)*2*PI);
-        //     Quaternionf qr(aa);
-        //     // robot.getPose(pose);
-        //     qset = quatMTimes(qr, q0);
-        //     pose[3] = qset.w();
-        //     pose[4] = qset.x();
-        //     pose[5] = qset.y();
-        //     pose[6] = qset.z();
+        //     break;
         // }
 
-        // controller.setPose(pose);
+        // cout << "wrench: " ;
+        // for (int i = 0; i < 6; ++i)
+        // {
+        //     cout << wrench[i] << "\t";
+        // }
+        // cout << endl;
 
+        // if (i == main_loop_rate*5)
+        // {
+        //     controller.updateAxis(force_selection1);
+        //     cout << "update Axis to set 1" << endl;
+        // }
+        // else if (i == main_loop_rate*10)
+        // {
+        //     controller.updateAxis(force_selection0);
+        //     cout << "update Axis to set 0" << endl;
+        // }
+        // else if (i == main_loop_rate*15)
+        // {
+        //     controller.updateAxis(force_selection1);
+        //     cout << "update Axis to set 1" << endl;
+        // }
+
+        // update
+        controller.setPose(main_setpos);
+        cout << "Update for time " << i << " of " << Nsteps << "." << endl;
+        ros::Time time_now = ros::Time::now();
+        controller.update(time_now, period);
         pub_rate.sleep();
     }
 

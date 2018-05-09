@@ -1,9 +1,13 @@
 #include <forcecontrol/forcecontrol_hardware.h>
 
+#include <Eigen/Geometry>
+#include <Eigen/Dense>
+
 #define PI 3.1415926
 
+using namespace Eigen;
+
 ForceControlHardware::ForceControlHardware() {
-  _WRENCH_OFFSET = new float[6];
   _WRENCH_SAFETY = new float[6];
 }
 
@@ -41,12 +45,18 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh, std::chrono::high_reso
   root_nh.param(std::string("/egm_safety_zone/ymax"), egm_safety_zone[3], float(0.0));
   root_nh.param(std::string("/egm_safety_zone/zmin"), egm_safety_zone[4], float(0.0));
   root_nh.param(std::string("/egm_safety_zone/zmax"), egm_safety_zone[5], float(0.0));
-  root_nh.param(std::string("/ati/offset/fx"), _WRENCH_OFFSET[0], float(0.0));
-  root_nh.param(std::string("/ati/offset/fy"), _WRENCH_OFFSET[1], float(0.0));
-  root_nh.param(std::string("/ati/offset/fz"), _WRENCH_OFFSET[2], float(0.0));
-  root_nh.param(std::string("/ati/offset/tx"), _WRENCH_OFFSET[3], float(0.0));
-  root_nh.param(std::string("/ati/offset/ty"), _WRENCH_OFFSET[4], float(0.0));
-  root_nh.param(std::string("/ati/offset/tz"), _WRENCH_OFFSET[5], float(0.0));
+  root_nh.param(std::string("/ati/offset/fx"), _Foffset[0], float(0.0));
+  root_nh.param(std::string("/ati/offset/fy"), _Foffset[1], float(0.0));
+  root_nh.param(std::string("/ati/offset/fz"), _Foffset[2], float(0.0));
+  root_nh.param(std::string("/ati/offset/tx"), _Toffset[0], float(0.0));
+  root_nh.param(std::string("/ati/offset/ty"), _Toffset[1], float(0.0));
+  root_nh.param(std::string("/ati/offset/tz"), _Toffset[2], float(0.0));
+  root_nh.param(std::string("/ati/gravity/x"), _Gravity[0], float(0.0));
+  root_nh.param(std::string("/ati/gravity/y"), _Gravity[1], float(0.0));
+  root_nh.param(std::string("/ati/gravity/z"), _Gravity[2], float(0.0));
+  root_nh.param(std::string("/ati/COM/x"), _Pcom[0], float(0.0));
+  root_nh.param(std::string("/ati/COM/y"), _Pcom[1], float(0.0));
+  root_nh.param(std::string("/ati/COM/z"), _Pcom[2], float(0.0));
   root_nh.param(std::string("/ati/safety/fx"), _WRENCH_SAFETY[0], float(0.0));
   root_nh.param(std::string("/ati/safety/fy"), _WRENCH_SAFETY[1], float(0.0));
   root_nh.param(std::string("/ati/safety/fz"), _WRENCH_SAFETY[2], float(0.0));
@@ -100,14 +110,28 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh, std::chrono::high_reso
                                                     << egm_safety_zone[5]);
 
   if (!root_nh.hasParam("/ati/offset"))
-    ROS_WARN_STREAM("Parameter [/ati/offset] not found, using default: " << _WRENCH_OFFSET[0]);
+    ROS_WARN_STREAM("Parameter [/ati/offset] not found, using default: " << _Foffset[0]);
   else
-    ROS_INFO_STREAM("Parameter [/ati/offset] = "    << _WRENCH_OFFSET[0] << "\t" 
-                                                    << _WRENCH_OFFSET[1] << "\t"
-                                                    << _WRENCH_OFFSET[2] << "\t"
-                                                    << _WRENCH_OFFSET[3] << "\t"
-                                                    << _WRENCH_OFFSET[4] << "\t"
-                                                    << _WRENCH_OFFSET[5]);
+    ROS_INFO_STREAM("Parameter [/ati/offset] = "    << _Foffset[0] << "\t" 
+                                                    << _Foffset[1] << "\t"
+                                                    << _Foffset[2] << "\t"
+                                                    << _Toffset[0] << "\t"
+                                                    << _Toffset[1] << "\t"
+                                                    << _Toffset[2]);
+
+  if (!root_nh.hasParam("/ati/gravity"))
+    ROS_WARN_STREAM("Parameter [/ati/gravity] not found, using default: " << _Gravity[0]);
+  else
+    ROS_INFO_STREAM("Parameter [/ati/gravity] = "    << _Gravity[0] << "\t" 
+                                                    << _Gravity[1] << "\t"
+                                                    << _Gravity[2]);
+  if (!root_nh.hasParam("/ati/COM"))
+    ROS_WARN_STREAM("Parameter [/ati/COM] not found, using default: " << _Pcom[0]);
+  else
+    ROS_INFO_STREAM("Parameter [/ati/COM] = "    << _Pcom[0] << "\t" 
+                                                    << _Pcom[1] << "\t"
+                                                    << _Pcom[2]);
+
   if (!root_nh.hasParam("/ati/safety"))
     ROS_WARN_STREAM("Parameter [/ati/safety] not found, using default: " << _WRENCH_SAFETY[0]);
   else
@@ -136,7 +160,6 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh, std::chrono::high_reso
 
   // initialize egm
   egm->init(time0, (unsigned short)portnum, max_dist_tran, max_dist_rot, egm_safety_zone, egm_safety_mode, egm_operation_mode, print_flag, filefullpath);
-  // egm->SetCartesianVel((float)speed_tran, (float)speed_rot);
 
   // Register interfaces:
   registerInterface(this);
@@ -167,9 +190,6 @@ bool ForceControlHardware::getWrench(float *wrench)
       safety = false;
   }
 
-  // offset
-  for (int i = 0; i < 6; ++i) wrench_temp[i] -= _WRENCH_OFFSET[i];
-
   // transform to tool-frame
   // this only works if the toolframe in ABB robot has identity orientation
   // i.e. q = 1 0 0 0
@@ -177,6 +197,24 @@ bool ForceControlHardware::getWrench(float *wrench)
   wrench[0]   = cos(ang_T)*wrench_temp[0] - sin(ang_T)*wrench_temp[1];
   wrench[1]   = sin(ang_T)*wrench_temp[0] + cos(ang_T)*wrench_temp[1];
   wrench[2]   =  wrench_temp[2];
+  wrench[3]   = cos(ang_T)*wrench_temp[3] - sin(ang_T)*wrench_temp[4];
+  wrench[4]   = sin(ang_T)*wrench_temp[3] + cos(ang_T)*wrench_temp[4];
+  wrench[5]   =  wrench_temp[5];
+
+  // compensate for the weight of object
+  float pose[7];
+  egm->GetCartesian(pose);
+  Quaternionf q(pose[3], pose[4], pose[5], pose[6]);
+  Vector3f GinF = q.normalized().toRotationMatrix().transpose()*_Gravity;
+  Vector3f GinT = _Pcom.cross(GinF);
+  wrench[0] += _Foffset[0] - GinF[0];
+  wrench[1] += _Foffset[1] - GinF[1];
+  wrench[2] += _Foffset[2] - GinF[2];
+
+  wrench[3] += _Toffset[0] - GinT[0];
+  wrench[4] += _Toffset[1] - GinT[1];
+  wrench[5] += _Toffset[2] - GinT[2];
+
   return safety;
 }
 
@@ -196,6 +234,5 @@ void ForceControlHardware::liftup(const float dz)
 
 ForceControlHardware::~ForceControlHardware(){
   delete ati;
-  delete [] _WRENCH_OFFSET;
   delete [] _WRENCH_SAFETY;
 }

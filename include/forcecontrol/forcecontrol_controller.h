@@ -13,6 +13,7 @@ public:
   void setForce(const float *force);
   void update(const ros::Time& time, const ros::Duration& period);
   void updateAxis(int *force_selection);
+  void reset(); // reset the state variables in the control law
 
   float *_pose_set;
   float *_force_set;
@@ -27,13 +28,17 @@ public:
   float *_COMP2_ZERO;
   float *_COMP2_POLE;
   float _COMP2_LIMIT;
+  float _FC_PGain, _FC_IGain, _FC_DGain, _FC_I_Limit;
 
   // intermediate variables
   float *_pose_offset;
+  float *_force_err;
+  float *_force_err_I;
   float *_C1X;
   float *_C1Y;
   float *_C2X;
   float *_C2Y;
+  float *_pose_command;
 
 private:
   ForceControlHardware *_hw;

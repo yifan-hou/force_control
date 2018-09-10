@@ -14,7 +14,7 @@ frc.pose_command = frc_data(:, 31:37);
 starttime = frc.time(1);
 frc.time  = frc.time - starttime;
 
-id = frc.time < 1000;
+id = frc.time < 50000;
 
 frc.time = frc.time(id,:);
 frc.pose_set     = frc.pose_set(id,:);

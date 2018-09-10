@@ -29,17 +29,23 @@ int main(int argc, char* argv[])
     
     int main_loop_rate;
     double main_duration;
-    float main_setpos[7];
-    float main_setforce_z;
+    float main_setpose[7];
+    float main_setforce[6];
     hd.param(std::string("/main_loop_rate"), main_loop_rate, 500);
     hd.param(std::string("/main_duration"), main_duration, 2.0);
-    hd.param(std::string("/main_setpos/x"), main_setpos[0], 0.0f);
-    hd.param(std::string("/main_setpos/y"), main_setpos[1], 300.0f);
-    hd.param(std::string("/main_setpos/z"), main_setpos[2], 435.0f);
-    hd.param(std::string("/main_setpos/q1"), main_setpos[3], 0.0f);
-    hd.param(std::string("/main_setpos/q2"), main_setpos[4], 0.0f);
-    hd.param(std::string("/main_setpos/q3"), main_setpos[5], 1.0f);
-    hd.param(std::string("/main_setpos/q4"), main_setpos[6], 0.0f);
+    hd.param(std::string("/main_setpose/x"), main_setpose[0], 0.0f);
+    hd.param(std::string("/main_setpose/y"), main_setpose[1], 300.0f);
+    hd.param(std::string("/main_setpose/z"), main_setpose[2], 435.0f);
+    hd.param(std::string("/main_setpose/q1"), main_setpose[3], 0.0f);
+    hd.param(std::string("/main_setpose/q2"), main_setpose[4], 0.0f);
+    hd.param(std::string("/main_setpose/q3"), main_setpose[5], 1.0f);
+    hd.param(std::string("/main_setpose/q4"), main_setpose[6], 0.0f);
+    hd.param(std::string("/main_setforce/f1"), main_setforce[0], 0.0f);
+    hd.param(std::string("/main_setforce/f2"), main_setforce[1], 0.0f);
+    hd.param(std::string("/main_setforce/f3"), main_setforce[2], 0.0f);
+    hd.param(std::string("/main_setforce/f4"), main_setforce[3], 0.0f);
+    hd.param(std::string("/main_setforce/f5"), main_setforce[4], 0.0f);
+    hd.param(std::string("/main_setforce/f6"), main_setforce[5], 0.0f);
 
     int Nsteps = int(main_duration*main_loop_rate);
     ros::Rate pub_rate(main_loop_rate);
@@ -51,42 +57,17 @@ int main(int argc, char* argv[])
     
     float pose[7], wrench[6], z0;
     // robot.getPose(pose);
-    controller.setPose(main_setpos);
+    controller.setPose(main_setpose);
+    controller.setForce(main_setforce);
 
-    // z0 = pose[2];
-    // Quaternionf q0(pose[3], pose[4], pose[5], pose[6]);
-    // // Quaternionf qr(1, 0, 0, 0);
-    // Quaternionf qset(1, 0, 0, 0);
-    // AngleAxisf aa(0, Vector3f::UnitZ());
-
-    float force[6] = {0,0,0,0,0,0};
-    controller.setForce(force);
-
-    // bool force_selection0[3]{1, 1, 0};
-    // bool force_selection1[3]{0, 0, 1};
+    int force_selection0[3]{1, 1, 0};
+    int force_selection1[3]{0, 0, 1};
 
     cout << "Main loop begins. " << endl;
 	ros::Duration period(EGM_PERIOD);
     for (int i = 0; i < Nsteps; ++i)
     {
         
-        // if(!robot.getWrench(wrench))
-        // {
-        //     cout << "[MAIN] force is above safety threhold!" << endl;
-        //     UT::stream_array_in(cout, wrench, 6);
-        //     robot.liftup(float(20));
-        //     ros::Duration(1).sleep();
-
-        //     break;
-        // }
-
-        // cout << "wrench: " ;
-        // for (int i = 0; i < 6; ++i)
-        // {
-        //     cout << wrench[i] << "\t";
-        // }
-        // cout << endl;
-
         // if (i == main_loop_rate*5)
         // {
         //     controller.updateAxis(force_selection1);
@@ -104,7 +85,7 @@ int main(int argc, char* argv[])
         // }
 
         // update
-        controller.setPose(main_setpos);
+        controller.setPose(main_setpose);
         cout << "Update for time " << i << " of " << Nsteps << "." << endl;
         ros::Time time_now = ros::Time::now();
         controller.update(time_now, period);

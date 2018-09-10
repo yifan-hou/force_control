@@ -42,5 +42,8 @@ If you want to disable force control in one of x, y or z direction,
 1. Set the corresponding force_fb_selection to 0 (disable feedback)
 2. Set the corresponding stiffness to 0 (disable spring behavior)
 
+##Change axis
+Before you call updateAxis(), make sure you already set the pose_set and force_set.
+
 ## Reference
 "Experience in Force Control of Robotic Manipulators", James A. Maples and Joseph J. Becker

@@ -24,7 +24,7 @@ ForceControlController::ForceControlController()
   _COMP2_K         = new float[3];
   _COMP2_ZERO      = new float[3];
   _COMP2_POLE      = new float[3];
-  
+
   _pose_offset  = new float[3]{0};
   _force_err    = new float[3]{0};
   _force_err_I  = new float[3]{0};
@@ -99,38 +99,38 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
   root_nh.param(string("/FC_gains/IGain"), _FC_IGain, 0.0f);
   root_nh.param(string("/FC_gains/DGain"), _FC_DGain, 0.0f);
   root_nh.param(string("/FC_I_Limit"), _FC_I_Limit, 10.0f);
-  
+
   root_nh.param(string("/forcecontrol_print_flag"), _print_flag, false);
   root_nh.param(string("/forcecontrol_file_path"), fullpath, string(" "));
-  
+
   if (!root_nh.hasParam("/force_fb_selection"))
     ROS_WARN_STREAM("Parameter [/force_fb_selection] not found, using default: ");
   else
     ROS_INFO_STREAM("Parameter [/force_fb_selection] = ");
-  ROS_INFO_STREAM(_FORCE_SELECTION[0] << "\t" << 
-                  _FORCE_SELECTION[1] << "\t" << 
+  ROS_INFO_STREAM(_FORCE_SELECTION[0] << "\t" <<
+                  _FORCE_SELECTION[1] << "\t" <<
                   _FORCE_SELECTION[2]);
 
   if (!root_nh.hasParam("/AC_para_X"))
     ROS_WARN_STREAM("Parameter [/AC_para_X] not found, using default: ");
   else
     ROS_INFO_STREAM("Parameter [/AC_para_X] = ");
-  ROS_INFO_STREAM(_STIFFNESS[0] << "\t" << 
-                  AC_para_mass[0] << "\t" << 
+  ROS_INFO_STREAM(_STIFFNESS[0] << "\t" <<
+                  AC_para_mass[0] << "\t" <<
                   AC_para_alpha[0]);
   if (!root_nh.hasParam("/AC_para_Y"))
     ROS_WARN_STREAM("Parameter [/AC_para_Y] not found, using default: ");
   else
     ROS_INFO_STREAM("Parameter [/AC_para_Y] = ");
-  ROS_INFO_STREAM(_STIFFNESS[1] << "\t" << 
-                  AC_para_mass[1] << "\t" << 
+  ROS_INFO_STREAM(_STIFFNESS[1] << "\t" <<
+                  AC_para_mass[1] << "\t" <<
                   AC_para_alpha[1]);
   if (!root_nh.hasParam("/AC_para_Z"))
     ROS_WARN_STREAM("Parameter [/AC_para_Z] not found, using default: ");
   else
     ROS_INFO_STREAM("Parameter [/AC_para_Z] = ");
-  ROS_INFO_STREAM(_STIFFNESS[2] << "\t" << 
-                  AC_para_mass[2] << "\t" << 
+  ROS_INFO_STREAM(_STIFFNESS[2] << "\t" <<
+                  AC_para_mass[2] << "\t" <<
                   AC_para_alpha[2]);
 
   if (!root_nh.hasParam("/AC_limit"))
@@ -174,15 +174,15 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
 
 void ForceControlController::setPose(const float *pose)
 {
-  UT::copyArray(pose, _pose_set, 7);  
+  UT::copyArray(pose, _pose_set, 7);
 }
 
 void ForceControlController::setForce(const float *force)
 {
-  UT::copyArray(force, _force_set, 6);  
+  UT::copyArray(force, _force_set, 6);
 }
 
-/* 
+/*
  *
     force control law
  *
@@ -190,7 +190,7 @@ void ForceControlController::setForce(const float *force)
 void ForceControlController::update(const ros::Time& time, const ros::Duration& period)
 {
   using namespace Eigen;
-  
+
   float pose_fb[7];
   float wrench_fb[6];
   static Vector3f force;
@@ -260,26 +260,26 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
 
 
   // ----------------------------------------
-  //  Compensator 1 
+  //  Compensator 1
   // ----------------------------------------
   _C1Y[0] = _COMP1_POLE[0]*_C1Y[0] + _COMP1_K[0]*pose_err[0] - _COMP1_ZERO[0]*_COMP1_K[0]*_C1X[0];
   _C1Y[1] = _COMP1_POLE[1]*_C1Y[1] + _COMP1_K[1]*pose_err[1] - _COMP1_ZERO[1]*_COMP1_K[1]*_C1X[1];
   _C1Y[2] = _COMP1_POLE[2]*_C1Y[2] + _COMP1_K[2]*pose_err[2] - _COMP1_ZERO[2]*_COMP1_K[2]*_C1X[2];
-  UT::copyArray(pose_err, _C1X, 3);  
-  
+  UT::copyArray(pose_err, _C1X, 3);
+
   // ----------------------------------------
-  //  Compensator 2 
+  //  Compensator 2
   // ----------------------------------------
   _C2Y[0] = _COMP2_POLE[0]*_C2Y[0] + _COMP2_K[0]*_C1Y[0] - _COMP2_ZERO[0]*_COMP2_K[0]*_C2X[0];
   _C2Y[1] = _COMP2_POLE[1]*_C2Y[1] + _COMP2_K[1]*_C1Y[1] - _COMP2_ZERO[1]*_COMP2_K[1]*_C2X[1];
   _C2Y[2] = _COMP2_POLE[2]*_C2Y[2] + _COMP2_K[2]*_C1Y[2] - _COMP2_ZERO[2]*_COMP2_K[2]*_C2X[2];
   UT::truncate(_C2Y, _COMP2_LIMIT, -_COMP2_LIMIT, 3);
-  UT::copyArray(_C1Y, _C2X, 3);  
+  UT::copyArray(_C1Y, _C2X, 3);
 
   // ----------------------------------------
-  //  Pose offset 
+  //  Pose offset
   // ----------------------------------------
-  // UT::copyArray(pose_fb, pose_command, 7);  
+  // UT::copyArray(pose_fb, pose_command, 7);
   for (int i = 0; i < 3; ++i) _pose_command[i] = _pose_set[i] - _pose_offset[i] + _C2Y[i];
   for (int i = 3; i < 7; ++i) _pose_command[i] = _pose_set[i];
 
@@ -354,5 +354,5 @@ void ForceControlController::reset()
     _force_set[i] = 0;
   }
   _hw->getPose(_pose_command);
-  UT::copyArray(_pose_command, _pose_set, 7);  
+  UT::copyArray(_pose_command, _pose_set, 7);
 }

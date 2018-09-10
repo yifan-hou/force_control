@@ -102,7 +102,7 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh, std::chrono::high_reso
   if (!root_nh.hasParam("/egm_safety_zone/xmin"))
     ROS_WARN_STREAM("Parameter [/egm/egm_safety_zone] not found, using default: " << egm_safety_zone[0]);
   else
-    ROS_INFO_STREAM("Parameter [/egm/egm_safety_zone] = "    << egm_safety_zone[0] << "\t" 
+    ROS_INFO_STREAM("Parameter [/egm/egm_safety_zone] = "    << egm_safety_zone[0] << "\t"
                                                     << egm_safety_zone[1] << "\t"
                                                     << egm_safety_zone[2] << "\t"
                                                     << egm_safety_zone[3] << "\t"
@@ -112,7 +112,7 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh, std::chrono::high_reso
   if (!root_nh.hasParam("/ati/offset"))
     ROS_WARN_STREAM("Parameter [/ati/offset] not found, using default: " << _Foffset[0]);
   else
-    ROS_INFO_STREAM("Parameter [/ati/offset] = "    << _Foffset[0] << "\t" 
+    ROS_INFO_STREAM("Parameter [/ati/offset] = "    << _Foffset[0] << "\t"
                                                     << _Foffset[1] << "\t"
                                                     << _Foffset[2] << "\t"
                                                     << _Toffset[0] << "\t"
@@ -122,20 +122,20 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh, std::chrono::high_reso
   if (!root_nh.hasParam("/ati/gravity"))
     ROS_WARN_STREAM("Parameter [/ati/gravity] not found, using default: " << _Gravity[0]);
   else
-    ROS_INFO_STREAM("Parameter [/ati/gravity] = "    << _Gravity[0] << "\t" 
+    ROS_INFO_STREAM("Parameter [/ati/gravity] = "    << _Gravity[0] << "\t"
                                                     << _Gravity[1] << "\t"
                                                     << _Gravity[2]);
   if (!root_nh.hasParam("/ati/COM"))
     ROS_WARN_STREAM("Parameter [/ati/COM] not found, using default: " << _Pcom[0]);
   else
-    ROS_INFO_STREAM("Parameter [/ati/COM] = "    << _Pcom[0] << "\t" 
+    ROS_INFO_STREAM("Parameter [/ati/COM] = "    << _Pcom[0] << "\t"
                                                     << _Pcom[1] << "\t"
                                                     << _Pcom[2]);
 
   if (!root_nh.hasParam("/ati/safety"))
     ROS_WARN_STREAM("Parameter [/ati/safety] not found, using default: " << _WRENCH_SAFETY[0]);
   else
-    ROS_INFO_STREAM("Parameter [/ati/safety] = "    << _WRENCH_SAFETY[0] << "\t" 
+    ROS_INFO_STREAM("Parameter [/ati/safety] = "    << _WRENCH_SAFETY[0] << "\t"
                                                     << _WRENCH_SAFETY[1] << "\t"
                                                     << _WRENCH_SAFETY[2] << "\t"
                                                     << _WRENCH_SAFETY[3] << "\t"
@@ -184,7 +184,7 @@ bool ForceControlHardware::getWrench(float *wrench)
 
   // safety
   bool safety = true;
-  for (int i = 0; i < 6; ++i) 
+  for (int i = 0; i < 6; ++i)
   {
     if(abs(wrench_temp[i]) >_WRENCH_SAFETY[i])
       safety = false;

@@ -47,6 +47,6 @@ private:
   std::chrono::high_resolution_clock::time_point _time0; ///< high resolution timer.
   ofstream _file;
   bool _print_flag;
-  
+
 };
 

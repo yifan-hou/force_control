@@ -2,9 +2,9 @@
 
 #include <forcecontrol/utilities.h>
 
-// 
+//
 // The thread Function
-// 
+//
 typedef std::chrono::high_resolution_clock Clock;
 
 
@@ -56,12 +56,12 @@ void* ATI_Monitor(void* pParam)
       netft_hardware->_diag_pub.publish(diag_array);
       last_diag_pub_time = current_time;
     }
-    
+
     // cout << "[ATINetftHardware] spinOnce" << endl;
     ros::spinOnce();
     pub_rate.sleep();
   }
-  
+
 
 }
 
@@ -88,7 +88,7 @@ bool ATINetftHardware::init(ros::NodeHandle& root_nh, std::chrono::high_resoluti
     ROS_WARN_STREAM("Parameter [/netft_ip_address] not found, using default: " << ip_address);
   else
     ROS_INFO_STREAM("Parameter [/netft_ip_address] = " << ip_address);
-  
+
   if (!root_nh.hasParam("/netft_sensor_name"))
     ROS_WARN_STREAM("Parameter [/netft_sensor_name] not found, using default: " << sensor_name );
   else

@@ -23,10 +23,10 @@ int main(int argc, char* argv[])
 
     std::chrono::high_resolution_clock::time_point TheTime0;
     TheTime0 = std::chrono::high_resolution_clock::now();
-    
+
     robot.init(hd, TheTime0); // robot must be initialized before controller
     controller.init(hd, &robot, TheTime0);
-    
+
     int main_loop_rate;
     double main_duration;
     float main_setpose[7];
@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
     ROS_INFO_STREAM("[MAIN] Duration: " << main_duration << "sec. " << Nsteps << " steps." << endl);
     // ROS_INFO_STREAM("[MAIN] Press ENTER to begin.\n");
     // getchar();
-    
+
     float pose[7], wrench[6], z0;
     // robot.getPose(pose);
     controller.setPose(main_setpose);
@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
 	ros::Duration period(EGM_PERIOD);
     for (int i = 0; i < Nsteps; ++i)
     {
-        
+
         // if (i == main_loop_rate*5)
         // {
         //     controller.updateAxis(force_selection1);

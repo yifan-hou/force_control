@@ -35,7 +35,7 @@ class ForceControlHardware : public hardware_interface::RobotHW
     bool getWrench(float *wrench);
     void setControl(const float *pose_set);
 
-    void liftup(const float dz); // move up for safety 
+    void liftup(const float dz); // move up for safety
     ATINetftHardware *ati;
     EGMClass *egm;
 

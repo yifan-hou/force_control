@@ -28,7 +28,7 @@
 
 // ATI Netft Specific headers
 // in the netft_rdt_driver package
-#include "netft_rdt_driver/netft_rdt_driver.h" 
+#include "netft_rdt_driver/netft_rdt_driver.h"
 #include "netft_rdt_driver/ResetThresholdLatch.h"
 #include "netft_rdt_driver/SetSoftwareBias.h"
 
@@ -40,11 +40,11 @@ class NetFTService {
 public:
   NetFTService(netft_rdt_driver::NetFTRDTDriver & netft, ros::NodeHandle & nodeHandle) :
     netft(netft) {
-      this->resetLatchService = nodeHandle.advertiseService("/netft/reset_threshold_latch", 
+      this->resetLatchService = nodeHandle.advertiseService("/netft/reset_threshold_latch",
         &NetFTService::resetLatch, this);
-      this->setBiasService = nodeHandle.advertiseService("/netft/set_software_bias", 
+      this->setBiasService = nodeHandle.advertiseService("/netft/set_software_bias",
         &NetFTService::setBias, this);
-         
+
   }
 
   bool resetLatch(netft_rdt_driver::ResetThresholdLatch::Request & req,

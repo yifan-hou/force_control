@@ -10,13 +10,13 @@
 	#include <math.h>
 	#include <stdio.h>
 #endif
- 
+
 // #include <stdarg.h>
 
 namespace UT
 {
 	/////////////////////////////////////////////////////////////////////////
-	//                   types and static variables 
+	//                   types and static variables
 	/////////////////////////////////////////////////////////////////////////
 
 	// typedef int (*printf_ptr) (const char *str, ...);
@@ -154,7 +154,7 @@ namespace UT
     		numerator += (xd) * (y[i] - avgY);
     		denominator += xd * xd;
     	}
-    	
+
     	return numerator / denominator;
     }
 
@@ -170,5 +170,5 @@ namespace UT
 
 
 }
-	
+
 #endif // _EGMCLASS_ULTILITIES_H_

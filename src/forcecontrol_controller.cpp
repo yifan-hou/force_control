@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <string>
-#include <Eigen/Geometry>
 
 #include <forcecontrol/utilities.h>
 
@@ -14,6 +13,7 @@ using namespace std;
 
 ForceControlController::ForceControlController()
 {
+  _T = Eigen::Matrix3d::Identity();
   _pose_set        = new float[7];
   _force_set       = new float[6];
   _STIFFNESS       = new float[3];
@@ -262,9 +262,12 @@ void ForceControlController::update(const ros::Time& time, const ros::Duration& 
   // ----------------------------------------
   //  Compensator 1
   // ----------------------------------------
-  _C1Y[0] = _COMP1_POLE[0]*_C1Y[0] + _COMP1_K[0]*pose_err[0] - _COMP1_ZERO[0]*_COMP1_K[0]*_C1X[0];
-  _C1Y[1] = _COMP1_POLE[1]*_C1Y[1] + _COMP1_K[1]*pose_err[1] - _COMP1_ZERO[1]*_COMP1_K[1]*_C1X[1];
-  _C1Y[2] = _COMP1_POLE[2]*_C1Y[2] + _COMP1_K[2]*pose_err[2] - _COMP1_ZERO[2]*_COMP1_K[2]*_C1X[2];
+  _C1Y[0] = _COMP1_POLE[0]*_C1Y[0] + _COMP1_K[0]*pose_err[0]
+      - _COMP1_ZERO[0]*_COMP1_K[0]*_C1X[0];
+  _C1Y[1] = _COMP1_POLE[1]*_C1Y[1] + _COMP1_K[1]*pose_err[1]
+      - _COMP1_ZERO[1]*_COMP1_K[1]*_C1X[1];
+  _C1Y[2] = _COMP1_POLE[2]*_C1Y[2] + _COMP1_K[2]*pose_err[2]
+      - _COMP1_ZERO[2]*_COMP1_K[2]*_C1X[2];
   UT::copyArray(pose_err, _C1X, 3);
 
   // ----------------------------------------
@@ -316,8 +319,8 @@ void ForceControlController::updateAxis(int *force_selection)
     {
       /* force become position */
       // 1. compute offset
-      float pose_fb[7];
-      _hw->getPose(pose_fb);
+      // float pose_fb[7];
+      // _hw->getPose(pose_fb);
       _pose_offset[ax] = _pose_set[ax] - _pose_command[ax];
       // // 2. reset state variables
       _C1X[ax] = 0;

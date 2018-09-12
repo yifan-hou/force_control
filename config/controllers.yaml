@@ -1,4 +1,5 @@
 # main function for testing
+# TODO(yifan) move these to launch file
 main_loop_rate: 500
 main_duration: 15 # sec
 main_setpose:
@@ -15,28 +16,27 @@ main_setforce: # possitive value: move in that direction
   f3: -2
   f4: 0
   f5: 0
-  f6: 0 
+  f6: 0
 
 # controller
-force_fb_selection: # 1 (keep force feedback) or 0 (block force feedback)
-  x: 1 
-  y: 1
-  z: 1
+Transform: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+force_controlled_dimensions: 3
 
 # Admittance control parameters
 # For each axis
 #   k: stiffness
 #   m: mass (kg)
 #   alpha: viscous friction
-AC_para_X:
+# TODO(yifan) we need to be able to set these online
+AC_para_X: # first axis (if the axes are rotated)
   k: 0
   m: 1
   alpha: 100
-AC_para_Y:
+AC_para_Y: # second axis (if the axes are rotated)
   k: 0
   m: 1
   alpha: 100
-AC_para_Z:
+AC_para_Z: # third axis (if the axes are rotated)
   k: 0
   m: 3
   alpha: 300

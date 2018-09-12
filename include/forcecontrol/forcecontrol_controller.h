@@ -1,6 +1,8 @@
 #include <fstream>
 #include <chrono>
 
+#include <Eigen/Geometry>
+
 #include <forcecontrol/forcecontrol_hardware.h>
 
 class ForceControlController
@@ -31,6 +33,8 @@ public:
   float _FC_PGain, _FC_IGain, _FC_DGain, _FC_I_Limit;
 
   // intermediate variables
+  Eigen::Matrix3d _T;
+  int _n_af;
   float *_pose_offset;
   float *_force_err;
   float *_force_err_I;

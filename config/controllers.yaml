@@ -1,7 +1,7 @@
 # main function for testing
 # TODO(yifan) move these to launch file
 main_loop_rate: 500
-main_duration: 15 # sec
+main_duration: 10 # sec
 
 # controller
 Transform: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
@@ -14,7 +14,7 @@ force_controlled_dimensions: 3
 #   alpha: viscous friction
 # TODO(yifan) we need to be able to set these online
 AC_para_X: # first axis (if the axes are rotated)
-  k: 0
+  k: 0.5
   m: 1
   alpha: 100
 AC_para_Y: # second axis (if the axes are rotated)

@@ -32,23 +32,23 @@ void stream_array_in3f(ostream &st, const Eigen::Vector3f array)
 ForceControlController::ForceControlController()
 {
     _T = Eigen::Matrix3f::Identity();
-    _pose_set        = new float[7];
+    _pose_user_input        = new float[7];
 
-    _pose_offset  = new float[3]{0};
-    _pose_command = new float[7];
+    _pose_offset      = new float[3]{0};
+    _pose_sent_to_robot     = new float[7];
 
-    _f_Tset = Eigen::Vector3f::Zero();
+    _f_Tset     = Eigen::Vector3f::Zero();
     _f_TAll_old = Eigen::Vector3f::Zero();
-    _v_T = Eigen::Vector3f::Zero();
-    _v_T_old = Eigen::Vector3f::Zero();
-    _p_T = Eigen::Vector3f::Zero();
+    _v_T        = Eigen::Vector3f::Zero();
+    _v_T_old    = Eigen::Vector3f::Zero();
+    _p_W        = Eigen::Vector3f::Zero();
 }
 
 ForceControlController::~ForceControlController()
 {
-    delete [] _pose_set;
+    delete [] _pose_user_input;
     delete [] _pose_offset;
-    delete [] _pose_command;
+    delete [] _pose_sent_to_robot;
 
     if (_print_flag)
         _file.close();
@@ -61,9 +61,9 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
 
     // read set pose
     float wrench[6];
-    _hw->getState(_pose_set, wrench);
+    _hw->getState(_pose_user_input, wrench);
     std::cout << "[ForceControlController] set pose: " << std::endl;
-    UT::stream_array_in(cout, _pose_set, 7);
+    UT::stream_array_in(cout, _pose_user_input, 7);
     std::cout << std::endl;
     std::cout << "[ForceControlController] set force: " << std::endl;
     std::cout << _f_Tset(0) << ", " << _f_Tset(1) << ", " << _f_Tset(2);
@@ -137,6 +137,7 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
             T_elements[3], T_elements[4], T_elements[5],
             T_elements[6], T_elements[7], T_elements[8];
 
+    _dt = 1.0f/fHz;
     // compute the gains
     for (int i = 0; i < 3; ++i)
     {
@@ -164,7 +165,7 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
 
 void ForceControlController::setPose(const float *pose)
 {
-    UT::copyArray(pose, _pose_set, 7);
+    UT::copyArray(pose, _pose_user_input, 7);
 }
 
 void ForceControlController::setForce(const float *force)
@@ -185,32 +186,15 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
     float wrench_fb[6];
     if (!_hw->getState(pose_fb, wrench_fb)) return false;
 
-    Eigen:Vector3f v_force_selection;
-    switch (_n_af) {
-        case 0:
-            v_force_selection << 0, 0, 0;
-            break;
-        case 1:
-            v_force_selection << 1, 0, 0;
-            break;
-        case 2:
-            v_force_selection << 1, 1, 0;
-            break;
-        case 3:
-            v_force_selection << 1, 1, 1;
-            break;
-        default:
-            std::cout << "[ForceControlController::update] wrong value for _n_af: "
-                    << _n_af << std::endl;
-            exit(1);
-    }
-    Eigen::Matrix3f m_force_selection = v_force_selection.asDiagonal();
+    Eigen::Matrix3f m_force_selection    = _v_force_selection.asDiagonal();
+    Eigen::Matrix3f m_velocity_selection = _v_velocity_selection.asDiagonal();
+
     // ----------------------------------------
     //  Pose error
     // ----------------------------------------
     Eigen::Vector3f v_WPoseErr;
     for (int i = 0; i < 3; ++i)
-        v_WPoseErr[i] = _pose_set[i] - _pose_offset[i] - pose_fb[i];
+        v_WPoseErr[i] = _pose_user_input[i] - _pose_offset[i] - pose_fb[i];
     Eigen::Vector3f v_TPoseErr = _T * v_WPoseErr;
 
     // ----------------------------------------
@@ -239,6 +223,8 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
 
     // ----------------------------------------
     //  Force error, PID force control
+    //      _f_TErr_I
+    //      _f_TErr
     // ----------------------------------------
     Eigen::Vector3f f_TErr = m_force_selection*(_f_Tset - f_TFeedback);
     _f_TErr_I += f_TErr;
@@ -255,46 +241,75 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
 
     // ----------------------------------------
     //  Compensator 1
+    //  force -> velocity (m/s)
+    //      _v_T <- f_TAll
+    //      _f_TAll_old <- f_TAll
     // ----------------------------------------
     _v_T = _COMP1_POLE.asDiagonal()*_v_T + _COMP1_K.asDiagonal()*f_TAll
             - Eigen::Matrix3f(_COMP1_ZERO.asDiagonal())*_COMP1_K.asDiagonal()*_f_TAll_old;
+    _v_T = m_force_selection * _v_T;
+
+    // std::cout << "_v_T for force: " << _v_T[0] << ", " << _v_T[1]
+    //         << ", " << _v_T[2] << std::endl;
+    // compute velocity in velocity controlled direction
+    // Consider pose offset
+    Eigen::Vector3f v_w_command;
+    v_w_command(0) = _pose_user_input[0] - _pose_offset[0] - _p_W[0];
+    v_w_command(1) = _pose_user_input[1] - _pose_offset[1] - _p_W[1];
+    v_w_command(2) = _pose_user_input[2] - _pose_offset[2] - _p_W[2];
+    v_w_command /= 1000.0f*_dt;
+    Eigen::Vector3f v_T_command = m_velocity_selection*_T*v_w_command;
+    _v_T += v_T_command;
+    // std::cout << "_p_W old: " << _p_W[0] << ", " << _p_W[1]
+    //         << ", " << _p_W[2] << std::endl;
+    // std::cout << "v_w_command: " << v_w_command[0] << ", " << v_w_command[1]
+    //         << ", " << v_w_command[2] << std::endl;
+
     _f_TAll_old = f_TAll;
 
     // ----------------------------------------
     //  Compensator 2
+    //  velocity -> position (mm)
+    //      _p_W
+    //      _v_T_old
     // ----------------------------------------
-    _p_T = _COMP2_POLE.asDiagonal()*_p_T + _COMP2_K.asDiagonal()*_v_T
+    Eigen::Vector3f p_T = _T*_p_W;
+    p_T = _COMP2_POLE.asDiagonal()*p_T + _COMP2_K.asDiagonal()*_v_T
             - Eigen::Matrix3f(_COMP2_ZERO.asDiagonal())*_COMP2_K.asDiagonal()*_v_T_old;
-    truncate3f(&_p_T, _COMP2_LIMIT, -_COMP2_LIMIT);
     _v_T_old = _v_T;
 
+    // std::cout << "p_T: " << p_T[0] << ", " << p_T[1]
+    //         << ", " << p_T[2] << std::endl;
+
     // ----------------------------------------
-    //  Pose offset
-    // ----------------------------------------
-    Eigen::Vector3f v_Woffset = _T.inverse()*_p_T;
+    _p_W = _T.inverse()*p_T;
 
     for (int i = 0; i < 3; ++i)
-        _pose_command[i] = _pose_set[i] - _pose_offset[i] + v_Woffset[i];
+        _pose_sent_to_robot[i] = _p_W[i];
     for (int i = 3; i < 7; ++i)
-        _pose_command[i] = _pose_set[i];
+        _pose_sent_to_robot[i] = _pose_user_input[i];
 
     Clock::time_point timenow_clock = Clock::now();
     double timenow = double(std::chrono::duration_cast<std::chrono::nanoseconds>(
             timenow_clock - _time0).count())/1e6; // milli second
 
-    _hw->setControl(_pose_command);
+    // displayStates();
+    // std::cout << "Press ENTER to continue..." << std::endl;
+    // getchar();
+
+    _hw->setControl(_pose_sent_to_robot);
 
     // cout << "[ForceControlController] Update at "  << timenow << endl;
     if(_print_flag)
     {
         _file << timenow << " ";
-        UT::stream_array_in(_file, _pose_set, 7);
+        UT::stream_array_in(_file, _pose_user_input, 7);
         UT::stream_array_in(_file, pose_fb, 7);
         UT::stream_array_in(_file, wrench_fb, 6);
         stream_array_in3f(_file, _f_TAll_old);
         stream_array_in3f(_file, _v_T);
-        stream_array_in3f(_file, _p_T);
-        UT::stream_array_in(_file, _pose_command, 7);
+        stream_array_in3f(_file, p_T);
+        UT::stream_array_in(_file, _pose_sent_to_robot, 7);
         _file << endl;
     }
 
@@ -307,36 +322,34 @@ void ForceControlController::updateAxis(Eigen::Matrix3f T, int n_af)
     p_WOffset(0) = _pose_offset[0];
     p_WOffset(1) = _pose_offset[1];
     p_WOffset(2) = _pose_offset[2];
-    p_WOffsetAll(0) = _pose_set[0] - _pose_command[0];
-    p_WOffsetAll(1) = _pose_set[1] - _pose_command[1];
-    p_WOffsetAll(2) = _pose_set[2] - _pose_command[2];
+    p_WOffsetAll(0) = _pose_user_input[0] - _pose_sent_to_robot[0];
+    p_WOffsetAll(1) = _pose_user_input[1] - _pose_sent_to_robot[1];
+    p_WOffsetAll(2) = _pose_user_input[2] - _pose_sent_to_robot[2];
 
-    Eigen::Vector3f v_force_selection;
-    Eigen::Vector3f v_velocity_selection;
     switch (n_af) {
         case 0:
-            v_force_selection << 0, 0, 0;
-            v_velocity_selection << 1, 1, 1;
+            _v_force_selection << 0, 0, 0;
+            _v_velocity_selection << 1, 1, 1;
             break;
         case 1:
-            v_force_selection << 1, 0, 0;
-            v_velocity_selection << 0, 1, 1;
+            _v_force_selection << 1, 0, 0;
+            _v_velocity_selection << 0, 1, 1;
             break;
         case 2:
-            v_force_selection << 1, 1, 0;
-            v_velocity_selection << 0, 0, 1;
+            _v_force_selection << 1, 1, 0;
+            _v_velocity_selection << 0, 0, 1;
             break;
         case 3:
-            v_force_selection << 1, 1, 1;
-            v_velocity_selection << 0, 0, 0;
+            _v_force_selection << 1, 1, 1;
+            _v_velocity_selection << 0, 0, 0;
             break;
         default:
             std::cout << "[ForceControlController::updateAxis] wrong value for n_af: "
                     << n_af << std::endl;
             exit(1);
     }
-    Eigen::Matrix3f m_force_selection    = v_force_selection.asDiagonal();
-    Eigen::Matrix3f m_velocity_selection = v_velocity_selection.asDiagonal();
+    Eigen::Matrix3f m_force_selection    = _v_force_selection.asDiagonal();
+    Eigen::Matrix3f m_velocity_selection = _v_velocity_selection.asDiagonal();
 
     Eigen::Vector3f p_TOffset = m_force_selection*T*p_WOffset
             + m_velocity_selection*T*p_WOffsetAll;
@@ -347,28 +360,70 @@ void ForceControlController::updateAxis(Eigen::Matrix3f T, int n_af)
 
     // project these into force space
     Eigen::Matrix3f T_old_inv = _T.inverse();
-    _f_TAll_old     = m_force_selection*T*T_old_inv*_f_TAll_old;
-    _v_T     = m_force_selection*T*T_old_inv*_v_T;
-    _v_T_old     = m_force_selection*T*T_old_inv*_v_T_old;
-    _p_T     = m_force_selection*T*T_old_inv*_p_T;
-    _f_TErr_I = m_force_selection*T*T_old_inv*_f_TErr_I;
-    _f_TErr  = m_force_selection*T*T_old_inv*_f_TErr;
+    _f_TAll_old = m_force_selection*T*T_old_inv*_f_TAll_old;
+    _v_T        = m_force_selection*T*T_old_inv*_v_T;
+    _v_T_old    = m_force_selection*T*T_old_inv*_v_T_old;
+
+    _f_TErr_I   = m_force_selection*T*T_old_inv*_f_TErr_I;
+    _f_TErr     = m_force_selection*T*T_old_inv*_f_TErr;
 
     _T = T;
     _n_af = n_af;
 }
 
+// reset everytime you start from complete stop.
 void ForceControlController::reset()
 {
-  for (int ax = 0; ax < 3; ++ax)    _pose_offset[ax]  = 0;
-  _f_TErr   = Eigen::Vector3f::Zero();
-  _f_TErr_I = Eigen::Vector3f::Zero();
-  _f_Tset   = Eigen::Vector3f::Zero();
-  _f_TAll_old      = Eigen::Vector3f::Zero();
-  _v_T      = Eigen::Vector3f::Zero();
-  _v_T_old      = Eigen::Vector3f::Zero();
-  _p_T      = Eigen::Vector3f::Zero();
+    _hw->getPose(_pose_sent_to_robot);
+    for (int ax = 0; ax < 3; ++ax)
+    {
+        _pose_offset[ax]  = 0;
+        _p_W(ax) = _pose_sent_to_robot[ax];
+    }
 
-  _hw->getPose(_pose_command);
-  UT::copyArray(_pose_command, _pose_set, 7);
+    _f_TErr     = Eigen::Vector3f::Zero();
+    _f_TErr_I   = Eigen::Vector3f::Zero();
+    _f_Tset     = Eigen::Vector3f::Zero();
+    _f_TAll_old = Eigen::Vector3f::Zero();
+    _v_T        = Eigen::Vector3f::Zero();
+    _v_T_old    = Eigen::Vector3f::Zero();
+
+    UT::copyArray(_pose_sent_to_robot, _pose_user_input, 7);
+}
+
+void ForceControlController::displayStates()
+{
+    std::cout << "================= States ================== " << std::endl;
+    std::cout << "_pose_user_input: " << _pose_user_input[0] << ", "
+            << _pose_user_input[1] << ", " << _pose_user_input[2]
+            << std::endl;
+    std::cout << "pose offset: " << _pose_offset[0] << ", " << _pose_offset[1]
+            << ", " << _pose_offset[2] << std::endl;
+    std::cout << "pose sent to robot: " << _pose_sent_to_robot[0] << ", "
+            << _pose_sent_to_robot[1] << ", " << _pose_sent_to_robot[2]
+            << std::endl;
+    std::cout << "_v_force_selection: " << _v_force_selection[0] << ", "
+            << _v_force_selection[1] << ", " << _v_force_selection[2]
+            << std::endl;
+    std::cout << "_v_velocity_selection: " << _v_velocity_selection[0] << ", "
+            << _v_velocity_selection[1] << ", " << _v_velocity_selection[2]
+            << std::endl;
+    std::cout << "_f_TErr: " << _f_TErr[0] << ", "
+            << _f_TErr[1] << ", " << _f_TErr[2]
+            << std::endl;
+    std::cout << "_f_TErr_I: " << _f_TErr_I[0] << ", "
+            << _f_TErr_I[1] << ", " << _f_TErr_I[2]
+            << std::endl;
+    std::cout << "_f_TAll_old: " << _f_TAll_old[0] << ", "
+            << _f_TAll_old[1] << ", " << _f_TAll_old[2]
+            << std::endl;
+    std::cout << "_v_T: " << _v_T[0] << ", "
+            << _v_T[1] << ", " << _v_T[2]
+            << std::endl;
+    std::cout << "_v_T_old: " << _v_T_old[0] << ", "
+            << _v_T_old[1] << ", " << _v_T_old[2]
+            << std::endl;
+    std::cout << "_p_W: " << _p_W[0] << ", "
+            << _p_W[1] << ", " << _p_W[2]
+            << std::endl;
 }

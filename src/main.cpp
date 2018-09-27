@@ -33,13 +33,7 @@ int main(int argc, char* argv[])
     float main_setforce[6];
     hd.param(std::string("/main_loop_rate"), main_loop_rate, 500);
     hd.param(std::string("/main_duration"), main_duration, 2.0);
-    hd.param(std::string("/main_setpose/x"), main_setpose[0], 0.0f);
-    hd.param(std::string("/main_setpose/y"), main_setpose[1], 300.0f);
-    hd.param(std::string("/main_setpose/z"), main_setpose[2], 420.0f);
-    hd.param(std::string("/main_setpose/q1"), main_setpose[3], 0.0f);
-    hd.param(std::string("/main_setpose/q2"), main_setpose[4], 0.0f);
-    hd.param(std::string("/main_setpose/q3"), main_setpose[5], 1.0f);
-    hd.param(std::string("/main_setpose/q4"), main_setpose[6], 0.0f);
+
     hd.param(std::string("/main_setforce/f1"), main_setforce[0], 0.0f);
     hd.param(std::string("/main_setforce/f2"), main_setforce[1], 0.0f);
     hd.param(std::string("/main_setforce/f3"), main_setforce[2], 0.0f);
@@ -55,10 +49,7 @@ int main(int argc, char* argv[])
     // ROS_INFO_STREAM("[MAIN] Press ENTER to begin.\n");
     // getchar();
 
-    // float pose[7], wrench[6], z0;
-    // robot.getPose(pose);
-    controller.setPose(main_setpose);
-    controller.setForce(main_setforce);
+    robot.getPose(main_setpose);
 
     Eigen::Matrix3f T0, T1;
     T0 << 1.0f, 0.0f, 0.0f,
@@ -67,19 +58,30 @@ int main(int argc, char* argv[])
     T1 << 1.0f, 0.0f, 0.0f,
           0.0f, 1.0f, 0.0f,
           0.0f, 0.0f, 1.0f;
+    Eigen::Vector3f xyz_set_diff1, xyz_set_diff2;
+    xyz_set_diff1 << 20, 0, 0;
 
+    controller.reset();
+    controller.setPose(main_setpose);
+    controller.setForce(main_setforce);
     controller.updateAxis(T0, 2);
+
     cout << "Main loop begins. " << endl;
     ros::Duration period(EGM_PERIOD);
     for (int i = 0; i < Nsteps; ++i)
     {
-        // if (i == main_loop_rate*5)
-        // {
-        //     controller.updateAxis(T0, 2);
-        //     main_setpose[0] = 10.0f;
-        //     controller.setPose(main_setpose);
-        //     cout << "update Axis to set 1" << endl;
-        // }
+        if (i == main_loop_rate*3)
+        {
+            // controller.updateAxis(T0, 1);
+            // main_setpose[0] += xyz_set_diff1(0);
+            // main_setpose[1] += xyz_set_diff1(1);
+            // main_setpose[2] += xyz_set_diff1(2);
+            controller.setPose(main_setpose);
+
+            main_setforce[0] = 5;
+            controller.setForce(main_setforce);
+            // cout << "update Axis to set 1" << endl;
+        }
         // else if (i == main_loop_rate*10)
         // {
         //     controller.updateAxis(T1, 1);
@@ -92,7 +94,6 @@ int main(int argc, char* argv[])
         // }
 
         // update
-        controller.setPose(main_setpose);
         cout << "Update for time " << i << " of " << Nsteps << "." << endl;
         ros::Time time_now = ros::Time::now();
         controller.update(time_now, period);

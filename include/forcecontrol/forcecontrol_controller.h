@@ -16,11 +16,13 @@ public:
   bool update(const ros::Time& time, const ros::Duration& period);
   void updateAxis(Eigen::Matrix3f T, int n_af);
   void reset(); // reset the state variables in the control law
+  void displayStates();
 
-  float *_pose_set;
+  float *_pose_user_input;
   Eigen::Vector3f _f_Tset;
 
   // parameters
+  float _dt; // used for integration/differentiation
   Eigen::Vector3f _STIFFNESS{0.0f, 0.0f, 0.0f};
   Eigen::Vector3f _COMP1_K{0.0f, 0.0f, 0.0f};
   Eigen::Vector3f _COMP1_ZERO{0.0f, 0.0f, 0.0f};
@@ -36,13 +38,16 @@ public:
   Eigen::Matrix3f _T;
   int _n_af;
   float *_pose_offset;
-  float *_pose_command;
+  float *_pose_sent_to_robot;
+  Eigen::Vector3f _v_force_selection;
+  Eigen::Vector3f _v_velocity_selection;
+
   Eigen::Vector3f _f_TErr;
   Eigen::Vector3f _f_TErr_I;
   Eigen::Vector3f _f_TAll_old{0.0f, 0.0f, 0.0f};
   Eigen::Vector3f _v_T{0.0f, 0.0f, 0.0f};
   Eigen::Vector3f _v_T_old{0.0f, 0.0f, 0.0f};
-  Eigen::Vector3f _p_T{0.0f, 0.0f, 0.0f};
+  Eigen::Vector3f _p_W{0.0f, 0.0f, 0.0f};
 
 private:
   ForceControlHardware *_hw;

@@ -13,36 +13,36 @@ public:
   bool init(ros::NodeHandle& root_nh, ForceControlHardware *hw, std::chrono::high_resolution_clock::time_point time0);
   void setPose(const float *pose);
   void setForce(const float *force);
-  void update(const ros::Time& time, const ros::Duration& period);
-  void updateAxis(int *force_selection);
+  bool update(const ros::Time& time, const ros::Duration& period);
+  void updateAxis(Eigen::Matrix3f T, int n_af);
   void reset(); // reset the state variables in the control law
 
   float *_pose_set;
-  float *_force_set;
+  Eigen::Vector3f _f_Tset;
 
   // parameters
-  float *_STIFFNESS;
-  int *_FORCE_SELECTION;
-  float *_COMP1_K;
-  float *_COMP1_ZERO;
-  float *_COMP1_POLE;
-  float *_COMP2_K;
-  float *_COMP2_ZERO;
-  float *_COMP2_POLE;
-  float _COMP2_LIMIT;
-  float _FC_PGain, _FC_IGain, _FC_DGain, _FC_I_Limit;
+  Eigen::Vector3f _STIFFNESS{0.0f, 0.0f, 0.0f};
+  Eigen::Vector3f _COMP1_K{0.0f, 0.0f, 0.0f};
+  Eigen::Vector3f _COMP1_ZERO{0.0f, 0.0f, 0.0f};
+  Eigen::Vector3f _COMP1_POLE{0.0f, 0.0f, 0.0f};
+  Eigen::Vector3f _COMP2_K{0.0f, 0.0f, 0.0f};
+  Eigen::Vector3f _COMP2_ZERO{0.0f, 0.0f, 0.0f};
+  Eigen::Vector3f _COMP2_POLE{0.0f, 0.0f, 0.0f};
+  float _kForceControlPGain, _kForceControlIGain, _kForceControlDGain;
+
+  float _COMP2_LIMIT, _FC_I_Limit;
 
   // intermediate variables
-  Eigen::Matrix3d _T;
+  Eigen::Matrix3f _T;
   int _n_af;
   float *_pose_offset;
-  float *_force_err;
-  float *_force_err_I;
-  float *_C1X;
-  float *_C1Y;
-  float *_C2X;
-  float *_C2Y;
   float *_pose_command;
+  Eigen::Vector3f _f_TErr;
+  Eigen::Vector3f _f_TErr_I;
+  Eigen::Vector3f _f_TAll_old{0.0f, 0.0f, 0.0f};
+  Eigen::Vector3f _v_T{0.0f, 0.0f, 0.0f};
+  Eigen::Vector3f _v_T_old{0.0f, 0.0f, 0.0f};
+  Eigen::Vector3f _p_T{0.0f, 0.0f, 0.0f};
 
 private:
   ForceControlHardware *_hw;

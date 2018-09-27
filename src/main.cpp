@@ -17,7 +17,6 @@ int main(int argc, char* argv[])
     ROS_INFO_STREAM("Force control starting");
     ros::init(argc, argv, "forcecontrol_node");
     ros::NodeHandle hd;
-
     ForceControlHardware robot;
     ForceControlController controller;
 
@@ -26,6 +25,7 @@ int main(int argc, char* argv[])
 
     robot.init(hd, TheTime0); // robot must be initialized before controller
     controller.init(hd, &robot, TheTime0);
+    controller.reset();
 
     int main_loop_rate;
     double main_duration;
@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
     hd.param(std::string("/main_duration"), main_duration, 2.0);
     hd.param(std::string("/main_setpose/x"), main_setpose[0], 0.0f);
     hd.param(std::string("/main_setpose/y"), main_setpose[1], 300.0f);
-    hd.param(std::string("/main_setpose/z"), main_setpose[2], 435.0f);
+    hd.param(std::string("/main_setpose/z"), main_setpose[2], 420.0f);
     hd.param(std::string("/main_setpose/q1"), main_setpose[3], 0.0f);
     hd.param(std::string("/main_setpose/q2"), main_setpose[4], 0.0f);
     hd.param(std::string("/main_setpose/q3"), main_setpose[5], 1.0f);
@@ -55,27 +55,34 @@ int main(int argc, char* argv[])
     // ROS_INFO_STREAM("[MAIN] Press ENTER to begin.\n");
     // getchar();
 
-    float pose[7], wrench[6], z0;
+    // float pose[7], wrench[6], z0;
     // robot.getPose(pose);
     controller.setPose(main_setpose);
     controller.setForce(main_setforce);
 
-    int force_selection0[3]{1, 1, 0};
-    int force_selection1[3]{0, 0, 1};
+    Eigen::Matrix3f T0, T1;
+    T0 << 1.0f, 0.0f, 0.0f,
+          0.0f, 1.0f, 0.0f,
+          0.0f, 0.0f, 1.0f;
+    T1 << 1.0f, 0.0f, 0.0f,
+          0.0f, 1.0f, 0.0f,
+          0.0f, 0.0f, 1.0f;
 
+    controller.updateAxis(T0, 2);
     cout << "Main loop begins. " << endl;
-	ros::Duration period(EGM_PERIOD);
+    ros::Duration period(EGM_PERIOD);
     for (int i = 0; i < Nsteps; ++i)
     {
-
         // if (i == main_loop_rate*5)
         // {
-        //     controller.updateAxis(force_selection1);
+        //     controller.updateAxis(T0, 2);
+        //     main_setpose[0] = 10.0f;
+        //     controller.setPose(main_setpose);
         //     cout << "update Axis to set 1" << endl;
         // }
         // else if (i == main_loop_rate*10)
         // {
-        //     controller.updateAxis(force_selection0);
+        //     controller.updateAxis(T1, 1);
         //     cout << "update Axis to set 0" << endl;
         // }
         // else if (i == main_loop_rate*15)

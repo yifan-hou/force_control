@@ -8,20 +8,20 @@ netft_file_path: "/home/yifanh/Git/catkin_ws/src/forcecontrol/data/netft_data.tx
 
 ati:
   offset: # will be added to the reading; in tool frame
-    fx: -0.339213
-    fy: 1.54215
-    fz: -1.60007
-    tx: -0.00325492
-    ty: 0.0212634
-    tz: 0.0168613
+    fx: -0.292639
+    fy: 1.8749
+    fz: -1.17563
+    tx: -0.0136982
+    ty: 0.0406847
+    tz: -0.00693553
   gravity:
-    x: 0.189769
-    y: 0.236297
-    z: -10.1566
+    x: 0.0207737
+    y: 0.0178615
+    z: -1.95194
   COM:
-    x: -0.0180291
-    y: 0.0175658
-    z: 0.0370635
+    x: -0.000133002
+    y: 0
+    z: 0.015519
   safety:
     fx: 20 # maximum: 20
     fy: 20 # maximum: 20
@@ -30,11 +30,13 @@ ati:
     ty: 1 # maximum: 1
     tz: 1 # maximum: 1
 
+
+
 # ABB EGM
 egm_portnum: 6510
-egm_max_dist_tran: 5 # mm, maximum distance between set point and current pose. 
-egm_max_dist_rot: 0.05 # rad, maximum distance between set point and current pose. 
-                      # This two numbers plus 'K' and bandwidth in robostudio determine 
+egm_max_dist_tran: 5 # mm, maximum distance between set point and current pose.
+egm_max_dist_rot: 0.05 # rad, maximum distance between set point and current pose.
+                      # This two numbers plus 'K' and bandwidth in robostudio determine
                       # how fast the robot will move.
 egm_safety_mode: 1 # 0: none 1: truncate 2: stop
 egm_operation_mode: 0 # 0: cartesian 1: joint
@@ -47,5 +49,5 @@ egm_safety_zone:
   ymax: 550
   zmin: 260
   zmax: 600
-  
+
 # force control

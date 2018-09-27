@@ -40,11 +40,13 @@ void* ATI_Monitor(void* pParam)
     Clock::time_point timenow_clock = Clock::now();
     double timenow = double(std::chrono::duration_cast<std::chrono::nanoseconds>(timenow_clock - netft_hardware->_time0).count())/1e6; // milli second
 
-
-    netft_hardware->_file << timenow << "\t";
-    UT::stream_array_in(netft_hardware->_file, netft_hardware->_force, 3);
-    UT::stream_array_in(netft_hardware->_file, netft_hardware->_torque, 3);
-    netft_hardware->_file << endl;
+    if (netft_hardware->_print_flag)
+    {
+      netft_hardware->_file << timenow << "\t";
+      UT::stream_array_in(netft_hardware->_file, netft_hardware->_force, 3);
+      UT::stream_array_in(netft_hardware->_file, netft_hardware->_torque, 3);
+      netft_hardware->_file << endl;
+    }
 
     ros::Time current_time(ros::Time::now());
     if ( (current_time - last_diag_pub_time) > diag_pub_duration )

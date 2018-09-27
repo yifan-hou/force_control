@@ -2,21 +2,6 @@
 # TODO(yifan) move these to launch file
 main_loop_rate: 500
 main_duration: 15 # sec
-main_setpose:
-  x: 10
-  y: 300
-  z: 435
-  q1: 0
-  q2: 0
-  q3: 1
-  q4: 0
-main_setforce: # possitive value: move in that direction
-  f1: 0
-  f2: 0
-  f3: -2
-  f4: 0
-  f5: 0
-  f6: 0
 
 # controller
 Transform: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]

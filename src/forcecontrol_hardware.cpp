@@ -166,10 +166,10 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh, std::chrono::high_reso
   return true;
 }
 
-void ForceControlHardware::getState(float *pose, float *wrench)
+bool ForceControlHardware::getState(float *pose, float *wrench)
 {
   getPose(pose);
-  getWrench(wrench);
+  return getWrench(wrench);
 }
 
 void ForceControlHardware::getPose(float *pose)

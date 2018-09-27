@@ -30,9 +30,9 @@ class ForceControlHardware : public hardware_interface::RobotHW
     ForceControlHardware();
     ~ForceControlHardware();
     bool init(ros::NodeHandle& root_nh, std::chrono::high_resolution_clock::time_point time0);
-    void getState(float *pose, float *wrench);
     void getPose(float *pose);
     bool getWrench(float *wrench);
+    bool getState(float *pose, float *wrench);
     void setControl(const float *pose_set);
 
     void liftup(const float dz); // move up for safety

@@ -11,7 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   egm
   netft_rdt_driver
   roscpp
-  diagnostic_updater 
+  diagnostic_updater
   diagnostic_msgs
   geometry_msgs
   message_generation
@@ -21,9 +21,9 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 
-find_package(Boost REQUIRED COMPONENTS 
-  system 
-  thread 
+find_package(Boost REQUIRED COMPONENTS
+  system
+  thread
   program_options
 )
 
@@ -47,7 +47,7 @@ catkin_package(
 include_directories(
   include
   /usr/include/eigen3
-  ${Boost_INCLUDE_DIRS} 
+  ${Boost_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ~/Git/ZZJHand/include/
 )

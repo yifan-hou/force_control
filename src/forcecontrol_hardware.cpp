@@ -5,6 +5,7 @@
 
 #define PI 3.1415926
 
+using namespace std;
 using namespace Eigen;
 
 ForceControlHardware::ForceControlHardware() {
@@ -193,7 +194,7 @@ bool ForceControlHardware::getWrench(float *wrench)
   // transform to tool-frame
   // this only works if the toolframe in ABB robot has identity orientation
   // i.e. q = 1 0 0 0
-  float ang_T = -112.5*PI/180.0;
+  float ang_T = -22.5*PI/180.0;
   wrench[0]   = cos(ang_T)*wrench_temp[0] - sin(ang_T)*wrench_temp[1];
   wrench[1]   = sin(ang_T)*wrench_temp[0] + cos(ang_T)*wrench_temp[1];
   wrench[2]   =  wrench_temp[2];

@@ -206,8 +206,8 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
     // ----------------------------------------
     //  Force feedback
     // ----------------------------------------
-    static Eigen::Vector3f f_local_feedback;
-    static Quaternionf qn; // current orientation of end effector (also FT sensor)
+    static Eigen::Vector3f f_local_feedback; // measurement in tool frame
+    static Eigen::Quaternionf qn; // current orientation of end effector (also FT sensor)
 
     f_local_feedback(0) = wrench_fb[0];
     f_local_feedback(1) = wrench_fb[1];

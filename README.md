@@ -5,7 +5,12 @@ Use EGM+mini40 for forcecontrol
 Yifan Hou
 yifanh@cmu.edu
 
+# Set force
+The force being set is in transformed space (if R_a=I, then in world frame).
+It's  the force that the outside environment will feel from the robot
+end-effector. For example, if fz=10, the robot will pull up.
 
+Call controller.reset() before the first controller.update()
 
 # Compensator Parameters
 ## Teach Mode

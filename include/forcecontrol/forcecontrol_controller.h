@@ -1,3 +1,8 @@
+#pragma once
+#ifndef _FORCECONTROL_CONTROLLER_H_
+#define _FORCECONTROL_CONTROLLER_H_
+
+
 #include <fstream>
 #include <chrono>
 
@@ -11,10 +16,22 @@ public:
   ForceControlController();
   ~ForceControlController();
   bool init(ros::NodeHandle& root_nh, ForceControlHardware *hw, std::chrono::high_resolution_clock::time_point time0);
+
+  ///
+  /// Set the pose command. Next update() will use this command.
+  /// WARNING remember to call update() after setPose, before updateAxis.
+  ///
   void setPose(const float *pose);
   void setForce(const float *force);
   bool update(const ros::Time& time, const ros::Duration& period);
   void updateAxis(Eigen::Matrix3f T, int n_af);
+  ///
+  /// Reset the intermediate variables in the control law, including setting
+  ///     all position offsets to zero. "previous pose command" is set to the
+  ///     robot's current pose.
+  /// It's as if the robot was commanded to its current pose and stabilized.
+  /// Call reset() only if the next action is computed based on the robot's
+  ///     current pose instead of a pre-planned trajectory.
   void reset(); // reset the state variables in the control law
   void displayStates();
 
@@ -59,3 +76,4 @@ private:
 
 };
 
+#endif // _FORCECONTROL_CONTROLLER_H_

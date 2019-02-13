@@ -52,9 +52,7 @@ int main(int argc, char* argv[])
     robot.getPose(main_setpose);
 
     Eigen::Matrix3f T0, T1;
-    T0 << 1.0f, 0.0f, 0.0f,
-          0.0f, 1.0f, 0.0f,
-          0.0f, 0.0f, 1.0f;
+    T0 = Eigen::Matrix3f::Identity();
     T1 << 1.0f, 0.0f, 0.0f,
           0.0f, 1.0f, 0.0f,
           0.0f, 0.0f, 1.0f;
@@ -64,24 +62,25 @@ int main(int argc, char* argv[])
     controller.reset();
     controller.setPose(main_setpose);
     controller.setForce(main_setforce);
-    controller.updateAxis(T0, 2);
+    controller.updateAxis(T0, 3); // all force
 
     cout << "Main loop begins. " << endl;
     ros::Duration period(EGM_PERIOD);
     for (int i = 0; i < Nsteps; ++i)
     {
-        if (i == main_loop_rate*3)
-        {
-            // controller.updateAxis(T0, 1);
-            // main_setpose[0] += xyz_set_diff1(0);
-            // main_setpose[1] += xyz_set_diff1(1);
-            // main_setpose[2] += xyz_set_diff1(2);
-            controller.setPose(main_setpose);
+        // if (i == main_loop_rate*3)
+        // {
+        //     // controller.updateAxis(T0, 1);
+        //     // main_setpose[0] += xyz_set_diff1(0);
+        //     // main_setpose[1] += xyz_set_diff1(1);
+        //     // main_setpose[2] += xyz_set_diff1(2);
+        //     controller.setPose(main_setpose);
 
-            main_setforce[0] = 5;
-            controller.setForce(main_setforce);
-            // cout << "update Axis to set 1" << endl;
-        }
+        //     main_setforce[0] = 5;
+
+        //     controller.setForce(main_setforce);
+        //     // cout << "update Axis to set 1" << endl;
+        // }
         // else if (i == main_loop_rate*10)
         // {
         //     controller.updateAxis(T1, 1);
@@ -94,9 +93,32 @@ int main(int argc, char* argv[])
         // }
 
         // update
-        cout << "Update for time " << i << " of " << Nsteps << "." << endl;
+        // cout << "Update for time " << i << " of " << Nsteps << "." << endl;
         ros::Time time_now = ros::Time::now();
         controller.update(time_now, period);
+
+
+        // check force feedback direction
+        float w[6] = {0}; // tool frame
+        float p[7] = {0};
+        robot.getWrench(w);
+        robot.getPose(p);
+
+        Quaternionf qn;
+        qn.w() = p[3];
+        qn.x() = p[4];
+        qn.y() = p[5];
+        qn.z() = p[6];
+        Eigen::Vector3f f_T;
+        f_T << w[0], w[1], w[2];
+        Eigen::Vector3f f_W = qn._transformVector(f_T);
+
+        cout << "force in world frame at time " << i << ": "
+                << f_W[0] << "|"
+                << f_W[1] << "|"
+                << f_W[2] << endl;
+
+
         pub_rate.sleep();
     }
 

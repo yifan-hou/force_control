@@ -20,8 +20,6 @@
 #include <forcecontrol/ati_netft_hardware.h>
 #include <egm/EGMClass.h>
 
-using namespace std;
-using namespace Eigen;
 
 
 class ForceControlHardware : public hardware_interface::RobotHW
@@ -43,9 +41,9 @@ class ForceControlHardware : public hardware_interface::RobotHW
     float *_WRENCH_SAFETY;
 
   private:
-    Vector3f _Foffset;
-    Vector3f _Toffset;
-    Vector3f _Gravity;
-    Vector3f _Pcom;
+    Eigen::Vector3f _Foffset;
+    Eigen::Vector3f _Toffset;
+    Eigen::Vector3f _Gravity;
+    Eigen::Vector3f _Pcom;
 
 };

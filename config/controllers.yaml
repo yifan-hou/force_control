@@ -1,16 +1,12 @@
 # main function for testing
 # TODO(yifan) move these to launch file
 main_loop_rate: 500 #500
-main_duration: 10 # sec
-
-# controller
-Transform: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
-force_controlled_dimensions: 3
+main_duration: 4 # sec
 
 main_setforce:
   f1: 0
   f2: 0
-  f3: 10
+  f3: 0
   f4: 0
   f5: 0
   f6: 0
@@ -21,15 +17,15 @@ main_setforce:
 #   alpha: viscous friction
 # TODO(yifan) we need to be able to set these online
 AC_para_X: # first axis (if the axes are rotated)
-  k: 0
+  k: 1
   m: 1
   alpha: 100
 AC_para_Y: # second axis (if the axes are rotated)
-  k: 0
+  k: 1
   m: 1
   alpha: 100
 AC_para_Z: # third axis (if the axes are rotated)
-  k: 0
+  k: 1
   m: 3
   alpha: 300
 AC_limit: 300.0 # (mm) magnitude limit of output  THIS WILL CREATE A BOUNDING BOX

@@ -206,12 +206,14 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
     // ----------------------------------------
     //  Force feedback
     // ----------------------------------------
-    static Eigen::Vector3f f_local_feedback; // measurement in tool frame
+    static Eigen::Vector3f f_tool_sensor; // force feedback in tool frame
     static Eigen::Quaternionf qn; // current orientation of end effector (also FT sensor)
 
-    f_local_feedback(0) = wrench_fb[0];
-    f_local_feedback(1) = wrench_fb[1];
-    f_local_feedback(2) = wrench_fb[2];
+    // note: the minus sign here make the physical meaning of the force correct:
+    //      the force being acted on the environment from the robot
+    f_tool_sensor(0) = - wrench_fb[0];
+    f_tool_sensor(1) = - wrench_fb[1];
+    f_tool_sensor(2) = - wrench_fb[2];
 
     qn.w() = pose_fb[3];
     qn.x() = pose_fb[4];
@@ -219,7 +221,9 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
     qn.z() = pose_fb[6];
 
     // transformation
-    Eigen::Vector3f f_TFeedback = _T*qn._transformVector(f_local_feedback);
+    //  transform to world via qn; then
+    //  transform to transformed frame via _T
+    Eigen::Vector3f f_TFeedback = _T*qn._transformVector(f_tool_sensor);
 
     // ----------------------------------------
     //  Force error, PID force control
@@ -231,14 +235,29 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
     truncate3f(&_f_TErr_I, _FC_I_Limit, -_FC_I_Limit);
 
     Eigen::Vector3f f_TPID;
-    f_TPID = _f_Tset - _kForceControlPGain*f_TErr
-            - _kForceControlIGain*_f_TErr_I
+    f_TPID =  _kForceControlPGain*f_TErr
+            + _kForceControlIGain*_f_TErr_I
             + _kForceControlDGain*(f_TErr - _f_TErr);
 
     _f_TErr = f_TErr;
     Eigen::Vector3f f_TAll =
-            m_force_selection*(f_TSpring + f_TFeedback + f_TPID);
+            m_force_selection*(f_TSpring + f_TErr + f_TPID);
 
+    // {
+    //     using namespace std;
+    //     // cout << "_T: " << _T << endl;
+    //     cout << ",f_TFeedback: " << f_TFeedback(0) << "|"
+    //             << f_TFeedback(1) << "|"
+    //             << f_TFeedback(2);
+    //     cout << ",_f_Tset: " << _f_Tset(0) << "|"
+    //             << _f_Tset(1) << "|"
+    //             << _f_Tset(2);
+    //     cout << ",_f_TErr_I: " << _f_TErr_I(0) << "|"
+    //             << _f_TErr_I(1) << "|"
+    //             << _f_TErr_I(2) << endl;
+    //     // cout << "f_TErr: " << f_TErr << endl;
+    //     // getchar();
+    // }
     // ----------------------------------------
     //  Compensator 1
     //  force -> velocity (m/s)

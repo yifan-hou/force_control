@@ -98,25 +98,32 @@ int main(int argc, char* argv[])
         controller.update(time_now, period);
 
 
-        // check force feedback direction
-        float w[6] = {0}; // tool frame
-        float p[7] = {0};
-        robot.getWrench(w);
-        robot.getPose(p);
+        // // check force feedback direction
+        // float w[6] = {0}; // tool frame
+        // float p[7] = {0};
+        // robot.getWrench(w);
+        // robot.getPose(p);
 
-        Quaternionf qn;
-        qn.w() = p[3];
-        qn.x() = p[4];
-        qn.y() = p[5];
-        qn.z() = p[6];
-        Eigen::Vector3f f_T;
-        f_T << w[0], w[1], w[2];
-        Eigen::Vector3f f_W = qn._transformVector(f_T);
+        // Quaternionf qn;
+        // qn.w() = p[3];
+        // qn.x() = p[4];
+        // qn.y() = p[5];
+        // qn.z() = p[6];
+        // Eigen::Vector3f f_T;
+        // f_T << w[0], w[1], w[2];
+        // Eigen::Vector3f f_W = qn._transformVector(f_T);
 
-        cout << "force in world frame at time " << i << ": "
-                << f_W[0] << "|"
-                << f_W[1] << "|"
-                << f_W[2] << endl;
+        // cout << "time " << i << ", f_W: "
+        //         << f_W[0] << "|"
+        //         << f_W[1] << "|"
+        //         << f_W[2] << "f_T: "
+        //         << f_T[0] << "|"
+        //         << f_T[1] << "|"
+        //         << f_T[2] << "q:"
+        //         << p[3] << "|"
+        //         << p[4] << "|"
+        //         << p[5] << "|"
+        //         << p[6] << endl;
 
 
         pub_rate.sleep();

@@ -33,7 +33,7 @@ AC_limit: 300.0 # (mm) magnitude limit of output  THIS WILL CREATE A BOUNDING BO
 # Force control PID Gains
 FC_gains:
   IGain: 0.02 # 0.005
-  PGain: 0.0 #0.4
+  PGain: 0.5 #0.4
   DGain: 0.00 #0.02
 FC_I_Limit: 50 # Newton
 

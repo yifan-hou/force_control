@@ -252,12 +252,13 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
     //     cout << ",_f_Tset: " << _f_Tset(0) << "|"
     //             << _f_Tset(1) << "|"
     //             << _f_Tset(2);
-    //     cout << ",_f_TErr_I: " << _f_TErr_I(0) << "|"
-    //             << _f_TErr_I(1) << "|"
-    //             << _f_TErr_I(2) << endl;
-    //     // cout << "f_TErr: " << f_TErr << endl;
-    //     // getchar();
+    //     cout << ",f_TAll: " << f_TAll(0) << "|"
+    //             << f_TAll(1) << "|"
+    //             << f_TAll(2) << endl;
+    // //     // cout << "f_TErr: " << f_TErr << endl;
+    // //     // getchar();
     // }
+
     // ----------------------------------------
     //  Compensator 1
     //  force -> velocity (m/s)

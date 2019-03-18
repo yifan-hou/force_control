@@ -36,25 +36,21 @@ public:
   void displayStates();
 
   float *_pose_user_input;
-  Eigen::Vector3f _f_Tset;
+  Eigen::Matrix<float, 6, 1> _wrench_Tr_set;
 
   // parameters
   float _dt; // used for integration/differentiation
-  Eigen::Vector3f _STIFFNESS{0.0f, 0.0f, 0.0f};
-  Eigen::Vector3f _COMP1_K{0.0f, 0.0f, 0.0f};
-  Eigen::Vector3f _COMP1_ZERO{0.0f, 0.0f, 0.0f};
-  Eigen::Vector3f _COMP1_POLE{0.0f, 0.0f, 0.0f};
-  Eigen::Vector3f _COMP2_K{0.0f, 0.0f, 0.0f};
-  Eigen::Vector3f _COMP2_ZERO{0.0f, 0.0f, 0.0f};
-  Eigen::Vector3f _COMP2_POLE{0.0f, 0.0f, 0.0f};
+  Eigen::Matrix<float, 6, 1> _damping_coef;
+  Eigen::Matrix<float, 6, 6> _ToolInertiaMatrix;
+  Eigen::Matrix<float, 6, 6> _ToolStiffnessMatrix;
   float _kForceControlPGain, _kForceControlIGain, _kForceControlDGain;
 
-  float _COMP2_LIMIT, _FC_I_Limit;
+  float _FC_I_Limit;
 
-  // intermediate variables
+  // Controller internal
   Eigen::Matrix3f _T;
   int _n_af;
-  float *_pose_offset;
+  Eigen::Matrix4f _SE3_WToffset;
   float *_pose_sent_to_robot;
   Eigen::Vector3f _v_force_selection;
   Eigen::Vector3f _v_velocity_selection;

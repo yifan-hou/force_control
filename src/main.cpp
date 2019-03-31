@@ -1,15 +1,13 @@
 #include <forcecontrol/forcecontrol_hardware.h>
 #include <forcecontrol/forcecontrol_controller.h>
-
 #include <forcecontrol/utilities.h>
-#include <Eigen/Geometry>
 
 #include <iostream>
 
 #define PI 3.1415926
 
 using namespace std;
-using namespace Eigen;
+using namespace UT;
 
 
 int main(int argc, char* argv[])
@@ -51,18 +49,13 @@ int main(int argc, char* argv[])
 
     robot.getPose(main_setpose);
 
-    Eigen::Matrix3f T0, T1;
-    T0 = Eigen::Matrix3f::Identity();
-    T1 << 1.0f, 0.0f, 0.0f,
-          0.0f, 1.0f, 0.0f,
-          0.0f, 0.0f, 1.0f;
-    Eigen::Vector3f xyz_set_diff1, xyz_set_diff2;
-    xyz_set_diff1 << 20, 0, 0;
+    Matrix6f T0;
+    T0 = Matrix6f::Identity();
 
     controller.reset();
+    controller.updateAxis(T0, 3); // all force
     controller.setPose(main_setpose);
     controller.setForce(main_setforce);
-    controller.updateAxis(T0, 3); // all force
 
     cout << "Main loop begins. " << endl;
     ros::Duration period(EGM_PERIOD);

@@ -1,3 +1,17 @@
+/// Class for performing 6-axis Cartesian hybrid force-velocity control
+/// with Cartesian position-control inner loop and wrist-mounted FT sensor.
+///
+/// Usage:
+///   Initialize:
+///     1. Call Init()
+///     2. Call updateAxis()
+///   Do control
+///     Call update() at your desired frequency.
+///     Call setPose(), setForce() and updateAxis() whenever needed.
+///     Note: after calling setPose(), you must call update() before updateAxis()
+///   Reset offset (and internal states)
+///     If you have a complete stop during execution and would like to restart
+///     from there, call reset() then updateAxis().
 #pragma once
 #ifndef _FORCECONTROL_CONTROLLER_H_
 #define _FORCECONTROL_CONTROLLER_H_
@@ -9,6 +23,7 @@
 #include <Eigen/Geometry>
 
 #include <forcecontrol/forcecontrol_hardware.h>
+
 
 class ForceControlController
 {
@@ -24,43 +39,43 @@ public:
   void setPose(const float *pose);
   void setForce(const float *force);
   bool update(const ros::Time& time, const ros::Duration& period);
-  void updateAxis(Eigen::Matrix3f T, int n_af);
+  void updateAxis(const Eigen::Matrix<float, 6, 6> &T, int n_af);
   ///
-  /// Reset the intermediate variables in the control law, including setting
-  ///     all position offsets to zero. "previous pose command" is set to the
-  ///     robot's current pose.
+  /// Reset the internal state variables in the control law, including setting
+  ///     all position offsets/force errors to zero. "previous pose command" is
+  ///     set to the robot's current pose. "Current velocity" is set to zero.
   /// It's as if the robot was commanded to its current pose and stabilized.
   /// Call reset() only if the next action is computed based on the robot's
-  ///     current pose instead of a pre-planned trajectory.
-  void reset(); // reset the state variables in the control law
+  ///     current pose instead of being part of a pre-planned trajectory.
+  void reset();
   void displayStates();
 
-  float *_pose_user_input;
-  Eigen::Matrix<float, 6, 1> _wrench_Tr_set;
 
   // parameters
   float _dt; // used for integration/differentiation
-  Eigen::Matrix<float, 6, 1> _damping_coef;
-  Eigen::Matrix<float, 6, 6> _ToolInertiaMatrix;
   Eigen::Matrix<float, 6, 6> _ToolStiffnessMatrix;
+  Eigen::Matrix<float, 6, 6> _damping_coef;
+  Eigen::Matrix<float, 6, 6> _ToolInertiaMatrix;
   float _kForceControlPGain, _kForceControlIGain, _kForceControlDGain;
-
   float _FC_I_Limit;
 
-  // Controller internal
-  Eigen::Matrix3f _T;
-  int _n_af;
-  Eigen::Matrix4f _SE3_WToffset;
-  float *_pose_sent_to_robot;
-  Eigen::Vector3f _v_force_selection;
-  Eigen::Vector3f _v_velocity_selection;
+  // commands
+  float *_pose_user_input;
+  Eigen::Matrix<float, 6, 1> _wrench_Tr_set;
+  Eigen::Matrix<float, 6, 6> _Tr;
+  Eigen::Matrix<float, 6, 6> _Tr_inv;
+  Eigen::Matrix<float, 6, 6> _m_force_selection;
+  Eigen::Matrix<float, 6, 6> _m_velocity_selection;
 
-  Eigen::Vector3f _f_TErr;
-  Eigen::Vector3f _f_TErr_I;
-  Eigen::Vector3f _f_TAll_old{0.0f, 0.0f, 0.0f};
-  Eigen::Vector3f _v_T{0.0f, 0.0f, 0.0f};
-  Eigen::Vector3f _v_T_old{0.0f, 0.0f, 0.0f};
-  Eigen::Vector3f _p_W{0.0f, 0.0f, 0.0f};
+
+  // Controller internal
+  float *_pose_sent_to_robot;
+  Eigen::Matrix4f _SE3_WT_old;
+  Eigen::Matrix4f _SE3_WToffset;
+  Eigen::Matrix<float, 6, 1> _v_W;
+  Eigen::Matrix<float, 6, 1> _wrench_Tr_Err;
+  Eigen::Matrix<float, 6, 1> _wrench_Tr_Err_I;
+
 
 private:
   ForceControlHardware *_hw;

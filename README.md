@@ -5,6 +5,9 @@ Use EGM+mini40 for forcecontrol
 Yifan Hou
 yifanh@cmu.edu
 
+# How to use
+Refer to main.cpp for an example.
+
 # Set force
 The force being set is in transformed space (if R_a=I, then in world frame).
 It's the force felt by the outside from the robot. For example, if fz=10, the

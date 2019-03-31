@@ -14,7 +14,6 @@
 #include <chrono>
 #include <cmath>
 #include <unistd.h>
-#include <Eigen/Geometry>
 #include <Eigen/Dense>
 
 #include <forcecontrol/ati_netft_hardware.h>
@@ -45,5 +44,6 @@ class ForceControlHardware : public hardware_interface::RobotHW
     Eigen::Vector3f _Toffset;
     Eigen::Vector3f _Gravity;
     Eigen::Vector3f _Pcom;
+    Eigen::Matrix<float, 6, 6> _adj_sensor_tool;
 
 };

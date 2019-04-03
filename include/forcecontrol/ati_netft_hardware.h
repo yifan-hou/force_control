@@ -87,7 +87,7 @@ class ATINetftHardware : public hardware_interface::RobotHW
     ATINetftHardware();
     virtual ~ATINetftHardware();
     virtual bool init(ros::NodeHandle& root_nh, std::chrono::high_resolution_clock::time_point time0);
-    void getWrench(float *wrench);
+    void getWrench(double *wrench);
 
     double *_force;
     double *_torque;

@@ -76,7 +76,7 @@ add_library(forcecontrol_controller src/forcecontrol_controller.cpp)
 # target_link_libraries(regrasp_node forcecontrol_hardware forcecontrol_controller
 #   /usr0/home/yifanh/Git/ZZJHand/build/libHand.so
 #   )
-add_executable(forcecontrol_node src/main.cpp)
+add_executable(forcecontrol_node src/main.cpp src/Timer.cpp)
 target_link_libraries(forcecontrol_node forcecontrol_hardware forcecontrol_controller
   # /usr0/home/yifanh/Git/ZZJHand/build/libHand.so
   )

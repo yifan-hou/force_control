@@ -27,23 +27,22 @@ class ForceControlHardware : public hardware_interface::RobotHW
     ForceControlHardware();
     ~ForceControlHardware();
     bool init(ros::NodeHandle& root_nh, std::chrono::high_resolution_clock::time_point time0);
-    void getPose(float *pose);
-    bool getWrench(float *wrench);
-    bool getState(float *pose, float *wrench);
-    void setControl(const float *pose_set);
+    void getPose(double *pose);
+    bool getWrench(double *wrench);
+    bool getState(double *pose, double *wrench);
+    void setControl(const double *pose_set);
 
-    void liftup(const float dz); // move up for safety
     ATINetftHardware *ati;
     EGMClass *egm;
 
     // parameters
-    float *_WRENCH_SAFETY;
+    double *_WRENCH_SAFETY;
 
   private:
-    Eigen::Vector3f _Foffset;
-    Eigen::Vector3f _Toffset;
-    Eigen::Vector3f _Gravity;
-    Eigen::Vector3f _Pcom;
-    Eigen::Matrix<float, 6, 6> _adj_sensor_tool;
+    Eigen::Vector3d _Foffset;
+    Eigen::Vector3d _Toffset;
+    Eigen::Vector3d _Gravity;
+    Eigen::Vector3d _Pcom;
+    Eigen::Matrix<double, 6, 6> _adj_sensor_tool;
 
 };

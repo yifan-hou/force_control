@@ -36,10 +36,10 @@ public:
   /// Set the pose command. Next update() will use this command.
   /// WARNING remember to call update() after setPose, before updateAxis.
   ///
-  void setPose(const float *pose);
-  void setForce(const float *force);
+  void setPose(const double *pose);
+  void setForce(const double *force);
   bool update(const ros::Time& time, const ros::Duration& period);
-  void updateAxis(const Eigen::Matrix<float, 6, 6> &T, int n_af);
+  void updateAxis(const Eigen::Matrix<double, 6, 6> &T, int n_af);
   ///
   /// Reset the internal state variables in the control law, including setting
   ///     all position offsets/force errors to zero. "previous pose command" is
@@ -52,29 +52,29 @@ public:
 
 
   // parameters
-  float _dt; // used for integration/differentiation
-  Eigen::Matrix<float, 6, 6> _ToolStiffnessMatrix;
-  Eigen::Matrix<float, 6, 6> _damping_coef;
-  Eigen::Matrix<float, 6, 6> _ToolInertiaMatrix;
-  float _kForceControlPGain, _kForceControlIGain, _kForceControlDGain;
-  float _FC_I_Limit;
+  double _dt; // used for integration/differentiation
+  Eigen::Matrix<double, 6, 6> _ToolStiffnessMatrix;
+  Eigen::Matrix<double, 6, 6> _ToolDamping_coef;
+  Eigen::Matrix<double, 6, 6> _ToolInertiaMatrix;
+  double _kForceControlPGain, _kForceControlIGain, _kForceControlDGain;
+  double _FC_I_Limit;
 
   // commands
-  float *_pose_user_input;
-  Eigen::Matrix<float, 6, 1> _wrench_Tr_set;
-  Eigen::Matrix<float, 6, 6> _Tr;
-  Eigen::Matrix<float, 6, 6> _Tr_inv;
-  Eigen::Matrix<float, 6, 6> _m_force_selection;
-  Eigen::Matrix<float, 6, 6> _m_velocity_selection;
+  double *_pose_user_input;
+  Eigen::Matrix<double, 6, 1> _wrench_Tr_set;
+  Eigen::Matrix<double, 6, 6> _Tr;
+  Eigen::Matrix<double, 6, 6> _Tr_inv;
+  Eigen::Matrix<double, 6, 6> _m_force_selection;
+  Eigen::Matrix<double, 6, 6> _m_velocity_selection;
 
 
   // Controller internal
-  float *_pose_sent_to_robot;
-  Eigen::Matrix4f _SE3_WT_old;
-  Eigen::Matrix4f _SE3_WToffset;
-  Eigen::Matrix<float, 6, 1> _v_W;
-  Eigen::Matrix<float, 6, 1> _wrench_Tr_Err;
-  Eigen::Matrix<float, 6, 1> _wrench_Tr_Err_I;
+  double *_pose_sent_to_robot;
+  Eigen::Matrix4d _SE3_WT_old;
+  Eigen::Matrix4d _SE3_WToffset;
+  Eigen::Matrix<double, 6, 1> _v_W;
+  Eigen::Matrix<double, 6, 1> _wrench_Tr_Err;
+  Eigen::Matrix<double, 6, 1> _wrench_Tr_Err_I;
 
 
 private:

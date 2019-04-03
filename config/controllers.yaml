@@ -1,22 +1,27 @@
 # main function for testing
 # TODO(yifan) move these to launch file
-main_loop_rate: 500 #500
-main_duration: 4 # sec
+main_loop_rate: 400 #500
+main_duration: 10 # sec
 
 # Admittance control parameters for the pseudo spring-mass-damper system
+# Be careful with Trade-off between length and angle
+# Assume length is 0.1, then:
+#   stiffness for rotation should be multiplied with 0.1, so as to feel the same
+#   Inertia entries for rotation should be multiplied with 0.01
+#   Damping coefficient for rotation should be multiplied with 0.1
 # The following parameters are the diagonal elements of the 6x6 matrices
 #   Stiffness matrix as viewed in tool frame
-Stiffness_matrix_diag_elements: [1, 1, 1, 1, 1, 1]
+Stiffness_matrix_diag_elements: [1, 1, 1, 1.5, 1.5, 1.5]
 #   Inertia matrix as viewed in tool frame
-Inertia_matrix_diag_elements: [1, 1, 1, 1, 1]
+Inertia_matrix_diag_elements: [1, 1, 1, 0.01, 0.01, 0.01]
 #   Damping coefficient matrix as viewed in tool frame
-Damping_matrix_diag_elements: [100, 100, 100, 100, 100, 100]
+Damping_matrix_diag_elements: [10, 10, 10, 0.1, 0.1, 0.1]
 
 # Force control PID Gains
 FC_gains:
-  IGain: 0.02 # 0.005
-  PGain: 0.5 #0.4
-  DGain: 0.00 #0.02
+  IGain: 0.00 # 0.02
+  PGain: 0.0 #0.5
+  DGain: 0.00 #0.00
 FC_I_Limit: 50 # Newton
 
 forcecontrol_print_flag: true

@@ -149,14 +149,14 @@ bool ATINetftHardware::init(ros::NodeHandle& root_nh, std::chrono::high_resoluti
   return true;
 }
 
-void ATINetftHardware::getWrench(float *wrench)
+void ATINetftHardware::getWrench(double *wrench)
 {
-  wrench[0] = float(_force[0]);
-  wrench[1] = float(_force[1]);
-  wrench[2] = float(_force[2]);
-  wrench[3] = float(_torque[0]);
-  wrench[4] = float(_torque[1]);
-  wrench[5] = float(_torque[2]);
+  wrench[0] = _force[0];
+  wrench[1] = _force[1];
+  wrench[2] = _force[2];
+  wrench[3] = _torque[0];
+  wrench[4] = _torque[1];
+  wrench[5] = _torque[2];
 }
 
 ATINetftHardware::~ATINetftHardware(){

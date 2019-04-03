@@ -1,7 +1,7 @@
 # main function for testing
 # TODO(yifan) move these to launch file
 main_loop_rate: 400 #500
-main_duration: 10 # sec
+main_duration: 15 # sec
 
 # Admittance control parameters for the pseudo spring-mass-damper system
 # Be careful with Trade-off between length and angle
@@ -18,11 +18,15 @@ Inertia_matrix_diag_elements: [1, 1, 1, 0.01, 0.01, 0.01]
 Damping_matrix_diag_elements: [10, 10, 10, 0.1, 0.1, 0.1]
 
 # Force control PID Gains
+# one set for translation, another set for rotation
 FC_gains:
-  IGain: 0.00 # 0.02
-  PGain: 0.0 #0.5
-  DGain: 0.00 #0.00
-FC_I_Limit: 50 # Newton
+  IGainT: 0.02 # 0.02
+  PGainT: 0.5 #0.5
+  DGainT: 0.00 #0.00
+  IGainR: 0.02 # 0.02
+  PGainR: 0.5 #0.5
+  DGainR: 0.00 #0.00
+FC_I_Limit_T_6D: [50, 50, 50, 0.5, 0.5, 0.5] # Newton, N*m
 
 forcecontrol_print_flag: true
 forcecontrol_file_path: "/home/yifanh/Git/catkin_ws/src/forcecontrol/data/forcecontrol_data.txt"

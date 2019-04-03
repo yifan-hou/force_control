@@ -50,14 +50,14 @@ public:
   void reset();
   void displayStates();
 
-
   // parameters
   double _dt; // used for integration/differentiation
   Eigen::Matrix<double, 6, 6> _ToolStiffnessMatrix;
   Eigen::Matrix<double, 6, 6> _ToolDamping_coef;
   Eigen::Matrix<double, 6, 6> _ToolInertiaMatrix;
-  double _kForceControlPGain, _kForceControlIGain, _kForceControlDGain;
-  double _FC_I_Limit;
+  double _kForceControlPGainTran, _kForceControlIGainTran, _kForceControlDGainTran;
+  double _kForceControlPGainRot, _kForceControlIGainRot, _kForceControlDGainRot;
+  Eigen::Matrix<double, 6, 1> _FC_I_limit_T_6D;
 
   // commands
   double *_pose_user_input;
@@ -73,8 +73,8 @@ public:
   Eigen::Matrix4d _SE3_WT_old;
   Eigen::Matrix4d _SE3_WToffset;
   Eigen::Matrix<double, 6, 1> _v_W;
-  Eigen::Matrix<double, 6, 1> _wrench_Tr_Err;
-  Eigen::Matrix<double, 6, 1> _wrench_Tr_Err_I;
+  Eigen::Matrix<double, 6, 1> _wrench_T_Err;
+  Eigen::Matrix<double, 6, 1> _wrench_T_Err_I;
 
 
 private:

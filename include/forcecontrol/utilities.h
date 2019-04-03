@@ -81,7 +81,7 @@ void stream_array_in(ostream &st, int *array, int length)
 	//                          scalar
 	/////////////////////////////////////////////////////////////////////////
 
-static void truncate(double *ele, const double _max, const double _min)
+static void truncate(double *ele, const double _min, const double _max)
 {
   if ( (*ele) > _max)
     (*ele) = _max;
@@ -126,13 +126,13 @@ static void setArray(float *array, float value, int dim)
  }
 }
 
-static void truncate(float *array, float max, float min, int dim)
+static void truncate(float *array, float min, float max, int dim)
 {
  for(int i=0; i<dim; i++)
  {
   array[i] = (array[i] > max)? max:array[i];
   array[i] = (array[i] < min)? min:array[i];
-}
+  }
 }
 
 static double vec_max(const double * vec, const int size)
@@ -198,7 +198,7 @@ static double diff_LPF(const double xdold, const double xnew, const double xold,
   return As*xdold + (1 - As)*((xnew - xold)/T);
 }
 
-static void truncate6f(Vector6f *v, float max, float min)
+static void truncate6f(Vector6f *v, float min, float max)
 {
   for(int i=0; i<6; i++)
   {
@@ -207,12 +207,21 @@ static void truncate6f(Vector6f *v, float max, float min)
   }
 }
 
-static void truncate6d(Vector6d *v, double max, double min)
+static void truncate6d(Vector6d *v, double min, double max)
 {
   for(int i=0; i<6; i++)
   {
     (*v)[i] = ((*v)[i] > max)? max:(*v)[i];
     (*v)[i] = ((*v)[i] < min)? min:(*v)[i];
+  }
+}
+
+static void truncate6d(Vector6d *v, const Vector6d &min, const Vector6d &max)
+{
+  for(int i=0; i<6; i++)
+  {
+    (*v)[i] = ((*v)[i] > max[i])? max[i]:(*v)[i];
+    (*v)[i] = ((*v)[i] < min[i])? min[i]:(*v)[i];
   }
 }
 
@@ -309,7 +318,7 @@ Matrix3d so32SO3(const Vector3d &v) {
 Vector3d SO32so3(const Matrix3d &R) {
   Vector3d so3;
   double temp_arg_to_cos = (R.trace() - 1.0)/2.0;
-  truncate(&temp_arg_to_cos, 1.0, -1.0);
+  truncate(&temp_arg_to_cos, -1.0, 1.0);
   double theta = acos(temp_arg_to_cos);
   if(fabs(theta) < kEpsilon) {
     so3(0) = 1.0;

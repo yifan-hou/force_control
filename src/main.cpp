@@ -47,8 +47,14 @@ int main(int argc, char* argv[])
     double setforce[6] = {0};
     robot.getPose(setpose);
 
-    Matrix6d T0;
+    Matrix6d T0, T1;
     T0 = Matrix6d::Identity();
+    T1 << 0, 0, 0, 1, 0, 0,
+          0, 0, 0, 0, 1, 0,
+          0, 0, 0, 0, 0, 1,
+          1, 0, 0, 0, 0, 0,
+          0, 1, 0, 0, 0, 0,
+          0, 0, 1, 0, 0, 0;
 
     /*  Set controls.
      *  Note that calling reset() right after init() is not necessary;
@@ -68,19 +74,19 @@ int main(int argc, char* argv[])
     double time_elapsed = 0;
     for (int i = 0; i < Nsteps; ++i)
     {
-        // if (i == main_loop_rate*3)
-        // {
-        //     // controller.updateAxis(T0, 1);
-        //     // setpose[0] += xyz_set_diff1(0);
-        //     // setpose[1] += xyz_set_diff1(1);
-        //     // setpose[2] += xyz_set_diff1(2);
-        //     controller.setPose(setpose);
+        if (i == main_loop_rate*3)
+        {
+            controller.updateAxis(T1, 4);
+            // setpose[0] += xyz_set_diff1(0);
+            // setpose[1] += xyz_set_diff1(1);
+            // setpose[2] += xyz_set_diff1(2);
+            // controller.setPose(setpose);
 
-        //     setforce[0] = 5;
+            // setforce[0] = 5;
 
-        //     controller.setForce(setforce);
-        //     // cout << "update Axis to set 1" << endl;
-        // }
+            // controller.setForce(setforce);
+            cout << "update Axis to set 1" << endl;
+        }
         // else if (i == main_loop_rate*10)
         // {
         //     controller.updateAxis(T1, 1);

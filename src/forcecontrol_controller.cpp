@@ -27,8 +27,8 @@ ForceControlController::ForceControlController()
 
     _pose_sent_to_robot = new double[7];
     _v_W                = Vector6d::Zero();
-    _wrench_Tr_Err      = Vector6d::Zero();
-    _wrench_Tr_Err_I    = Vector6d::Zero();
+    _wrench_T_Err      = Vector6d::Zero();
+    _wrench_T_Err_I    = Vector6d::Zero();
     _SE3_WT_old         = Matrix4d::Identity();
     _SE3_WToffset       = Matrix4d::Identity();
 }
@@ -94,17 +94,30 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
     _ToolInertiaMatrix   = Vector6d(Inertia_matrix_diag_elements.data()).asDiagonal();
 
     // force control gains
-    root_nh.param(string("/FC_gains/PGain"), _kForceControlPGain, 1.0);
-    root_nh.param(string("/FC_gains/IGain"), _kForceControlIGain, 0.0);
-    root_nh.param(string("/FC_gains/DGain"), _kForceControlDGain, 0.0);
-    root_nh.param(string("/FC_I_Limit"), _FC_I_Limit, 10.0);
+    std::vector<double> FC_I_Limit_T_6D_elements;
+
+    root_nh.param(string("/FC_gains/PGainT"), _kForceControlPGainTran, 0.0);
+    root_nh.param(string("/FC_gains/IGainT"), _kForceControlIGainTran, 0.0);
+    root_nh.param(string("/FC_gains/DGainT"), _kForceControlDGainTran, 0.0);
+    root_nh.param(string("/FC_gains/PGainR"), _kForceControlPGainRot, 0.0);
+    root_nh.param(string("/FC_gains/IGainR"), _kForceControlIGainRot, 0.0);
+    root_nh.param(string("/FC_gains/DGainR"), _kForceControlDGainRot, 0.0);
+    root_nh.getParam("/FC_I_Limit_T_6D", FC_I_Limit_T_6D_elements);
     if (!root_nh.hasParam("/FC_gains")) {
         ROS_WARN_STREAM("Parameter [/FC_gains] not found, using default.");
     } else {
-        ROS_INFO_STREAM("Parameter [/FC_gains/PGain] = " << _kForceControlPGain);
-        ROS_INFO_STREAM("Parameter [/FC_gains/IGain] = " << _kForceControlIGain);
-        ROS_INFO_STREAM("Parameter [/FC_gains/DGain] = " << _kForceControlDGain);
+        ROS_INFO_STREAM("Parameter [/FC_gains/PGainT] = " << _kForceControlPGainTran);
+        ROS_INFO_STREAM("Parameter [/FC_gains/IGainT] = " << _kForceControlIGainTran);
+        ROS_INFO_STREAM("Parameter [/FC_gains/DGainT] = " << _kForceControlDGainTran);
+        ROS_INFO_STREAM("Parameter [/FC_gains/PGainR] = " << _kForceControlPGainRot);
+        ROS_INFO_STREAM("Parameter [/FC_gains/IGainR] = " << _kForceControlIGainRot);
+        ROS_INFO_STREAM("Parameter [/FC_gains/DGainR] = " << _kForceControlDGainRot);
     }
+    if (!root_nh.hasParam("/FC_I_Limit_T_6D")) {
+        ROS_ERROR_STREAM("Parameter [/FC_I_Limit_T_6D] not found");
+        return false;
+    }
+    _FC_I_limit_T_6D = Vector6d(FC_I_Limit_T_6D_elements.data());
 
     // printing
     string fullpath;
@@ -169,7 +182,7 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
 {
     double pose_fb[7];
     double wrench_fb[6];
-    if (!_hw->getState(pose_fb, wrench_fb)) return false;
+    bool is_safe = _hw->getState(pose_fb, wrench_fb);
     // ----------------------------------------
     //  Compute Forces in Generalized space
     // ----------------------------------------
@@ -215,20 +228,26 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
             transformed space  */
     Vector6d wrench_Tr_spring, wrench_Tr_fb;
     wrench_Tr_spring = _Tr*wrench_T_spring;
-    wrench_Tr_fb     = _Tr*wrench_T_fb;
 
     /*  Force error, PID force control */
-    Vector6d wrench_Tr_Err;
-    wrench_Tr_Err = _wrench_Tr_set - wrench_Tr_fb;
-    _wrench_Tr_Err_I += wrench_Tr_Err;
-    // todo: compute the limit element-wisely based on -T
-    truncate6d(&_wrench_Tr_Err_I, _FC_I_Limit, -_FC_I_Limit);
+    Vector6d wrench_T_Set, wrench_T_Err;
+    wrench_T_Set = _Tr_inv*_wrench_Tr_set;
+    wrench_T_Err = wrench_T_Set - wrench_T_fb;
+    _wrench_T_Err_I += wrench_T_Err;
+    truncate6d(&_wrench_T_Err_I, -_FC_I_limit_T_6D, _FC_I_limit_T_6D);
 
+    Vector6d wrench_T_PID;
+    wrench_T_PID.head(3) = _kForceControlPGainTran*wrench_T_Err.head(3)
+            + _kForceControlIGainTran*_wrench_T_Err_I.head(3)
+            + _kForceControlDGainTran*(wrench_T_Err.head(3) - _wrench_T_Err.head(3));
+    wrench_T_PID.tail(3) = _kForceControlPGainRot*wrench_T_Err.tail(3)
+            + _kForceControlIGainRot*_wrench_T_Err_I.tail(3)
+            + _kForceControlDGainRot*(wrench_T_Err.tail(3) - _wrench_T_Err.tail(3));
     Vector6d wrench_Tr_PID;
-    wrench_Tr_PID =  _kForceControlPGain*wrench_Tr_Err
-            + _kForceControlIGain*_wrench_Tr_Err_I
-            + _kForceControlDGain*(wrench_Tr_Err - _wrench_Tr_Err);
-    _wrench_Tr_Err = wrench_Tr_Err;
+    wrench_Tr_PID = _Tr * wrench_T_PID;
+    _wrench_T_Err = wrench_T_Err;
+    Vector6d wrench_Tr_Err;
+    wrench_Tr_Err = _Tr*wrench_T_Err;
 
     Vector6d wrench_Tr_damping;
     wrench_Tr_damping = - _Tr*_ToolDamping_coef*v_T;
@@ -289,7 +308,7 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
         // std::cout << "wrench_T_fb: \n" << wrench_T_fb.format(MatlabFmt) << endl;
         // std::cout << "wrench_Tr_fb: \n" << wrench_Tr_fb.format(MatlabFmt) << endl;
         // std::cout << "_wrench_Tr_set: \n" << _wrench_Tr_set.format(MatlabFmt) << endl;
-        std::cout << "wrench_Tr_PID: \n" << wrench_Tr_PID.format(MatlabFmt) << endl;
+        std::cout << "wrench_T_PID: \n" << wrench_T_PID.format(MatlabFmt) << endl;
         std::cout << "wrench_Tr_damping: \n" << wrench_Tr_damping.format(MatlabFmt) << endl;
         std::cout << "wrench_Tr_Err: \n" << wrench_Tr_Err.format(MatlabFmt) << endl;
         std::cout << "wrench_Tr_All: \n" << wrench_Tr_All.format(MatlabFmt) << endl;
@@ -317,7 +336,7 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
         stream_array_in(_file, _pose_sent_to_robot, 7);
         _file << endl;
     }
-    return true;
+    return is_safe;
 }
 
 // After axis update, the goal pose with offset should not have error in
@@ -360,11 +379,8 @@ void ForceControlController::updateAxis(const Matrix6d &Tr, int n_af)
     _SE3_WToffset = SE3_WT_fb*spt2SE3(spt_TSo_new)*SE3Inv(SE3_WTSet);
 
     // project these into force space
-    Matrix6d Adj_WT_old = SE32Adj(_SE3_WT_old);
-    Matrix6d Adj_TW = SE32Adj(SE3Inv(SE3_WT_fb));
-
-    _wrench_Tr_Err_I = _m_force_selection*Tr*Adj_TW*Adj_WT_old*_Tr_inv*_wrench_Tr_Err_I;
-    _wrench_Tr_Err   = _m_force_selection*Tr*Adj_TW*Adj_WT_old*_Tr_inv*_wrench_Tr_Err;
+    _wrench_T_Err_I = _Tr_inv*_m_force_selection*Tr*_wrench_T_Err_I;
+    _wrench_T_Err   = _Tr_inv*_m_force_selection*Tr*_wrench_T_Err;
 
     _SE3_WT_old = SE3_WT_fb;
     _Tr         = Tr;
@@ -388,16 +404,12 @@ void ForceControlController::updateAxis(const Matrix6d &Tr, int n_af)
 // clear up internal states
 void ForceControlController::reset()
 {
-    Eigen::Matrix<double, 6, 1> _wrench_Tr_Err;
-    Eigen::Matrix<double, 6, 1> _wrench_Tr_Err_I;
-
-
     _hw->getPose(_pose_sent_to_robot);
     _SE3_WT_old = posemm2SE3(_pose_sent_to_robot);
     _SE3_WToffset = Matrix4d::Identity();
     _v_W = Vector6d::Zero();
-    _wrench_Tr_Err = Vector6d::Zero();
-    _wrench_Tr_Err_I = Vector6d::Zero();
+    _wrench_T_Err = Vector6d::Zero();
+    _wrench_T_Err_I = Vector6d::Zero();
 }
 
 void ForceControlController::displayStates() {
@@ -423,6 +435,6 @@ void ForceControlController::displayStates() {
     cout << "\n_SE3_WT_old: \n" << _SE3_WT_old.format(MatlabFmt) << endl;
     cout << "_SE3_WToffset: \n" << _SE3_WToffset.format(MatlabFmt) << endl;
     cout << "_v_W: \n" << _v_W.format(MatlabFmt) << endl;
-    cout << "_wrench_Tr_Err: \n" << _wrench_Tr_Err.format(MatlabFmt) << endl;
-    cout << "_wrench_Tr_Err_I: \n" << _wrench_Tr_Err_I.format(MatlabFmt) << endl;
+    cout << "_wrench_T_Err: \n" << _wrench_T_Err.format(MatlabFmt) << endl;
+    cout << "_wrench_T_Err_I: \n" << _wrench_T_Err_I.format(MatlabFmt) << endl;
 }

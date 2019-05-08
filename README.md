@@ -5,7 +5,21 @@ Use EGM+mini40 for forcecontrol
 Yifan Hou
 yifanh@cmu.edu
 
+# How to use
+Refer to main.cpp for an example.
 
+# Set force
+The force being set is in transformed space (if R_a=I, then in world frame).
+It's the force felt by the outside from the robot. For example, if fz=10, the
+robot will pull up.
+
+The logic for force control is as follows. (see update()).
+If the set force is larger than feedback(here the feedback is the force felt
+by the environment, not necessarily the original sensor reading), then f_TErr is
+positive, the pseudo spring-mass-damper will be pushed forward, which will
+create a larger force felt by the environment to make f_TErr smaller.
+
+Call controller.reset() before the first controller.update()
 
 # Compensator Parameters
 ## Teach Mode

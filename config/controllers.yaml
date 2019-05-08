@@ -1,53 +1,42 @@
 # main function for testing
 # TODO(yifan) move these to launch file
-main_loop_rate: 500
-main_duration: 15 # sec
-main_setpose:
-  x: 10
-  y: 300
-  z: 435
-  q1: 0
-  q2: 0
-  q3: 1
-  q4: 0
-main_setforce: # possitive value: move in that direction
-  f1: 0
-  f2: 0
-  f3: -2
-  f4: 0
-  f5: 0
-  f6: 0
+main_loop_rate: 400 #500
+main_duration: 20 # sec
 
-# controller
-Transform: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
-force_controlled_dimensions: 3
-
-# Admittance control parameters
-# For each axis
-#   k: stiffness
-#   m: mass (kg)
-#   alpha: viscous friction
-# TODO(yifan) we need to be able to set these online
-AC_para_X: # first axis (if the axes are rotated)
-  k: 0
-  m: 1
-  alpha: 100
-AC_para_Y: # second axis (if the axes are rotated)
-  k: 0
-  m: 1
-  alpha: 100
-AC_para_Z: # third axis (if the axes are rotated)
-  k: 0
-  m: 3
-  alpha: 300
-AC_limit: 300.0 # (mm) magnitude limit of output  THIS WILL CREATE A BOUNDING BOX
+# Admittance control parameters for the pseudo spring-mass-damper system
+# Be careful with Trade-off between length and angle
+# Assume length is 0.1, then:
+#   stiffness for rotation should be multiplied with 0.1, so as to feel the same
+#   Inertia entries for rotation should be multiplied with 0.01
+#   Damping coefficient for rotation should be multiplied with 0.1
+# The following parameters are the diagonal elements of the 6x6 matrices
+#   Stiffness matrix as viewed in tool frame
+Stiffness_matrix_diag_elements: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+#   Inertia matrix as viewed in tool frame
+Inertia_matrix_diag_elements: [1, 1, 1, 0.005, 0.005, 0.005]
+#   Damping coefficient matrix as viewed in tool frame
+Damping_matrix_diag_elements: [5, 5, 5, 0.05, 0.05, 0.05]
 
 # Force control PID Gains
+# one set for translation, another set for rotation
 FC_gains:
-  IGain: 0.02 # 0.005
-  PGain: 0.0 #0.4
-  DGain: 0.00 #0.02
-FC_I_Limit: 50 # Newton
+  IGainT: 0.02 # 0.02
+  PGainT: 0.5 #0.5
+  DGainT: 0.00 #0.00
+  IGainR: 0.02 # 0.02
+  PGainR: 0.5 #0.5
+  DGainR: 0.00 #0.00
+FC_I_Limit_T_6D: [50, 50, 50, 0.5, 0.5, 0.5] # Newton, N*m
 
 forcecontrol_print_flag: true
 forcecontrol_file_path: "/home/yifanh/Git/catkin_ws/src/forcecontrol/data/forcecontrol_data.txt"
+
+
+# motion planning speed limit
+vel_max_translation: 20 # mm/s
+acc_max_translation: 1000 # mm/s^2
+vel_max_rotation: 0.2 # rad/s
+acc_max_rotation: 10 # rad/s^2
+
+# experimental
+pool_duration: 0.5 #s

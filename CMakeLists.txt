@@ -11,7 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   egm
   netft_rdt_driver
   roscpp
-  diagnostic_updater 
+  diagnostic_updater
   diagnostic_msgs
   geometry_msgs
   message_generation
@@ -21,9 +21,9 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 
-find_package(Boost REQUIRED COMPONENTS 
-  system 
-  thread 
+find_package(Boost REQUIRED COMPONENTS
+  system
+  thread
   program_options
 )
 
@@ -47,13 +47,15 @@ catkin_package(
 include_directories(
   include
   /usr/include/eigen3
-  ${Boost_INCLUDE_DIRS} 
+  ${Boost_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
   ~/Git/ZZJHand/include/
 )
 
 include_directories(${egm_INCLUDE_DIRS})
 
+find_library(TIMER_LIB TimerLinux HINTS /usr/local/lib/yifanlibrary)
+find_library(UT Utilities HINTS /usr/local/lib/yifanlibrary)
 ###########
 ## Build ##
 ###########
@@ -67,18 +69,14 @@ add_library(ati_netft_hardware src/ati_netft_hardware.cpp)
 target_link_libraries(ati_netft_hardware netft_rdt_driver ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 
 add_library(forcecontrol_hardware src/forcecontrol_hardware.cpp)
-target_link_libraries(forcecontrol_hardware ati_netft_hardware egm)
+target_link_libraries(forcecontrol_hardware ati_netft_hardware egm ${UT})
 
 add_library(forcecontrol_controller src/forcecontrol_controller.cpp)
-# target_link_libraries(forcecontrol_controller ati_netft_hardware egm)
+target_link_libraries(forcecontrol_controller ${UT})
 
-# add_executable(regrasp_node src/regrasp.cpp)
-# target_link_libraries(regrasp_node forcecontrol_hardware forcecontrol_controller
-#   /usr0/home/yifanh/Git/ZZJHand/build/libHand.so
-#   )
 add_executable(forcecontrol_node src/main.cpp)
 target_link_libraries(forcecontrol_node forcecontrol_hardware forcecontrol_controller
-  # /usr0/home/yifanh/Git/ZZJHand/build/libHand.so
+  ${TIMER_LIB}
   )
 
 

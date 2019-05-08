@@ -1,6 +1,6 @@
 #include <forcecontrol/ati_netft_hardware.h>
 
-#include <forcecontrol/utilities.h>
+#include <yifanlibrary/utilities.h>
 
 //
 // The thread Function
@@ -40,11 +40,13 @@ void* ATI_Monitor(void* pParam)
     Clock::time_point timenow_clock = Clock::now();
     double timenow = double(std::chrono::duration_cast<std::chrono::nanoseconds>(timenow_clock - netft_hardware->_time0).count())/1e6; // milli second
 
-
-    netft_hardware->_file << timenow << "\t";
-    UT::stream_array_in(netft_hardware->_file, netft_hardware->_force, 3);
-    UT::stream_array_in(netft_hardware->_file, netft_hardware->_torque, 3);
-    netft_hardware->_file << endl;
+    if (netft_hardware->_print_flag)
+    {
+      netft_hardware->_file << timenow << "\t";
+      UT::stream_array_in(netft_hardware->_file, netft_hardware->_force, 3);
+      UT::stream_array_in(netft_hardware->_file, netft_hardware->_torque, 3);
+      netft_hardware->_file << endl;
+    }
 
     ros::Time current_time(ros::Time::now());
     if ( (current_time - last_diag_pub_time) > diag_pub_duration )
@@ -147,14 +149,14 @@ bool ATINetftHardware::init(ros::NodeHandle& root_nh, std::chrono::high_resoluti
   return true;
 }
 
-void ATINetftHardware::getWrench(float *wrench)
+void ATINetftHardware::getWrench(double *wrench)
 {
-  wrench[0] = float(_force[0]);
-  wrench[1] = float(_force[1]);
-  wrench[2] = float(_force[2]);
-  wrench[3] = float(_torque[0]);
-  wrench[4] = float(_torque[1]);
-  wrench[5] = float(_torque[2]);
+  wrench[0] = _force[0];
+  wrench[1] = _force[1];
+  wrench[2] = _force[2];
+  wrench[3] = _torque[0];
+  wrench[4] = _torque[1];
+  wrench[5] = _torque[2];
 }
 
 ATINetftHardware::~ATINetftHardware(){

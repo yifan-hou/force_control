@@ -1,9 +1,11 @@
+
 #include <forcecontrol/forcecontrol_hardware.h>
 #include <forcecontrol/forcecontrol_controller.h>
-#include <forcecontrol/utilities.h>
-#include <forcecontrol/Timer.h>
 
 #include <iostream>
+
+#include <yifanlibrary/utilities.h>
+#include <yifanlibrary/TimerLinux.h>
 
 #define PI 3.1415926
 
@@ -61,7 +63,7 @@ int main(int argc, char* argv[])
      *  This is showing the general procedure for setting controls.
      */
     controller.reset();
-    controller.updateAxis(T0, 6);
+    controller.updateAxis(T0, 3);
     controller.setPose(setpose); // after setPose, you must call update() before
                                  // calling updateAxis()
     controller.setForce(setforce);
@@ -74,9 +76,9 @@ int main(int argc, char* argv[])
     double time_elapsed = 0;
     for (int i = 0; i < Nsteps; ++i)
     {
-        if (i == main_loop_rate*3)
+        if (i == main_loop_rate*10)
         {
-            controller.updateAxis(T1, 4);
+            controller.updateAxis(T1, 3);
             // setpose[0] += xyz_set_diff1(0);
             // setpose[1] += xyz_set_diff1(1);
             // setpose[2] += xyz_set_diff1(2);

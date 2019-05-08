@@ -24,6 +24,11 @@
 
 #include <forcecontrol/forcecontrol_hardware.h>
 
+enum HYBRID_SERVO_MODE {
+  HS_STOP_AND_GO,
+  HS_CONTINUOUS
+};
+
 
 class ForceControlController
 {
@@ -31,15 +36,6 @@ public:
   ForceControlController();
   ~ForceControlController();
   bool init(ros::NodeHandle& root_nh, ForceControlHardware *hw, std::chrono::high_resolution_clock::time_point time0);
-
-  ///
-  /// Set the pose command. Next update() will use this command.
-  /// WARNING remember to call update() after setPose, before updateAxis.
-  ///
-  void setPose(const double *pose);
-  void setForce(const double *force);
-  bool update(const ros::Time& time, const ros::Duration& period);
-  void updateAxis(const Eigen::Matrix<double, 6, 6> &T, int n_af);
   ///
   /// Reset the internal state variables in the control law, including setting
   ///     all position offsets/force errors to zero. "previous pose command" is
@@ -50,6 +46,43 @@ public:
   void reset();
   void displayStates();
 
+  /* Low level interfaces (no motion planning) */
+
+  ///
+  /// Set the pose command. Next update() will use this command.
+  /// WARNING remember to call update() after setPose, before updateAxis.
+  ///
+  void setPose(const double *pose);
+  void setForce(const double *force);
+  void getPose(double *pose);
+  void getToolVelocity(Eigen::Matrix<double, 6, 1> *v_T);
+  bool getToolWrench(Eigen::Matrix<double, 6, 1> *wrench);
+
+  bool update(const ros::Time& time, const ros::Duration& period);
+  void updateAxis(const Eigen::Matrix<double, 6, 6> &T, int n_af);
+
+  /* Middle level interfaces (with motion planning) */
+
+  ///
+  /// Execute a 6D HFVC command.
+  /// The duration of the motion is determined by the trapezodial interpolation.
+  /// Inputs
+  ///  n_af, n_av, R_a: dimension and transformation of the 3D translation
+  ///  pose_set: 7x1 goal pose (x y z qw qx qy qz), described in world frame.
+  ///  force_set: 6x1 force vector, described in the transformed action space
+  ///  mode: there are two modes:
+  ///    HS_STOP_AND_GO: user recomputes @p pose_set
+  ///       based on robot's current pose feedback before calling this function.
+  ///    HS_CONTINUOUS: user is sending a pre-computed trajectory frame by frame.
+  ///    The difference is that, HS_STOP_AND_GO mode will reset every time you
+  ///    call this function. The two modes are the same if there is no motion in
+  ///    the force controlled directions. (e.g. n_af = 0)
+  bool ExecuteHFVC(const int n_af, const int n_av,
+      const Eigen::Matrix<double, 6, 6> R_a, const double *pose_set,
+      const double *force_set,
+      HYBRID_SERVO_MODE mode, const int main_loop_rate);
+
+
   // parameters
   double _dt; // used for integration/differentiation
   Eigen::Matrix<double, 6, 6> _ToolStiffnessMatrix;
@@ -58,6 +91,8 @@ public:
   double _kForceControlPGainTran, _kForceControlIGainTran, _kForceControlDGainTran;
   double _kForceControlPGainRot, _kForceControlIGainRot, _kForceControlDGainRot;
   Eigen::Matrix<double, 6, 1> _FC_I_limit_T_6D;
+  // speed limits. mm/s, mm/s^2, rad/s, rad/s^2
+  double _kAccMaxTrans, _kVelMaxTrans, _kAccMaxRot, _kVelMaxRot;
 
   // commands
   double *_pose_user_input;
@@ -73,8 +108,14 @@ public:
   Eigen::Matrix4d _SE3_WT_old;
   Eigen::Matrix4d _SE3_WToffset;
   Eigen::Matrix<double, 6, 1> _v_W;
+  Eigen::Matrix<double, 6, 1> _v_T;
   Eigen::Matrix<double, 6, 1> _wrench_T_Err;
   Eigen::Matrix<double, 6, 1> _wrench_T_Err_I;
+
+  // experimental
+  int pool_size_;
+  std::deque<Vector6d> f_queue_;
+  std::deque<Vector6d> v_queue_;
 
 
 private:

@@ -5,7 +5,7 @@
 
 #include <Eigen/QR>
 
-#include <forcecontrol/utilities.h>
+#include <yifanlibrary/utilities.h>
 
 
 typedef std::chrono::high_resolution_clock Clock;
@@ -27,6 +27,7 @@ ForceControlController::ForceControlController()
 
     _pose_sent_to_robot = new double[7];
     _v_W                = Vector6d::Zero();
+    _v_T                = Vector6d::Zero();
     _wrench_T_Err      = Vector6d::Zero();
     _wrench_T_Err_I    = Vector6d::Zero();
     _SE3_WT_old         = Matrix4d::Identity();
@@ -65,6 +66,31 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
         ROS_INFO_STREAM("Parameter [/main_loop_rate] = " << fHz);
 
     _dt = 1.0/fHz;
+
+    // Speed limit for motion planning
+    root_nh.param(string("/vel_max_translation"), _kVelMaxTrans, 0.0);
+    root_nh.param(string("/acc_max_translation"), _kAccMaxTrans, 0.0);
+    root_nh.param(string("/vel_max_rotation"), _kVelMaxRot, 0.0);
+    root_nh.param(string("/acc_max_rotation"), _kAccMaxRot, 0.0);
+    if (!root_nh.hasParam("/vel_max_translation"))
+        ROS_WARN_STREAM("Parameter [/vel_max_translation] not found, using default: " << _kVelMaxTrans);
+    else
+        ROS_INFO_STREAM("Parameter [/vel_max_translation] = " << _kVelMaxTrans);
+
+    if (!root_nh.hasParam("/acc_max_translation"))
+        ROS_WARN_STREAM("Parameter [/acc_max_translation] not found, using default: " << _kAccMaxTrans);
+    else
+        ROS_INFO_STREAM("Parameter [/acc_max_translation] = " << _kAccMaxTrans);
+
+    if (!root_nh.hasParam("/vel_max_rotation"))
+        ROS_WARN_STREAM("Parameter [/vel_max_rotation] not found, using default: " << _kVelMaxRot);
+    else
+        ROS_INFO_STREAM("Parameter [/vel_max_rotation] = " << _kVelMaxRot);
+
+    if (!root_nh.hasParam("/acc_max_rotation"))
+        ROS_WARN_STREAM("Parameter [/acc_max_rotation] not found, using default: " << _kAccMaxRot);
+    else
+        ROS_INFO_STREAM("Parameter [/acc_max_rotation] = " << _kAccMaxRot);
 
     // Spring-mass-damper coefficients
     std::vector<double> Stiffness_matrix_diag_elements,
@@ -134,6 +160,15 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
     else
         ROS_INFO_STREAM("Parameter [/forcecontrol_file_path] = " << fullpath);
 
+    // experimental
+    double pool_duration;
+    root_nh.param(string("/pool_duration"), pool_duration, 0.5);
+    if (!root_nh.hasParam("/pool_duration"))
+        ROS_WARN_STREAM("Parameter [/pool_duration] not found, using default: " << pool_duration);
+    else
+        ROS_INFO_STREAM("Parameter [/pool_duration] = " << pool_duration);
+    pool_size_ = (int)round(pool_duration*main_loop_rate);
+
     if (_print_flag) {
         _file.open(fullpath);
         if (_file.is_open())
@@ -160,6 +195,24 @@ void ForceControlController::setForce(const double *force)
     _wrench_Tr_set(4) = force[4];
     _wrench_Tr_set(5) = force[5];
 }
+
+void ForceControlController::getPose(double *pose) {
+    _hw->getPose(pose);
+}
+
+void ForceControlController::getToolVelocity(Eigen::Matrix<double, 6, 1> *v_T) {
+    *v_T = v_T_;
+}
+
+bool ForceControlController::getToolWrench(Eigen::Matrix<double, 6, 1> *wrench) {
+    double wrench_array[6];
+    bool safety = _hw->getWrench(wrench_array);
+    for(int i = 0; i < 6; i++)
+        (*wrench)[i] = wrench_array[i];
+    return safety;
+}
+
+
 
 /*
  *
@@ -220,9 +273,18 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
     Matrix6d Adj_WT, Adj_TW;
     Adj_WT = SE32Adj(SE3_WT_fb);
     Adj_TW = SE32Adj(SE3Inv(SE3_WT_fb));
-    Vector6d v_T, v_Tr;
-    v_T  =  Adj_TW * _v_W;
+    v_T_  =  Adj_TW * _v_W;
+    Vector6d v_Tr;
     v_Tr =  _Tr * v_T;
+
+    /* Experimental */
+    f_queue_.push_front(-wrench_T_fb);
+    v_queue_.push_front(v_T_);
+    if (f_queue_.size() > pool_size_) {
+      f_queue_.pop_back();
+      v_queue_.pop_back();
+    }
+
 
     /* transformation from Tool wrench to
             transformed space  */
@@ -400,6 +462,48 @@ void ForceControlController::updateAxis(const Matrix6d &Tr, int n_af)
     }
 }
 
+bool ForceControlController::ExecuteHFVC(const int n_af, const int n_av,
+  const Matrix6d R_a, const double *pose_set, const double *force_set,
+  HYBRID_SERVO_MODE mode, const int main_loop_rate) {
+    assert(n_af + n_av == 6);
+    if (mode == HS_STOP_AND_GO) {
+      reset();
+    }
+    updateAxis(R_a, n_af);
+    setForce(force_set);
+
+    // get current pose for motion planning
+    double pose_fb[7];
+    if (mode == HS_STOP_AND_GO)
+      _hw->getPose(pose_fb);
+    else
+      UT::copyArray(_pose_user_input, pose_fb, 7);
+
+    /* Motion Planning */
+    MatrixXd pose_traj;
+    MotionPlanningTrapezodial(pose_fb, pose_set, _kAccMaxTrans, _kVelMaxTrans,
+            _kAccMaxRot, _kVelMaxRot, (double)main_loop_rate, &pose_traj);
+    int num_of_steps = pose_traj.cols();
+
+    /* Execute the motion plan */
+    ros::Duration period(EGM_PERIOD); // just for being compatible with ROS Control
+    ros::Rate pub_rate(main_loop_rate);
+    bool b_is_safe = true;
+    for (int i = 0; i < num_of_steps; ++i) {
+      // cout << "[Hybrid] update step " << i << " of " << num_of_steps;
+      // cout << ", pose sent: " << pose_traj[i][0] << ", " << pose_traj[i][1];
+      // cout << ", " << pose_traj[i][2] << endl;
+      setPose(pose_traj.col(i).data());
+      // !! after setPose, must call update before updateAxis
+      // so as to set correct value for pose_command
+      ros::Time time_now = ros::Time::now();
+      b_is_safe = update(time_now, period);
+      if(!b_is_safe) break;
+      pub_rate.sleep();
+    }
+    return true;
+}
+
 // reset everytime you start from complete stop.
 // clear up internal states
 void ForceControlController::reset()
@@ -408,6 +512,7 @@ void ForceControlController::reset()
     _SE3_WT_old = posemm2SE3(_pose_sent_to_robot);
     _SE3_WToffset = Matrix4d::Identity();
     _v_W = Vector6d::Zero();
+    _v_T = Vector6d::Zero();
     _wrench_T_Err = Vector6d::Zero();
     _wrench_T_Err_I = Vector6d::Zero();
 }

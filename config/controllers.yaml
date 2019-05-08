@@ -1,7 +1,7 @@
 # main function for testing
 # TODO(yifan) move these to launch file
 main_loop_rate: 400 #500
-main_duration: 15 # sec
+main_duration: 20 # sec
 
 # Admittance control parameters for the pseudo spring-mass-damper system
 # Be careful with Trade-off between length and angle
@@ -11,11 +11,11 @@ main_duration: 15 # sec
 #   Damping coefficient for rotation should be multiplied with 0.1
 # The following parameters are the diagonal elements of the 6x6 matrices
 #   Stiffness matrix as viewed in tool frame
-Stiffness_matrix_diag_elements: [1, 1, 1, 1.5, 1.5, 1.5]
+Stiffness_matrix_diag_elements: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
 #   Inertia matrix as viewed in tool frame
-Inertia_matrix_diag_elements: [1, 1, 1, 0.01, 0.01, 0.01]
+Inertia_matrix_diag_elements: [1, 1, 1, 0.005, 0.005, 0.005]
 #   Damping coefficient matrix as viewed in tool frame
-Damping_matrix_diag_elements: [10, 10, 10, 0.1, 0.1, 0.1]
+Damping_matrix_diag_elements: [5, 5, 5, 0.05, 0.05, 0.05]
 
 # Force control PID Gains
 # one set for translation, another set for rotation
@@ -30,3 +30,13 @@ FC_I_Limit_T_6D: [50, 50, 50, 0.5, 0.5, 0.5] # Newton, N*m
 
 forcecontrol_print_flag: true
 forcecontrol_file_path: "/home/yifanh/Git/catkin_ws/src/forcecontrol/data/forcecontrol_data.txt"
+
+
+# motion planning speed limit
+vel_max_translation: 20 # mm/s
+acc_max_translation: 1000 # mm/s^2
+vel_max_rotation: 0.2 # rad/s
+acc_max_rotation: 10 # rad/s^2
+
+# experimental
+pool_duration: 0.5 #s

@@ -28,7 +28,7 @@ class ForceControlHardware : public hardware_interface::RobotHW
     ~ForceControlHardware();
     bool init(ros::NodeHandle& root_nh, std::chrono::high_resolution_clock::time_point time0);
     void getPose(double *pose);
-    bool getWrench(double *wrench);
+    bool getWrench(double *wrench); // measured in tool frame
     bool getState(double *pose, double *wrench);
     void setControl(const double *pose_set);
 

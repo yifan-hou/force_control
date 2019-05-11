@@ -113,9 +113,14 @@ public:
   Eigen::Matrix<double, 6, 1> _wrench_T_Err_I;
 
   // experimental
-  int pool_size_;
-  std::deque<Vector6d> f_queue_;
-  std::deque<Vector6d> v_queue_;
+  int _pool_size;
+  std::deque<Eigen::Matrix<double, 6, 1>> _f_queue;
+  std::deque<double> _f_weights;
+  std::deque<Eigen::Matrix<double, 6, 1>> _v_queue;
+  std::deque<double> v_weights_;
+  std::std::vector<double> _scale_force_vector;
+  std::std::vector<double> _scale_vel_vector;
+  double _var_force, _var_velocity;
 
 
 private:

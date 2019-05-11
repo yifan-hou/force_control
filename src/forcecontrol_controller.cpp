@@ -74,23 +74,12 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
     root_nh.param(string("/acc_max_rotation"), _kAccMaxRot, 0.0);
     if (!root_nh.hasParam("/vel_max_translation"))
         ROS_WARN_STREAM("Parameter [/vel_max_translation] not found, using default: " << _kVelMaxTrans);
-    else
-        ROS_INFO_STREAM("Parameter [/vel_max_translation] = " << _kVelMaxTrans);
-
     if (!root_nh.hasParam("/acc_max_translation"))
         ROS_WARN_STREAM("Parameter [/acc_max_translation] not found, using default: " << _kAccMaxTrans);
-    else
-        ROS_INFO_STREAM("Parameter [/acc_max_translation] = " << _kAccMaxTrans);
-
     if (!root_nh.hasParam("/vel_max_rotation"))
         ROS_WARN_STREAM("Parameter [/vel_max_rotation] not found, using default: " << _kVelMaxRot);
-    else
-        ROS_INFO_STREAM("Parameter [/vel_max_rotation] = " << _kVelMaxRot);
-
     if (!root_nh.hasParam("/acc_max_rotation"))
         ROS_WARN_STREAM("Parameter [/acc_max_rotation] not found, using default: " << _kAccMaxRot);
-    else
-        ROS_INFO_STREAM("Parameter [/acc_max_rotation] = " << _kAccMaxRot);
 
     // Spring-mass-damper coefficients
     std::vector<double> Stiffness_matrix_diag_elements,
@@ -129,16 +118,8 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
     root_nh.param(string("/FC_gains/IGainR"), _kForceControlIGainRot, 0.0);
     root_nh.param(string("/FC_gains/DGainR"), _kForceControlDGainRot, 0.0);
     root_nh.getParam("/FC_I_Limit_T_6D", FC_I_Limit_T_6D_elements);
-    if (!root_nh.hasParam("/FC_gains")) {
+    if (!root_nh.hasParam("/FC_gains"))
         ROS_WARN_STREAM("Parameter [/FC_gains] not found, using default.");
-    } else {
-        ROS_INFO_STREAM("Parameter [/FC_gains/PGainT] = " << _kForceControlPGainTran);
-        ROS_INFO_STREAM("Parameter [/FC_gains/IGainT] = " << _kForceControlIGainTran);
-        ROS_INFO_STREAM("Parameter [/FC_gains/DGainT] = " << _kForceControlDGainTran);
-        ROS_INFO_STREAM("Parameter [/FC_gains/PGainR] = " << _kForceControlPGainRot);
-        ROS_INFO_STREAM("Parameter [/FC_gains/IGainR] = " << _kForceControlIGainRot);
-        ROS_INFO_STREAM("Parameter [/FC_gains/DGainR] = " << _kForceControlDGainRot);
-    }
     if (!root_nh.hasParam("/FC_I_Limit_T_6D")) {
         ROS_ERROR_STREAM("Parameter [/FC_I_Limit_T_6D] not found");
         return false;
@@ -152,22 +133,30 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
 
     if (!root_nh.hasParam("/forcecontrol_print_flag"))
         ROS_WARN_STREAM("Parameter [/forcecontrol_print_flag] not found, using default: " << _print_flag);
-    else
-        ROS_INFO_STREAM("Parameter [/forcecontrol_print_flag] = " << _print_flag);
-
     if (!root_nh.hasParam("/forcecontrol_file_path"))
         ROS_WARN_STREAM("Parameter [/forcecontrol_file_path] not found, using default: " << fullpath);
-    else
-        ROS_INFO_STREAM("Parameter [/forcecontrol_file_path] = " << fullpath);
 
     // experimental
     double pool_duration;
     root_nh.param(string("/pool_duration"), pool_duration, 0.5);
     if (!root_nh.hasParam("/pool_duration"))
         ROS_WARN_STREAM("Parameter [/pool_duration] not found, using default: " << pool_duration);
-    else
-        ROS_INFO_STREAM("Parameter [/pool_duration] = " << pool_duration);
-    pool_size_ = (int)round(pool_duration*main_loop_rate);
+    _pool_size = (int)round(pool_duration*main_loop_rate);
+
+    root_nh.getParam("/scale_force_vector", _scale_force_vector);
+    root_nh.getParam("/scale_vel_vector", _scale_vel_vector);
+    if (!root_nh.hasParam("/scale_force_vector"))
+      ROS_WARN_STREAM("Parameter [/scale_force_vector] not found!");
+    if (!root_nh.hasParam("/scale_vel_vector"))
+      ROS_WARN_STREAM("Parameter [/scale_vel_vector] not found!");
+
+
+    root_nh.param(string("/var_force"), _var_force, 0.5);
+    if (!root_nh.hasParam("/var_force"))
+        ROS_WARN_STREAM("Parameter [/var_force] not found, using default: " << _var_force);
+    root_nh.param(string("/var_velocity"), _var_velocity, 0.5);
+    if (!root_nh.hasParam("/var_velocity"))
+        ROS_WARN_STREAM("Parameter [/var_velocity] not found, using default: " << _var_velocity);
 
     if (_print_flag) {
         _file.open(fullpath);
@@ -201,7 +190,7 @@ void ForceControlController::getPose(double *pose) {
 }
 
 void ForceControlController::getToolVelocity(Eigen::Matrix<double, 6, 1> *v_T) {
-    *v_T = v_T_;
+    *v_T = _v_T;
 }
 
 bool ForceControlController::getToolWrench(Eigen::Matrix<double, 6, 1> *wrench) {
@@ -273,18 +262,67 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
     Matrix6d Adj_WT, Adj_TW;
     Adj_WT = SE32Adj(SE3_WT_fb);
     Adj_TW = SE32Adj(SE3Inv(SE3_WT_fb));
-    v_T_  =  Adj_TW * _v_W;
+    _v_T  =  Adj_TW * _v_W;
     Vector6d v_Tr;
-    v_Tr =  _Tr * v_T;
+    v_Tr =  _Tr * _v_T;
 
     /* Experimental */
-    f_queue_.push_front(-wrench_T_fb);
-    v_queue_.push_front(v_T_);
-    if (f_queue_.size() > pool_size_) {
-      f_queue_.pop_back();
-      v_queue_.pop_back();
+    _f_queue.push_front(-wrench_T_fb);
+    _v_queue.push_front(_v_T);
+    // scaling
+    for (int i = 0; i < 6; ++i) {
+      _f_queue[0][i] = _f_queue[0][i] * _scale_force_vector[i];
+      _v_queue[0][i] = _v_queue[0][i] * _scale_vel_vector[i];
+    }
+    _f_weights.push_front(1.0);
+    _v_weights_.push_front(1.0);
+    if (_f_queue.size() > _pool_size) {
+      _f_queue.pop_back();
+      _v_queue.pop_back();
+      _f_weights.pop_back();
+      _v_weights_.pop_back();
     }
 
+    /* Update weights of data
+     * Rules
+     * Every time we receive a new data, do the following:
+     * 1. Set the weight of the new data = 1
+     * 2. For the new force data, check each old velocity data:
+     *   1. Discount velocity data if it is not orthogonal with the force
+     * 3. For the new velocity data, check each old force data:
+     *   1. Discount force data if it is not orthogonal with the velocity
+     */
+
+    double norm_new_force = _f_queue[0].norm();
+    double norm_new_velocity = _v_queue[0].norm();
+    double kVarRatio = _var_force/_var_velocity;
+    for (int i = 1; i < _f_queue.size(); ++i) {
+      // check all the velocity data
+      double dot = abs(_f_queue[0].dot(_v_queue[i]));
+      double norm_velocity = _v_queue[i].norm();
+      double distance_force = dot/norm_velocity;
+      double distance_velocity = dot/norm_new_force;
+      double p_force = UT::Gaussian(distance_force, _var_force);
+      double p_velocity = UT::Gaussian(distance_velocity*kVarRatio,
+          _var_force); // keep the same variance between f and v
+
+      double p = std::max(p_force, p_velocity);
+      double k = 1.0 - 1.0/(100.0*p+1);
+      _v_weights_[i] *= k;
+
+      // check all the force data
+      dot = abs(_v_queue[0].dot(_f_queue[i]));
+      double norm_force = _f_queue[i].norm();
+      distance_force = dot/norm_new_velocity;
+      distance_velocity = dot/norm_force;
+      p_force = UT::Gaussian(distance_force, _var_force);
+      p_velocity = UT::Gaussian(distance_velocity*kVarRatio,
+          _var_force); // keep the same variance between f and v
+
+      p = std::max(p_force, p_velocity);
+      k = 1.0 - 1.0/(100.0*p+1);
+      _f_weights_[i] *= k;
+    }
 
     /* transformation from Tool wrench to
             transformed space  */
@@ -312,7 +350,7 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
     wrench_Tr_Err = _Tr*wrench_T_Err;
 
     Vector6d wrench_Tr_damping;
-    wrench_Tr_damping = - _Tr*_ToolDamping_coef*v_T;
+    wrench_Tr_damping = - _Tr*_ToolDamping_coef*_v_T;
 
     Vector6d wrench_Tr_All;
     wrench_Tr_All = _m_force_selection *

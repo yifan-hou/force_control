@@ -7,21 +7,21 @@ netft_print_flag: false
 netft_file_path: "/home/yifanh/Git/catkin_ws/src/forcecontrol/data/netft_data.txt"
 
 ati:
-  offset: # will be added to the reading; in tool frame
-    fx: 1.03
-    fy: 2.19
-    fz: -2.28
-    tx: 0.215
-    ty: -0.0865
-    tz: -0.0101
+offset: # will be added to the reading; in tool frame
+    fx: 0.269
+    fy: 2.49
+    fz: -2.74
+    tx: 0.254
+    ty: -0.0774
+    tz: 0.00123
   gravity:
-    x: -0.0435
-    y: -0.0621
-    z: -1.4
+    x: -0.206
+    y: 0.00476
+    z: -1.47
   COM:
-    x: 0.000786
-    y: -0.00269
-    z: -0.0709
+    x: -0.00235
+    y: -0.00548
+    z: -0.0679
   safety:
     fx: 25 # maximum: 20
     fy: 25 # maximum: 20
@@ -33,10 +33,10 @@ ati:
     x: 0
     y: 0
     z:  0.0962
-    qw: 0.5556
+    qw: 0.9808
     qx: 0
     qy: 0
-    qz: 0.8315
+    qz: 0.1951
 
 # ABB EGM
 egm_portnum: 6510

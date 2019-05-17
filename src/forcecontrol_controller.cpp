@@ -62,8 +62,6 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
     root_nh.param(string("/main_loop_rate"), fHz, 500.0);
     if (!root_nh.hasParam("/main_loop_rate"))
         ROS_WARN_STREAM("Parameter [/main_loop_rate] not found, using default: " << fHz);
-    else
-        ROS_INFO_STREAM("Parameter [/main_loop_rate] = " << fHz);
 
     _dt = 1.0/fHz;
 
@@ -138,25 +136,25 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
 
     // experimental
     double pool_duration;
-    root_nh.param(string("/pool_duration"), pool_duration, 0.5);
-    if (!root_nh.hasParam("/pool_duration"))
-        ROS_WARN_STREAM("Parameter [/pool_duration] not found, using default: " << pool_duration);
-    _pool_size = (int)round(pool_duration*main_loop_rate);
+    root_nh.param(string("/constraint_estimation/pool_duration"), pool_duration, 0.5);
+    if (!root_nh.hasParam("/constraint_estimation/pool_duration"))
+        ROS_WARN_STREAM("Parameter [/constraint_estimation/pool_duration] not found, using default: " << pool_duration);
+    _pool_size = (int)round(pool_duration*fHz);
 
-    root_nh.getParam("/scale_force_vector", _scale_force_vector);
-    root_nh.getParam("/scale_vel_vector", _scale_vel_vector);
-    if (!root_nh.hasParam("/scale_force_vector"))
-      ROS_WARN_STREAM("Parameter [/scale_force_vector] not found!");
-    if (!root_nh.hasParam("/scale_vel_vector"))
-      ROS_WARN_STREAM("Parameter [/scale_vel_vector] not found!");
+    root_nh.getParam("/constraint_estimation/scale_force_vector", _scale_force_vector);
+    root_nh.getParam("/constraint_estimation/scale_vel_vector", _scale_vel_vector);
+    if (!root_nh.hasParam("/constraint_estimation/scale_force_vector"))
+      ROS_WARN_STREAM("Parameter [/constraint_estimation/scale_force_vector] not found!");
+    if (!root_nh.hasParam("/constraint_estimation/scale_vel_vector"))
+      ROS_WARN_STREAM("Parameter [/constraint_estimation/scale_vel_vector] not found!");
 
 
-    root_nh.param(string("/var_force"), _var_force, 0.5);
-    if (!root_nh.hasParam("/var_force"))
-        ROS_WARN_STREAM("Parameter [/var_force] not found, using default: " << _var_force);
-    root_nh.param(string("/var_velocity"), _var_velocity, 0.5);
-    if (!root_nh.hasParam("/var_velocity"))
-        ROS_WARN_STREAM("Parameter [/var_velocity] not found, using default: " << _var_velocity);
+    root_nh.param(string("/constraint_estimation/var_force"), _var_force, 0.5);
+    if (!root_nh.hasParam("/constraint_estimation/var_force"))
+        ROS_WARN_STREAM("Parameter [/constraint_estimation/var_force] not found, using default: " << _var_force);
+    root_nh.param(string("/constraint_estimation/var_velocity"), _var_velocity, 0.5);
+    if (!root_nh.hasParam("/constraint_estimation/var_velocity"))
+        ROS_WARN_STREAM("Parameter [/constraint_estimation/var_velocity] not found, using default: " << _var_velocity);
 
     if (_print_flag) {
         _file.open(fullpath);
@@ -275,12 +273,12 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
       _v_queue[0][i] = _v_queue[0][i] * _scale_vel_vector[i];
     }
     _f_weights.push_front(1.0);
-    _v_weights_.push_front(1.0);
+    _v_weights.push_front(1.0);
     if (_f_queue.size() > _pool_size) {
       _f_queue.pop_back();
       _v_queue.pop_back();
       _f_weights.pop_back();
-      _v_weights_.pop_back();
+      _v_weights.pop_back();
     }
 
     /* Update weights of data
@@ -308,7 +306,7 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
 
       double p = std::max(p_force, p_velocity);
       double k = 1.0 - 1.0/(100.0*p+1);
-      _v_weights_[i] *= k;
+      _v_weights[i] *= k;
 
       // check all the force data
       dot = abs(_v_queue[0].dot(_f_queue[i]));
@@ -321,7 +319,7 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
 
       p = std::max(p_force, p_velocity);
       k = 1.0 - 1.0/(100.0*p+1);
-      _f_weights_[i] *= k;
+      _f_weights[i] *= k;
     }
 
     /* transformation from Tool wrench to

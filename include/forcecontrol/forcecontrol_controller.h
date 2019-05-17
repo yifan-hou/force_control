@@ -117,9 +117,9 @@ public:
   std::deque<Eigen::Matrix<double, 6, 1>> _f_queue;
   std::deque<double> _f_weights;
   std::deque<Eigen::Matrix<double, 6, 1>> _v_queue;
-  std::deque<double> v_weights_;
-  std::std::vector<double> _scale_force_vector;
-  std::std::vector<double> _scale_vel_vector;
+  std::deque<double> _v_weights;
+  std::vector<double> _scale_force_vector;
+  std::vector<double> _scale_vel_vector;
   double _var_force, _var_velocity;
 
 

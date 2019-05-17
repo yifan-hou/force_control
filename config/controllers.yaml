@@ -1,7 +1,7 @@
 # main function for testing
 # TODO(yifan) move these to launch file
 main_loop_rate: 400 #500
-main_duration: 20 # sec
+main_duration: 50 # sec
 
 # Admittance control parameters for the pseudo spring-mass-damper system
 # Be careful with Trade-off between length and angle
@@ -42,6 +42,6 @@ acc_max_rotation: 10 # rad/s^2
 constraint_estimation:
     pool_duration: 0.5 #s
     scale_force_vector: [1, 1, 1, 10, 10, 10] # Newton, N*m
-    scale_vec_vector: [1, 1, 1, 0.5, 0.5, 0.5] # m/s, rad/s
+    scale_vel_vector: [1, 1, 1, 0.5, 0.5, 0.5] # m/s, rad/s
     var_force: 1.5 # variance of force magnitude after scaling
     var_velocity: 0.005 # variance of velocity magnitude after scaling

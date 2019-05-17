@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
     // getchar();
     cout << "Main loop begins. " << endl;
     ros::Duration period(EGM_PERIOD);
-    Timer timer;
+    UT::Timer timer;
     double time_elapsed = 0;
     for (int i = 0; i < Nsteps; ++i)
     {

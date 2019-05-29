@@ -298,8 +298,8 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
       // check all the velocity data
       double dot = abs(_f_queue[0].dot(_v_queue[i]));
       double norm_velocity = _v_queue[i].norm();
-      double distance_force = dot/norm_velocity;
-      double distance_velocity = dot/norm_new_force;
+      double distance_force = (norm_velocity > 1e-7)? dot/norm_velocity:0;
+      double distance_velocity = (norm_new_force > 1e-7)? dot/norm_new_force:0;
       double p_force = UT::Gaussian(distance_force, _var_force);
       double p_velocity = UT::Gaussian(distance_velocity*kVarRatio,
           _var_force); // keep the same variance between f and v
@@ -311,8 +311,8 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
       // check all the force data
       dot = abs(_v_queue[0].dot(_f_queue[i]));
       double norm_force = _f_queue[i].norm();
-      distance_force = dot/norm_new_velocity;
-      distance_velocity = dot/norm_force;
+      distance_force = (norm_new_velocity > 1e-7)? dot/norm_new_velocity : 0;
+      distance_velocity = (norm_force > 1e-7)? dot/norm_force : 0;
       p_force = UT::Gaussian(distance_force, _var_force);
       p_velocity = UT::Gaussian(distance_velocity*kVarRatio,
           _var_force); // keep the same variance between f and v
@@ -545,6 +545,7 @@ bool ForceControlController::ExecuteHFVC(const int n_af, const int n_av,
 void ForceControlController::reset()
 {
     _hw->getPose(_pose_sent_to_robot);
+    _hw->getPose(_pose_user_input);
     _SE3_WT_old = posemm2SE3(_pose_sent_to_robot);
     _SE3_WToffset = Matrix4d::Identity();
     _v_W = Vector6d::Zero();

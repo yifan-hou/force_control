@@ -7,21 +7,21 @@ netft_print_flag: false
 netft_file_path: "/home/yifanh/Git/catkin_ws/src/forcecontrol/data/netft_data.txt"
 
 ati:
-offset: # will be added to the reading; in tool frame
-    fx: 0.269
-    fy: 2.49
-    fz: -2.74
-    tx: 0.254
-    ty: -0.0774
-    tz: 0.00123
+  offset: # will be added to the reading; in tool frame
+    fx: 0.577
+    fy: 2.27
+    fz: -2.37
+    tx: 0.235
+    ty: -0.117
+    tz: 0.00682
   gravity:
-    x: -0.206
-    y: 0.00476
-    z: -1.47
+    x: -0.00521
+    y: 0.0116
+    z: -2.28
   COM:
-    x: -0.00235
-    y: -0.00548
-    z: -0.0679
+    x: -0.000175
+    y: -7.69e-05
+    z: -0.0791
   safety:
     fx: 25 # maximum: 20
     fy: 25 # maximum: 20

@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
     double setforce[6] = {0};
     robot.getPose(setpose);
 
-    Matrix6d T0, T1;
+    Matrix6d T0, T1, T2;
     T0 = Matrix6d::Identity();
     T1 << 0, 0, 0, 1, 0, 0,
           0, 0, 0, 0, 1, 0,
@@ -57,13 +57,18 @@ int main(int argc, char* argv[])
           1, 0, 0, 0, 0, 0,
           0, 1, 0, 0, 0, 0,
           0, 0, 1, 0, 0, 0;
-
+    T1 << 1, 0, 0, 0, 0, 0,
+          0, 1, 0, 0, 0, 0,
+          0, 0, 0, 1, 0, 0,
+          0, 0, 0, 0, 1, 0,
+          0, 0, 0, 0, 0, 1,
+          0, 0, 1, 0, 0, 0;
     /*  Set controls.
      *  Note that calling reset() right after init() is not necessary;
      *  This is showing the general procedure for setting controls.
      */
     controller.reset();
-    controller.updateAxis(T0, 3);
+    controller.updateAxis(T1, 5);
     controller.setPose(setpose); // after setPose, you must call update() before
                                  // calling updateAxis()
     controller.setForce(setforce);
@@ -76,27 +81,17 @@ int main(int argc, char* argv[])
     double time_elapsed = 0;
     for (int i = 0; i < Nsteps; ++i)
     {
-        if (i == main_loop_rate*10)
-        {
-            controller.updateAxis(T1, 3);
-            // setpose[0] += xyz_set_diff1(0);
-            // setpose[1] += xyz_set_diff1(1);
-            // setpose[2] += xyz_set_diff1(2);
-            // controller.setPose(setpose);
-
-            // setforce[0] = 5;
-
-            // controller.setForce(setforce);
-            cout << "update Axis to set 1" << endl;
-        }
-        // else if (i == main_loop_rate*10)
+        // if (i == main_loop_rate*10)
         // {
-        //     controller.updateAxis(T1, 1);
-        //     cout << "update Axis to set 0" << endl;
-        // }
-        // else if (i == main_loop_rate*15)
-        // {
-        //     controller.updateAxis(force_selection1);
+        //     controller.updateAxis(T1, 3);
+        //     // setpose[0] += xyz_set_diff1(0);
+        //     // setpose[1] += xyz_set_diff1(1);
+        //     // setpose[2] += xyz_set_diff1(2);
+        //     // controller.setPose(setpose);
+
+        //     // setforce[0] = 5;
+
+        //     // controller.setForce(setforce);
         //     cout << "update Axis to set 1" << endl;
         // }
 

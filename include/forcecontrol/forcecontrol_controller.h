@@ -116,8 +116,10 @@ public:
   int _pool_size;
   std::deque<Eigen::Matrix<double, 6, 1>> _f_queue;
   std::deque<double> _f_weights;
+  std::deque<double> _f_probability;
   std::deque<Eigen::Matrix<double, 6, 1>> _v_queue;
   std::deque<double> _v_weights;
+  std::deque<double> _v_probability;
   std::vector<double> _scale_force_vector;
   std::vector<double> _scale_vel_vector;
   double _var_force, _var_velocity;

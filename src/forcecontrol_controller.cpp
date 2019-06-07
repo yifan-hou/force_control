@@ -274,11 +274,15 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
     }
     _f_weights.push_front(1.0);
     _v_weights.push_front(1.0);
+    _f_probability.push_front(0.0);
+    _v_probability.push_front(0.0);
     if (_f_queue.size() > _pool_size) {
       _f_queue.pop_back();
       _v_queue.pop_back();
       _f_weights.pop_back();
       _v_weights.pop_back();
+      _f_probability.pop_back();
+      _v_probability.pop_back();
     }
 
     /* Update weights of data
@@ -291,36 +295,35 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
      *   1. Discount force data if it is not orthogonal with the velocity
      */
 
-    double norm_new_force = _f_queue[0].norm();
-    double norm_new_velocity = _v_queue[0].norm();
-    double kVarRatio = _var_force/_var_velocity;
-    for (int i = 1; i < _f_queue.size(); ++i) {
-      // check all the velocity data
-      double dot = abs(_f_queue[0].dot(_v_queue[i]));
-      double norm_velocity = _v_queue[i].norm();
-      double distance_force = (norm_velocity > 1e-7)? dot/norm_velocity:0;
-      double distance_velocity = (norm_new_force > 1e-7)? dot/norm_new_force:0;
-      double p_force = UT::Gaussian(distance_force, _var_force);
-      double p_velocity = UT::Gaussian(distance_velocity*kVarRatio,
-          _var_force); // keep the same variance between f and v
+    // double norm_new_force = _f_queue[0].norm();
+    // double norm_new_velocity = _v_queue[0].norm();
+    // double kVarRatio = _var_force/_var_velocity;
+    // double p_force_max = UT::Gaussian(0, _var_force);
+    // for (int i = 1; i < _f_queue.size(); ++i) {
+    //   // check all the velocity data
+    //   double dot = abs(_f_queue[0].dot(_v_queue[i]));
+    //   double norm_velocity = _v_queue[i].norm();
+    //   double distance_force = (norm_velocity > 1e-7)? dot/norm_velocity:0;
+    //   double distance_velocity = (norm_new_force > 1e-7)? dot/norm_new_force:0;
+    //   double distance =          // keep the same variance between f and v
+    //         std::min(distance_force, distance_velocity*kVarRatio);
+    //   double p = UT::Gaussian(distance, _var_force)/p_force_max; // normalize
+    //   double k = 1.0 - 1.0/(150.0*p+1);
+    //   _v_probability[i] = p;
+    //   _v_weights[i] *= k;
 
-      double p = std::max(p_force, p_velocity);
-      double k = 1.0 - 1.0/(100.0*p+1);
-      _v_weights[i] *= k;
-
-      // check all the force data
-      dot = abs(_v_queue[0].dot(_f_queue[i]));
-      double norm_force = _f_queue[i].norm();
-      distance_force = (norm_new_velocity > 1e-7)? dot/norm_new_velocity : 0;
-      distance_velocity = (norm_force > 1e-7)? dot/norm_force : 0;
-      p_force = UT::Gaussian(distance_force, _var_force);
-      p_velocity = UT::Gaussian(distance_velocity*kVarRatio,
-          _var_force); // keep the same variance between f and v
-
-      p = std::max(p_force, p_velocity);
-      k = 1.0 - 1.0/(100.0*p+1);
-      _f_weights[i] *= k;
-    }
+    //   // check all the force data
+    //   dot = abs(_v_queue[0].dot(_f_queue[i]));
+    //   double norm_force = _f_queue[i].norm();
+    //   distance_force = (norm_new_velocity > 1e-7)? dot/norm_new_velocity : 0;
+    //   distance_velocity = (norm_force > 1e-7)? dot/norm_force : 0;
+    //   distance =  // keep the same variance between f and v
+    //         std::min(distance_force, distance_velocity*kVarRatio);
+    //   p = UT::Gaussian(distance, _var_force)/p_force_max; // normalize
+    //   k = 1.0 - 1.0/(150.0*p+1);
+    //   _f_probability[i] = p;
+    //   _f_weights[i] *= k;
+    // }
 
     /* transformation from Tool wrench to
             transformed space  */
@@ -516,10 +519,11 @@ bool ForceControlController::ExecuteHFVC(const int n_af, const int n_av,
       UT::copyArray(_pose_user_input, pose_fb, 7);
 
     /* Motion Planning */
+    int num_of_steps = main_loop_rate * 0.1;
     MatrixXd pose_traj;
-    MotionPlanningTrapezodial(pose_fb, pose_set, _kAccMaxTrans, _kVelMaxTrans,
-            _kAccMaxRot, _kVelMaxRot, (double)main_loop_rate, &pose_traj);
-    int num_of_steps = pose_traj.cols();
+    MotionPlanningLinear(pose_fb, pose_set, num_of_steps, &pose_traj);
+    // MotionPlanningTrapezodial(pose_fb, pose_set, _kAccMaxTrans, _kVelMaxTrans,
+    //         _kAccMaxRot, _kVelMaxRot, (double)main_loop_rate, &pose_traj);
 
     /* Execute the motion plan */
     ros::Duration period(EGM_PERIOD); // just for being compatible with ROS Control

@@ -541,7 +541,7 @@ bool ForceControlController::ExecuteHFVC(const int n_af, const int n_av,
       if(!b_is_safe) break;
       pub_rate.sleep();
     }
-    return true;
+    return b_is_safe;
 }
 
 // reset everytime you start from complete stop.

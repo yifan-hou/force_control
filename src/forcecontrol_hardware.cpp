@@ -202,10 +202,11 @@ void ForceControlHardware::getPose(double *pose)
 bool ForceControlHardware::getWrench(double *wrench)
 {
   double wrench_ati[6] = {0};
-  ati->getWrench(wrench_ati); // wrench measured in ATI frame
-  Eigen::Matrix<double, 6, 1> wrench_S;
-
+  int ati_flag = ati->getWrench(wrench_ati); // wrench measured in ATI frame
   bool safety = true;
+  if (ati_flag != 0) safety = false;
+
+  Eigen::Matrix<double, 6, 1> wrench_S;
   for (int i = 0; i < 6; ++i) {
     // safety
     if(abs(wrench_ati[i]) >_WRENCH_SAFETY[i])

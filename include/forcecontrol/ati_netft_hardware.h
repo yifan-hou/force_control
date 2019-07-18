@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <memory>
+#include <mutex>
 #include <boost/program_options.hpp>
 #include <geometry_msgs/WrenchStamped.h>
 #include <diagnostic_msgs/DiagnosticArray.h>
@@ -87,7 +88,15 @@ class ATINetftHardware : public hardware_interface::RobotHW
     ATINetftHardware();
     virtual ~ATINetftHardware();
     virtual bool init(ros::NodeHandle& root_nh, std::chrono::high_resolution_clock::time_point time0);
-    void getWrench(double *wrench);
+    /**
+     * Read the wrench.
+     *
+     * @param  wrench  The wrench
+     *
+     * @return  0: no error.
+     *   1: still waiting for new data. 2: dead stream.
+     */
+    int getWrench(double *wrench);
 
     double *_force;
     double *_torque;
@@ -100,8 +109,16 @@ class ATINetftHardware : public hardware_interface::RobotHW
     // netft
     ros::Publisher _pub;
     ros::Publisher _diag_pub;
-    std::auto_ptr<netft_rdt_driver::NetFTRDTDriver> _netft;
+    std::shared_ptr<netft_rdt_driver::NetFTRDTDriver> _netft;
     string _frame_id;
+
+    // monitor pausing of the data stream.
+    // if the data is the same in 50 frames, the stream is considered dead.
+    int _stall_counts;
+    mutex _stall_counts_mtx;
+    // set to true when a timeout happens. Set to false when a good data comes.
+    bool _time_out_flag;
+    mutex _time_out_flag_mtx;
 
   private:
     hardware_interface::ForceTorqueSensorInterface force_torque_interface;

@@ -1,4 +1,4 @@
-# main function for testing
+# parameters for testing
 # TODO(yifan) move these to launch file
 main_loop_rate: 400 #500
 main_duration: 50 # sec

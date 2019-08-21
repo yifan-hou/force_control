@@ -1,17 +1,3 @@
-/// Class for performing 6-axis Cartesian hybrid force-velocity control
-/// with Cartesian position-control inner loop and wrist-mounted FT sensor.
-///
-/// Usage:
-///   Initialize:
-///     1. Call Init()
-///     2. Call updateAxis()
-///   Do control
-///     Call update() at your desired frequency.
-///     Call setPose(), setForce() and updateAxis() whenever needed.
-///     Note: after calling setPose(), you must call update() before updateAxis()
-///   Reset offset (and internal states)
-///     If you have a complete stop during execution and would like to restart
-///     from there, call reset() then updateAxis().
 #pragma once
 #ifndef _FORCECONTROL_CONTROLLER_H_
 #define _FORCECONTROL_CONTROLLER_H_
@@ -19,6 +5,7 @@
 
 #include <fstream>
 #include <chrono>
+#include <deque>
 
 #include <Eigen/Geometry>
 
@@ -29,7 +16,25 @@ enum HYBRID_SERVO_MODE {
   HS_CONTINUOUS
 };
 
-
+/**
+ * Class for performing 6-axis Cartesian hybrid force-velocity control. The
+ * force control is implemented as direct force control with position-control
+ * inner loop and force feedback. The class interfaces with the hardwares via
+ * class ForceControlHardware.
+ *
+ * Usage:
+ *  Initialize:
+ *    1. Call Init()
+ *    2. Call updateAxis()
+ *  Do control
+ *    Call update() at your desired frequency.
+ *    Call setPose(), setForce() and updateAxis() whenever needed.
+ *    Note: after calling setPose(), you must call update() before updateAxis()
+ *  Reset offset (and internal states)
+ *    If you have a complete stop during execution and would like to restart
+ *    from there, call reset() then updateAxis().
+ *
+ */
 class ForceControlController
 {
 public:
@@ -58,7 +63,7 @@ public:
   void getToolVelocity(Eigen::Matrix<double, 6, 1> *v_T);
   bool getToolWrench(Eigen::Matrix<double, 6, 1> *wrench);
 
-  bool update(const ros::Time& time, const ros::Duration& period);
+  bool update();
   void updateAxis(const Eigen::Matrix<double, 6, 6> &T, int n_af);
 
   /* Middle level interfaces (with motion planning) */
@@ -143,8 +148,8 @@ private:
   ForceControlHardware *_hw;
 
   // misc
-  std::chrono::high_resolution_clock::time_point _time0; ///< high resolution timer.
-  ofstream _file;
+  Clock::time_point _time0; ///< high resolution timer.
+  std::ofstream _file;
   bool _print_flag;
 
 };

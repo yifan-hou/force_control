@@ -4,31 +4,37 @@
 
 #include <iostream>
 
-#include <yifanlibrary/utilities.h>
-#include <yifanlibrary/TimerLinux.h>
+#include <RobotUtilities/utilities.h>
+#include <RobotUtilities/TimerLinux.h>
+
+#include <abb_egm/abb_egm.h>
+#include <ati_netft/ati_netft.h>
 
 #define PI 3.1415926
 
 using namespace std;
-using namespace UT;
+using namespace RUT;
 
 
 int main(int argc, char* argv[])
 {
-    ROS_INFO_STREAM("Force control test note starting");
+    ROS_INFO_STREAM("Force control test node starting");
     ros::init(argc, argv, "forcecontrol_node");
     ros::NodeHandle hd;
 
     /*  First, we need to instantiate and initialize objects of
      *  ForceControlHardware and ForceControlController.
      */
+    Clock::time_point time0 = std::chrono::high_resolution_clock::now();
+    ABBEGM *egm = ABBEGM::Instance();
+    ATINetft ati;
+    egm->init(hd, time0);
+    ati.init(hd, time0);
+
     ForceControlHardware robot;
     ForceControlController controller;
-
-    std::chrono::high_resolution_clock::time_point TheTime0;
-    TheTime0 = std::chrono::high_resolution_clock::now();
-    robot.init(hd, TheTime0);
-    controller.init(hd, &robot, TheTime0);
+    robot.init(hd, time0, &ati, egm);
+    controller.init(hd, &robot, time0);
 
     /*  Some parameters for the test.
      */
@@ -77,7 +83,7 @@ int main(int argc, char* argv[])
     // getchar();
     cout << "Main loop begins. " << endl;
     ros::Duration period(EGM_PERIOD);
-    UT::Timer timer;
+    RUT::Timer timer;
     double time_elapsed = 0;
     for (int i = 0; i < Nsteps; ++i)
     {
@@ -98,11 +104,11 @@ int main(int argc, char* argv[])
         // update
         timer.tic();
         ros::Time time_now = ros::Time::now();
-        if (!controller.update(time_now, period)) {
+        if (!controller.update()) {
             // wrench feedback greater than threshold
             double w_ati[6] = {0}; // tool frame
-            robot.ati->getWrench(w_ati);
-            ROS_WARN_STREAM("Wrench bigger than threshold!!: " << w_ati[0] <<
+            ati.getWrenchSensor(w_ati);
+            ROS_WARN_STREAM("Not safe!! Wrench: " << w_ati[0] <<
                 "|" << w_ati[1] << "|" << w_ati[2] << "|   |" << w_ati[3] <<
                 "|" << w_ati[4] << "|" << w_ati[5]);
         }

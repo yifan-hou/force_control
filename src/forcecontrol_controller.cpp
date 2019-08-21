@@ -5,12 +5,19 @@
 
 #include <Eigen/QR>
 
-#include <yifanlibrary/utilities.h>
+#include <RobotUtilities/utilities.h>
 
 
 typedef std::chrono::high_resolution_clock Clock;
 
-using namespace UT;
+using RUT::Matrix4d;
+using RUT::MatrixXd;
+using RUT::Vector6d;
+using RUT::Matrix6d;
+
+using std::string;
+using std::cout;
+using std::endl;
 
 
 Eigen::IOFormat MatlabFmt(Eigen::StreamPrecision, 0, ", ", ";\n", "", "", "[",
@@ -51,9 +58,9 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
     /* use current state to initialize commands */
     double wrench[6];
     _hw->getState(_pose_user_input, wrench);
-    stream_array_in(cout, _pose_user_input, 7);
-    copyArray(_pose_user_input, _pose_sent_to_robot, 7);
-    _SE3_WT_old = posemm2SE3(_pose_user_input);
+    RUT::stream_array_in(cout, _pose_user_input, 7);
+    RUT::copyArray(_pose_user_input, _pose_sent_to_robot, 7);
+    _SE3_WT_old = RUT::posemm2SE3(_pose_user_input);
 
     /* read controller parameters from parameter server */
 
@@ -170,7 +177,7 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
 
 void ForceControlController::setPose(const double *pose)
 {
-    UT::copyArray(pose, _pose_user_input, 7);
+    RUT::copyArray(pose, _pose_user_input, 7);
 }
 
 void ForceControlController::setForce(const double *force)
@@ -218,8 +225,7 @@ bool ForceControlController::getToolWrench(Eigen::Matrix<double, 6, 1> *wrench) 
             wrench: 6x1 wrench. Makes work with body velocity
  *
  */
-bool ForceControlController::update(const ros::Time& time, const ros::Duration& period)
-{
+bool ForceControlController::update() {
     double pose_fb[7];
     double wrench_fb[6];
     bool is_safe = _hw->getState(pose_fb, wrench_fb);
@@ -229,21 +235,21 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
     /*  Spring forces  (using stiffness)   */
     // Pose Error
     Matrix4d SE3_WTSet;
-    SE3_WTSet = posemm2SE3(_pose_user_input);
+    SE3_WTSet = RUT::posemm2SE3(_pose_user_input);
 
     Matrix4d SE3_WSo;
     SE3_WSo = _SE3_WToffset * SE3_WTSet;
 
     Matrix4d SE3_WT_fb, SE3_TSo;
-    SE3_WT_fb = posemm2SE3(pose_fb);
-    SE3_TSo   = SE3Inv(SE3_WT_fb)*SE3_WSo; // aka SE3_S_err
+    SE3_WT_fb = RUT::posemm2SE3(pose_fb);
+    SE3_TSo   = RUT::SE3Inv(SE3_WT_fb)*SE3_WSo; // aka SE3_S_err
 
     Vector6d spt_TSo;
-    spt_TSo = SE32spt(SE3_TSo);
+    spt_TSo = RUT::SE32spt(SE3_TSo);
 
     // Jac0 * body velocity = spt time derivative
     Matrix6d Jac0, Jac0_inv;
-    Jac0_inv = JacobianSpt2BodyV(SE3_WT_fb.block<3,3>(0,0));
+    Jac0_inv = RUT::JacobianSpt2BodyV(SE3_WT_fb.block<3,3>(0,0));
     Jac0 = Jac0_inv.inverse();
 
     // elastic wrench
@@ -258,8 +264,8 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
 
     /* velocity */
     Matrix6d Adj_WT, Adj_TW;
-    Adj_WT = SE32Adj(SE3_WT_fb);
-    Adj_TW = SE32Adj(SE3Inv(SE3_WT_fb));
+    Adj_WT = RUT::SE32Adj(SE3_WT_fb);
+    Adj_TW = RUT::SE32Adj(RUT::SE3Inv(SE3_WT_fb));
     _v_T  =  Adj_TW * _v_W;
     Vector6d v_Tr;
     v_Tr =  _Tr * _v_T;
@@ -335,7 +341,7 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
     wrench_T_Set = _Tr_inv*_wrench_Tr_set;
     wrench_T_Err = wrench_T_Set - wrench_T_fb;
     _wrench_T_Err_I += wrench_T_Err;
-    truncate6d(&_wrench_T_Err_I, -_FC_I_limit_T_6D, _FC_I_limit_T_6D);
+    RUT::truncate6d(&_wrench_T_Err_I, -_FC_I_limit_T_6D, _FC_I_limit_T_6D);
 
     Vector6d wrench_T_PID;
     wrench_T_PID.head(3) = _kForceControlPGainTran*wrench_T_Err.head(3)
@@ -392,35 +398,35 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
     //  velocity to pose
     // ----------------------------------------
     Matrix4d SE3_WT_command;
-    SE3_WT_command = SE3_WT_fb + wedge6(_v_W)*SE3_WT_fb*_dt;
-    SE32Posemm(SE3_WT_command, _pose_sent_to_robot);
+    SE3_WT_command = SE3_WT_fb + RUT::wedge6(_v_W)*SE3_WT_fb*_dt;
+    RUT::SE32Posemm(SE3_WT_command, _pose_sent_to_robot);
 
     Clock::time_point timenow_clock = Clock::now();
     double timenow = double(std::chrono::duration_cast<std::chrono::nanoseconds>(
             timenow_clock - _time0).count())/1e6; // milli second
 
     if (std::isnan(_pose_sent_to_robot[0])) {
-        std::cout << "==================== Temp variables: =====================\n";
+        cout << "==================== Temp variables: =====================\n";
         cout << "pose_fb: ";
-        stream_array_in(cout, pose_fb, 7);
+        RUT::stream_array_in(cout, pose_fb, 7);
         cout << "\n_pose_sent_to_robot: ";
-        stream_array_in(cout, _pose_sent_to_robot, 7);
-        std::cout << "\nwrench_Tr_spring: \n" << wrench_Tr_spring.format(MatlabFmt) << endl;
-        // std::cout << "wrench_T_fb: \n" << wrench_T_fb.format(MatlabFmt) << endl;
-        // std::cout << "wrench_Tr_fb: \n" << wrench_Tr_fb.format(MatlabFmt) << endl;
-        // std::cout << "_wrench_Tr_set: \n" << _wrench_Tr_set.format(MatlabFmt) << endl;
-        std::cout << "wrench_T_PID: \n" << wrench_T_PID.format(MatlabFmt) << endl;
-        std::cout << "wrench_Tr_damping: \n" << wrench_Tr_damping.format(MatlabFmt) << endl;
-        std::cout << "wrench_Tr_Err: \n" << wrench_Tr_Err.format(MatlabFmt) << endl;
-        std::cout << "wrench_Tr_All: \n" << wrench_Tr_All.format(MatlabFmt) << endl;
-        std::cout << "vd_Tr: \n" << vd_Tr.format(MatlabFmt) << endl;
-        std::cout << "v_Tr: \n" << v_Tr.format(MatlabFmt) << endl;
-        std::cout << "v_T_command: \n" << v_T_command.format(MatlabFmt) << endl;
-        std::cout << "_v_W: \n" << _v_W.format(MatlabFmt) << endl;
-        std::cout << "SE3_WT_fb: \n" << SE3_WT_fb.format(MatlabFmt) << endl;
-        std::cout << "SE3_WT_command: \n" << SE3_WT_command.format(MatlabFmt) << endl;
+        RUT::stream_array_in(cout, _pose_sent_to_robot, 7);
+        cout << "\nwrench_Tr_spring: \n" << wrench_Tr_spring.format(MatlabFmt) << endl;
+        // cout << "wrench_T_fb: \n" << wrench_T_fb.format(MatlabFmt) << endl;
+        // cout << "wrench_Tr_fb: \n" << wrench_Tr_fb.format(MatlabFmt) << endl;
+        // cout << "_wrench_Tr_set: \n" << _wrench_Tr_set.format(MatlabFmt) << endl;
+        cout << "wrench_T_PID: \n" << wrench_T_PID.format(MatlabFmt) << endl;
+        cout << "wrench_Tr_damping: \n" << wrench_Tr_damping.format(MatlabFmt) << endl;
+        cout << "wrench_Tr_Err: \n" << wrench_Tr_Err.format(MatlabFmt) << endl;
+        cout << "wrench_Tr_All: \n" << wrench_Tr_All.format(MatlabFmt) << endl;
+        cout << "vd_Tr: \n" << vd_Tr.format(MatlabFmt) << endl;
+        cout << "v_Tr: \n" << v_Tr.format(MatlabFmt) << endl;
+        cout << "v_T_command: \n" << v_T_command.format(MatlabFmt) << endl;
+        cout << "_v_W: \n" << _v_W.format(MatlabFmt) << endl;
+        cout << "SE3_WT_fb: \n" << SE3_WT_fb.format(MatlabFmt) << endl;
+        cout << "SE3_WT_command: \n" << SE3_WT_command.format(MatlabFmt) << endl;
         displayStates();
-        std::cout << "Press ENTER to continue..." << std::endl;
+        cout << "Press ENTER to continue..." << endl;
         getchar();
     }
 
@@ -430,11 +436,11 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
     if(_print_flag)
     {
         _file << timenow << " ";
-        stream_array_in(_file, _pose_user_input, 7);
-        stream_array_in(_file, pose_fb, 7);
-        stream_array_in(_file, wrench_fb, 6);
-        stream_array_in6d(_file, wrench_Tr_All);
-        stream_array_in(_file, _pose_sent_to_robot, 7);
+        RUT::stream_array_in(_file, _pose_user_input, 7);
+        RUT::stream_array_in(_file, pose_fb, 7);
+        RUT::stream_array_in(_file, wrench_fb, 6);
+        RUT::stream_array_in6d(_file, wrench_Tr_All);
+        RUT::stream_array_in(_file, _pose_sent_to_robot, 7);
         _file << endl;
     }
     return is_safe;
@@ -446,17 +452,17 @@ bool ForceControlController::update(const ros::Time& time, const ros::Duration& 
 void ForceControlController::updateAxis(const Matrix6d &Tr, int n_af)
 {
     Matrix4d SE3_WTSet;
-    SE3_WTSet = posemm2SE3(_pose_user_input);
+    SE3_WTSet = RUT::posemm2SE3(_pose_user_input);
 
     Matrix4d SE3_WSo;
     SE3_WSo = _SE3_WToffset * SE3_WTSet;
 
     Matrix4d SE3_WT_fb, SE3_TSo;
-    SE3_WT_fb = posemm2SE3(_pose_sent_to_robot);
-    SE3_TSo   = SE3Inv(SE3_WT_fb)*SE3_WSo; // aka SE3_S_err
+    SE3_WT_fb = RUT::posemm2SE3(_pose_sent_to_robot);
+    SE3_TSo   = RUT::SE3Inv(SE3_WT_fb)*SE3_WSo; // aka SE3_S_err
 
     Vector6d spt_TSo;
-    spt_TSo = SE32spt(SE3_TSo);
+    spt_TSo = RUT::SE32spt(SE3_TSo);
 
     Vector6d v_force_selection, v_velocity_selection;
     v_force_selection << 0, 0, 0, 0, 0, 0;
@@ -470,14 +476,14 @@ void ForceControlController::updateAxis(const Matrix6d &Tr, int n_af)
     _m_velocity_selection = v_velocity_selection.asDiagonal();
 
     Matrix6d Jac0, Jac0_inv;
-    Jac0_inv = JacobianSpt2BodyV(SE3_WT_fb.block<3, 3>(0, 0));
+    Jac0_inv = RUT::JacobianSpt2BodyV(SE3_WT_fb.block<3, 3>(0, 0));
     Jac0 = Jac0_inv.inverse();
 
     MatrixXd m_anni = _m_velocity_selection*Tr*Jac0;
     Vector6d spt_TSo_new = (Matrix6d::Identity() -
-            pseudoInverse(m_anni, 1e-6)*m_anni)*spt_TSo;
+            RUT::pseudoInverse(m_anni, 1e-6)*m_anni)*spt_TSo;
     // update offset
-    _SE3_WToffset = SE3_WT_fb*spt2SE3(spt_TSo_new)*SE3Inv(SE3_WTSet);
+    _SE3_WToffset = SE3_WT_fb*RUT::spt2SE3(spt_TSo_new)*RUT::SE3Inv(SE3_WTSet);
 
     // project these into force space
     _wrench_T_Err_I = _Tr_inv*_m_force_selection*Tr*_wrench_T_Err_I;
@@ -516,17 +522,16 @@ bool ForceControlController::ExecuteHFVC(const int n_af, const int n_av,
     if (mode == HS_STOP_AND_GO)
       _hw->getPose(pose_fb);
     else
-      UT::copyArray(_pose_user_input, pose_fb, 7);
+      RUT::copyArray(_pose_user_input, pose_fb, 7);
 
     /* Motion Planning */
     int num_of_steps = main_loop_rate * 0.1;
     MatrixXd pose_traj;
-    MotionPlanningLinear(pose_fb, pose_set, num_of_steps, &pose_traj);
+    RUT::MotionPlanningLinear(pose_fb, pose_set, num_of_steps, &pose_traj);
     // MotionPlanningTrapezodial(pose_fb, pose_set, _kAccMaxTrans, _kVelMaxTrans,
     //         _kAccMaxRot, _kVelMaxRot, (double)main_loop_rate, &pose_traj);
 
     /* Execute the motion plan */
-    ros::Duration period(EGM_PERIOD); // just for being compatible with ROS Control
     ros::Rate pub_rate(main_loop_rate);
     bool b_is_safe = true;
     for (int i = 0; i < num_of_steps; ++i) {
@@ -536,8 +541,7 @@ bool ForceControlController::ExecuteHFVC(const int n_af, const int n_av,
       setPose(pose_traj.col(i).data());
       // !! after setPose, must call update before updateAxis
       // so as to set correct value for pose_command
-      ros::Time time_now = ros::Time::now();
-      b_is_safe = update(time_now, period);
+      b_is_safe = update();
       if(!b_is_safe) break;
       pub_rate.sleep();
     }
@@ -550,7 +554,7 @@ void ForceControlController::reset()
 {
     _hw->getPose(_pose_sent_to_robot);
     _hw->getPose(_pose_user_input);
-    _SE3_WT_old = posemm2SE3(_pose_sent_to_robot);
+    _SE3_WT_old = RUT::posemm2SE3(_pose_sent_to_robot);
     _SE3_WToffset = Matrix4d::Identity();
     _v_W = Vector6d::Zero();
     _v_T = Vector6d::Zero();
@@ -569,7 +573,7 @@ void ForceControlController::displayStates() {
             << endl;
     cout << "================= Commands ================== " << endl;
     cout << "_pose_user_input: ";
-    stream_array_in(cout, _pose_user_input, 7);
+    RUT::stream_array_in(cout, _pose_user_input, 7);
     cout << "\n_Wrench_Tr_set: \n" << _wrench_Tr_set.format(MatlabFmt) << endl;
     cout << "_Tr: \n" << _Tr.format(MatlabFmt) << endl;
     cout << "_Tr_inv: \n" << _Tr_inv.format(MatlabFmt) << endl;
@@ -577,7 +581,7 @@ void ForceControlController::displayStates() {
     cout << "_m_velocity_selection: \n" << _m_velocity_selection.format(MatlabFmt) << endl;
     cout << "================= Internal states ================== " << endl;
     cout << "_pose_sent_to_robot: ";
-    stream_array_in(cout, _pose_sent_to_robot, 7);
+    RUT::stream_array_in(cout, _pose_sent_to_robot, 7);
     cout << "\n_SE3_WT_old: \n" << _SE3_WT_old.format(MatlabFmt) << endl;
     cout << "_SE3_WToffset: \n" << _SE3_WToffset.format(MatlabFmt) << endl;
     cout << "_v_W: \n" << _v_W.format(MatlabFmt) << endl;

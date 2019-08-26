@@ -50,8 +50,10 @@ ForceControlController::~ForceControlController()
         _file.close();
 }
 
-bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware* hw, std::chrono::high_resolution_clock::time_point time0)
+bool ForceControlController::init(ros::NodeHandle& root_nh,
+        ForceControlHardware* hw, std::chrono::high_resolution_clock::time_point time0)
 {
+    cout << "[ForceControlController] Begin initialization.\n";
     _hw    = hw;
     _time0 = time0;
 
@@ -62,53 +64,39 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
     RUT::copyArray(_pose_user_input, _pose_sent_to_robot, 7);
     _SE3_WT_old = RUT::posemm2SE3(_pose_user_input);
 
-    /* read controller parameters from parameter server */
-
-    // control rate
+    /**
+     * Force control parameters
+     */
     double fHz;
-    root_nh.param(string("/main_loop_rate"), fHz, 500.0);
-    if (!root_nh.hasParam("/main_loop_rate"))
-        ROS_WARN_STREAM("Parameter [/main_loop_rate] not found, using default: " << fHz);
-
-    _dt = 1.0/fHz;
-
-    // Speed limit for motion planning
-    root_nh.param(string("/vel_max_translation"), _kVelMaxTrans, 0.0);
-    root_nh.param(string("/acc_max_translation"), _kAccMaxTrans, 0.0);
-    root_nh.param(string("/vel_max_rotation"), _kVelMaxRot, 0.0);
-    root_nh.param(string("/acc_max_rotation"), _kAccMaxRot, 0.0);
-    if (!root_nh.hasParam("/vel_max_translation"))
-        ROS_WARN_STREAM("Parameter [/vel_max_translation] not found, using default: " << _kVelMaxTrans);
-    if (!root_nh.hasParam("/acc_max_translation"))
-        ROS_WARN_STREAM("Parameter [/acc_max_translation] not found, using default: " << _kAccMaxTrans);
-    if (!root_nh.hasParam("/vel_max_rotation"))
-        ROS_WARN_STREAM("Parameter [/vel_max_rotation] not found, using default: " << _kVelMaxRot);
-    if (!root_nh.hasParam("/acc_max_rotation"))
-        ROS_WARN_STREAM("Parameter [/acc_max_rotation] not found, using default: " << _kAccMaxRot);
+    root_nh.param(string("/forcecontrol/main_loop_rate"), fHz, 500.0);
+    if (!root_nh.hasParam("/forcecontrol/main_loop_rate"))
+        ROS_WARN_STREAM("Parameter [/forcecontrol/main_loop_rate] not found");
 
     // Spring-mass-damper coefficients
     std::vector<double> Stiffness_matrix_diag_elements,
             Inertia_matrix_diag_elements,
             Damping_matrix_diag_elements;
-    root_nh.getParam("/Stiffness_matrix_diag_elements",
+    root_nh.getParam("/forcecontrol/Stiffness_matrix_diag_elements",
             Stiffness_matrix_diag_elements);
-    root_nh.getParam("/Inertia_matrix_diag_elements",
+    root_nh.getParam("/forcecontrol/Inertia_matrix_diag_elements",
             Inertia_matrix_diag_elements);
-    root_nh.getParam("/Damping_matrix_diag_elements",
+    root_nh.getParam("/forcecontrol/Damping_matrix_diag_elements",
             Damping_matrix_diag_elements);
 
-    if (!root_nh.hasParam("/Stiffness_matrix_diag_elements")) {
-        ROS_ERROR_STREAM("Parameter [/Stiffness_matrix_diag_elements] not found");
+    if (!root_nh.hasParam("/forcecontrol/Stiffness_matrix_diag_elements")) {
+        ROS_ERROR_STREAM("Parameter [/forcecontrol/Stiffness_matrix_diag_elements] not found");
         return false;
     }
-    if (!root_nh.hasParam("/Inertia_matrix_diag_elements")) {
-        ROS_ERROR_STREAM("Parameter [/Inertia_matrix_diag_elements] not found");
+    if (!root_nh.hasParam("/forcecontrol/Inertia_matrix_diag_elements")) {
+        ROS_ERROR_STREAM("Parameter [/forcecontrol/Inertia_matrix_diag_elements] not found");
         return false;
     }
-    if (!root_nh.hasParam("/Damping_matrix_diag_elements")) {
-        ROS_ERROR_STREAM("Parameter [/Damping_matrix_diag_elements] not found");
+    if (!root_nh.hasParam("/forcecontrol/Damping_matrix_diag_elements")) {
+        ROS_ERROR_STREAM("Parameter [/forcecontrol/Damping_matrix_diag_elements] not found");
         return false;
     }
+
+    _dt = 1.0/fHz;
     _ToolStiffnessMatrix = Vector6d(Stiffness_matrix_diag_elements.data()).asDiagonal();
     _ToolDamping_coef    = Vector6d(Damping_matrix_diag_elements.data()).asDiagonal();
     _ToolInertiaMatrix   = Vector6d(Inertia_matrix_diag_elements.data()).asDiagonal();
@@ -116,32 +104,51 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
     // force control gains
     std::vector<double> FC_I_Limit_T_6D_elements;
 
-    root_nh.param(string("/FC_gains/PGainT"), _kForceControlPGainTran, 0.0);
-    root_nh.param(string("/FC_gains/IGainT"), _kForceControlIGainTran, 0.0);
-    root_nh.param(string("/FC_gains/DGainT"), _kForceControlDGainTran, 0.0);
-    root_nh.param(string("/FC_gains/PGainR"), _kForceControlPGainRot, 0.0);
-    root_nh.param(string("/FC_gains/IGainR"), _kForceControlIGainRot, 0.0);
-    root_nh.param(string("/FC_gains/DGainR"), _kForceControlDGainRot, 0.0);
-    root_nh.getParam("/FC_I_Limit_T_6D", FC_I_Limit_T_6D_elements);
-    if (!root_nh.hasParam("/FC_gains"))
-        ROS_WARN_STREAM("Parameter [/FC_gains] not found, using default.");
-    if (!root_nh.hasParam("/FC_I_Limit_T_6D")) {
-        ROS_ERROR_STREAM("Parameter [/FC_I_Limit_T_6D] not found");
+    root_nh.param(string("/forcecontrol/FC_gains/PGainT"), _kForceControlPGainTran, 0.0);
+    root_nh.param(string("/forcecontrol/FC_gains/IGainT"), _kForceControlIGainTran, 0.0);
+    root_nh.param(string("/forcecontrol/FC_gains/DGainT"), _kForceControlDGainTran, 0.0);
+    root_nh.param(string("/forcecontrol/FC_gains/PGainR"), _kForceControlPGainRot, 0.0);
+    root_nh.param(string("/forcecontrol/FC_gains/IGainR"), _kForceControlIGainRot, 0.0);
+    root_nh.param(string("/forcecontrol/FC_gains/DGainR"), _kForceControlDGainRot, 0.0);
+    root_nh.getParam("/forcecontrol/FC_I_Limit_T_6D", FC_I_Limit_T_6D_elements);
+    if (!root_nh.hasParam("/forcecontrol/FC_gains"))
+        ROS_WARN_STREAM("Parameter [/forcecontrol/FC_gains] not found, using default.");
+    if (!root_nh.hasParam("/forcecontrol/FC_I_Limit_T_6D")) {
+        ROS_ERROR_STREAM("Parameter [/forcecontrol/FC_I_Limit_T_6D] not found");
         return false;
     }
     _FC_I_limit_T_6D = Vector6d(FC_I_Limit_T_6D_elements.data());
 
     // printing
     string fullpath;
-    root_nh.param(string("/forcecontrol_print_flag"), _print_flag, false);
-    root_nh.param(string("/forcecontrol_file_path"), fullpath, string(" "));
+    root_nh.param(string("/forcecontrol/print_flag"), _print_flag, false);
+    root_nh.param(string("/forcecontrol/file_path"), fullpath, string(" "));
 
-    if (!root_nh.hasParam("/forcecontrol_print_flag"))
-        ROS_WARN_STREAM("Parameter [/forcecontrol_print_flag] not found, using default: " << _print_flag);
-    if (!root_nh.hasParam("/forcecontrol_file_path"))
-        ROS_WARN_STREAM("Parameter [/forcecontrol_file_path] not found, using default: " << fullpath);
+    if (!root_nh.hasParam("/forcecontrol/print_flag"))
+        ROS_WARN_STREAM("Parameter [/forcecontrol/print_flag] not found");
+    if (!root_nh.hasParam("/forcecontrol/file_path"))
+        ROS_WARN_STREAM("Parameter [/forcecontrol/file_path] not found");
 
-    // experimental
+    /**
+     * Trapezodial motion planning
+     */
+    root_nh.param(string("/trapezodial/vel_max_translation"), _kVelMaxTrans, 0.0);
+    root_nh.param(string("/trapezodial/acc_max_translation"), _kAccMaxTrans, 0.0);
+    root_nh.param(string("/trapezodial/vel_max_rotation"), _kVelMaxRot, 0.0);
+    root_nh.param(string("/trapezodial/acc_max_rotation"), _kAccMaxRot, 0.0);
+    if (!root_nh.hasParam("/trapezodial/vel_max_translation"))
+        ROS_WARN_STREAM("Parameter [/trapezodial/vel_max_translation] not found, using default: " << _kVelMaxTrans);
+    if (!root_nh.hasParam("/trapezodial/acc_max_translation"))
+        ROS_WARN_STREAM("Parameter [/trapezodial/acc_max_translation] not found, using default: " << _kAccMaxTrans);
+    if (!root_nh.hasParam("/trapezodial/vel_max_rotation"))
+        ROS_WARN_STREAM("Parameter [/trapezodial/vel_max_rotation] not found, using default: " << _kVelMaxRot);
+    if (!root_nh.hasParam("/trapezodial/acc_max_rotation"))
+        ROS_WARN_STREAM("Parameter [/trapezodial/acc_max_rotation] not found, using default: " << _kAccMaxRot);
+
+
+    /**
+     * Experimental
+     */
     double pool_duration;
     root_nh.param(string("/constraint_estimation/pool_duration"), pool_duration, 0.5);
     if (!root_nh.hasParam("/constraint_estimation/pool_duration"))
@@ -172,6 +179,7 @@ bool ForceControlController::init(ros::NodeHandle& root_nh, ForceControlHardware
             ROS_ERROR_STREAM("[ForceControlController] Failed to open file."
                     << endl);
     }
+    cout << "[ForceControlController] initialization is done." << endl;
     return true;
 }
 
@@ -430,7 +438,7 @@ bool ForceControlController::update() {
         getchar();
     }
 
-    _hw->setControl(_pose_sent_to_robot);
+    _hw->setPose(_pose_sent_to_robot);
 
     // cout << "[ForceControlController] Update at "  << timenow << endl;
     if(_print_flag)

@@ -7,8 +7,9 @@
 #include <RobotUtilities/utilities.h>
 #include <RobotUtilities/TimerLinux.h>
 
-#include <abb_egm/abb_egm.h>
 #include <ati_netft/ati_netft.h>
+#include <abb_egm/abb_egm.h>
+#include <ur_socket/ur_socket.h>
 
 #define PI 3.1415926
 
@@ -16,8 +17,7 @@ using namespace std;
 using namespace RUT;
 
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     ROS_INFO_STREAM("Force control test node starting");
     ros::init(argc, argv, "forcecontrol_node");
     ros::NodeHandle hd;
@@ -26,22 +26,28 @@ int main(int argc, char* argv[])
      *  ForceControlHardware and ForceControlController.
      */
     Clock::time_point time0 = std::chrono::high_resolution_clock::now();
-    ABBEGM *egm = ABBEGM::Instance();
     ATINetft ati;
-    egm->init(hd, time0);
+    cout << "[test] initializing ft sensor:\n";
     ati.init(hd, time0);
+    cout << "[test] initializing robot:\n";
+    URSocket *robot = URSocket::Instance();
+    robot->init(hd, time0);
 
-    ForceControlHardware robot;
+    ForceControlHardware hardware;
     ForceControlController controller;
-    robot.init(hd, time0, &ati, egm);
-    controller.init(hd, &robot, time0);
+    cout << "[test] initializing hardware:\n";
+    hardware.init(hd, time0, &ati, robot);
+    cout << "[test] initializing controller:\n";
+    controller.init(hd, &hardware, time0);
+    cout << "[test] initializing is done:\n";
 
     /*  Some parameters for the test.
      */
     int main_loop_rate;
     double main_duration;
-    hd.param(std::string("/main_loop_rate"), main_loop_rate, 500);
+    hd.param(std::string("/forcecontrol/main_loop_rate"), main_loop_rate, 500);
     hd.param(std::string("/main_duration"), main_duration, 2.0);
+    cout << "[test] initializing is done:\n";
 
     ros::Rate pub_rate(main_loop_rate);
     int Nsteps = int(main_duration*main_loop_rate);
@@ -53,7 +59,18 @@ int main(int argc, char* argv[])
      */
     double setpose[7];
     double setforce[6] = {0};
-    robot.getPose(setpose);
+    hardware.getPose(setpose);
+    cout << "[test] Press Enter to move +20 in z: \n";
+    getchar();
+    setpose[2] += 20;
+    hardware.setPose(setpose);
+    cout << "[test] Press Enter to move -20 in z: \n";
+    getchar();
+    setpose[2] -= 20;
+    hardware.setPose(setpose);
+    cout << "[test] Press Enter to begin force control: \n";
+    getchar();
+    // return 0;
 
     Matrix6d T0, T1, T2;
     T0 = Matrix6d::Identity();
@@ -74,7 +91,7 @@ int main(int argc, char* argv[])
      *  This is showing the general procedure for setting controls.
      */
     controller.reset();
-    controller.updateAxis(T1, 5);
+    controller.updateAxis(T1, 6);
     controller.setPose(setpose); // after setPose, you must call update() before
                                  // calling updateAxis()
     controller.setForce(setforce);
@@ -82,11 +99,9 @@ int main(int argc, char* argv[])
     // ROS_INFO_STREAM("[MAIN] Press ENTER to begin.\n");
     // getchar();
     cout << "Main loop begins. " << endl;
-    ros::Duration period(EGM_PERIOD);
     RUT::Timer timer;
     double time_elapsed = 0;
-    for (int i = 0; i < Nsteps; ++i)
-    {
+    for (int i = 0; i < Nsteps; ++i) {
         // if (i == main_loop_rate*10)
         // {
         //     controller.updateAxis(T1, 3);
@@ -117,10 +132,16 @@ int main(int argc, char* argv[])
         stream_array_in(cout, controller._pose_sent_to_robot, 7);
         cout << endl;
 
+        // double w_ati[6] = {0}; // tool frame
+        // ati.getWrenchSensor(w_ati);
+        // cout << "Timestep " << i << " of " << Nsteps << ". Time: "<< time_elapsed << "ms. Force:";
+        // cout << w_ati[0] << "|" << w_ati[1] << "|" << w_ati[2] << "|   |" << w_ati[3] <<
+        //         "|" << w_ati[4] << "|" << w_ati[5] << endl;
+
 
         // // check force feedback direction
         // float p[7] = {0};
-        // robot.getPose(p);
+        // hardware.getPose(p);
 
         // Quaternionf qn;
         // qn.w() = p[3];

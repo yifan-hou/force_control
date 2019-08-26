@@ -40,7 +40,8 @@ target_link_libraries(forcecontrol_hardware ${RUT})
 add_library(forcecontrol_controller src/forcecontrol_controller.cpp)
 target_link_libraries(forcecontrol_controller ${RUT})
 
-add_executable(forcecontrol_node src/main.cpp)
-target_link_libraries(forcecontrol_node forcecontrol_hardware forcecontrol_controller
-  ${TIMER_LIB} ${catkin_LIBRARIES}
-  )
+
+##
+## Test (optional)
+##
+add_subdirectory(test)

@@ -43,7 +43,7 @@ bool ForceControlHardware::getWrench(double *wrench)
 }
 
 
-void ForceControlHardware::setControl(const double *pose_set)
+void ForceControlHardware::setPose(const double *pose_set)
 {
   _robot->setCartesian(pose_set);
 

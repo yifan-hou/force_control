@@ -27,7 +27,7 @@ class ForceControlHardware {
     void getPose(double *pose);
     bool getWrench(double *wrench); // get the wrench in tool frame
     bool getState(double *pose, double *wrench);
-    void setControl(const double *pose_set);
+    void setPose(const double *pose_set);
 
     FTInterfaces *_ft;
     RobotInterfaces *_robot;

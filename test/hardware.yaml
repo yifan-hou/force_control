@@ -1,0 +1,72 @@
+robot:
+  max_dist_tran: 5 # mm, maximum distance between set point and current pose.
+  max_dist_rot: 0.05 # rad, maximum distance between set point and current pose.
+  safety_mode: 1 # 0: none 1: truncate 2: stop
+  operation_mode: 0 # 0: cartesian 1: joint
+  safe_zone:
+    xmin: -50
+    xmax: 500
+    ymin: -690
+    ymax: -180
+    zmin: 0
+    zmax: 700
+
+ftsensor:
+  offset: # will be added to the reading; in tool frame
+    fx: 0.577
+    fy: 2.27
+    fz: -2.37
+    tx: 0.235
+    ty: -0.117
+    tz: 0.00682
+  gravity:
+    x: -0.00521
+    y: 0.0116
+    z: -2.28
+  COM:
+    x: -0.000175
+    y: -7.69e-05
+    z: -0.0791
+  safety:
+    fx: 25 # maximum: 20
+    fy: 25 # maximum: 20
+    fz: 45 # maximum: 60
+    tx: 1.2 # maximum: 1
+    ty: 1.2 # maximum: 1
+    tz: 1.2 # maximum: 1
+  transform_sensor_to_tool:
+    x: 0 # meter
+    y: 0
+    z: -0.03425
+    qw: 0.9808
+    qx: 0
+    qy: 0
+    qz: 0.1951
+
+##
+## Device specific parameters
+##
+
+# UR socket
+ur:
+  portnum: 30003
+  ip: "192.168.1.98"
+  a: 9.0  # max acceleration
+  v: 0.5  # max velocity
+  t: 0.002  # motion time (overides a and v)
+  r: 0.0000  # blend radius
+
+# ati netft
+netft:
+  ip_address: "192.168.1.1"
+  sensor_name: "netft"
+  frame_id: "end_effector"
+  publish_rate: 1000
+  print_flag: false
+  file_path: "/home/yifan/catkin_ws_mlab/src/forcecontrol/test/data/netft_data.txt"
+
+# ABB EGM
+egm:
+  portnum: 6510
+  print_flag: false
+  file_path: "/home/yifan/catkin_ws_mlab/src/forcecontrol/test/data/egm_data.txt"

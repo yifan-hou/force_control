@@ -60,17 +60,32 @@ int main(int argc, char* argv[]) {
     double setpose[7];
     double setforce[6] = {0};
     hardware.getPose(setpose);
-    cout << "[test] Press Enter to move +20 in z: \n";
+    cout << "[test] Press Enter to move: \n";
     getchar();
-    setpose[2] += 20;
-    hardware.setPose(setpose);
-    cout << "[test] Press Enter to move -20 in z: \n";
-    getchar();
-    setpose[2] -= 20;
-    hardware.setPose(setpose);
+    double pose_fb[7];
+    for (int i = 0; i < 200; ++i) {
+        setpose[0] += 0.2;
+        hardware.setPose(setpose);
+        usleep(2*1000);
+        hardware.getPose(pose_fb);
+        cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << endl;
+    }
+    for (int i = 0; i < 200; ++i) {
+        setpose[0] -= 0.2;
+        hardware.setPose(setpose);
+        usleep(2*1000);
+        hardware.getPose(pose_fb);
+        cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << endl;
+    }
+    for (int i = 0; i < 200; ++i) {
+        hardware.setPose(setpose);
+        usleep(2*1000);
+        hardware.getPose(pose_fb);
+        cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << endl;
+    }
+
     cout << "[test] Press Enter to begin force control: \n";
     getchar();
-    // return 0;
 
     Matrix6d T0, T1, T2;
     T0 = Matrix6d::Identity();

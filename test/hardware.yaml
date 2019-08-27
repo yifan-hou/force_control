@@ -12,21 +12,21 @@ robot:
     zmax: 700
 
 ftsensor:
-  offset: # will be added to the reading; in tool frame
-    fx: 0.577
-    fy: 2.27
-    fz: -2.37
-    tx: 0.235
-    ty: -0.117
-    tz: 0.00682
+  offset:
+    fx: 1.23717
+    fy: 0.352367
+    fz: 4.85744
+    tx: 0.0324782
+    ty: -0.149943
+    tz: 0.0110195
   gravity:
-    x: -0.00521
-    y: 0.0116
-    z: -2.28
+    x: 0.130298
+    y: 0.060738
+    z: -1.72443
   COM:
-    x: -0.000175
-    y: -7.69e-05
-    z: -0.0791
+    x: -0.00055169
+    y: 0.00036072
+    z: -0.0754539
   safety:
     fx: 25 # maximum: 20
     fy: 25 # maximum: 20
@@ -37,7 +37,7 @@ ftsensor:
   transform_sensor_to_tool:
     x: 0 # meter
     y: 0
-    z: -0.03425
+    z: 0.0927
     qw: 0.9808
     qx: 0
     qy: 0
@@ -51,10 +51,9 @@ ftsensor:
 ur:
   portnum: 30003
   ip: "192.168.1.98"
-  a: 9.0  # max acceleration
-  v: 0.5  # max velocity
-  t: 0.002  # motion time (overides a and v)
-  r: 0.0000  # blend radius
+  t: 0.01  # motion time
+  lookahead: 0.03  # look ahead time, (0.03 ~ 0.2)
+  gain: 2000  # Gain, (100 ~ 2000)
 
 # ati netft
 netft:

@@ -6,7 +6,7 @@
 
   <maintainer email="yifanh@cmu.edu">Yifan Hou</maintainer>
 
-  <license>BSD</license>
+  <license>MIT</license>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>hardware_interfaces</build_depend>

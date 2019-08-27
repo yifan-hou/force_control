@@ -1,7 +1,7 @@
 ##
 ## Testing
 ##
-main_duration: 5 # sec
+main_duration: 15 # sec
 
 ##
 ## Force control
@@ -18,9 +18,9 @@ forcecontrol:
   #   Stiffness matrix as viewed in tool frame
   Stiffness_matrix_diag_elements: [0.2, 0.2, 0.2, 0.5, 0.5, 0.5]
   #   Inertia matrix as viewed in tool frame
-  Inertia_matrix_diag_elements: [1, 1, 1, 0.005, 0.005, 0.005]
+  Inertia_matrix_diag_elements: [0.1, 0.1, 0.1, 0.001, 0.001, 0.001]
   #   Damping coefficient matrix as viewed in tool frame
-  Damping_matrix_diag_elements: [20, 20, 20, 0.8, 0.8, 0.8]
+  Damping_matrix_diag_elements: [0.5, 0.5, 0.5, 0.01, 0.01, 0.01]
   # Force control PID Gains
   # one set for translation, another set for rotation
   FC_gains:

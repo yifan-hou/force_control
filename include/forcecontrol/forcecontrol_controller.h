@@ -69,19 +69,15 @@ public:
   /* Middle level interfaces (with motion planning) */
 
   /**
-   * Execute a 6D HFVC command.
-   * The duration of the motion is determined by the set pose and the internal
-   * motion planning (trapezodial interpolation). The speed limit is set in the
-   * YAML parameter files. The number of timesteps is further determined by
-   * @p main_loop_rate.
+   * Execute a 6D HFVC command. The number of timesteps is determined by @p
+   * main_loop_rate and @p duration.
    *
-   * There are two modes:
-   *  HS_STOP_AND_GO: user recomputes @p pose_set based on robot's current pose
-   *  feedback before calling this function.
-   *  HS_CONTINUOUS: user is sending a pre-computed trajectory frame by frame.
-   * The difference is that, HS_STOP_AND_GO mode will reset every time you call
-   * this function. The two modes are the same if there is no motion in the
-   * force controlled directions. (e.g. n_af = 0)
+   * There are two modes: HS_STOP_AND_GO: user recomputes @p pose_set based on
+   * robot's current pose feedback before calling this function. HS_CONTINUOUS:
+   * user is sending a pre-computed trajectory frame by frame. The difference is
+   * that, HS_STOP_AND_GO mode will reset every time you call this function. The
+   * two modes are the same if there is no motion in the force controlled
+   * directions. (e.g. n_af = 0)
    *
    * @param[in]  n_af            The dimension of force command
    * @param[in]  n_av            The dimension of velocity command
@@ -92,14 +88,15 @@ public:
    * @param[in]  force_set       6x1 force vector, described in the transformed
    *                             action space
    * @param[in]  mode            HS_STOP_AND_GO or HS_CONTINUOUS.
-   * @param[in]  main_loop_rate  The main loop rate
+   * @param[in]  main_loop_rate  The main loop rate in Hz
+   * @param[in]  duration        The duration in seconds
    *
    * @return     true if success
    */
   bool ExecuteHFVC(const int n_af, const int n_av,
       const Eigen::Matrix<double, 6, 6> R_a, const double *pose_set,
       const double *force_set,
-      HYBRID_SERVO_MODE mode, const int main_loop_rate);
+      HYBRID_SERVO_MODE mode, const int main_loop_rate, const double duration);
 
 
   // parameters

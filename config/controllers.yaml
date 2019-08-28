@@ -7,7 +7,7 @@ main_duration: 15 # sec
 ## Force control
 ##
 forcecontrol:
-  main_loop_rate: 500 #500
+  main_loop_rate: 250 #500
   # Admittance control parameters for the pseudo spring-mass-damper system
   # Be careful with Trade-off between length and angle
   # Assume length is 0.1, then:
@@ -20,7 +20,7 @@ forcecontrol:
   #   Inertia matrix as viewed in tool frame
   Inertia_matrix_diag_elements: [0.1, 0.1, 0.1, 0.001, 0.001, 0.001]
   #   Damping coefficient matrix as viewed in tool frame
-  Damping_matrix_diag_elements: [0.5, 0.5, 0.5, 0.01, 0.01, 0.01]
+  Damping_matrix_diag_elements: [1, 1, 1, 0.02, 0.02, 0.02]
   # Force control PID Gains
   # one set for translation, another set for rotation
   FC_gains:

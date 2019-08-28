@@ -517,7 +517,7 @@ void ForceControlController::updateAxis(const Matrix6d &Tr, int n_af)
 
 bool ForceControlController::ExecuteHFVC(const int n_af, const int n_av,
   const Matrix6d R_a, const double *pose_set, const double *force_set,
-  HYBRID_SERVO_MODE mode, const int main_loop_rate) {
+  HYBRID_SERVO_MODE mode, const int main_loop_rate, const double duration) {
     assert(n_af + n_av == 6);
     if (mode == HS_STOP_AND_GO) {
       reset();
@@ -533,7 +533,7 @@ bool ForceControlController::ExecuteHFVC(const int n_af, const int n_av,
       RUT::copyArray(_pose_user_input, pose_fb, 7);
 
     /* Motion Planning */
-    int num_of_steps = main_loop_rate * 0.1;
+    int num_of_steps = round(double(main_loop_rate) * duration);
     MatrixXd pose_traj;
     RUT::MotionPlanningLinear(pose_fb, pose_set, num_of_steps, &pose_traj);
     // MotionPlanningTrapezodial(pose_fb, pose_set, _kAccMaxTrans, _kVelMaxTrans,
@@ -544,13 +544,13 @@ bool ForceControlController::ExecuteHFVC(const int n_af, const int n_av,
     bool b_is_safe = true;
     for (int i = 0; i < num_of_steps; ++i) {
       // cout << "[Hybrid] update step " << i << " of " << num_of_steps;
-      // cout << ", pose sent: " << pose_traj[i][0] << ", " << pose_traj[i][1];
-      // cout << ", " << pose_traj[i][2] << endl;
+      // cout << ", pose sent: " << pose_traj(0, i) << ", " << pose_traj(1, i);
+      // cout << ", " << pose_traj(2, i) << endl;
       setPose(pose_traj.col(i).data());
       // !! after setPose, must call update before updateAxis
       // so as to set correct value for pose_command
       b_is_safe = update();
-      if(!b_is_safe) break;
+      // if(!b_is_safe) break;
       pub_rate.sleep();
     }
     return b_is_safe;

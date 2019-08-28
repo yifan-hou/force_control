@@ -51,7 +51,7 @@ ftsensor:
 ur:
   portnum: 30003
   ip: "192.168.1.98"
-  t: 0.01  # motion time
+  t: 0.02  # motion time
   lookahead: 0.03  # look ahead time, (0.03 ~ 0.2)
   gain: 2000  # Gain, (100 ~ 2000)
 

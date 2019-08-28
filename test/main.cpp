@@ -63,27 +63,31 @@ int main(int argc, char* argv[]) {
     cout << "[test] Press Enter to move: \n";
     getchar();
     double pose_fb[7];
-    for (int i = 0; i < 200; ++i) {
-        setpose[0] += 0.2;
+    Timer timer;
+    timer.tic();
+    for (int i = 0; i < 300; ++i) {
+        setpose[0] += 0.4;
         hardware.setPose(setpose);
-        usleep(2*1000);
+        pub_rate.sleep();
         hardware.getPose(pose_fb);
-        cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << endl;
+        cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << "t: " << timer.toc() << endl;
+        timer.tic();
     }
-    for (int i = 0; i < 200; ++i) {
-        setpose[0] -= 0.2;
+    for (int i = 0; i < 300; ++i) {
+        setpose[0] -= 0.4;
         hardware.setPose(setpose);
-        usleep(2*1000);
+        pub_rate.sleep();
         hardware.getPose(pose_fb);
-        cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << endl;
+        cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << "t: " << timer.toc() << endl;
+        timer.tic();
     }
-    for (int i = 0; i < 200; ++i) {
+    for (int i = 0; i < 100; ++i) {
         hardware.setPose(setpose);
-        usleep(2*1000);
+        pub_rate.sleep();
         hardware.getPose(pose_fb);
-        cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << endl;
+        cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << "t: " << timer.toc() << endl;
+        timer.tic();
     }
-
     cout << "[test] Press Enter to begin force control: \n";
     getchar();
 
@@ -114,7 +118,6 @@ int main(int argc, char* argv[]) {
     // ROS_INFO_STREAM("[MAIN] Press ENTER to begin.\n");
     // getchar();
     cout << "Main loop begins. " << endl;
-    RUT::Timer timer;
     double time_elapsed = 0;
     for (int i = 0; i < Nsteps; ++i) {
         // if (i == main_loop_rate*10)

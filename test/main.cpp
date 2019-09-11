@@ -58,7 +58,6 @@ int main(int argc, char* argv[]) {
     /*  Set control commands.
      */
     double setpose[7];
-    double setforce[6] = {0};
     hardware.getPose(setpose);
     cout << "[test] Press Enter to move: \n";
     getchar();
@@ -99,7 +98,7 @@ int main(int argc, char* argv[]) {
           1, 0, 0, 0, 0, 0,
           0, 1, 0, 0, 0, 0,
           0, 0, 1, 0, 0, 0;
-    T1 << 1, 0, 0, 0, 0, 0,
+    T2 << 1, 0, 0, 0, 0, 0,
           0, 1, 0, 0, 0, 0,
           0, 0, 0, 1, 0, 0,
           0, 0, 0, 0, 1, 0,
@@ -110,9 +109,11 @@ int main(int argc, char* argv[]) {
      *  This is showing the general procedure for setting controls.
      */
     controller.reset();
-    controller.updateAxis(T1, 6);
+    controller.updateAxis(T0, 6);
     controller.setPose(setpose); // after setPose, you must call update() before
                                  // calling updateAxis()
+    double setforce[6] = {0};
+    setforce[0] = 5;
     controller.setForce(setforce);
 
     // ROS_INFO_STREAM("[MAIN] Press ENTER to begin.\n");
@@ -120,19 +121,31 @@ int main(int argc, char* argv[]) {
     cout << "Main loop begins. " << endl;
     double time_elapsed = 0;
     for (int i = 0; i < Nsteps; ++i) {
-        // if (i == main_loop_rate*10)
-        // {
-        //     controller.updateAxis(T1, 3);
-        //     // setpose[0] += xyz_set_diff1(0);
-        //     // setpose[1] += xyz_set_diff1(1);
-        //     // setpose[2] += xyz_set_diff1(2);
-        //     // controller.setPose(setpose);
+        if (i == main_loop_rate*10)
+        {
+            controller.updateAxis(T0, 3);
+            // setpose[0] += xyz_set_diff1(0);
+            // setpose[1] += xyz_set_diff1(1);
+            // setpose[2] += xyz_set_diff1(2);
+            // controller.setPose(setpose);
 
-        //     // setforce[0] = 5;
+            // setforce[0] = 5;
+            // controller.setForce(setforce);
 
-        //     // controller.setForce(setforce);
-        //     cout << "update Axis to set 1" << endl;
-        // }
+            cout << "update Axis to set 1" << endl;
+        } else if (i == main_loop_rate*20)
+        {
+            controller.updateAxis(T1, 3);
+            // setpose[0] += xyz_set_diff1(0);
+            // setpose[1] += xyz_set_diff1(1);
+            // setpose[2] += xyz_set_diff1(2);
+            // controller.setPose(setpose);
+
+            // setforce[0] = 5;
+
+            // controller.setForce(setforce);
+            cout << "update Axis to set 1" << endl;
+        }
 
         // update
         timer.tic();

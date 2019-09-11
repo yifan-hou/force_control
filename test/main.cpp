@@ -1,6 +1,6 @@
 
-#include <forcecontrol/forcecontrol_hardware.h>
-#include <forcecontrol/forcecontrol_controller.h>
+#include <force_control/force_control_hardware.h>
+#include <force_control/force_control_controller.h>
 
 #include <iostream>
 
@@ -19,7 +19,7 @@ using namespace RUT;
 
 int main(int argc, char* argv[]) {
     ROS_INFO_STREAM("Force control test node starting");
-    ros::init(argc, argv, "forcecontrol_node");
+    ros::init(argc, argv, "force_control_node");
     ros::NodeHandle hd;
 
     /*  First, we need to instantiate and initialize objects of
@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
      */
     int main_loop_rate;
     double main_duration;
-    hd.param(std::string("/forcecontrol/main_loop_rate"), main_loop_rate, 500);
+    hd.param(std::string("/force_control/main_loop_rate"), main_loop_rate, 500);
     hd.param(std::string("/main_duration"), main_duration, 2.0);
     cout << "[test] initializing is done:\n";
 

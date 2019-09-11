@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>forcecontrol</name>
+  <name>force_control</name>
   <version>0.0.0</version>
-  <description>The forcecontrol package</description>
+  <description>The force control package</description>
 
   <maintainer email="yifanh@cmu.edu">Yifan Hou</maintainer>
 

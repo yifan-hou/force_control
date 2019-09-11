@@ -1,6 +1,6 @@
 #pragma once
-#ifndef _FORCECONTROL_CONTROLLER_H_
-#define _FORCECONTROL_CONTROLLER_H_
+#ifndef _FORCE_CONTROL_CONTROLLER_H_
+#define _FORCE_CONTROL_CONTROLLER_H_
 
 
 #include <fstream>
@@ -9,7 +9,7 @@
 
 #include <Eigen/Geometry>
 
-#include <forcecontrol/forcecontrol_hardware.h>
+#include <force_control/force_control_hardware.h>
 
 enum HYBRID_SERVO_MODE {
   HS_STOP_AND_GO,
@@ -151,4 +151,4 @@ private:
 
 };
 
-#endif // _FORCECONTROL_CONTROLLER_H_
+#endif // _FORCE_CONTROL_CONTROLLER_H_

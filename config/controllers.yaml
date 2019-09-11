@@ -6,7 +6,7 @@ main_duration: 8 # sec
 ##
 ## Force control
 ##
-forcecontrol:
+force_control:
   main_loop_rate: 250 #500
   # Admittance control parameters for the pseudo spring-mass-damper system
   # Be careful with Trade-off between length and angle
@@ -32,7 +32,7 @@ forcecontrol:
     DGainR: 0.00 #0.00
   FC_I_Limit_T_6D: [50, 50, 50, 0.5, 0.5, 0.5] # Newton, N*m
   print_flag: true
-  file_path: "/home/yifan/catkin_mlab_ws/src/forcecontrol/test/data/forcecontrol_data.txt"
+  file_path: "/home/yifan/catkin_mlab_ws/src/force_control/test/data/force_control_data.txt"
 
 ##
 ## Trapezodial motion planning

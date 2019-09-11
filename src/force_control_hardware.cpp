@@ -1,4 +1,4 @@
-#include <forcecontrol/forcecontrol_hardware.h>
+#include <force_control/force_control_hardware.h>
 
 #include <RobotUtilities/utilities.h>
 

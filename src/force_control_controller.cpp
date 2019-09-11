@@ -1,4 +1,4 @@
-#include <forcecontrol/forcecontrol_controller.h>
+#include <force_control/force_control_controller.h>
 
 #include <iostream>
 #include <string>
@@ -68,31 +68,31 @@ bool ForceControlController::init(ros::NodeHandle& root_nh,
      * Force control parameters
      */
     double fHz;
-    root_nh.param(string("/forcecontrol/main_loop_rate"), fHz, 500.0);
-    if (!root_nh.hasParam("/forcecontrol/main_loop_rate"))
-        ROS_WARN_STREAM("Parameter [/forcecontrol/main_loop_rate] not found");
+    root_nh.param(string("/force_control/main_loop_rate"), fHz, 500.0);
+    if (!root_nh.hasParam("/force_control/main_loop_rate"))
+        ROS_WARN_STREAM("Parameter [/force_control/main_loop_rate] not found");
 
     // Spring-mass-damper coefficients
     std::vector<double> Stiffness_matrix_diag_elements,
             Inertia_matrix_diag_elements,
             Damping_matrix_diag_elements;
-    root_nh.getParam("/forcecontrol/Stiffness_matrix_diag_elements",
+    root_nh.getParam("/force_control/Stiffness_matrix_diag_elements",
             Stiffness_matrix_diag_elements);
-    root_nh.getParam("/forcecontrol/Inertia_matrix_diag_elements",
+    root_nh.getParam("/force_control/Inertia_matrix_diag_elements",
             Inertia_matrix_diag_elements);
-    root_nh.getParam("/forcecontrol/Damping_matrix_diag_elements",
+    root_nh.getParam("/force_control/Damping_matrix_diag_elements",
             Damping_matrix_diag_elements);
 
-    if (!root_nh.hasParam("/forcecontrol/Stiffness_matrix_diag_elements")) {
-        ROS_ERROR_STREAM("Parameter [/forcecontrol/Stiffness_matrix_diag_elements] not found");
+    if (!root_nh.hasParam("/force_control/Stiffness_matrix_diag_elements")) {
+        ROS_ERROR_STREAM("Parameter [/force_control/Stiffness_matrix_diag_elements] not found");
         return false;
     }
-    if (!root_nh.hasParam("/forcecontrol/Inertia_matrix_diag_elements")) {
-        ROS_ERROR_STREAM("Parameter [/forcecontrol/Inertia_matrix_diag_elements] not found");
+    if (!root_nh.hasParam("/force_control/Inertia_matrix_diag_elements")) {
+        ROS_ERROR_STREAM("Parameter [/force_control/Inertia_matrix_diag_elements] not found");
         return false;
     }
-    if (!root_nh.hasParam("/forcecontrol/Damping_matrix_diag_elements")) {
-        ROS_ERROR_STREAM("Parameter [/forcecontrol/Damping_matrix_diag_elements] not found");
+    if (!root_nh.hasParam("/force_control/Damping_matrix_diag_elements")) {
+        ROS_ERROR_STREAM("Parameter [/force_control/Damping_matrix_diag_elements] not found");
         return false;
     }
 
@@ -104,30 +104,30 @@ bool ForceControlController::init(ros::NodeHandle& root_nh,
     // force control gains
     std::vector<double> FC_I_Limit_T_6D_elements;
 
-    root_nh.param(string("/forcecontrol/FC_gains/PGainT"), _kForceControlPGainTran, 0.0);
-    root_nh.param(string("/forcecontrol/FC_gains/IGainT"), _kForceControlIGainTran, 0.0);
-    root_nh.param(string("/forcecontrol/FC_gains/DGainT"), _kForceControlDGainTran, 0.0);
-    root_nh.param(string("/forcecontrol/FC_gains/PGainR"), _kForceControlPGainRot, 0.0);
-    root_nh.param(string("/forcecontrol/FC_gains/IGainR"), _kForceControlIGainRot, 0.0);
-    root_nh.param(string("/forcecontrol/FC_gains/DGainR"), _kForceControlDGainRot, 0.0);
-    root_nh.getParam("/forcecontrol/FC_I_Limit_T_6D", FC_I_Limit_T_6D_elements);
-    if (!root_nh.hasParam("/forcecontrol/FC_gains"))
-        ROS_WARN_STREAM("Parameter [/forcecontrol/FC_gains] not found, using default.");
-    if (!root_nh.hasParam("/forcecontrol/FC_I_Limit_T_6D")) {
-        ROS_ERROR_STREAM("Parameter [/forcecontrol/FC_I_Limit_T_6D] not found");
+    root_nh.param(string("/force_control/FC_gains/PGainT"), _kForceControlPGainTran, 0.0);
+    root_nh.param(string("/force_control/FC_gains/IGainT"), _kForceControlIGainTran, 0.0);
+    root_nh.param(string("/force_control/FC_gains/DGainT"), _kForceControlDGainTran, 0.0);
+    root_nh.param(string("/force_control/FC_gains/PGainR"), _kForceControlPGainRot, 0.0);
+    root_nh.param(string("/force_control/FC_gains/IGainR"), _kForceControlIGainRot, 0.0);
+    root_nh.param(string("/force_control/FC_gains/DGainR"), _kForceControlDGainRot, 0.0);
+    root_nh.getParam("/force_control/FC_I_Limit_T_6D", FC_I_Limit_T_6D_elements);
+    if (!root_nh.hasParam("/force_control/FC_gains"))
+        ROS_WARN_STREAM("Parameter [/force_control/FC_gains] not found, using default.");
+    if (!root_nh.hasParam("/force_control/FC_I_Limit_T_6D")) {
+        ROS_ERROR_STREAM("Parameter [/force_control/FC_I_Limit_T_6D] not found");
         return false;
     }
     _FC_I_limit_T_6D = Vector6d(FC_I_Limit_T_6D_elements.data());
 
     // printing
     string fullpath;
-    root_nh.param(string("/forcecontrol/print_flag"), _print_flag, false);
-    root_nh.param(string("/forcecontrol/file_path"), fullpath, string(" "));
+    root_nh.param(string("/force_control/print_flag"), _print_flag, false);
+    root_nh.param(string("/force_control/file_path"), fullpath, string(" "));
 
-    if (!root_nh.hasParam("/forcecontrol/print_flag"))
-        ROS_WARN_STREAM("Parameter [/forcecontrol/print_flag] not found");
-    if (!root_nh.hasParam("/forcecontrol/file_path"))
-        ROS_WARN_STREAM("Parameter [/forcecontrol/file_path] not found");
+    if (!root_nh.hasParam("/force_control/print_flag"))
+        ROS_WARN_STREAM("Parameter [/force_control/print_flag] not found");
+    if (!root_nh.hasParam("/force_control/file_path"))
+        ROS_WARN_STREAM("Parameter [/force_control/file_path] not found");
 
     /**
      * Trapezodial motion planning

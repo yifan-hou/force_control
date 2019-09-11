@@ -62,10 +62,10 @@ netft:
   frame_id: "end_effector"
   publish_rate: 1000
   print_flag: false
-  file_path: "/home/yifan/catkin_ws_mlab/src/forcecontrol/test/data/netft_data.txt"
+  file_path: "/home/yifan/catkin_ws_mlab/src/force_control/test/data/netft_data.txt"
 
 # ABB EGM
 egm:
   portnum: 6510
   print_flag: false
-  file_path: "/home/yifan/catkin_ws_mlab/src/forcecontrol/test/data/egm_data.txt"
+  file_path: "/home/yifan/catkin_ws_mlab/src/force_control/test/data/egm_data.txt"

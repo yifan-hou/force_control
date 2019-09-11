@@ -1,4 +1,4 @@
-frc_data = dlmread('forcecontrol_data.txt');
+frc_data = dlmread('force_control_data.txt');
 % egm_data = dlmread('../data/egm_data.txt');
 % ati_data = dlmread('../data/netft_data.txt');
 

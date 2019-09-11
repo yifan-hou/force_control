@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(forcecontrol)
+project(force_control)
 
 add_definitions(-std=c++11)
 
@@ -17,7 +17,7 @@ find_package(Boost REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
   CATKIN_DEPENDS roscpp hardware_interfaces
-  LIBRARIES forcecontrol_controller forcecontrol_hardware
+  LIBRARIES force_control_controller force_control_hardware
 )
 
 include_directories(
@@ -34,11 +34,11 @@ find_library(RUT Utilities HINTS /usr/local/lib/RobotUtilities)
 ## Build ##
 ###########
 
-add_library(forcecontrol_hardware src/forcecontrol_hardware.cpp)
-target_link_libraries(forcecontrol_hardware ${RUT})
+add_library(force_control_hardware src/force_control_hardware.cpp)
+target_link_libraries(force_control_hardware ${RUT})
 
-add_library(forcecontrol_controller src/forcecontrol_controller.cpp)
-target_link_libraries(forcecontrol_controller ${RUT})
+add_library(force_control_controller src/force_control_controller.cpp)
+target_link_libraries(force_control_controller ${RUT})
 
 
 ##

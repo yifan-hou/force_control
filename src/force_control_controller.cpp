@@ -1,5 +1,6 @@
 #include <force_control/force_control_controller.h>
 
+#include <cmath>
 #include <iostream>
 #include <string>
 
@@ -501,7 +502,7 @@ void ForceControlController::updateAxis(const Matrix6d &Tr, int n_af)
     _Tr         = Tr;
     _Tr_inv     = _Tr.inverse();
 
-    if (isnan(_SE3_WToffset(0,0))) {
+    if (std::isnan(_SE3_WToffset(0,0))) {
         cout << "SE3_WT_fb:\n" << SE3_WT_fb.format(MatlabFmt) << endl;
         cout << "SE3_TSo:\n" << SE3_TSo.format(MatlabFmt) << endl;
         cout << "spt_TSo:\n" << spt_TSo.format(MatlabFmt) << endl;

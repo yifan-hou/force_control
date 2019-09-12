@@ -1,2 +1,3 @@
 data/*.txt
 .vscode/
+*sublime*

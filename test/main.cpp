@@ -30,7 +30,8 @@ int main(int argc, char* argv[]) {
     cout << "[test] initializing ft sensor:\n";
     ati.init(hd, time0);
     cout << "[test] initializing robot:\n";
-    URSocket *robot = URSocket::Instance();
+    ABBEGM *robot = ABBEGM::Instance();
+    // URSocket *robot = URSocket::Instance();
     robot->init(hd, time0);
 
     ForceControlHardware hardware;
@@ -109,7 +110,7 @@ int main(int argc, char* argv[]) {
      *  This is showing the general procedure for setting controls.
      */
     controller.reset();
-    controller.updateAxis(T0, 6);
+    controller.updateAxis(T0, 5);
     controller.setPose(setpose); // after setPose, you must call update() before
                                  // calling updateAxis()
     double setforce[6] = {0};

@@ -1,0 +1,62 @@
+robot:
+  max_dist_tran: 5 # mm, maximum distance between set point and current pose.
+  max_dist_rot: 0.05 # rad, maximum distance between set point and current pose.
+  safety_mode: 1 # 0: none 1: truncate 2: stop
+  operation_mode: 0 # 0: cartesian 1: joint
+  safe_zone:
+    xmin: -500
+    xmax: 500
+    ymin: 100
+    ymax: 500
+    zmin: 0
+    zmax: 500
+
+ftsensor:
+  offset:
+    fx: 0
+    fy: 0
+    fz: 0
+    tx: 0
+    ty: 0
+    tz: 0
+  gravity:
+    x: 0
+    y: 0
+    z: 0
+  COM:
+    x: 0
+    y: 0
+    z: 0
+  safety:
+    fx: 25 # maximum: 20
+    fy: 25 # maximum: 20
+    fz: 45 # maximum: 60
+    tx: 1.2 # maximum: 1
+    ty: 1.2 # maximum: 1
+    tz: 1.2 # maximum: 1
+  transform_sensor_to_tool:
+    x: 0 # meter
+    y: 0
+    z: 0.0654
+    qw: 0.9808
+    qx: 0
+    qy: 0
+    qz: 0.1951
+
+##
+## Device specific parameters
+##
+# ati netft
+netft:
+  ip_address: "192.168.1.1"
+  sensor_name: "netft"
+  frame_id: "end_effector"
+  publish_rate: 1000
+  print_flag: false
+  file_path: "/usr0/home/yifanh/Git/catkin_ws/src/force_control/test/data/netft_data.txt"
+
+# ABB EGM
+egm:
+  portnum: 6510
+  print_flag: false
+  file_path: "/usr0/home/yifanh/Git/catkin_ws/src/force_control/test/data/egm_data.txt"

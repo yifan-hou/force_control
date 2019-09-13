@@ -1,0 +1,56 @@
+##
+## Testing
+##
+main_duration: 5 # sec
+
+##
+## Force control
+##
+force_control:
+  main_loop_rate: 400 #500
+  # Admittance control parameters for the pseudo spring-mass-damper system
+  # Be careful with Trade-off between length and angle
+  # Assume length is 0.1, then:
+  #   stiffness for rotation should be multiplied with 0.1, so as to feel the same
+  #   Inertia entries for rotation should be multiplied with 0.01
+  #   Damping coefficient for rotation should be multiplied with 0.1
+  # The following parameters are the diagonal elements of the 6x6 matrices
+  #   Stiffness matrix as viewed in tool frame
+  Stiffness_matrix_diag_elements: [0.2, 0.2, 0.2, 0.5, 0.5, 0.5]
+  #   Inertia matrix as viewed in tool frame
+  Inertia_matrix_diag_elements: [1, 1, 1, 0.005, 0.005, 0.005]
+  #   Damping coefficient matrix as viewed in tool frame
+  Damping_matrix_diag_elements: [20, 20, 20, 0.8, 0.8, 0.8]
+  # Force control PID Gains
+  # one set for translation, another set for rotation
+  FC_gains:
+    IGainT: 0.005 # 0.02
+    PGainT: 0 #0.5
+    DGainT: 0.00 #0.00
+    IGainR: 0.005 # 0.02
+    PGainR: 0 #0.5
+    DGainR: 0.00 #0.00
+  FC_I_Limit_T_6D: [50, 50, 50, 0.5, 0.5, 0.5] # Newton, N*m
+  print_flag: true
+  file_path: "/usr0/home/yifanh/Git/catkin_ws/src/force_control/test/data/force_control_data.txt"
+
+##
+## Trapezodial motion planning
+##
+trapezodial:
+  vel_max_translation: 80 # mm/s
+  acc_max_translation: 1000 # mm/s^2
+  vel_max_rotation: 0.6 # rad/s
+  acc_max_rotation: 10 # rad/s^2
+
+##
+## Experimental
+##
+constraint_estimation:
+    pool_duration: 0.2 #s
+    scale_force_vector: [1, 1, 1, 10, 10, 10] # Newton, N*m
+    scale_vel_vector: [1, 1, 1, 0.5, 0.5, 0.5] # m/s, rad/s
+    var_force: 1.5 # variance of force magnitude after scaling
+    var_velocity: 0.005 # variance of velocity magnitude after scaling
+    v_singular_value_threshold: 0.5
+    f_singular_value_threshold: 0.1

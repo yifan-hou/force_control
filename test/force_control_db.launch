@@ -1,5 +1,0 @@
-<launch>
-  <rosparam file="$(find force_control)/test/hardware.yaml" command="load"/>
-  <rosparam file="$(find force_control)/config/controllers.yaml" command="load"  />
-  <node pkg="force_control" name="force_control_hw" type="force_control_node"  output="screen" launch-prefix="gdb -ex run --args" />
-</launch>

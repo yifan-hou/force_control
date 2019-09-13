@@ -1,7 +1,7 @@
 ##
 ## Testing
 ##
-main_duration: 8 # sec
+main_duration: 5 # sec
 
 ##
 ## Force control
@@ -32,7 +32,7 @@ force_control:
     DGainR: 0.00 #0.00
   FC_I_Limit_T_6D: [50, 50, 50, 0.5, 0.5, 0.5] # Newton, N*m
   print_flag: true
-  file_path: "/home/yifan/catkin_mlab_ws/src/force_control/test/data/force_control_data.txt"
+  file_path: "/home/yifanh/Git/catkin_ws/src/force_control/test/data/force_control_data.txt"
 
 ##
 ## Trapezodial motion planning

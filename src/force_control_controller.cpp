@@ -237,7 +237,10 @@ bool ForceControlController::getToolWrench(Eigen::Matrix<double, 6, 1> *wrench) 
 bool ForceControlController::update() {
     double pose_fb[7];
     double wrench_fb[6];
-    bool is_safe = _hw->getState(pose_fb, wrench_fb);
+    bool unsafe = _hw->getState(pose_fb, wrench_fb);
+    printf("    F fb: %.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\n", wrench_fb[0],
+        wrench_fb[1], wrench_fb[2],wrench_fb[3],wrench_fb[4],wrench_fb[5]);
+
     // ----------------------------------------
     //  Compute Forces in Generalized space
     // ----------------------------------------
@@ -302,43 +305,61 @@ bool ForceControlController::update() {
 
     /* Update weights of data
      * Rules
+     *  Force and velocity should be orthogonal. The data are not orthogonal
+     *  because of noise. Assume a distribution of noise, we can compute the
+     *  probability of having current feedback given an old data. We use this
+     *  probability to update the weights of old data.
+     *
      * Every time we receive a new data, do the following:
      * 1. Set the weight of the new data = 1
-     * 2. For the new force data, check each old velocity data:
+     * 2. Check each old velocity data:
      *   1. Discount velocity data if it is not orthogonal with the force
-     * 3. For the new velocity data, check each old force data:
-     *   1. Discount force data if it is not orthogonal with the velocity
+     * 3. Check each old force data:
+     *   1. Discount force data if it is not orthogonal with the velocity and
+     *      not aligned with new force
      */
 
-    // double norm_new_force = _f_queue[0].norm();
-    // double norm_new_velocity = _v_queue[0].norm();
-    // double kVarRatio = _var_force/_var_velocity;
-    // double p_force_max = UT::Gaussian(0, _var_force);
-    // for (int i = 1; i < _f_queue.size(); ++i) {
-    //   // check all the velocity data
-    //   double dot = abs(_f_queue[0].dot(_v_queue[i]));
-    //   double norm_velocity = _v_queue[i].norm();
-    //   double distance_force = (norm_velocity > 1e-7)? dot/norm_velocity:0;
-    //   double distance_velocity = (norm_new_force > 1e-7)? dot/norm_new_force:0;
-    //   double distance =          // keep the same variance between f and v
-    //         std::min(distance_force, distance_velocity*kVarRatio);
-    //   double p = UT::Gaussian(distance, _var_force)/p_force_max; // normalize
-    //   double k = 1.0 - 1.0/(150.0*p+1);
-    //   _v_probability[i] = p;
-    //   _v_weights[i] *= k;
+    double norm_new_force = _f_queue[0].norm();
+    double norm_new_velocity = _v_queue[0].norm();
+    double kVarRatio = _var_force/_var_velocity;
+    double p_force_max = RUT::Gaussian(0, _var_force);
 
-    //   // check all the force data
-    //   dot = abs(_v_queue[0].dot(_f_queue[i]));
-    //   double norm_force = _f_queue[i].norm();
-    //   distance_force = (norm_new_velocity > 1e-7)? dot/norm_new_velocity : 0;
-    //   distance_velocity = (norm_force > 1e-7)? dot/norm_force : 0;
-    //   distance =  // keep the same variance between f and v
-    //         std::min(distance_force, distance_velocity*kVarRatio);
-    //   p = UT::Gaussian(distance, _var_force)/p_force_max; // normalize
-    //   k = 1.0 - 1.0/(150.0*p+1);
-    //   _f_probability[i] = p;
-    //   _f_weights[i] *= k;
-    // }
+    double dot = abs(_v_queue[0].dot(_f_queue[0]));
+    double norm_force = _f_queue[0].norm();
+    double distance_force = (norm_new_velocity > 1e-7)? dot/norm_new_velocity : 0;
+    double distance_velocity = (norm_force > 1e-7)? dot/norm_force : 0;
+    double distance =  // keep the same variance between f and v
+          std::min(distance_force, distance_velocity*kVarRatio);
+    double p1 = RUT::Gaussian(distance, _var_force)/p_force_max; // normalize
+
+    for (int i = 1; i < _f_queue.size(); ++i) {
+      // check all the velocity data
+      dot = abs(_f_queue[0].dot(_v_queue[i]));
+      double norm_velocity = _v_queue[i].norm();
+      distance_force = (norm_velocity > 1e-7)? dot/norm_velocity:0;
+      distance_velocity = (norm_new_force > 1e-7)? dot/norm_new_force:0;
+      distance =          // keep the same variance between f and v
+            std::min(distance_force, distance_velocity*kVarRatio);
+      double p = RUT::Gaussian(distance, _var_force)/p_force_max; // normalize
+      double k = 1.0/(1.0+exp(-15.0*(p-0.5)));
+      _v_probability[i] = p;
+      _v_weights[i] *= k;
+
+      // check all the force data
+      dot = abs(_v_queue[0].dot(_f_queue[i]));
+      double norm_force = _f_queue[i].norm();
+      distance_force = (norm_new_velocity > 1e-7)? dot/norm_new_velocity : 0;
+      distance_velocity = (norm_force > 1e-7)? dot/norm_force : 0;
+      distance =  // keep the same variance between f and v
+            std::min(distance_force, distance_velocity*kVarRatio);
+      double p0 = RUT::Gaussian(distance, _var_force)/p_force_max; // normalize
+
+      p = p0 + (1-p1)*(1-p0);
+
+      k = 1.0/(1.0+exp(-15.0*(p-0.5)));
+      _f_probability[i] = p;
+      _f_weights[i] *= k;
+    }
 
     /* transformation from Tool wrench to
             transformed space  */
@@ -452,7 +473,7 @@ bool ForceControlController::update() {
         RUT::stream_array_in(_file, _pose_sent_to_robot, 7);
         _file << endl;
     }
-    return is_safe;
+    return unsafe;
 }
 
 // After axis update, the goal pose with offset should not have error in
@@ -517,7 +538,7 @@ void ForceControlController::updateAxis(const Matrix6d &Tr, int n_af)
 }
 
 bool ForceControlController::ExecuteHFVC(const int n_af, const int n_av,
-  const Matrix6d R_a, const double *pose_set, const double *force_set,
+  const Matrix6d &R_a, const double *pose_set, const double *force_set,
   HYBRID_SERVO_MODE mode, const int main_loop_rate, const double duration) {
     assert(n_af + n_av == 6);
     if (mode == HS_STOP_AND_GO) {
@@ -542,7 +563,7 @@ bool ForceControlController::ExecuteHFVC(const int n_af, const int n_av,
 
     /* Execute the motion plan */
     ros::Rate pub_rate(main_loop_rate);
-    bool b_is_safe = true;
+    bool b_unsafe = false;
     for (int i = 0; i < num_of_steps; ++i) {
       // cout << "[Hybrid] update step " << i << " of " << num_of_steps;
       // cout << ", pose sent: " << pose_traj(0, i) << ", " << pose_traj(1, i);
@@ -550,11 +571,14 @@ bool ForceControlController::ExecuteHFVC(const int n_af, const int n_av,
       setPose(pose_traj.col(i).data());
       // !! after setPose, must call update before updateAxis
       // so as to set correct value for pose_command
-      b_is_safe = update();
-      // if(!b_is_safe) break;
+      b_unsafe = update();
+      if(b_unsafe) {
+        ROS_ERROR_STREAM("[force_control] Unsafe force feedback!");
+        break;
+    }
       pub_rate.sleep();
     }
-    return b_is_safe;
+    return b_unsafe;
 }
 
 // reset everytime you start from complete stop.

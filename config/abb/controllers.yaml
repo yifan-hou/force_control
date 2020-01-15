@@ -18,14 +18,14 @@ force_control:
   #   Stiffness matrix as viewed in tool frame
   Stiffness_matrix_diag_elements: [0.2, 0.2, 0.2, 0.5, 0.5, 0.5]
   #   Inertia matrix as viewed in tool frame
-  Inertia_matrix_diag_elements: [1, 1, 1, 0.005, 0.005, 0.005]
+  Inertia_matrix_diag_elements: [0.5, 0.5, 0.5, 0.002, 0.002, 0.002]
   #   Damping coefficient matrix as viewed in tool frame
-  Damping_matrix_diag_elements: [20, 20, 20, 0.8, 0.8, 0.8]
+  Damping_matrix_diag_elements: [10, 10, 10, 0.1, 0.1, 0.1]
   # Force control PID Gains
   # one set for translation, another set for rotation
   FC_gains:
     IGainT: 0.005 # 0.02
-    PGainT: 0 #0.5
+    PGainT: -0.7 #0.5
     DGainT: 0.00 #0.00
     IGainR: 0.005 # 0.02
     PGainR: 0 #0.5

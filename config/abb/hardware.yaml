@@ -13,20 +13,20 @@ robot:
 
 ftsensor:
   offset:
-    fx: 0
-    fy: 0
-    fz: 0
-    tx: 0
-    ty: 0
-    tz: 0
+    fx: 0.504737
+    fy: 2.39281
+    fz: -1.95517
+    tx: 0.240496
+    ty: -0.106527
+    tz: 0.00243297
   gravity:
-    x: 0
-    y: 0
-    z: 0
+    x: 0.0282715
+    y: 0.00356048
+    z: -2.31619
   COM:
-    x: 0
-    y: 0
-    z: 0
+    x: 3.0191e-05
+    y: -0.000634964
+    z: -0.0757638
   safety:
     fx: 25 # maximum: 20
     fy: 25 # maximum: 20

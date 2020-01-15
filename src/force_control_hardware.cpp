@@ -21,7 +21,7 @@ bool ForceControlHardware::init(ros::NodeHandle& root_nh,
   return true;
 }
 
-bool ForceControlHardware::getState(double *pose, double *wrench)
+int ForceControlHardware::getState(double *pose, double *wrench)
 {
   getPose(pose);
   return getWrench(wrench);
@@ -32,14 +32,13 @@ void ForceControlHardware::getPose(double *pose)
   _robot->getCartesian(pose);
 }
 
-bool ForceControlHardware::getWrench(double *wrench)
+int ForceControlHardware::getWrench(double *wrench)
 {
-  bool safety = true;
   double pose[7] = {0};
   _robot->getCartesian(pose);
-  if (_ft->getWrenchNetTool(pose, wrench) != 0) safety = false;
+  int safety_flag = _ft->getWrenchNetTool(pose, wrench);
 
-  return safety;
+  return safety_flag;
 }
 
 

@@ -94,7 +94,7 @@ public:
    * @return     true if success
    */
   bool ExecuteHFVC(const int n_af, const int n_av,
-      const Eigen::Matrix<double, 6, 6> R_a, const double *pose_set,
+      const Eigen::Matrix<double, 6, 6> &R_a, const double *pose_set,
       const double *force_set,
       HYBRID_SERVO_MODE mode, const int main_loop_rate, const double duration);
 

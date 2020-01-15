@@ -60,36 +60,36 @@ int main(int argc, char* argv[]) {
      */
     double setpose[7];
     hardware.getPose(setpose);
-    cout << "[test] Press Enter to move: \n";
-    getchar();
+    // cout << "[test] Press Enter to move: \n";
+    // getchar();
     double pose_fb[7];
     Timer timer;
     timer.tic();
-    for (int i = 0; i < 300; ++i) {
-        setpose[0] += 0.4;
-        hardware.setPose(setpose);
-        pub_rate.sleep();
-        hardware.getPose(pose_fb);
-        cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << "t: " << timer.toc() << endl;
-        timer.tic();
-    }
-    for (int i = 0; i < 300; ++i) {
-        setpose[0] -= 0.4;
-        hardware.setPose(setpose);
-        pub_rate.sleep();
-        hardware.getPose(pose_fb);
-        cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << "t: " << timer.toc() << endl;
-        timer.tic();
-    }
-    for (int i = 0; i < 100; ++i) {
-        hardware.setPose(setpose);
-        pub_rate.sleep();
-        hardware.getPose(pose_fb);
-        cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << "t: " << timer.toc() << endl;
-        timer.tic();
-    }
-    cout << "[test] Press Enter to begin force control: \n";
-    getchar();
+    // for (int i = 0; i < 300; ++i) {
+    //     setpose[0] += 0.4;
+    //     hardware.setPose(setpose);
+    //     pub_rate.sleep();
+    //     hardware.getPose(pose_fb);
+    //     cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << "t: " << timer.toc() << endl;
+    //     timer.tic();
+    // }
+    // for (int i = 0; i < 300; ++i) {
+    //     setpose[0] -= 0.4;
+    //     hardware.setPose(setpose);
+    //     pub_rate.sleep();
+    //     hardware.getPose(pose_fb);
+    //     cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << "t: " << timer.toc() << endl;
+    //     timer.tic();
+    // }
+    // for (int i = 0; i < 100; ++i) {
+    //     hardware.setPose(setpose);
+    //     pub_rate.sleep();
+    //     hardware.getPose(pose_fb);
+    //     cout <<"i: " << i << ", x: " << setpose[0] << ", x_fb: " << pose_fb[0] << "t: " << timer.toc() << endl;
+    //     timer.tic();
+    // }
+    // cout << "[test] Press Enter to begin force control: \n";
+    // getchar();
 
     Matrix6d T0, T1, T2;
     T0 = Matrix6d::Identity();
@@ -110,12 +110,12 @@ int main(int argc, char* argv[]) {
      *  This is showing the general procedure for setting controls.
      */
     controller.reset();
-    controller.updateAxis(T0, 5);
+    controller.updateAxis(T1, 5);
     controller.setPose(setpose); // after setPose, you must call update() before
                                  // calling updateAxis()
-    double setforce[6] = {0};
-    setforce[0] = 5;
-    controller.setForce(setforce);
+    // double setforce[6] = {0};
+    // setforce[0] = 5;
+    // controller.setForce(setforce);
 
     // ROS_INFO_STREAM("[MAIN] Press ENTER to begin.\n");
     // getchar();

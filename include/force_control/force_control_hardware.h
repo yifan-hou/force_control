@@ -25,8 +25,8 @@ class ForceControlHardware {
     bool init(ros::NodeHandle& root_nh, Clock::time_point time0,
         FTInterfaces *ft, RobotInterfaces *robot);
     void getPose(double *pose);
-    bool getWrench(double *wrench); // get the wrench in tool frame
-    bool getState(double *pose, double *wrench);
+    int getWrench(double *wrench); // get the wrench in tool frame
+    int getState(double *pose, double *wrench);
     void setPose(const double *pose_set);
 
     FTInterfaces *_ft;

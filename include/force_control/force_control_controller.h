@@ -129,6 +129,7 @@ public:
   Eigen::Matrix<double, 6, 1> _wrench_T_Err_I;
 
   // experimental
+  bool _activate_experimental_feature;
   int _pool_size;
   std::deque<Eigen::Matrix<double, 6, 1>> _f_queue;
   std::deque<double> _f_weights;

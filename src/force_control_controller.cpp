@@ -150,6 +150,10 @@ bool ForceControlController::init(ros::NodeHandle& root_nh,
     /**
      * Experimental
      */
+    root_nh.param(string("/activate_experimental_feature"), _activate_experimental_feature, false);
+    if (!root_nh.hasParam("/activate_experimental_feature"))
+        ROS_WARN_STREAM("Parameter [/activate_experimental_feature] not found, using default: " << _activate_experimental_feature);
+
     double pool_duration;
     root_nh.param(string("/constraint_estimation/pool_duration"), pool_duration, 0.5);
     if (!root_nh.hasParam("/constraint_estimation/pool_duration"))
@@ -283,82 +287,84 @@ bool ForceControlController::update() {
     v_Tr =  _Tr * _v_T;
 
     /* Experimental */
-    _f_queue.push_front(-wrench_T_fb);
-    _v_queue.push_front(_v_T);
-    // scaling
-    for (int i = 0; i < 6; ++i) {
-      _f_queue[0][i] = _f_queue[0][i] * _scale_force_vector[i];
-      _v_queue[0][i] = _v_queue[0][i] * _scale_vel_vector[i];
-    }
-    _f_weights.push_front(1.0);
-    _v_weights.push_front(1.0);
-    _f_probability.push_front(0.0);
-    _v_probability.push_front(0.0);
-    if (_f_queue.size() > _pool_size) {
-      _f_queue.pop_back();
-      _v_queue.pop_back();
-      _f_weights.pop_back();
-      _v_weights.pop_back();
-      _f_probability.pop_back();
-      _v_probability.pop_back();
-    }
+    if (_activate_experimental_feature) {
+        _f_queue.push_front(-wrench_T_fb);
+        _v_queue.push_front(_v_T);
+        // scaling
+        for (int i = 0; i < 6; ++i) {
+          _f_queue[0][i] = _f_queue[0][i] * _scale_force_vector[i];
+          _v_queue[0][i] = _v_queue[0][i] * _scale_vel_vector[i];
+        }
+        _f_weights.push_front(1.0);
+        _v_weights.push_front(1.0);
+        _f_probability.push_front(0.0);
+        _v_probability.push_front(0.0);
+        if (_f_queue.size() > _pool_size) {
+          _f_queue.pop_back();
+          _v_queue.pop_back();
+          _f_weights.pop_back();
+          _v_weights.pop_back();
+          _f_probability.pop_back();
+          _v_probability.pop_back();
+        }
 
-    /* Update weights of data
-     * Rules
-     *  Force and velocity should be orthogonal. The data are not orthogonal
-     *  because of noise. Assume a distribution of noise, we can compute the
-     *  probability of having current feedback given an old data. We use this
-     *  probability to update the weights of old data.
-     *
-     * Every time we receive a new data, do the following:
-     * 1. Set the weight of the new data = 1
-     * 2. Check each old velocity data:
-     *   1. Discount velocity data if it is not orthogonal with the force
-     * 3. Check each old force data:
-     *   1. Discount force data if it is not orthogonal with the velocity and
-     *      not aligned with new force
-     */
+        /* Update weights of data
+         * Rules
+         *  Force and velocity should be orthogonal. The data are not orthogonal
+         *  because of noise. Assume a distribution of noise, we can compute the
+         *  probability of having current feedback given an old data. We use this
+         *  probability to update the weights of old data.
+         *
+         * Every time we receive a new data, do the following:
+         * 1. Set the weight of the new data = 1
+         * 2. Check each old velocity data:
+         *   1. Discount velocity data if it is not orthogonal with the force
+         * 3. Check each old force data:
+         *   1. Discount force data if it is not orthogonal with the velocity and
+         *      not aligned with new force
+         */
 
-    double norm_new_force = _f_queue[0].norm();
-    double norm_new_velocity = _v_queue[0].norm();
-    double kVarRatio = _var_force/_var_velocity;
-    double p_force_max = RUT::Gaussian(0, _var_force);
+        double norm_new_force = _f_queue[0].norm();
+        double norm_new_velocity = _v_queue[0].norm();
+        double kVarRatio = _var_force/_var_velocity;
+        double p_force_max = RUT::Gaussian(0, _var_force);
 
-    double dot = abs(_v_queue[0].dot(_f_queue[0]));
-    double norm_force = _f_queue[0].norm();
-    double distance_force = (norm_new_velocity > 1e-7)? dot/norm_new_velocity : 0;
-    double distance_velocity = (norm_force > 1e-7)? dot/norm_force : 0;
-    double distance =  // keep the same variance between f and v
-          std::min(distance_force, distance_velocity*kVarRatio);
-    double p1 = RUT::Gaussian(distance, _var_force)/p_force_max; // normalize
+        double dot = abs(_v_queue[0].dot(_f_queue[0]));
+        double norm_force = _f_queue[0].norm();
+        double distance_force = (norm_new_velocity > 1e-7)? dot/norm_new_velocity : 0;
+        double distance_velocity = (norm_force > 1e-7)? dot/norm_force : 0;
+        double distance =  // keep the same variance between f and v
+              std::min(distance_force, distance_velocity*kVarRatio);
+        double p1 = RUT::Gaussian(distance, _var_force)/p_force_max; // normalize
 
-    for (int i = 1; i < _f_queue.size(); ++i) {
-      // check all the velocity data
-      dot = abs(_f_queue[0].dot(_v_queue[i]));
-      double norm_velocity = _v_queue[i].norm();
-      distance_force = (norm_velocity > 1e-7)? dot/norm_velocity:0;
-      distance_velocity = (norm_new_force > 1e-7)? dot/norm_new_force:0;
-      distance =          // keep the same variance between f and v
-            std::min(distance_force, distance_velocity*kVarRatio);
-      double p = RUT::Gaussian(distance, _var_force)/p_force_max; // normalize
-      double k = 1.0/(1.0+exp(-15.0*(p-0.5)));
-      _v_probability[i] = p;
-      _v_weights[i] *= k;
+        for (int i = 1; i < _f_queue.size(); ++i) {
+          // check all the velocity data
+          dot = abs(_f_queue[0].dot(_v_queue[i]));
+          double norm_velocity = _v_queue[i].norm();
+          distance_force = (norm_velocity > 1e-7)? dot/norm_velocity:0;
+          distance_velocity = (norm_new_force > 1e-7)? dot/norm_new_force:0;
+          distance =          // keep the same variance between f and v
+                std::min(distance_force, distance_velocity*kVarRatio);
+          double p = RUT::Gaussian(distance, _var_force)/p_force_max; // normalize
+          double k = 1.0/(1.0+exp(-15.0*(p-0.5)));
+          _v_probability[i] = p;
+          _v_weights[i] *= k;
 
-      // check all the force data
-      dot = abs(_v_queue[0].dot(_f_queue[i]));
-      double norm_force = _f_queue[i].norm();
-      distance_force = (norm_new_velocity > 1e-7)? dot/norm_new_velocity : 0;
-      distance_velocity = (norm_force > 1e-7)? dot/norm_force : 0;
-      distance =  // keep the same variance between f and v
-            std::min(distance_force, distance_velocity*kVarRatio);
-      double p0 = RUT::Gaussian(distance, _var_force)/p_force_max; // normalize
+          // check all the force data
+          dot = abs(_v_queue[0].dot(_f_queue[i]));
+          double norm_force = _f_queue[i].norm();
+          distance_force = (norm_new_velocity > 1e-7)? dot/norm_new_velocity : 0;
+          distance_velocity = (norm_force > 1e-7)? dot/norm_force : 0;
+          distance =  // keep the same variance between f and v
+                std::min(distance_force, distance_velocity*kVarRatio);
+          double p0 = RUT::Gaussian(distance, _var_force)/p_force_max; // normalize
 
-      p = p0 + (1-p1)*(1-p0);
+          p = p0 + (1-p1)*(1-p0);
 
-      k = 1.0/(1.0+exp(-15.0*(p-0.5)));
-      _f_probability[i] = p;
-      _f_weights[i] *= k;
+          k = 1.0/(1.0+exp(-15.0*(p-0.5)));
+          _f_probability[i] = p;
+          _f_weights[i] *= k;
+        }
     }
 
     /* transformation from Tool wrench to

@@ -154,26 +154,27 @@ bool ForceControlController::init(ros::NodeHandle& root_nh,
     if (!root_nh.hasParam("/activate_experimental_feature"))
         ROS_WARN_STREAM("Parameter [/activate_experimental_feature] not found, using default: " << _activate_experimental_feature);
 
-    double pool_duration;
-    root_nh.param(string("/constraint_estimation/pool_duration"), pool_duration, 0.5);
-    if (!root_nh.hasParam("/constraint_estimation/pool_duration"))
-        ROS_WARN_STREAM("Parameter [/constraint_estimation/pool_duration] not found, using default: " << pool_duration);
-    _pool_size = (int)round(pool_duration*fHz);
+    if (_activate_experimental_feature) {
+        double pool_duration;
+        root_nh.param(string("/constraint_estimation/pool_duration"), pool_duration, 0.5);
+        if (!root_nh.hasParam("/constraint_estimation/pool_duration"))
+            ROS_WARN_STREAM("Parameter [/constraint_estimation/pool_duration] not found, using default: " << pool_duration);
+        _pool_size = (int)round(pool_duration*fHz);
 
-    root_nh.getParam("/constraint_estimation/scale_force_vector", _scale_force_vector);
-    root_nh.getParam("/constraint_estimation/scale_vel_vector", _scale_vel_vector);
-    if (!root_nh.hasParam("/constraint_estimation/scale_force_vector"))
-      ROS_WARN_STREAM("Parameter [/constraint_estimation/scale_force_vector] not found!");
-    if (!root_nh.hasParam("/constraint_estimation/scale_vel_vector"))
-      ROS_WARN_STREAM("Parameter [/constraint_estimation/scale_vel_vector] not found!");
+        root_nh.getParam("/constraint_estimation/scale_force_vector", _scale_force_vector);
+        root_nh.getParam("/constraint_estimation/scale_vel_vector", _scale_vel_vector);
+        if (!root_nh.hasParam("/constraint_estimation/scale_force_vector"))
+          ROS_WARN_STREAM("Parameter [/constraint_estimation/scale_force_vector] not found!");
+        if (!root_nh.hasParam("/constraint_estimation/scale_vel_vector"))
+          ROS_WARN_STREAM("Parameter [/constraint_estimation/scale_vel_vector] not found!");
 
-
-    root_nh.param(string("/constraint_estimation/var_force"), _var_force, 0.5);
-    if (!root_nh.hasParam("/constraint_estimation/var_force"))
-        ROS_WARN_STREAM("Parameter [/constraint_estimation/var_force] not found, using default: " << _var_force);
-    root_nh.param(string("/constraint_estimation/var_velocity"), _var_velocity, 0.5);
-    if (!root_nh.hasParam("/constraint_estimation/var_velocity"))
-        ROS_WARN_STREAM("Parameter [/constraint_estimation/var_velocity] not found, using default: " << _var_velocity);
+        root_nh.param(string("/constraint_estimation/var_force"), _var_force, 0.5);
+        if (!root_nh.hasParam("/constraint_estimation/var_force"))
+            ROS_WARN_STREAM("Parameter [/constraint_estimation/var_force] not found, using default: " << _var_force);
+        root_nh.param(string("/constraint_estimation/var_velocity"), _var_velocity, 0.5);
+        if (!root_nh.hasParam("/constraint_estimation/var_velocity"))
+            ROS_WARN_STREAM("Parameter [/constraint_estimation/var_velocity] not found, using default: " << _var_velocity);
+    }
 
     if (_print_flag) {
         _file.open(fullpath);
@@ -238,10 +239,10 @@ bool ForceControlController::getToolWrench(Eigen::Matrix<double, 6, 1> *wrench) 
             wrench: 6x1 wrench. Makes work with body velocity
  *
  */
-bool ForceControlController::update() {
+int ForceControlController::update() {
     double pose_fb[7];
     double wrench_fb[6];
-    bool unsafe = _hw->getState(pose_fb, wrench_fb);
+    int force_feedback_code = _hw->getState(pose_fb, wrench_fb);
     printf("    F fb: %.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\n", wrench_fb[0],
         wrench_fb[1], wrench_fb[2],wrench_fb[3],wrench_fb[4],wrench_fb[5]);
 
@@ -479,7 +480,7 @@ bool ForceControlController::update() {
         RUT::stream_array_in(_file, _pose_sent_to_robot, 7);
         _file << endl;
     }
-    return unsafe;
+    return force_feedback_code;
 }
 
 // After axis update, the goal pose with offset should not have error in
@@ -569,7 +570,7 @@ bool ForceControlController::ExecuteHFVC(const int n_af, const int n_av,
 
     /* Execute the motion plan */
     ros::Rate pub_rate(main_loop_rate);
-    bool b_unsafe = false;
+    int b_unsafe = false;
     for (int i = 0; i < num_of_steps; ++i) {
       // cout << "[Hybrid] update step " << i << " of " << num_of_steps;
       // cout << ", pose sent: " << pose_traj(0, i) << ", " << pose_traj(1, i);
@@ -578,8 +579,8 @@ bool ForceControlController::ExecuteHFVC(const int n_af, const int n_av,
       // !! after setPose, must call update before updateAxis
       // so as to set correct value for pose_command
       b_unsafe = update();
-      if(b_unsafe) {
-        ROS_ERROR_STREAM("[force_control] Unsafe force feedback!");
+      if(b_unsafe != 0) {
+        ROS_ERROR_STREAM("[force_control] Unsafe force feedback! error code: " << b_unsafe);
         break;
     }
       pub_rate.sleep();

@@ -63,7 +63,9 @@ public:
   void getToolVelocity(Eigen::Matrix<double, 6, 1> *v_T);
   bool getToolWrench(Eigen::Matrix<double, 6, 1> *wrench);
 
-  bool update();
+  // feedback: 0: no error. 1: still waiting for new data. 2: dead stream.
+  //             3: force is too big.
+  int update();
   void updateAxis(const Eigen::Matrix<double, 6, 6> &T, int n_af);
 
   /* Middle level interfaces (with motion planning) */

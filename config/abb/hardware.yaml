@@ -13,35 +13,35 @@ robot:
 
 ftsensor:
   offset:
-    fx: 0.504737
-    fy: 2.39281
-    fz: -1.95517
-    tx: 0.240496
-    ty: -0.106527
-    tz: 0.00243297
+    fx: 0.364638
+    fy: 2.54961
+    fz: 2.02923
+    tx: -0.201964
+    ty: -0.0266899
+    tz: 0.00107205
   gravity:
-    x: 0.0282715
-    y: 0.00356048
-    z: -2.31619
+    x: 0.0172104
+    y: 0.0032356
+    z: -2.34551
   COM:
-    x: 3.0191e-05
-    y: -0.000634964
-    z: -0.0757638
+    x: -3.84321e-06
+    y: -0.000690115
+    z: 0.0483713
   safety:
-    fx: 25 # maximum: 20
-    fy: 25 # maximum: 20
-    fz: 45 # maximum: 60
+    fx: 30 # maximum: 20
+    fy: 30 # maximum: 20
+    fz: 60 # maximum: 60
     tx: 1.2 # maximum: 1
     ty: 1.2 # maximum: 1
     tz: 1.2 # maximum: 1
-  transform_sensor_to_tool:
+  transform_sensor_to_tool: # T_ST
     x: 0 # meter
     y: 0
-    z: 0.0654
-    qw: 0.9808
+    z: 0.071
+    qw: 0
     qx: 0
-    qy: 0
-    qz: 0.1951
+    qy: 1
+    qz: 0
 
 ##
 ## Device specific parameters

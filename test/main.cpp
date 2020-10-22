@@ -110,7 +110,7 @@ int main(int argc, char* argv[]) {
      *  This is showing the general procedure for setting controls.
      */
     controller.reset();
-    controller.updateAxis(T1, 5);
+    controller.updateAxis(T1, 6);
     controller.setPose(setpose); // after setPose, you must call update() before
                                  // calling updateAxis()
     // double setforce[6] = {0};
@@ -151,13 +151,12 @@ int main(int argc, char* argv[]) {
         // update
         timer.tic();
         ros::Time time_now = ros::Time::now();
-        if (!controller.update()) {
+        int code = controller.update();
+        if (code > 0) {
             // wrench feedback greater than threshold
             double w_ati[6] = {0}; // tool frame
             ati.getWrenchSensor(w_ati);
-            ROS_WARN_STREAM("Not safe!! Wrench: " << w_ati[0] <<
-                "|" << w_ati[1] << "|" << w_ati[2] << "|   |" << w_ati[3] <<
-                "|" << w_ati[4] << "|" << w_ati[5]);
+            ROS_WARN_STREAM("Not safe!! Error code: " << code);
         }
         time_elapsed = timer.toc();
         cout << "Timestep " << i << " of " << Nsteps << ". Time: "<< time_elapsed << "ms. Command:";

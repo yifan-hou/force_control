@@ -69,8 +69,9 @@ public:
   /* Middle level interfaces (with motion planning) */
 
   /**
-   * Execute a 6D HFVC command. The number of timesteps is determined by @p
-   * main_loop_rate and @p duration.
+   * Execute a 6D HFVC command. Will arrive @p pose_set in
+   * @p main_loop_rate * @p duration timesteps. So the command velocity is
+   * implied in these three arguments.
    *
    * There are two modes: HS_STOP_AND_GO: user recomputes @p pose_set based on
    * robot's current pose feedback before calling this function. HS_CONTINUOUS:

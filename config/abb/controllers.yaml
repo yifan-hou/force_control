@@ -25,10 +25,10 @@ force_control:
   # one set for translation, another set for rotation
   FC_gains:
     IGainT: 0.02 # 0.02
-    PGainT: -0.5 #0.5
+    PGainT: 0 # -0.5
     DGainT: 0.00 #0.00
     IGainR: 0.02 # 0.02
-    PGainR: -0.5 #0.5
+    PGainR: 0 # -0.5
     DGainR: 0.00 #0.00
   FC_I_Limit_T_6D: [50, 50, 50, 0.5, 0.5, 0.5] # Newton, N*m
   print_flag: true

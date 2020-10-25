@@ -242,7 +242,19 @@ bool ForceControlController::getToolWrench(Eigen::Matrix<double, 6, 1> *wrench) 
 int ForceControlController::update() {
     double pose_fb[7];
     double wrench_fb[6];
-    int force_feedback_code = _hw->getState(pose_fb, wrench_fb);
+    // 0: no error. 1: still waiting for new data. 2: dead stream.
+    //      *             3: force is too big
+    int force_feedback_code;
+    while (true) {
+        force_feedback_code = _hw->getState(pose_fb, wrench_fb);
+        if (force_feedback_code == 0) {
+            // no error, use this data
+            break;
+        } else {
+            // dangerous, stop execution
+            return force_feedback_code;
+        }
+    }
     printf("    F fb: %.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\n", wrench_fb[0],
         wrench_fb[1], wrench_fb[2],wrench_fb[3],wrench_fb[4],wrench_fb[5]);
 

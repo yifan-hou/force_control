@@ -85,7 +85,11 @@ public:
    * @param[in]  n_af            The dimension of force command
    * @param[in]  n_av            The dimension of velocity command
    * @param[in]  R_a             The orientation of hybrid force-velocity
-   *                             control actions.
+   *                             control actions. The velocity vector is assumed
+   *                             to be robot body velocity represented as a 6x1
+   *                             twist: [vx vy vz rx ry rz], where metric units
+   *                             are used (meter/s, rad/s). The corresponding
+   *                             force vector uses (Newton, Newton*meter)
    * @param[in]  pose_set        7x1 goal pose (x y z qw qx qy qz), described in
    *                             the world frame
    * @param[in]  force_set       6x1 force vector, described in the transformed

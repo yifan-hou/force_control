@@ -24,6 +24,13 @@ bool deserialize(const YAML::Node& node,
             .asDiagonal();
     config.compliance6d.stiction = RUT::deserialize_vector<RUT::Vector6d>(
         node["compliance6d"]["stiction"]);
+
+    if (node["additional_damping"]) {
+      config.additional_damping =
+          RUT::deserialize_vector<RUT::Vector6d>(node["additional_damping"])
+              .asDiagonal();
+    }
+
     config.max_spring_force_magnitude =
         node["max_spring_force_magnitude"].as<double>();
     config.max_spring_torque_magnitude =

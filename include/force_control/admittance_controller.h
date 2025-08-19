@@ -59,6 +59,10 @@ class AdmittanceController {
       RUT::Vector6d stiction{};  // static friction, eliminates drifting
     };
     ComplianceParameters6d compliance6d{};
+
+    // only useful in tracking mode. This is damping on feedback velocity in addition to damping on error velocity
+    RUT::Matrix6d additional_damping{RUT::Matrix6d::Zero()};
+
     // spring force will be capped at this value.
     double max_spring_force_magnitude{0.0};
     double max_spring_torque_magnitude{0.0};
@@ -113,6 +117,19 @@ class AdmittanceController {
    */
   void setRobotReference(const RUT::Vector7d& pose_WT,
                          const RUT::Vector6d& wrench_WTr);
+
+  /**
+   * @brief      Set the tracking reference for the robot.
+   *
+   * @param[in]  pose_WT     The desired tool pose in the world frame.
+   * @param[in]  v_spatial_WT The desired spatial velocity in the world frame.
+   * @param[in]  a_spatial_WT The desired time derivative of v_spatial_WT.
+   * @param[in]  wrench_WTr  The desired wrench in the transformed frame.
+   */
+  void setRobotTrackingReference(const RUT::Vector7d& pose_WT,
+                                 const RUT::Vector6d& v_spatial_WT,
+                                 const RUT::Vector6d& a_spatial_WT,
+                                 const RUT::Vector6d& wrench_WTr);
   /**
    * @brief      Sets the force controlled axis.
    *

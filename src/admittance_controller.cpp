@@ -58,6 +58,10 @@ struct AdmittanceController::Implementation {
                       const RUT::Vector6d& wrench_WT);
   void setRobotReference(const RUT::Vector7d& pose_WT,
                          const RUT::Vector6d& wrench_WTr);
+  void setRobotTrackingReference(const RUT::Vector7d& pose_WT,
+                                 const RUT::Vector6d& v_spatial_WT,
+                                 const RUT::Vector6d& a_spatial_WT,
+                                 const RUT::Vector6d& wrench_WT);
   void setForceControlledAxis(const Matrix6d& Tr_new, int n_af);
   void setStiffnessMatrix(const Matrix6d& stiffness);
   void setDampingMatrix(const Matrix6d& damping);
@@ -87,16 +91,24 @@ struct AdmittanceController::Implementation {
   Vector6d spt_TTadj_new{};
   Matrix6d Adj_WT{};
   Matrix6d Adj_TW{};
+  Matrix6d Adj_TrefW{};
+  Matrix6d Adj_TTref{};
   Matrix6d Jac_v_spt{};
   Matrix6d Jac_v_spt_inv{};
 
+  Vector6d v_spatial_WTref{};
+  Vector6d a_spatial_WTref{};
   Vector6d v_spatial_WT{};
   Vector6d v_body_WT{};
-  Vector6d v_body_WT_ref{};
+  Vector6d v_body_WT_vel_ref{};
+  Vector6d v_body_WTref{};
+  Vector6d v_body_TrefT{};
   Vector6d v_Tr{};
   Vector6d vd_Tr{};
   Vector6d wrench_T_Err_prev{};
   Vector6d wrench_T_Err_I{};
+  Vector6d err_vd_Tr{};
+  Vector6d a_Tr_ref{};
 
   Vector6d wrench_T_fb{};  // force feedback measured in tool frame
   Vector6d wrench_Tr_cmd{};
@@ -154,6 +166,15 @@ void AdmittanceController::Implementation::setRobotStatus(
 void AdmittanceController::Implementation::setRobotReference(
     const RUT::Vector7d& pose_WT, const RUT::Vector6d& wrench_WTr) {
   SE3_WTref = RUT::pose2SE3(pose_WT);
+  wrench_Tr_cmd = wrench_WTr;
+}
+
+void AdmittanceController::Implementation::setRobotTrackingReference(
+    const RUT::Vector7d& pose_WT, const RUT::Vector6d& v_spatial_WT,
+    const RUT::Vector6d& a_spatial_WT, const RUT::Vector6d& wrench_WTr) {
+  SE3_WTref = RUT::pose2SE3(pose_WT);
+  v_spatial_WTref = v_spatial_WT;
+  a_spatial_WTref = a_spatial_WT;
   wrench_Tr_cmd = wrench_WTr;
 }
 
@@ -219,7 +240,7 @@ void AdmittanceController::Implementation::setDampingMatrix(
         Frames:
             W: world frame
             T: current tool frame
-            Tr: transformed genepose_currentralized space
+            Tr: transformed generalized space
         Frame suffixes
             fb: feedback (default, often omitted)
             ref: user provided reference, target
@@ -256,10 +277,15 @@ int AdmittanceController::Implementation::step(RUT::Vector7d& pose_to_send) {
 
   Adj_WT = RUT::SE32Adj(SE3_WT);
   Adj_TW = RUT::SE32Adj(RUT::SE3Inv(SE3_WT));
+  Adj_TrefW = RUT::SE32Adj(RUT::SE3Inv(SE3_WTref));
+  Adj_TTref = RUT::SE32Adj(RUT::SE3Inv(SE3_WT) * SE3_WTref);
 
   /* Velocity updates */
   v_body_WT = Adj_TW * v_spatial_WT;
-  v_Tr = Tr * v_body_WT;
+  v_body_WTref = Adj_TrefW * v_spatial_WTref;
+
+  v_body_TrefT = v_body_WT - Adj_TTref * v_body_WTref;  // e_dot
+  v_Tr = Tr * v_body_TrefT;
 
   /* Wrench updates */
   wrench_T_spring = Jac_v_spt * config.compliance6d.stiffness * spt_TTadj;
@@ -312,7 +338,8 @@ int AdmittanceController::Implementation::step(RUT::Vector7d& pose_to_send) {
     }
   }
 
-  wrench_Tr_damping = -Tr * config.compliance6d.damping * v_body_WT;
+  wrench_Tr_damping = -Tr * (config.compliance6d.damping * v_body_TrefT +
+                             config.additional_damping * v_body_WT);
 
   wrench_Tr_All = diag_force_selection * (wrench_Tr_spring + wrench_Tr_Err +
                                           wrench_Tr_PID + wrench_Tr_damping);
@@ -333,20 +360,24 @@ int AdmittanceController::Implementation::step(RUT::Vector7d& pose_to_send) {
   //  Newton's law in transformed space
   //      TW=TMTinv Tvd
   //      W_Tr = TMTinv vd_Tr
-  vd_Tr = (Tr * config.compliance6d.inertia * Tr_inv)
-              .fullPivLu()
-              .solve(wrench_Tr_All);
+  err_vd_Tr = (Tr * config.compliance6d.inertia * Tr_inv)
+                  .fullPivLu()
+                  .solve(wrench_Tr_All);
+  a_Tr_ref = Tr * Adj_TrefW * a_spatial_WTref;
+  vd_Tr = err_vd_Tr + a_Tr_ref;
 
   // Velocity in the force-controlled direction: integrate acc computed from
   // Newton's law
-  v_Tr += config.dt * vd_Tr;
+  v_Tr += config.dt * vd_Tr;  // for tracking, v_Tr is error_d_Tr
   v_Tr = diag_force_selection *
          v_Tr;  // clean up velocity in the velocity-controlled direction
 
   // Velocity in the velocity-controlled direction: derive from reference pose
-  v_body_WT_ref = Jac_v_spt_inv * spt_TTadj /
-                  config.dt;  // reference velocity, derived from reference pose
-  v_Tr += diag_velocity_selection * Tr * v_body_WT_ref;
+  // No mass/spring/damping, just go there directly
+  v_body_WT_vel_ref =
+      Jac_v_spt_inv * spt_TTadj /
+      config.dt;  // reference velocity, derived from reference pose
+  v_Tr += diag_velocity_selection * Tr * v_body_WT_vel_ref;
 
   v_spatial_WT = Adj_WT * Tr_inv * v_Tr;
   profiler.stop("3");
@@ -400,16 +431,24 @@ void AdmittanceController::Implementation::reset() {
   spt_TTadj_new = Vector6d::Zero();
   Adj_WT = Matrix6d::Identity();
   Adj_TW = Matrix6d::Identity();
+  Adj_TrefW = Matrix6d::Identity();
+  Adj_TTref = Matrix6d::Identity();
   Jac_v_spt = Matrix6d::Identity();
   Jac_v_spt_inv = Matrix6d::Identity();
 
+  v_spatial_WTref = Vector6d::Zero();
+  a_spatial_WTref = Vector6d::Zero();
   v_spatial_WT = Vector6d::Zero();
   v_body_WT = Vector6d::Zero();
-  v_body_WT_ref = Vector6d::Zero();
+  v_body_WT_vel_ref = Vector6d::Zero();
+  v_body_WTref = Vector6d::Zero();
+  v_body_TrefT = Vector6d::Zero();
   v_Tr = Vector6d::Zero();
   vd_Tr = Vector6d::Zero();
   wrench_T_Err_prev = Vector6d::Zero();
   wrench_T_Err_I = Vector6d::Zero();
+  err_vd_Tr = Vector6d::Zero();
+  a_Tr_ref = Vector6d::Zero();
 
   wrench_T_fb = Vector6d::Zero();
   wrench_Tr_cmd = Vector6d::Zero();
@@ -445,7 +484,7 @@ void AdmittanceController::Implementation::logStates() {
 
   // v_spatial_WT = Vector6d::Zero();
   // v_body_WT = Vector6d::Zero();
-  // v_body_WT_ref = Vector6d::Zero();
+  // v_body_WT_vel_ref = Vector6d::Zero();
   // v_Tr = Vector6d::Zero();
   // vd_Tr = Vector6d::Zero();
   // wrench_T_Err_prev = Vector6d::Zero();
@@ -522,7 +561,7 @@ void AdmittanceController::Implementation::displayStates() {
             << std::endl;
   std::cout << "v_spatial_WT: " << v_spatial_WT.format(MatlabFmt) << std::endl;
   std::cout << "v_body_WT: " << v_body_WT.format(MatlabFmt) << std::endl;
-  std::cout << "v_body_WT_ref: " << v_body_WT_ref.format(MatlabFmt)
+  std::cout << "v_body_WT_vel_ref: " << v_body_WT_vel_ref.format(MatlabFmt)
             << std::endl;
   std::cout << "v_Tr: " << v_Tr.format(MatlabFmt) << std::endl;
   std::cout << "vd_Tr: " << vd_Tr.format(MatlabFmt) << std::endl;
@@ -580,6 +619,13 @@ void AdmittanceController::setRobotStatus(const RUT::Vector7d& pose_WT,
 void AdmittanceController::setRobotReference(const RUT::Vector7d& pose_WT,
                                              const RUT::Vector6d& wrench_WTr) {
   m_impl->setRobotReference(pose_WT, wrench_WTr);
+}
+
+void AdmittanceController::setRobotTrackingReference(
+    const RUT::Vector7d& pose_WT, const RUT::Vector6d& v_spatial_WT,
+    const RUT::Vector6d& a_spatial_WT, const RUT::Vector6d& wrench_WT) {
+  m_impl->setRobotTrackingReference(pose_WT, v_spatial_WT, a_spatial_WT,
+                                    wrench_WT);
 }
 
 void AdmittanceController::setForceControlledAxis(const Matrix6d& Tr_new,

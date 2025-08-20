@@ -68,7 +68,7 @@ struct AdmittanceController::Implementation {
   int step(RUT::Vector7d& pose_to_send);
   void reset();
   void logStates();
-  void displayStates();
+  void displayStates() const;
 
   AdmittanceControllerConfig config{};
 
@@ -503,7 +503,7 @@ void AdmittanceController::Implementation::logStates() {
   log_file << std::endl;
 }
 
-void AdmittanceController::Implementation::displayStates() {
+void AdmittanceController::Implementation::displayStates() const {
   std::cout << "================= Parameters ================== " << std::endl;
   std::cout << "dt: " << config.dt << std::endl;
   std::cout << "log_to_file: " << config.log_to_file << std::endl;
@@ -556,12 +556,17 @@ void AdmittanceController::Implementation::displayStates() {
   std::cout << "Jac_v_spt: " << Jac_v_spt.format(MatlabFmt) << std::endl;
   std::cout << "Jac_v_spt_inv: " << Jac_v_spt_inv.format(MatlabFmt)
             << std::endl;
+  std::cout << "v_body_WTref: " << v_body_WTref.format(MatlabFmt) << std::endl;
+  std::cout << "a_body_WTref: " << a_body_WTref.format(MatlabFmt) << std::endl;
   std::cout << "v_spatial_WT: " << v_spatial_WT.format(MatlabFmt) << std::endl;
   std::cout << "v_body_WT: " << v_body_WT.format(MatlabFmt) << std::endl;
   std::cout << "v_body_WT_vel_ref: " << v_body_WT_vel_ref.format(MatlabFmt)
             << std::endl;
+  std::cout << "v_body_TrefT: " << v_body_TrefT.format(MatlabFmt) << std::endl;
   std::cout << "v_Tr: " << v_Tr.format(MatlabFmt) << std::endl;
   std::cout << "vd_Tr: " << vd_Tr.format(MatlabFmt) << std::endl;
+  std::cout << "err_vd_Tr: " << err_vd_Tr.format(MatlabFmt) << std::endl;
+  std::cout << "a_Tr_ref: " << a_Tr_ref.format(MatlabFmt) << std::endl;
   std::cout << "wrench_T_Err_prev: " << wrench_T_Err_prev.format(MatlabFmt)
             << std::endl;
   std::cout << "wrench_T_Err_I: " << wrench_T_Err_I.format(MatlabFmt)
@@ -642,6 +647,6 @@ int AdmittanceController::step(RUT::Vector7d& pose_to_send) {
   return m_impl->step(pose_to_send);
 }
 
-void AdmittanceController::displayStates() {
+void AdmittanceController::displayStates() const {
   m_impl->displayStates();
 }

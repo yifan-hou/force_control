@@ -170,7 +170,7 @@ class AdmittanceController {
   /**
    * @brief      Print the current states to the console.
    */
-  void displayStates();
+  void displayStates() const;
 
  private:
   struct Implementation;

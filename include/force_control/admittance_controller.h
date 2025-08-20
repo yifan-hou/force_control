@@ -122,13 +122,13 @@ class AdmittanceController {
    * @brief      Set the tracking reference for the robot.
    *
    * @param[in]  pose_WT     The desired tool pose in the world frame.
-   * @param[in]  v_spatial_WT The desired spatial velocity in the world frame.
-   * @param[in]  a_spatial_WT The desired time derivative of v_spatial_WT.
+   * @param[in]  v_body_WT The desired body velocity in the world frame.
+   * @param[in]  a_body_WT The desired time derivative of v_body_WT.
    * @param[in]  wrench_WTr  The desired wrench in the transformed frame.
    */
   void setRobotTrackingReference(const RUT::Vector7d& pose_WT,
-                                 const RUT::Vector6d& v_spatial_WT,
-                                 const RUT::Vector6d& a_spatial_WT,
+                                 const RUT::Vector6d& v_body_WT,
+                                 const RUT::Vector6d& a_body_WT,
                                  const RUT::Vector6d& wrench_WTr);
   /**
    * @brief      Sets the force controlled axis.

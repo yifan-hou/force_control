@@ -96,12 +96,11 @@ struct AdmittanceController::Implementation {
   Matrix6d Jac_v_spt{};
   Matrix6d Jac_v_spt_inv{};
 
-  Vector6d v_spatial_WTref{};
-  Vector6d a_spatial_WTref{};
+  Vector6d v_body_WTref{};
+  Vector6d a_body_WTref{};
   Vector6d v_spatial_WT{};
   Vector6d v_body_WT{};
   Vector6d v_body_WT_vel_ref{};
-  Vector6d v_body_WTref{};
   Vector6d v_body_TrefT{};
   Vector6d v_Tr{};
   Vector6d vd_Tr{};
@@ -170,11 +169,11 @@ void AdmittanceController::Implementation::setRobotReference(
 }
 
 void AdmittanceController::Implementation::setRobotTrackingReference(
-    const RUT::Vector7d& pose_WT, const RUT::Vector6d& v_spatial_WT,
-    const RUT::Vector6d& a_spatial_WT, const RUT::Vector6d& wrench_WTr) {
+    const RUT::Vector7d& pose_WT, const RUT::Vector6d& v_body_WT,
+    const RUT::Vector6d& a_body_WT, const RUT::Vector6d& wrench_WTr) {
   SE3_WTref = RUT::pose2SE3(pose_WT);
-  v_spatial_WTref = v_spatial_WT;
-  a_spatial_WTref = a_spatial_WT;
+  v_body_WTref = v_body_WT;
+  a_body_WTref = a_body_WT;
   wrench_Tr_cmd = wrench_WTr;
 }
 
@@ -282,7 +281,6 @@ int AdmittanceController::Implementation::step(RUT::Vector7d& pose_to_send) {
 
   /* Velocity updates */
   v_body_WT = Adj_TW * v_spatial_WT;
-  v_body_WTref = Adj_TrefW * v_spatial_WTref;
 
   v_body_TrefT = v_body_WT - Adj_TTref * v_body_WTref;  // e_dot
   v_Tr = Tr * v_body_TrefT;
@@ -363,7 +361,7 @@ int AdmittanceController::Implementation::step(RUT::Vector7d& pose_to_send) {
   err_vd_Tr = (Tr * config.compliance6d.inertia * Tr_inv)
                   .fullPivLu()
                   .solve(wrench_Tr_All);
-  a_Tr_ref = Tr * Adj_TrefW * a_spatial_WTref;
+  a_Tr_ref = Tr * a_body_WTref;
   vd_Tr = err_vd_Tr + a_Tr_ref;
 
   // Velocity in the force-controlled direction: integrate acc computed from
@@ -436,12 +434,11 @@ void AdmittanceController::Implementation::reset() {
   Jac_v_spt = Matrix6d::Identity();
   Jac_v_spt_inv = Matrix6d::Identity();
 
-  v_spatial_WTref = Vector6d::Zero();
-  a_spatial_WTref = Vector6d::Zero();
+  v_body_WTref = Vector6d::Zero();
+  a_body_WTref = Vector6d::Zero();
   v_spatial_WT = Vector6d::Zero();
   v_body_WT = Vector6d::Zero();
   v_body_WT_vel_ref = Vector6d::Zero();
-  v_body_WTref = Vector6d::Zero();
   v_body_TrefT = Vector6d::Zero();
   v_Tr = Vector6d::Zero();
   vd_Tr = Vector6d::Zero();
@@ -622,9 +619,9 @@ void AdmittanceController::setRobotReference(const RUT::Vector7d& pose_WT,
 }
 
 void AdmittanceController::setRobotTrackingReference(
-    const RUT::Vector7d& pose_WT, const RUT::Vector6d& v_spatial_WT,
-    const RUT::Vector6d& a_spatial_WT, const RUT::Vector6d& wrench_WT) {
-  m_impl->setRobotTrackingReference(pose_WT, v_spatial_WT, a_spatial_WT,
+    const RUT::Vector7d& pose_WT, const RUT::Vector6d& v_body_WT,
+    const RUT::Vector6d& a_body_WT, const RUT::Vector6d& wrench_WT) {
+  m_impl->setRobotTrackingReference(pose_WT, v_body_WT, a_body_WT,
                                     wrench_WT);
 }
 
